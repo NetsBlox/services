@@ -1,81 +1,20 @@
 const  _ = require('lodash');
 const assert = require('assert');
-const fixtures = require('../fixtures');
 
 const path = require('path');
 const fs = require('fs');
-const Q = require('q');
 const PROJECT_ROOT = path.join(__dirname, '..', '..');
-const reqSrc = p => require(PROJECT_ROOT + '/src/server/' + p);
+const reqSrc = p => require(PROJECT_ROOT + '/src/' + p);
 
-const Client = reqSrc('client');
-const Socket = require('./mock-websocket');
-const Logger = require(PROJECT_ROOT + '/src/server/logger');
-const Storage = require(PROJECT_ROOT + '/src/server/storage/storage');
-const ServiceStorage = reqSrc('services/storage');
+//const Client = reqSrc('client');
+//const Socket = require('./mock-websocket');
+const Logger = reqSrc('logger');
+//const Storage = require(PROJECT_ROOT + '/src/server/storage/storage');
+//const ServiceStorage = reqSrc('services/storage');
 const mainLogger = new Logger('netsblox:test');
-const serverUtils = reqSrc('server-utils');
-const Services = reqSrc('services/api').services;
-const Projects = reqSrc('storage/projects');
-const NetworkTopology = reqSrc('network-topology');
-
-NetworkTopology.init(new Logger('netsblox:test'), Client);
-
-// load the *exact* XML_Serializer from Snap!... pretty hacky...
-(function() {
-    var clientDir = path.join(PROJECT_ROOT, 'src', 'browser', 'src'),
-        srcFiles = ['morphic.js', 'xml.js', 'store.js', 'actions.js'],
-        src;
-
-    src = srcFiles
-        .map(file => path.join(clientDir, file))
-        .map(file => {
-            var code = fs.readFileSync(file, 'utf8');
-            if (file.includes('morphic.js')) {
-                code = code
-                    .split('// Morph')[0]
-                    .split('// Global Functions')[1];
-            }
-
-            if (file.includes('store.js')) {  // remove the SnapSerializer stuff
-                code = code.split('StageMorph.prototype.toXML')[0];
-            }
-            return code;
-        })
-        .join('\n');
-
-
-    // expose the XML_Serializer
-    src = [
-        'modules = {};',
-        'window = {location:{}};',
-        'var CLIENT_ID, SERVER_URL;',
-        'var SnapActions;',
-        'var SnapCloud = {};',
-        src,
-        'global.Browser = global.Browser || {};',
-        'global.Browser.XML_Serializer = XML_Serializer;',
-        'global.Browser.SnapActions = SnapActions;'
-    ].join('\n');
-    eval(src);
-})(this);
-
-// Test loading of xml
-const idBlocks = block => {
-    block.attributes.collabId = 'testId';
-    block.children.forEach(child => idBlocks(child));
-    return block;
-};
-
-const parser = new Browser.XML_Serializer();
-const canLoadXml = string => {
-    var xml;
-
-    // Add a collabId and reserialize
-    var res = Browser.SnapActions.assignUniqueIds(string);
-    xml = res.toString();
-    assert(parser.parse(xml));
-};
+//const serverUtils = reqSrc('server-utils');
+//const Services = reqSrc('services/api').services;
+//const Projects = reqSrc('storage/projects');
 
 // Create configured room helpers
 let logger = new Logger('netsblox:test');
@@ -160,7 +99,7 @@ const reset = function(seedDefaults=true) {
     let modulesToRefresh = routes.concat('../../src/server/server');
     clearCache.apply(null, modulesToRefresh);
 
-    return Q(connect())
+    return connect()
         .then(_db => db = _db)
         .then(() => db.dropDatabase())
         .then(() => fixtures.init(Storage, db))
@@ -169,8 +108,17 @@ const reset = function(seedDefaults=true) {
         .then(() => Storage._db);
 };
 
+function defer() {
+    const deferred = {};
+    deferred.promise = new Promise((res, rej) => {
+        deferred.resolve = res;
+        deferred.reject = rej;
+    });
+    return deferred;
+}
+
 const sleep = delay => {
-    const deferred = Q.defer();
+    const deferred = defer();
     setTimeout(deferred.resolve, delay);
     return deferred.promise;
 };
@@ -246,9 +194,6 @@ module.exports = {
             });
         });
     },
-    XML_Serializer: Client.XML_Serializer,
-    canLoadXml: canLoadXml,
-
     connect: connect,
     reset: reset,
     sleep: sleep,
@@ -257,7 +202,6 @@ module.exports = {
     createSocket: createSocket,
     sendEmptyRole: sendEmptyRole,
     shouldThrow,
-    fixtures,
     suiteName,
     expect,
     nop: () => {},
