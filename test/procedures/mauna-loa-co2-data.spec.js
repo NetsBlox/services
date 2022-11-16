@@ -1,4 +1,4 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
     utils.verifyRPCInterfaces('MaunaLoaCO2Data', [
@@ -6,7 +6,7 @@ describe(utils.suiteName(__filename), function() {
         ['getCO2Trend', ['startyear', 'endyear']],
     ]);
     const assert = require('assert');
-    const service = utils.reqSrc('services/procedures/mauna-loa-co2-data/mauna-loa-co2-data');
+    const service = utils.reqSrc('procedures/mauna-loa-co2-data/mauna-loa-co2-data');
 
     function checkResult(res) {
         assert(Array.isArray(res));

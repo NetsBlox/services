@@ -1,7 +1,7 @@
-const utils = require('../../../assets/utils');
+const utils = require('./assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const InputTypes = require('../../../../src/server/services/input-types');
+    const InputTypes = utils.reqSrc('input-types');
     const typesParser = InputTypes.parse;
     const assert = require('assert');
 

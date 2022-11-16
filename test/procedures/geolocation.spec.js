@@ -1,9 +1,9 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
     const assert = require('assert').strict;
-    var Geocoding = utils.reqSrc('services/procedures/geolocation/geolocation'),
-        RPCMock = require('../../../../assets/mock-service'),
+    var Geocoding = utils.reqSrc('procedures/geolocation/geolocation'),
+        RPCMock = require('../assets/mock-service'),
         geocoding;
 
     before(() => geocoding = new RPCMock(Geocoding));

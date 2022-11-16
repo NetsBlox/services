@@ -1,7 +1,7 @@
-const testUtils = require('../../../../../assets/utils');
+const testUtils = require('../../assets/utils');
 
 describe(testUtils.suiteName(__filename), function() {
-    const utils = require('../../../../../../src/server/services/procedures/utils/index');
+    const utils = testUtils.reqSrc('procedures/utils/index');
     const assert = require('assert');
     describe('encodeQueryData', () => {
         it('should not ignore null values', ()=>{

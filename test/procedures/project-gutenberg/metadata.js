@@ -1,8 +1,8 @@
-const utils = require('../../../../../assets/utils');
+const utils = require('../../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const metadata = utils.reqSrc('services/procedures/project-gutenberg/metadata');
-    const h = utils.reqSrc('services/procedures/project-gutenberg/helpers');
+    const metadata = utils.reqSrc('procedures/project-gutenberg/metadata');
+    const h = utils.reqSrc('procedures/project-gutenberg/helpers');
     const path = require('path');
     const assert = require('assert');
     const filename = path.join(__dirname, 'test-catalog.rdf');

@@ -1,10 +1,10 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const KVStore = utils.reqSrc('services/procedures/key-value-store/key-value-store');
-    const RPCMock = require('../../../../assets/mock-service');
+    const KVStore = utils.reqSrc('procedures/key-value-store/key-value-store');
+    const RPCMock = require('../assets/mock-service');
     const assert = require('assert');
-    const Services = utils.reqSrc('services/api').services;
+    const Services = utils.reqSrc('api').services;
     let kvstore;
 
     before(async () => {

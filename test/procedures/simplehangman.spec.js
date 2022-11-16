@@ -1,8 +1,8 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const SimpleHangman = utils.reqSrc('services/procedures/simple-hangman/simple-hangman');
-    const RPCMock = require('../../../../assets/mock-service');
+    const SimpleHangman = utils.reqSrc('procedures/simple-hangman/simple-hangman');
+    const RPCMock = require('../assets/mock-service');
     const assert = require('assert');
     let hangman;
 

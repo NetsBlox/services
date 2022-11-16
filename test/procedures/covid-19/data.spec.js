@@ -1,7 +1,7 @@
-const utils = require('../../../../../assets/utils');
+const utils = require('../../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const COVIDData = utils.reqSrc('services/procedures/covid-19/data');
+    const COVIDData = utils.reqSrc('procedures/covid-19/data');
     const Logger = utils.reqSrc('logger');
     const data = new COVIDData(new Logger('test:covid-19:data'));
     const assert = require('assert');

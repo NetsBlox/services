@@ -1,8 +1,8 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const NLP = utils.reqSrc('services/procedures/core-nlp/core-nlp');
-    const ServiceMock = require('../../../../assets/mock-service');
+    const NLP = utils.reqSrc('procedures/core-nlp/core-nlp');
+    const ServiceMock = require('../assets/mock-service');
     const assert = require('assert');
     let nlp;
 

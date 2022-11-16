@@ -1,4 +1,4 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 const INDEX_SNAPSHOT_SHUFFLED = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
@@ -39,7 +39,7 @@ const INDEX_SNAPSHOT_SHUFFLED = `
 `;
 
 describe(utils.suiteName(__filename), () => {
-    const hurricane = utils.reqSrc('services/procedures/hurricane-data/hurricane-data.js');
+    const hurricane = utils.reqSrc('procedures/hurricane-data/hurricane-data.js');
     const assert = require('assert');
 
     utils.verifyRPCInterfaces('HurricaneData', [

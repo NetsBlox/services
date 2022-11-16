@@ -1,11 +1,11 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const {sleep} = utils.reqSrc('server-utils');
-    const ServicesWorker = utils.reqSrc('services/api').services;
-    const ServiceCreation = utils.reqSrc('services/procedures/service-creation/service-creation');
-    const ServiceEvents = utils.reqSrc('services/procedures/utils/service-events');
-    const RPCMock = require('../../../../assets/mock-service');
+    const {sleep} = utils.reqSrc('utils');
+    const ServicesWorker = utils.reqSrc('api').services;
+    const ServiceCreation = utils.reqSrc('procedures/service-creation/service-creation');
+    const ServiceEvents = utils.reqSrc('procedures/utils/service-events');
+    const RPCMock = require('../assets/mock-service');
     const assert = require('assert');
     // All entries from NetsBlox are sent as strings
     const toStringEntries = data => data.map(row => row.map(item => item.toString()));

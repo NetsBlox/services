@@ -1,12 +1,12 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const RPCMock = require('../../../../assets/mock-service');
+    const RPCMock = require('../assets/mock-service');
     const assert = require('assert').strict;
     let BaseX, mockService;
 
     before(() => {
-        mockService = new RPCMock(utils.reqSrc('services/procedures/base-x/base-x'));
+        mockService = new RPCMock(utils.reqSrc('procedures/base-x/base-x'));
         BaseX = mockService.unwrap();
     });
     after(() => mockService.destroy());

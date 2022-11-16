@@ -1,8 +1,8 @@
-const utils = require('../../../assets/utils');
+const utils = require('./assets/utils');
 
 describe(utils.suiteName(__filename), function() {
     const ServicesAPI = utils.reqSrc('api');
-    const MockResponse = require('../../../assets/mock-response');
+    const MockResponse = require('./assets/mock-response');
     const assert = require('assert');
 
     before(async () => {

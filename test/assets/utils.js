@@ -9,11 +9,11 @@ const reqSrc = p => require(PROJECT_ROOT + '/src/' + p);
 //const Client = reqSrc('client');
 //const Socket = require('./mock-websocket');
 const Logger = reqSrc('logger');
-//const Storage = require(PROJECT_ROOT + '/src/server/storage/storage');
-//const ServiceStorage = reqSrc('services/storage');
+const Storage = reqSrc('storage/connection');
+const ServiceStorage = reqSrc('storage/index');
 const mainLogger = new Logger('netsblox:test');
 //const serverUtils = reqSrc('server-utils');
-//const Services = reqSrc('services/api').services;
+const Services = reqSrc('api').services;
 //const Projects = reqSrc('storage/projects');
 
 // Create configured room helpers
@@ -90,22 +90,17 @@ const clearCache = function() {
     });
 };
 
-const reset = function(seedDefaults=true) {
+async function reset(seedDefaults=true) {
     let db = null;
     // TODO: load the seed data
     // Reload the server and the paths
-    let routes = fs.readdirSync(path.join(__dirname, '..', '..', 'src', 'server', 'routes'))
-        .map(file => `../../src/server/routes/${file}`);
-    let modulesToRefresh = routes.concat('../../src/server/server');
-    clearCache.apply(null, modulesToRefresh);
-
     return connect()
         .then(_db => db = _db)
         .then(() => db.dropDatabase())
-        .then(() => fixtures.init(Storage, db))
-        .then(() => seedDefaults && fixtures.seedDefaults(Storage))
-        .then(() => logger.info('Finished loading test fixtures!'))
-        .then(() => Storage._db);
+        //.then(() => fixtures.init(Storage, db))
+        //.then(() => seedDefaults && fixtures.seedDefaults(Storage))
+        //.then(() => logger.info('Finished loading test fixtures!'))
+        //.then(() => Storage._db);
 };
 
 function defer() {

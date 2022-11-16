@@ -1,8 +1,8 @@
-const utils = require('../../../assets/utils.js');
+const utils = require('./assets/utils.js');
 
 describe(utils.suiteName(__filename), function() {
     const assert = require('assert'),
-        jp = utils.reqSrc('services/jsdoc-extractor.js');
+        jp = utils.reqSrc('jsdoc-extractor');
 
 
     let comment = `

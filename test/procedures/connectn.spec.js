@@ -1,8 +1,8 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    var ConnectN = utils.reqSrc('services/procedures/connect-n/connect-n.js'),
-        RPCMock = require('../../../../assets/mock-service'),
+    var ConnectN = utils.reqSrc('procedures/connect-n/connect-n.js'),
+        RPCMock = require('../assets/mock-service'),
         assert = require('assert'),
         connectn;
 

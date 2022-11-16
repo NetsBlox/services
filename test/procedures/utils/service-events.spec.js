@@ -1,8 +1,8 @@
-const utils = require('../../../../../assets/utils');
+const utils = require('../../assets/utils');
 const assert = require('assert').strict;
 
 describe(utils.suiteName(__filename), function() {
-    const ServiceEvents = utils.reqSrc('services/procedures/utils/service-events').new();
+    const ServiceEvents = utils.reqSrc('procedures/utils/service-events').new();
 
     describe('on', function() {
         it('should not allow arbitrary events', function() {

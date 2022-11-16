@@ -1,11 +1,10 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
     this.timeout(20000);
 
-    const Q = require('q');
-    const CloudVariables = utils.reqSrc('services/procedures/cloud-variables/cloud-variables');
-    const MockService = require('../../../../assets/mock-service');
+    const CloudVariables = utils.reqSrc('procedures/cloud-variables/cloud-variables');
+    const MockService = require('../assets/mock-service');
     const assert = require('assert');
     let cloudvariables;
 
@@ -154,7 +153,7 @@ describe(utils.suiteName(__filename), function() {
                 const releaseLock = cloudvariables.unlockVariable(name)
                     .then(() => events.push('release lock'));
 
-                return Q.all([acquireLock, releaseLock])
+                return Promise.all([acquireLock, releaseLock])
                     .then(() => assert(events[0] === 'release lock'));
             });
 

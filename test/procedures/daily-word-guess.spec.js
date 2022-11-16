@@ -1,4 +1,4 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function () {
     utils.verifyRPCInterfaces('DailyWordGuess', [
@@ -11,7 +11,7 @@ describe(utils.suiteName(__filename), function () {
     
     
     const assert = require('assert');
-    const DailyWordGuess = utils.reqSrc('services/procedures/daily-word-guess/daily-word-guess');
+    const DailyWordGuess = utils.reqSrc('procedures/daily-word-guess/daily-word-guess');
     before(() => utils.reset());
 
     it('should have same result when simultaneous requests made to _getDailyWord', async function () {

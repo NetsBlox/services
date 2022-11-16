@@ -1,7 +1,7 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const Genius = utils.reqSrc('services/procedures/genius/genius');
+    const Genius = utils.reqSrc('procedures/genius/genius');
     const assert = require('assert');
 
     utils.verifyRPCInterfaces('Genius', [

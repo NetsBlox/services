@@ -1,8 +1,8 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const TwentyQuestions = utils.reqSrc('services/procedures/twenty-questions/twenty-questions');
-    const RPCMock = require('../../../../assets/mock-service');
+    const TwentyQuestions = utils.reqSrc('procedures/twenty-questions/twenty-questions');
+    const RPCMock = require('../assets/mock-service');
     const assert = require('assert');
     let twentyquestions;
 

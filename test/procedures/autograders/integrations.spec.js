@@ -1,7 +1,7 @@
-const utils = require('../../../../../assets/utils');
+const utils = require('../../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const Integrations = utils.reqSrc('services/procedures/autograders/integrations');
+    const Integrations = utils.reqSrc('procedures/autograders/integrations');
     const {CourseraKeyError} = Integrations.errors;
     const assert = require('assert');
 

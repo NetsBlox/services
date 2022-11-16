@@ -1,9 +1,9 @@
-const utils = require('../../../../../assets/utils');
+const utils = require('../../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const ApiConsumer = require('../../../../../../src/server/services/procedures/utils/api-consumer.js'),
+    const ApiConsumer = utils.reqSrc('procedures/utils/api-consumer.js'),
         apiConsumer = new ApiConsumer('testConsumer',''),
-        MockService = require('../../../../../assets/mock-service'),
+        MockService = require('../../assets/mock-service'),
         assert = require('assert');
     let testRpc;
 

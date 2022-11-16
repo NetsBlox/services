@@ -1,8 +1,8 @@
-const utils = require('../../../../../assets/utils');
+const utils = require('../../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const Autograders = utils.reqSrc('services/procedures/autograders/autograders');
-    const MockService = require('../../../../../assets/mock-service');
+    const Autograders = utils.reqSrc('procedures/autograders/autograders');
+    const MockService = require('../../assets/mock-service');
     const assert = require('assert');
     let service;
 

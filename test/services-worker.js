@@ -1,13 +1,13 @@
-const utils = require('../../../assets/utils');
+const utils = require('./assets/utils');
 
 describe(utils.suiteName(__filename), function() {
     const Logger = utils.reqSrc('./logger');
-    const ServicesWorker = utils.reqSrc('./services/services-worker');
+    const ServicesWorker = utils.reqSrc('services-worker');
     const Services = new ServicesWorker(new Logger('netsblox:test:services'));
-    const MockResponse = require('../../../assets/mock-response');
+    const MockResponse = require('./assets/mock-response');
+    const {defer} = utils.reqSrc('utils');
     const assert = require('assert');
     const _ = require('lodash');
-    const Q = require('q');
 
     before(() =>{
         Services.loadRPCsFromFS()
@@ -46,7 +46,7 @@ describe(utils.suiteName(__filename), function() {
         });
 
         it('should send promise result (if not sent)', function(done) {
-            var result = Q(4);
+            var result = Promise.resolve(4);
             Services.sendRPCResult(response, result)
                 .then(() => {
                     assert(response.headersSent);
@@ -56,7 +56,7 @@ describe(utils.suiteName(__filename), function() {
         });
 
         it('should not send result if promise sends', function(done) {
-            var result = Q().then(() => response.send('hello'))
+            var result = Promise.resolve().then(() => response.send('hello'))
                 .then(() => 4);
 
             Services.sendRPCResult(response, result)
@@ -68,7 +68,7 @@ describe(utils.suiteName(__filename), function() {
         });
 
         const delayP = function(dur) {
-            const deferred = Q.defer();
+            const deferred = defer();
             setTimeout(() => deferred.resolve(), dur);
             return deferred.promise;
         };

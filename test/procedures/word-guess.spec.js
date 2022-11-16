@@ -1,10 +1,10 @@
-const WordGuess = require('../../../../../src/server/services/procedures/word-guess/word-guess');
-const utils = require('../../../../assets/utils');
-const RPCMock = require('../../../../assets/mock-service');
-const assert = require('assert');
-const { RPCError } = require('../../../../../src/server/services/procedures/utils');
-
+const utils = require('../assets/utils');
 describe(utils.suiteName(__filename), function () {
+    const WordGuess = utils.reqSrc('procedures/word-guess/word-guess');
+    const RPCMock = require('../assets/mock-service');
+    const assert = require('assert');
+    const { RPCError } = utils.reqSrc('procedures/utils');
+
     let wordguess;
 
     utils.verifyRPCInterfaces('WordGuess', [

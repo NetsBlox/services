@@ -1,10 +1,10 @@
-const utils = require('../../../../../assets/utils');
+const utils = require('../../assets/utils');
 const fsp = require('fs').promises;
 const assert = require('assert').strict;
 
 describe(utils.suiteName(__filename), function() {
     const nop = () => {};
-    const devLogger = utils.reqSrc('services/procedures/utils/dev-logger');
+    const devLogger = utils.reqSrc('procedures/utils/dev-logger');
 
     beforeEach(() => fsp.unlink(devLogger.filename).catch(nop));
 

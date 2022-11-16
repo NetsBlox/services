@@ -1,6 +1,6 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 describe(utils.suiteName(__filename), function() {
-    const CommunityService = utils.reqSrc('services/community');
+    const CommunityService = utils.reqSrc('community');
     const assert = require('assert').strict;
 
     it('should return null if unknown service type', function() {

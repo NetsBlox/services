@@ -1,8 +1,8 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const Battleship = utils.reqSrc('services/procedures/battleship/battleship');
-    const RPCMock = require('../../../../assets/mock-service');
+    const Battleship = utils.reqSrc('/procedures/battleship/battleship');
+    const RPCMock = require('../assets/mock-service');
     const assert = require('assert');
     let battleship;
 

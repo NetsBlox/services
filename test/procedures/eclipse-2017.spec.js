@@ -1,11 +1,11 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    const Eclipse = utils.reqSrc('services/procedures/eclipse-2017/eclipse-2017'),
-        { cronString } = utils.reqSrc('services/procedures/eclipse-2017/utils'),
+    const Eclipse = utils.reqSrc('procedures/eclipse-2017/eclipse-2017'),
+        { cronString } = utils.reqSrc('procedures/eclipse-2017/utils'),
         assert = require('assert'),
-        rpcStorage = utils.reqSrc('services/storage'),
-        eclipsePath = utils.reqSrc('../../utils/rpc/eclipse-2017/eclipsePath');
+        rpcStorage = utils.reqSrc('storage'),
+        eclipsePath = utils.reqSrc('../utils/eclipse-2017/eclipsePath');
 
     utils.verifyRPCInterfaces('Eclipse2017', [
         ['availableStations', ['maxReadingMedian', 'maxDistanceFromCenter', 'latitude', 'longitude', 'maxDistanceFromPoint']],

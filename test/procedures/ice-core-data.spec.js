@@ -1,4 +1,4 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
     utils.verifyRPCInterfaces('IceCoreData', [
@@ -12,6 +12,6 @@ describe(utils.suiteName(__filename), function() {
     ]);
 
     it('should be able to parse data w/o error', function() {
-        utils.reqSrc('services/procedures/ice-core-data/data');
+        utils.reqSrc('procedures/ice-core-data/data');
     });
 });

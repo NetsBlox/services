@@ -1,8 +1,8 @@
-const utils = require('../../../../assets/utils');
+const utils = require('../assets/utils');
 
 describe(utils.suiteName(__filename), function() {
-    var Googlemaps = utils.reqSrc('services/procedures/google-maps/google-maps'),
-        MockService = require('../../../../assets/mock-service'),
+    var Googlemaps = utils.reqSrc('procedures/google-maps/google-maps'),
+        MockService = require('../assets/mock-service'),
         assert = require('assert'),
         googlemaps;
 
