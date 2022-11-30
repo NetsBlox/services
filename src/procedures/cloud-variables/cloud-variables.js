@@ -25,13 +25,26 @@ const getCollections = function() {
     return _collections;
 };
 
+/**
+ * Throws an error if the given variable does not exist
+ * @param {Object?} variable Variable to test
+ */
 const ensureVariableExists = function(variable) {
     if (!variable) {
         throw new Error('Variable not found');
     }
 };
 
+/**
+ * Maximum duration of a locked public variable
+ */
 let MAX_LOCK_AGE = 5 * 1000;
+
+/**
+ * Get the owner of a variable's lock, if it exists and has a currently valid one
+ * @param {Object} variable Variable to get lock owner of
+ * @returns Owner of variable's lock if there is one
+ */
 const getLockOwnerId = function(variable) {
     if (variable && variable.lock) {
         if (!isLockStale(variable)) {
@@ -40,17 +53,32 @@ const getLockOwnerId = function(variable) {
     }
 };
 
+/**
+ * Determine if a variable has a stale lock
+ * @param {Object} variable 
+ * @returns {Boolean} True if variable has been locked longer than MAX_LOCK_AGE, false otherwise
+ */
 const isLockStale = function(variable) {
     if (variable && variable.lock) {
-        return new Date() - variable.lock.creationTime > MAX_LOCK_AGE;
+        return (new Date() - variable.lock.creationTime) > MAX_LOCK_AGE;
     }
     return false;
 };
 
+/**
+ * Determine if a variable is locked
+ * @param {Object} variable  
+ * @returns {Boolean} If variable is locked
+ */
 const isLocked = function(variable) {
     return !!getLockOwnerId(variable);
 };
 
+/**
+ * Throw an error if the variable is locked by another client
+ * @param {Object} variable Variable to test
+ * @param {Object} clientId Client attempting to access variable
+ */
 const ensureOwnsMutex = function(variable, clientId) {
     const ownerId = getLockOwnerId(variable);
     if (ownerId && ownerId !== clientId) {
@@ -58,6 +86,11 @@ const ensureOwnsMutex = function(variable, clientId) {
     }
 };
 
+/**
+ * Throw an error if the given password does not match
+ * @param {Object} variable Variable to test
+ * @param {String} password Password to test
+ */
 const ensureAuthorized = function(variable, password) {
     if (variable) {
         const authorized = !variable.password ||
@@ -69,22 +102,38 @@ const ensureAuthorized = function(variable, password) {
     }
 };
 
+/**
+ * Throw an error if the user is not logged in
+ * @param {Object} caller User to test
+ */
 const ensureLoggedIn = function(caller) {
     if (!caller.username) {
         throw new Error('Login required.');
     }
 };
 
+/**
+ * Throw an error if given variable name is not valid
+ * @param {String} name Variable name to test
+ */
 const validateVariableName = function(name) {
     if (!/^[\w _()-]+$/.test(name)) {
         throw new Error('Invalid variable name.');
     }
 };
 
+/**
+ * Size, in bytes, of maximum variable content
+ */
+const MAX_CONTENT_SIZE = 4 * 1024 * 1024;
+
+/**
+ * Throws an error if content is too large to store in a cloud variable
+ * @param {Object} content Content to test
+ */
 const validateContentSize = function(content) {
     const sizeInBytes = content.length*2;  // assuming utf8. Figure ~2 bytes per char
-    const mb = 1024*1024;
-    if (sizeInBytes > (4*mb)) {
+    if (sizeInBytes > MAX_CONTENT_SIZE) {
         throw new Error('Variable value is too large.');
     }
 };
