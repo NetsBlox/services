@@ -87,20 +87,45 @@ const ensureOwnsMutex = function(variable, clientId) {
 };
 
 /**
+ * Determine if a given password is valid for a variable
+ * @param {Object} variable Variable to test
+ * @param {String} password Password to test
+ * @returns {Boolean} If the password is correct or the variable has no password
+ */
+function isAuthorized(variable, password) {
+    return !variable.password ||
+        variable.password === password;
+}
+
+/**
  * Throw an error if the given password does not match
  * @param {Object} variable Variable to test
  * @param {String} password Password to test
  */
 const ensureAuthorized = function(variable, password) {
     if (variable) {
-        const authorized = !variable.password ||
-            variable.password === password;
-
-        if (!authorized) {
+        if (!isAuthorized(variable, password)) {
             throw new Error('Unauthorized: incorrect password');
         }
     }
 };
+
+/**
+ * Throw an error if the given username is not the owner of the variable 
+ * @param {Object} variable Variable to test
+ * @param {String} username Username to test
+ */
+const ensureOwnsVariable = function(variable, username){
+    if (variable && variable.creator) {
+        if(variable.creator !== username){
+            throw new Error('You do not own this variable');
+        }
+    }
+
+    if (variable && !variable.creator) {
+        throw new Error('You do not own this variable');
+    }
+}
 
 /**
  * Throw an error if the user is not logged in
@@ -119,6 +144,64 @@ const ensureLoggedIn = function(caller) {
 const validateVariableName = function(name) {
     if (!/^[\w _()-]+$/.test(name)) {
         throw new Error('Invalid variable name.');
+    }
+};
+
+// Mapping of access levels and their full names
+const accessLevelNames = {
+    'r': 'read',
+    'w': 'write',
+    'a': 'append',
+    'd': 'delete',
+    'l': 'lock'
+};
+
+// Default access level (when correct password is provided), giving full access
+const DEFAULT_WITH_PASSWORD_ACCESS = Object.keys(accessLevelNames).join('');
+
+// Default access level (when correct password is provided), giving no access
+const DEFAULT_WITHOUT_PASSWORD_ACCESS = '';
+
+/**
+ * Get the available actions for a variable with the provided authentication. 
+ * If the variable does not exist, all actions are allowed and proper restriction is expected to be implemented by the caller method.
+ * @param {Object} variable Variable to test
+ * @param {String} password Password to test
+ * @param {String} username Username to test
+ * @returns {String} Access level string
+ */
+const getAccessLevel = function(variable, password, username) {
+    if(variable){
+        // Creator has full access always
+        if(variable.creator && variable.creator === username){
+            return DEFAULT_WITH_PASSWORD_ACCESS;
+        }
+
+        if(isAuthorized(variable, password)){
+            return variable.withPasswordAccess || DEFAULT_WITH_PASSWORD_ACCESS;
+        } else {
+            return variable.withoutPasswordAccess || DEFAULT_WITHOUT_PASSWORD_ACCESS;
+        }
+    }
+
+    return DEFAULT_WITH_PASSWORD_ACCESS;
+};
+
+/**
+ * Throws an error if the requested access type is not allowed
+ * @param {Object} variable Variable to test
+ * @param {String} password Password to test
+ * @param {String} username Username to test
+ * @param {String} type Access level to test
+ */
+const ensureHasAccessLevel = function(variable, password, username, type) {
+    console.log(getAccessLevel(variable, password, username));
+    if(!getAccessLevel(variable, password, username).includes(type)){
+        if(type in accessLevelNames){
+            throw new Error(`You are not authorized to ${accessLevelNames[type]} this variable, please check your password`);
+        } else {
+            throw new Error(`You are not authorized to perform that action on this variable, please check your password`);
+        }
     }
 };
 
@@ -156,7 +239,7 @@ CloudVariables.getVariable = async function(name, password) {
     const variable = await sharedVars.findOne({name: name});
 
     ensureVariableExists(variable);
-    ensureAuthorized(variable, password);
+    ensureHasAccessLevel(variable, password, this.caller.username, 'r');
 
     const query = {
         $set: {
@@ -188,7 +271,7 @@ CloudVariables._sendUpdate = function(name, value, targets) {
  * @param {Any} value Value to store in variable
  * @param {String=} password Password (if password-protected)
  */
-CloudVariables.setVariable = async function(name, value, password) {
+ CloudVariables.setVariable = async function(name, value, password) {
     validateVariableName(name);
     validateContentSize(value);
 
@@ -196,15 +279,65 @@ CloudVariables.setVariable = async function(name, value, password) {
     const username = this.caller.username;
     const variable = await sharedVars.findOne({name: name});
 
-    ensureAuthorized(variable, password);
+    ensureHasAccessLevel(variable, password, this.caller.username, 'w');
     ensureOwnsMutex(variable, this.caller.clientId);
 
+    let query;
+    
     // Set both the password and value in case it gets deleted
     // during this async fn...
+    if(variable || !this.caller.username){
+        query = {
+            $set: {
+                value,
+                password,
+                lastWriter: username,
+                lastWriteTime: new Date(),
+            }
+        };
+    } else {
+        // The variable did not exist, set creator data
+        query = {
+            $set: {
+                value,
+                password,
+                creator: username,
+                createdOn: new Date(),
+                lastWriter: username,
+                lastWriteTime: new Date(),
+            }
+        };
+    }
+
+    await sharedVars.updateOne({name: name}, query, {upsert: true});
+    this._sendUpdate(name, value, globalListeners[name] || {});
+};
+
+/**
+ * Append to a list cloud variable.
+ * @param {String} name Variable name
+ * @param {Any} value Value to append to variable
+ * @param {String=} password Password (if password-protected)
+ */
+ CloudVariables.appendToVariable = async function(name, value, password) {
+    validateVariableName(name);
+    validateContentSize(value);
+
+    const {sharedVars} = getCollections();
+    const username = this.caller.username;
+    const variable = await sharedVars.findOne({name: name});
+
+    ensureVariableExists(variable);
+    ensureHasAccessLevel(variable, password, this.caller.username, 'a');
+    ensureOwnsMutex(variable, this.caller.clientId);
+    
+    if(typeof(variable.value) !== 'object'){
+        throw new Error('Can only append to lists.');
+    }
+
     const query = {
         $set: {
-            value,
-            password,
+            value: [...variable.value, value],
             lastWriter: username,
             lastWriteTime: new Date(),
         }
@@ -225,7 +358,7 @@ CloudVariables.deleteVariable = async function(name, password) {
     const variable = await sharedVars.findOne({name: name});
 
     ensureVariableExists(variable);
-    ensureAuthorized(variable, password);
+    ensureHasAccessLevel(variable, password, this.caller.username, 'd');
 
     // Clear the queued locks
     const id = variable._id;
@@ -252,7 +385,8 @@ CloudVariables.lockVariable = async function(name, password) {
     const variable = await sharedVars.findOne({name: name});
 
     ensureVariableExists(variable);
-    ensureAuthorized(variable, password);
+    ensureHasAccessLevel(variable, password, this.caller.username, 'l');
+
     // What if the block is killed before a lock can be acquired?
     // Then should we close the connection on the client?
     //
@@ -515,6 +649,47 @@ CloudVariables.listenToUserVariable = async function(name, msgType, duration = 6
     await this.getUserVariable(name); // ensure we can get the value
     const bucket = this._getUserListenBucket(name);
     bucket[this.socket.clientId] = [this.socket, msgType, +new Date() + duration];
+};
+
+/**
+ * Set the access levels for a public variable.
+ * 
+ * Create a string combining the following letters (in any order) for each category:
+ * 'r' - Read through the getVariable method
+ * 'w' - Write through the setVariable method
+ * 'a' - Append through the appendVariable method
+ * 'd' - Delete through the deleteVariable method
+ * 'l' - Lock through the lockVariable method
+ *  
+ * The default settings give users with the password read, write, append, delete, and lock access ("rwadl"), and users without the password no access. 
+ * The variable's creator will always have full access.
+ * 
+ * @param {String} name Variable name
+ * @param {String} withPassword Access level for other users with password
+ * @param {String} withoutPassword Access level for other users without password
+ */
+CloudVariables.setVariableAccess = async function(name, withPassword = DEFAULT_WITH_PASSWORD_ACCESS, withoutPassword = DEFAULT_WITHOUT_PASSWORD_ACCESS){
+    const filterAccessString = (string) => [...string.toLowerCase()].filter(c => c in accessLevelNames).join('');
+    
+    const withPasswordAccess = filterAccessString(withPassword);
+    const withoutPasswordAccess = filterAccessString(withoutPassword);
+
+    const {sharedVars} = getCollections();
+    const variable = await sharedVars.findOne({name: name});
+    ensureVariableExists(variable);
+    ensureLoggedIn(this.caller);
+    ensureOwnsVariable(variable, this.caller.username);
+
+    const query = {
+        $set: {
+            withPasswordAccess,
+            withoutPasswordAccess,
+            lastWriter: this.caller.username,
+            lastWriteTime: new Date(),
+        }
+    };
+
+    await sharedVars.updateOne({name: name}, query, {upsert: true});
 };
 
 module.exports = CloudVariables;
