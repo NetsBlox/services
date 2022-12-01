@@ -16,7 +16,8 @@ const globalListeners = {}; // map<var name, map<client id, [socket, msg name, e
 const userListeners = {}; // map<user name, map<var name, map<client id, [socket, msg name, expiry timestamp]>>>
 
 let _collections = null;
-const getCollections = function() {
+
+function getCollections() {
     if (!_collections) {
         _collections = {};
         _collections.sharedVars = Storage.create('cloud-variables:shared').collection;
@@ -25,27 +26,18 @@ const getCollections = function() {
     return _collections;
 };
 
-/**
- * Throws an error if the given variable does not exist
- * @param {Object?} variable Variable to test
- */
-const ensureVariableExists = function(variable) {
+// Throws an error if the given variable does not exist
+function ensureVariableExists(variable) {
     if (!variable) {
         throw new Error('Variable not found');
     }
 };
 
-/**
- * Maximum duration of a locked public variable
- */
+// Maximum duration of a locked public variable
 let MAX_LOCK_AGE = 5 * 1000;
 
-/**
- * Get the owner of a variable's lock, if it exists and has a currently valid one
- * @param {Object} variable Variable to get lock owner of
- * @returns Owner of variable's lock if there is one
- */
-const getLockOwnerId = function(variable) {
+// Get the owner of a variable's lock, if it exists and has a currently valid one
+function getLockOwnerId(variable) {
     if (variable && variable.lock) {
         if (!isLockStale(variable)) {
             return variable.lock.clientId;
@@ -53,56 +45,35 @@ const getLockOwnerId = function(variable) {
     }
 };
 
-/**
- * Determine if a variable has a stale lock
- * @param {Object} variable 
- * @returns {Boolean} True if variable has been locked longer than MAX_LOCK_AGE, false otherwise
- */
-const isLockStale = function(variable) {
+// Determine if a variable has a stale lock
+function isLockStale(variable) {
     if (variable && variable.lock) {
         return (new Date() - variable.lock.creationTime) > MAX_LOCK_AGE;
     }
     return false;
 };
 
-/**
- * Determine if a variable is locked
- * @param {Object} variable  
- * @returns {Boolean} If variable is locked
- */
-const isLocked = function(variable) {
+// Determine if a variable is locked
+function isLocked(variable) {
     return !!getLockOwnerId(variable);
 };
 
-/**
- * Throw an error if the variable is locked by another client
- * @param {Object} variable Variable to test
- * @param {Object} clientId Client attempting to access variable
- */
-const ensureOwnsMutex = function(variable, clientId) {
+// Throw an error if the variable is locked by another client
+function ensureOwnsMutex(variable, clientId) {
     const ownerId = getLockOwnerId(variable);
     if (ownerId && ownerId !== clientId) {
         throw new Error('Variable is locked (by someone else)');
     }
 };
 
-/**
- * Determine if a given password is valid for a variable
- * @param {Object} variable Variable to test
- * @param {String} password Password to test
- * @returns {Boolean} If the password is correct or the variable has no password
- */
+// Determine if a given password is valid for a variable
 function isAuthorized(variable, password) {
     return !variable.password ||
         variable.password === password;
 }
 
-/**
- * Throw an error if the given password does not match
- * @param {Object} variable Variable to test
- * @param {String} password Password to test
- */
-const ensureAuthorized = function(variable, password) {
+// Throw an error if the given password does not match
+function ensureAuthorized(variable, password) {
     if (variable) {
         if (!isAuthorized(variable, password)) {
             throw new Error('Unauthorized: incorrect password');
@@ -110,12 +81,8 @@ const ensureAuthorized = function(variable, password) {
     }
 };
 
-/**
- * Throw an error if the given username is not the owner of the variable 
- * @param {Object} variable Variable to test
- * @param {String} username Username to test
- */
-const ensureOwnsVariable = function(variable, username){
+// Throw an error if the given username is not the owner of the variable 
+function ensureOwnsVariable(variable, username) {
     if (variable && variable.creator) {
         if(variable.creator !== username){
             throw new Error('You do not own this variable');
@@ -127,21 +94,15 @@ const ensureOwnsVariable = function(variable, username){
     }
 }
 
-/**
- * Throw an error if the user is not logged in
- * @param {Object} caller User to test
- */
-const ensureLoggedIn = function(caller) {
+// Throw an error if the user is not logged in
+function ensureLoggedIn(caller) {
     if (!caller.username) {
         throw new Error('Login required.');
     }
 };
 
-/**
- * Throw an error if given variable name is not valid
- * @param {String} name Variable name to test
- */
-const validateVariableName = function(name) {
+// Throw an error if given variable name is not valid
+function validateVariableName(name) {
     if (!/^[\w _()-]+$/.test(name)) {
         throw new Error('Invalid variable name.');
     }
@@ -162,15 +123,9 @@ const DEFAULT_WITH_PASSWORD_ACCESS = Object.keys(accessLevelNames).join('');
 // Default access level (when correct password is provided), giving no access
 const DEFAULT_WITHOUT_PASSWORD_ACCESS = '';
 
-/**
- * Get the available actions for a variable with the provided authentication. 
- * If the variable does not exist, all actions are allowed and proper restriction is expected to be implemented by the caller method.
- * @param {Object} variable Variable to test
- * @param {String} password Password to test
- * @param {String} username Username to test
- * @returns {String} Access level string
- */
-const getAccessLevel = function(variable, password, username) {
+// Get the available actions for a variable with the provided authentication. 
+// If the variable does not exist, all actions are allowed and proper restriction is expected to be implemented by the caller method.
+function getAccessLevel(variable, password, username) {
     if(variable){
         // Creator has full access always
         if(variable.creator && variable.creator === username){
@@ -187,14 +142,8 @@ const getAccessLevel = function(variable, password, username) {
     return DEFAULT_WITH_PASSWORD_ACCESS;
 };
 
-/**
- * Throws an error if the requested access type is not allowed
- * @param {Object} variable Variable to test
- * @param {String} password Password to test
- * @param {String} username Username to test
- * @param {String} type Access level to test
- */
-const ensureHasAccessLevel = function(variable, password, username, type) {
+// Throws an error if the requested access type is not allowed
+function ensureHasAccessLevel(variable, password, username, type) {
     console.log(getAccessLevel(variable, password, username));
     if(!getAccessLevel(variable, password, username).includes(type)){
         if(type in accessLevelNames){
@@ -205,16 +154,11 @@ const ensureHasAccessLevel = function(variable, password, username, type) {
     }
 };
 
-/**
- * Size, in bytes, of maximum variable content
- */
+// Size, in bytes, of maximum variable content
 const MAX_CONTENT_SIZE = 4 * 1024 * 1024;
 
-/**
- * Throws an error if content is too large to store in a cloud variable
- * @param {Object} content Content to test
- */
-const validateContentSize = function(content) {
+// Throws an error if content is too large to store in a cloud variable
+function validateContentSize(content) {
     const sizeInBytes = content.length*2;  // assuming utf8. Figure ~2 bytes per char
     if (sizeInBytes > MAX_CONTENT_SIZE) {
         throw new Error('Variable value is too large.');
