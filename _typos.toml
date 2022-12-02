@@ -1,0 +1,36 @@
+[files]
+extend-exclude = [
+    # dear lord why is this not ignored by default
+    "_typos.toml",
+
+    # general ignored file types
+    "*.jsonl",
+    "*.list",
+    "*.csv",
+    "*.png",
+    "*.pdf",
+    "*.tex",
+    "*.xml",
+    "*.svg",
+    "*.min.js",
+
+    # auto-generated files
+    "package-lock.json",
+
+    # select submodule subdirectories
+    "src/procedures/roboscape/speckjs/*",
+
+    # data files
+    "src/procedures/common-words/words/*.txt",
+    "src/procedures/hurricane-data/*.txt",
+    "src/procedures/ice-core-data/data/domec-deuterium/*.txt",
+    "src/procedures/nexrad-radar/RadarLocations.js",
+    "src/procedures/word-guess/dict/*.*",
+    "/src/procedures/financial-data/currency-types.js",
+]
+
+[type.js]
+extend-glob = ["*.js"]
+[type.js.extend-words]
+parms = "parms" # too pervasive and part of the custom block api
+parm = "parm" # too pervasive and part of the custom block api
