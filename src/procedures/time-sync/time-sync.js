@@ -5,7 +5,7 @@
  * To use this service, you first call :func:`TimeSync.prepare`, followed by performing several (e.g., 100) calls
  * to :func:`TimeSync.step`, and then finishing with :func:`TimeSync.complete` to get the computed timing metrics.
  * 
- * Note that the calls to :func:`TimeSync.step` are indended to be back-to-back.
+ * Note that the calls to :func:`TimeSync.step` are intended to be back-to-back.
  * You should perform this in a loop that does nothing else.
  * In particular, you should not sleep/wait inside the loop; if you need this,
  * you may provide a ``sleepTime`` to :func:`TimeSync.prepare` and it will do the sleeping/waiting for you (do not also sleep yourself).
