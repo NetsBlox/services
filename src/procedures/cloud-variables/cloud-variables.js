@@ -144,7 +144,6 @@ function getAccessLevel(variable, password, username) {
 
 // Throws an error if the requested access type is not allowed
 function ensureHasAccessLevel(variable, password, username, type) {
-    console.log(getAccessLevel(variable, password, username));
     if(!getAccessLevel(variable, password, username).includes(type)){
         if(type in accessLevelNames){
             throw new Error(`You are not authorized to ${accessLevelNames[type]} this variable, please check your password`);
@@ -286,8 +285,8 @@ CloudVariables._sendUpdate = function(name, value, targets) {
     };
 
     try {
-        await sharedVars.updateOne({name: name}, query, {upsert: true});
-        this._sendUpdate(name, value, globalListeners[name] || {});
+        const updatedVar = await sharedVars.findOneAndUpdate({name: name}, query, {upsert: true, returnDocument: "after"});
+        this._sendUpdate(name, updatedVar.value.value, globalListeners[name] || {});
     } catch (error) {
         throw new Error('Variable must be of list type to use appendToVariable');
     }
@@ -532,8 +531,8 @@ CloudVariables.getUserVariable = async function(name) {
     };
 
     try {
-        await userVars.updateOne({name, owner: username}, query, {upsert: true});
-        this._sendUpdate(name, value, (userListeners[username] || {})[name] || {});
+        const updatedVar = await userVars.findOneAndUpdate({name, owner: username}, query, {upsert: true, returnDocument: "after"});
+        this._sendUpdate(name, updatedVar.value.value, (userListeners[username] || {})[name] || {});
     } catch (error) {
         throw new Error('Variable must be of list type to use appendToUserVariable');
     }
