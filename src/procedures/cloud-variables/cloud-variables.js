@@ -274,21 +274,23 @@ CloudVariables._sendUpdate = function(name, value, targets) {
     ensureVariableExists(variable);
     ensureHasAccessLevel(variable, password, this.caller.username, 'a');
     ensureOwnsMutex(variable, this.caller.clientId);
-    
-    if(typeof(variable.value) !== 'object'){
-        throw new Error('Can only append to lists.');
-    }
 
     const query = {
+        $push: {
+            value,
+        },
         $set: {
-            value: [...variable.value, value],
             lastWriter: username,
             lastWriteTime: new Date(),
         }
     };
 
-    await sharedVars.updateOne({name: name}, query, {upsert: true});
-    this._sendUpdate(name, value, globalListeners[name] || {});
+    try {
+        await sharedVars.updateOne({name: name}, query, {upsert: true});
+        this._sendUpdate(name, value, globalListeners[name] || {});
+    } catch (error) {
+        throw new Error('Variable must be of list type to use appendToVariable');
+    }
 };
 
 /**
@@ -513,6 +515,36 @@ CloudVariables.getUserVariable = async function(name) {
  * @param {String} name Variable name
  * @param {Any} value Value to store in variable
  */
+ CloudVariables.appendToUserVariable = async function(name, value) {
+    ensureLoggedIn(this.caller);
+    validateVariableName(name);
+    validateContentSize(value);
+
+    const {userVars} = getCollections();
+    const username = this.caller.username;
+    const query = {
+        $push: {
+            value,
+        },
+        $set: {
+            lastWriteTime: new Date(),
+        }
+    };
+
+    try {
+        await userVars.updateOne({name, owner: username}, query, {upsert: true});
+        this._sendUpdate(name, value, (userListeners[username] || {})[name] || {});
+    } catch (error) {
+        throw new Error('Variable must be of list type to use appendToUserVariable');
+    }
+};
+
+
+/**
+ * Set the value of the user cloud variable for the current user.
+ * @param {String} name Variable name
+ * @param {Any} value Value to store in variable
+ */
 CloudVariables.setUserVariable = async function(name, value) {
     ensureLoggedIn(this.caller);
     validateVariableName(name);
@@ -601,7 +633,7 @@ CloudVariables.listenToUserVariable = async function(name, msgType, duration = 6
  * Create a string combining the following letters (in any order) for each category:
  * 'r' - Read through the getVariable method
  * 'w' - Write through the setVariable method
- * 'a' - Append through the appendVariable method
+ * 'a' - Append through the appendToVariable method
  * 'd' - Delete through the deleteVariable method
  * 'l' - Lock through the lockVariable method
  *  
