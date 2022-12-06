@@ -125,10 +125,10 @@ const DEFAULT_WITHOUT_PASSWORD_ACCESS = '';
 
 // Get the available actions for a variable with the provided authentication. 
 // If the variable does not exist, all actions are allowed and proper restriction is expected to be implemented by the caller method.
-function getAccessLevel(variable, password, username) {
+function getAccessLevel(variable, password) {
     if (variable) {
         if (isAuthorized(variable, password)) {
-            return variable.withPasswordAccess || DEFAULT_WITH_PASSWORD_ACCESS;
+            return (variable.withPasswordAccess + variable.withoutPasswordAccess) || DEFAULT_WITH_PASSWORD_ACCESS;
         } else {
             return variable.withoutPasswordAccess || DEFAULT_WITHOUT_PASSWORD_ACCESS;
         }
@@ -138,8 +138,8 @@ function getAccessLevel(variable, password, username) {
 };
 
 // Throws an error if the requested access type is not allowed
-function ensureHasAccessLevel(variable, password, username, type) {
-    if (!getAccessLevel(variable, password, username).includes(type)) {
+function ensureHasAccessLevel(variable, password, type) {
+    if (!getAccessLevel(variable, password).includes(type)) {
         if (type in accessLevelNames) {
             throw new Error(`You are not authorized to ${accessLevelNames[type]} this variable, please check your password`);
         } else {
@@ -177,7 +177,7 @@ CloudVariables.getVariable = async function (name, password) {
     const variable = await sharedVars.findOne({ name: name });
 
     ensureVariableExists(variable);
-    ensureHasAccessLevel(variable, password, this.caller.username, 'r');
+    ensureHasAccessLevel(variable, password, 'r');
 
     const query = {
         $set: {
@@ -217,7 +217,7 @@ CloudVariables.setVariable = async function (name, value, password) {
     const username = this.caller.username;
     const variable = await sharedVars.findOne({ name: name });
 
-    ensureHasAccessLevel(variable, password, this.caller.username, 'w');
+    ensureHasAccessLevel(variable, password, 'w');
     ensureOwnsMutex(variable, this.caller.clientId);
 
     let query;
@@ -266,7 +266,7 @@ CloudVariables.appendToVariable = async function (name, value, password) {
     const variable = await sharedVars.findOne({ name: name });
 
     ensureVariableExists(variable);
-    ensureHasAccessLevel(variable, password, this.caller.username, 'a');
+    ensureHasAccessLevel(variable, password, 'a');
     ensureOwnsMutex(variable, this.caller.clientId);
 
     const query = {
@@ -298,7 +298,7 @@ CloudVariables.deleteVariable = async function (name, password) {
     const variable = await sharedVars.findOne({ name: name });
 
     ensureVariableExists(variable);
-    ensureHasAccessLevel(variable, password, this.caller.username, 'd');
+    ensureHasAccessLevel(variable, password, 'd');
 
     // Clear the queued locks
     const id = variable._id;
@@ -325,7 +325,7 @@ CloudVariables.lockVariable = async function (name, password) {
     const variable = await sharedVars.findOne({ name: name });
 
     ensureVariableExists(variable);
-    ensureHasAccessLevel(variable, password, this.caller.username, 'l');
+    ensureHasAccessLevel(variable, password, 'l');
 
     // What if the block is killed before a lock can be acquired?
     // Then should we close the connection on the client?
