@@ -2,6 +2,7 @@
 const _ = require('lodash');
 const blocks2js = require('./blocks2js');
 const {cleanMarkup} = require('./jsdoc-extractor');
+const {isProfane} = require('./utils');
 
 let typeTape = null;
 function withTypeTape(fn) {
@@ -170,6 +171,19 @@ defineType({
     description: 'Any piece of text.',
     baseType: 'Any',
     parser: input => input.toString(),
+});
+
+defineType({
+    name: 'NonProfaneString',
+    description: 'A piece of text with profanity filtering applied.',
+    baseType: 'Any',
+    parser: input => {
+        if(isProfane(input.toString())){
+            throw new Error('This text is not appropriate.');
+        }
+
+        return input.toString();
+    },
 });
 
 defineType({
