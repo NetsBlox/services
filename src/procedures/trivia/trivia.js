@@ -1,14 +1,26 @@
 /**
- * The Trivia Service provides access to trivia questions using the jservice API.
- * For more information, check out https://jservice.io.
+ * The Trivia Service provides access to trivia questions from https://j-archive.com/.
  *
  * @service
  * @category Games
  */
 'use strict';
 
-const ApiConsumer = require('../utils/api-consumer');
-const Trivia = new ApiConsumer('Trivia', 'http://jservice.io/api',{cache: {ttl: 0.5}});
+const fs = require('fs');
+const zlib = require('zlib');
+const Trivia = {};
+
+const QUESTIONS_PATH = 'q.json.gz';
+
+const QUESTIONS = (function() {
+    const res = JSON.parse(zlib.gunzipSync(fs.readFileSync(QUESTIONS_PATH)));
+
+    return res;
+})();
+
+Trivia.search = async function () {
+    return QUESTIONS;
+};
 
 /**
  * Get a random trivia question.
@@ -36,26 +48,6 @@ Trivia.getRandomQuestion = function() {
 
             question.category = question.category.title;
             return question;
-        });
-};
-
-/**
- * Get random trivia question.
- * @deprecated
- * @returns {String}
- */
-Trivia.random = function() {
-    return this._requestData({path: '/random'})
-        .then(questions => {
-            for (var i = questions.length; i--;) {
-                const content = {
-                    question: questions[i].question,
-                    difficulty: questions[i].value,
-                    answer: questions[i].answer
-                };
-                this.socket.sendMessage('Trivia', content);
-            }
-            return 'trivia message sent!';
         });
 };
 
