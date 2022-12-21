@@ -47,6 +47,12 @@ function strictParseDate(val) {
 
     throw Error(`unknown date format '${val}'`);
 }
+function padNumber(val, width) {
+    return val.toString().padStart(width, '0');
+}
+function formatDate(date) {
+    return `${padNumber(date.getFullYear(), 4)}/${padNumber(date.getMonth() + 1, 2)}/${padNumber(date.getDate(), 2)}`;
+}
 
 const { DATA, SPECIES } = (function() {
     const csvLines = fs.readFileSync(CSV_PATH, 'utf8').split(/\r?\n/);
@@ -64,7 +70,7 @@ const { DATA, SPECIES } = (function() {
 
             let entry = res[items[23]];
             if (!entry) entry = res[items[23]] = {
-                date: strictParseDate(items[4]),
+                date: formatDate(strictParseDate(items[4])),
                 timePeriod: items[8].split(' ')[0].toLowerCase(),
                 latitude: strictParseFloat(items[3]),
                 longitude: strictParseFloat(items[2]),
