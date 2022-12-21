@@ -18,14 +18,28 @@ const axios = require('axios');
 const geolib = require('geolib');
 const logger = require('../utils/logger')('wildcam');
 const types = require('../../input-types');
+const CacheManager = require('cache-manager');
+const fsStore = require('cache-manager-fs');
 
 // -------------------------------------------------------------------------
 
 const CSV_PATH = path.join(__dirname, 'wildcam-17nov2022.csv');
+const CACHE_LIFETIME = 1 * 60 * 60; // seconds
 
 // -------------------------------------------------------------------------
 
-const IMG_CACHE = {};
+const CACHE_DIR = process.env.CACHE_DIR || 'cache';
+if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR);
+const CACHE = CacheManager.caching({
+    store: fsStore,
+    options: {
+        ttl: CACHE_LIFETIME,
+        maxsize: 100 * 1024 * 1024,
+        path: `${CACHE_DIR}/wildcam`,
+        preventfill: false,
+        reviveBuffers: true,
+    },
+});
 
 const Wildcam = {};
 
@@ -167,11 +181,10 @@ Wildcam.getImage = async function(entry) {
     const url = entry.imageUrl;
     logger.info(`requesting image from: ${url}`);
 
-    let data = IMG_CACHE[url];
-    if (!data) {
+    const data = await CACHE.wrap(url, async () => {
         logger.info('image not cached - downloading...');
-        data = IMG_CACHE[url] = (await axios({ url, method: 'GET', responseType: 'arraybuffer' })).data;
-    }
+        return (await axios({ url, method: 'GET', responseType: 'arraybuffer' })).data;
+    });
 
     this.response.set('content-type', 'image/jpeg');
     this.response.set('content-length', data.length);
