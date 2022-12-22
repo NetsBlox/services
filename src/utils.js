@@ -235,6 +235,18 @@ function ninvoke(obj, method, ...args) {
     return deferred.promise;
 }
 
+function assertValidIdent(ident) {
+    if (!ident.match(/^[a-zA-Z](?:[a-zA-Z0-9\-_ ]*[a-zA-Z0-9])?$/)) {
+        let cause;
+        if (!ident.length) cause = 'Must not be empty string';
+        else if (!ident[0].match(/[a-zA-Z]/)) cause = 'Must start with a letter';
+        else if (!ident[ident.length - 1].match(/[a-zA-Z0-9]/)) cause = 'Must end with a letter or number';
+        else cause = 'Contained an invalid character';
+
+        throw Error(`'${ident}' is not a valid identifier: ${cause}`);
+    }
+}
+
 module.exports = {
     serialize,
     serializeArray,
@@ -257,4 +269,5 @@ module.exports = {
     getNewClientId,
     sleep,
     defer,
+    assertValidIdent,
 };

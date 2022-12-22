@@ -11,6 +11,8 @@ const _ = require('lodash');
 const Blocks = require('./blocks');
 const Storage = require('../../storage');
 const ServiceEvents = require('../utils/service-events');
+const { assertValidIdent } = require('../../utils');
+
 let mongoCollection = null;
 const getDatabase = function() {
     if (!mongoCollection) {
@@ -294,6 +296,8 @@ ServiceCreation.createServiceFromTable = async function(name, data, options) {
                 method.initialValue = initialValue;
             }
         }
+
+        method.arguments.forEach(x => assertValidIdent(x));
 
         return method;
     });
