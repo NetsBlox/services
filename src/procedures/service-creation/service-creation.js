@@ -267,6 +267,8 @@ ServiceCreation.createServiceFromTable = async function(name, data, options) {
     const defaultOptions = this.getCreateFromTableOptions(data);
     options = resolveOptions(options, defaultOptions);
 
+    assertValidIdent(name);
+
     const methods = options.RPCs.map(rpc => {
         const {name, help='', code, query, transform, combine, initialValue} = rpc;
         const method = {name, help};
@@ -297,6 +299,7 @@ ServiceCreation.createServiceFromTable = async function(name, data, options) {
             }
         }
 
+        assertValidIdent(method.name);
         method.arguments.forEach(x => assertValidIdent(x));
 
         return method;
