@@ -10,6 +10,7 @@
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
+const { isValidIdent } = require('../../utils');
 const dgram = require('dgram'),
     server = dgram.createSocket('udp4');
 
@@ -26,8 +27,8 @@ const MONGODB_DOC_TOO_LARGE = 'Attempt to write outside buffer bounds';
 
 const isValidServiceName = name => !RESERVED_SERVICE_NAMES.includes(normalizeServiceName(name));
 
-const isValidRPCName = name => 
-    !(!name || name.startsWith('_') ||  RESERVED_RPC_NAMES.includes(name));
+const isValidRPCName = name => isValidIdent(name) && !RESERVED_RPC_NAMES.includes(name);
+const isValidRPCArgName = name => isValidIdent(name);
 
 const IoTScape = {};
 IoTScape.serviceName = 'IoTScape';
@@ -233,13 +234,11 @@ async function _mergeWithExistingService(name, service) {
     let existing = await IoTScape._getDatabase().findOne({ name });
 
     if (existing !== null) {
-        let methodNames = _.uniq([
-            ...service.methods.map(method => method.name),
-            ...existing.methods.map(method => method.name)
-        ]);
-
-        // Validate methods
-        methodNames = methodNames.filter(isValidRPCName);
+        const methodNames = _.uniq(
+            [...service.methods, ...existing.methods]
+            .filter(method => isValidRPCName(method.name) && method.arguments.every(arg => isValidRPCArgName(arg.name))) // validate methods
+            .map(method => method.name)
+        );
 
         // Use newer methods if available
         service.methods = methodNames.map((name) => {

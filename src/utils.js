@@ -246,6 +246,14 @@ function assertValidIdent(ident) {
         throw Error(`'${ident}' is not a valid identifier: ${cause}`);
     }
 }
+function isValidIdent(ident) {
+    try {
+        assertValidIdent(ident);
+        return true;
+    } catch {
+        return false;
+    }
+}
 
 module.exports = {
     serialize,
@@ -270,4 +278,5 @@ module.exports = {
     sleep,
     defer,
     assertValidIdent,
+    isValidIdent,
 };
