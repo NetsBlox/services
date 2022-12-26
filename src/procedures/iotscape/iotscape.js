@@ -25,10 +25,9 @@ const RESERVED_SERVICE_NAMES = fs.readdirSync(path.join(__dirname, '..'))
     .map(normalizeServiceName);
 const MONGODB_DOC_TOO_LARGE = 'Attempt to write outside buffer bounds';
 
-const isValidServiceName = name => !RESERVED_SERVICE_NAMES.includes(normalizeServiceName(name));
-
+const isValidServiceName = name => isValidIdent(name) && !RESERVED_SERVICE_NAMES.includes(normalizeServiceName(name));
 const isValidRPCName = name => isValidIdent(name) && !RESERVED_RPC_NAMES.includes(name);
-const isValidRPCArgName = name => isValidIdent(name);
+const isValidArgName = name => isValidIdent(name);
 
 const IoTScape = {};
 IoTScape.serviceName = 'IoTScape';
@@ -236,7 +235,7 @@ async function _mergeWithExistingService(name, service) {
     if (existing !== null) {
         const methodNames = _.uniq(
             [...service.methods, ...existing.methods]
-            .filter(method => isValidRPCName(method.name) && method.arguments.every(arg => isValidRPCArgName(arg.name))) // validate methods
+            .filter(method => isValidRPCName(method.name) && method.arguments.every(arg => isValidArgName(arg.name))) // validate methods
             .map(method => method.name)
         );
 
