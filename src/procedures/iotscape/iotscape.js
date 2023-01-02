@@ -277,6 +277,10 @@ const _defaultMethods = [{
  * @param {Object} methodsInfo Methods from parsed JSON data
  */
 function _generateMethods(methodsInfo) {
+    if(!methodsInfo){
+        logger.error("No methods definition for service");
+        return [];
+    }
     try {
 	    // Add default methods first
 	    let methods = [..._defaultMethods, ...Object.keys(methodsInfo).map(methodName => {
@@ -307,11 +311,11 @@ function _generateMethods(methodsInfo) {
 	
 	        return method;
 	    })];
+        return methods;
     } catch (error) {
         logger.err(error);
+        return [];
     }
-
-    return methods;
 }
 
 /**
