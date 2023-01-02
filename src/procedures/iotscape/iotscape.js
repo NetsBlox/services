@@ -277,31 +277,39 @@ const _defaultMethods = [{
  * @param {Object} methodsInfo Methods from parsed JSON data
  */
 function _generateMethods(methodsInfo) {
-    // Add default methods first
-    let methods = [..._defaultMethods, ...Object.keys(methodsInfo).map(methodName => {
-        const methodInfo = methodsInfo[methodName];
-
-        const method = { name: methodName, documentation: methodInfo.documentation, categories: [['Basic']],  returns: methodInfo.returns };
-
-        method.arguments = methodInfo.params.map(param => {
-            let type = param.type === 'number' ? { name: 'Number', params: [] } : null;
-            return {
-                name: param.name,
-                optional: param.optional,
-                documentation: param.documentation,
-                type
-            };
-        });
-
-        // Add ID argument to all non-getDevices methods
-        method.arguments = [{
-            name: 'id',
-            optional: false,
-            documentation: 'ID of device to send request to',
-        }, ...method.arguments];
-
-        return method;
-    })];
+    try {
+	    // Add default methods first
+	    let methods = [..._defaultMethods, ...Object.keys(methodsInfo).map(methodName => {
+	        const methodInfo = methodsInfo[methodName];
+	
+	        if(!methodInfo){
+	            throw new Error("Undefined method " + methodName);
+	        }
+	
+	        const method = { name: methodName, documentation: methodInfo.documentation, categories: [['Basic']],  returns: methodInfo.returns };
+	
+	        method.arguments = methodInfo.params.map(param => {
+	            let type = param.type === 'number' ? { name: 'Number', params: [] } : null;
+	            return {
+	                name: param.name,
+	                optional: param.optional,
+	                documentation: param.documentation,
+	                type
+	            };
+	        });
+	
+	        // Add ID argument to all non-getDevices methods
+	        method.arguments = [{
+	            name: 'id',
+	            optional: false,
+	            documentation: 'ID of device to send request to',
+	        }, ...method.arguments];
+	
+	        return method;
+	    })];
+    } catch (error) {
+        logger.err(error);
+    }
 
     return methods;
 }
