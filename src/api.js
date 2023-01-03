@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const routeUtils = require('./procedures/utils/router-utils');
 const NetsBloxCloud = require('./cloud-client');
+const {RPCNotFoundError, ServiceNotFoundError, RequestError, MissingClientIdError} = require('./errors');
 
 class ServicesAPI {
     constructor() {
@@ -107,13 +108,12 @@ class ServicesAPI {
         });
 
         router.route('/:serviceName/:rpcName')
-            .post((req, res) => {
+            .post(handleErrors((req, res) => {
                 const serviceName = this.getValidServiceName(req.params.serviceName);
-                if (this.validateRPCRequest(serviceName, req, res)) {
-                    const {rpcName} = req.params;
-                    return this.invokeRPC(serviceName, rpcName, req, res);
-                }
-            });
+                this.ensureValidRPCRequest(serviceName, req, res);
+                const {rpcName} = req.params;
+                return this.invokeRPC(serviceName, rpcName, req, res);
+            }));
 
         return router;
     }
@@ -143,21 +143,17 @@ class ServicesAPI {
         return service.rpcs[rpcName].args.map(arg => arg.name);
     }
 
-    validateRPCRequest(serviceName, req, res) {
+    ensureValidRPCRequest(serviceName, req, res) {
         const {rpcName} = req.params;
         const {clientId} = req.query;
 
         if(!clientId) {
-            res.status(400).send('Client ID is required.');
+            throw new MissingClientIdError();
         } else if (!this.isServiceLoaded(serviceName)) {
-            res.status(404).send(`Service "${serviceName}" is not available.`);
+            throw new ServiceNotFoundError(serviceName);
         } else if (!this.exists(serviceName, rpcName)) {
-            res.status(404).send(`RPC "${rpcName}" is not available.`);
-        } else {
-            return true;
+            throw new RPCNotFoundError(rpcName);
         }
-
-        return false;
     }
 
     async invokeRPC(serviceName, rpcName, req, res) {
@@ -167,6 +163,7 @@ class ServicesAPI {
         const ctx = {};
         ctx.response = res;
         ctx.request = req;
+        // TODO: what if the client ID is not found?
         const {username, state} = await NetsBloxCloud.getClientInfo(clientId)
         // TODO: add support for external states, too?
         const projectId = state.browser?.projectId;
@@ -179,7 +176,6 @@ class ServicesAPI {
             clientId,
         };
         const apiKey = this.services.getApiKey(serviceName);
-        console.log({apiKey});
         if (apiKey) {
             // TODO: handle invalid settings (parse error)
             const settings = await NetsBloxCloud.getServiceSettings(username);
@@ -187,7 +183,6 @@ class ServicesAPI {
             if (apiKeyValue) {
                 ctx.apiKey = apiKeyValue;
             }
-            console.log('key', ctx.apiKey);
         }
         ctx.socket = new RemoteClient(projectId, roleId, clientId);
 
@@ -204,6 +199,20 @@ class ServicesAPI {
             return req.body.hasOwnProperty(argName) ? req.body[argName] : req.body[oldName];
         });
     }
+}
+
+function handleErrors(fn) {
+    return function(req, res) {
+        try {
+            fn.apply(this, ...arguments);
+        } catch (err) {
+            if (err instanceof RequestError) {
+                res.status(err.status).send(err.message);
+            } else {
+                res.status(500).send('An error occurred. Please try again later.');
+            }
+        }
+    };
 }
 
 module.exports = new ServicesAPI();
