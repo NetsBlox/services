@@ -127,12 +127,18 @@ IoTScape._createService = async function(definition, remote) {
 
     // Validate service name
     if(!isValidServiceName(name) || name.replace(/[^a-zA-Z0-9]/g, '') !== name){
-        logger.log(`Service name ${name} rejected`);
+        logger.log(`Service ${name} rejected due to invalid name`);
         return;
     }
 
     const serviceInfo = parsed.service;
     const methodsInfo = parsed.methods;
+
+    // Validate method names
+    if(!Object.keys(methodsInfo).every(method => isValidRPCName(method) && methodsInfo[method].params.every(param => isValidArgName(param.name)))){
+        logger.log(`Service ${name} rejected due to invalid method`);
+        return;
+    }
 
     const version = serviceInfo.version;
     const id = parsed.id;
