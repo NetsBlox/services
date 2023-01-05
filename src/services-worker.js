@@ -128,6 +128,33 @@ class ServicesWorker {
                     service.serviceName = this.getDefaultServiceName(name);
                 }
 
+                // after we produce the final service name, validate service name, rpc names, and arg names
+                try {
+                    utils.assertValidIdent(service.serviceName);
+                } catch (ex) {
+                    this._logger.error(`\nInvalid service name for '${service.serviceName}': ${ex}`);
+                    process.exit(1);
+                }
+                for (const rpc of service._docs.rpcs) {
+                    if (rpc.name.startsWith('_')) continue; // private/deprecated rpcs can be ignored
+
+                    try {
+                        utils.assertValidIdent(rpc.name.replace(/[*]*/g, '')); // allow an extra set of legal trailing characters
+                    } catch (ex) {
+                        this._logger.error(`\nInvalid RPC name for '${service.serviceName}.${rpc.name}': ${ex}`);
+                        process.exit(1);
+                    }
+
+                    for (const arg of rpc.args) {
+                        try {
+                            utils.assertValidIdent(arg.name);
+                        } catch (ex) {
+                            this._logger.error(`\nInvalid RPC arg name for '${service.serviceName}.${rpc.name}(${arg.name})': ${ex}`);
+                            process.exit(1);
+                        }
+                    }
+                }
+
                 if (!service.isSupported) {
                     service.isSupported = () => true;
                 }
