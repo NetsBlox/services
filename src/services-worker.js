@@ -136,10 +136,10 @@ class ServicesWorker {
                     process.exit(1);
                 }
                 for (const rpc of service._docs.rpcs) {
-                    if (rpc.name.startsWith('_')) continue; // private/deprecated rpcs can be ignored
+                    if (rpc.name.startsWith('_')) continue; // private rpcs can be ignored
 
                     try {
-                        utils.assertValidIdent(rpc.name.replace(/[*]*/g, '')); // allow an extra set of legal trailing characters
+                        utils.assertValidIdent(rpc.name.replace(/[*]*$/, '')); // allow an extra set of legal trailing characters
                     } catch (ex) {
                         this._logger.error(`\nInvalid RPC name for '${service.serviceName}.${rpc.name}': ${ex}`);
                         process.exit(1);
