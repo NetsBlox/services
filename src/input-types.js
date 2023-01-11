@@ -177,6 +177,7 @@ defineType({
     name: 'NonProfaneString',
     description: 'A piece of text with profanity filtering applied.',
     baseType: 'Any',
+    displayName: 'String',
     parser: input => {
         if(isProfane(input.toString())){
             throw new Error('This text is not appropriate.');
