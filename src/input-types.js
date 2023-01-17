@@ -95,14 +95,14 @@ function defineType(info) {
     if (extra_fields.size) throw Error(`Unrecognized defineType fields: [${Array.from(extra_fields).join(", ")}]`);
 
     if (!info.hidden) info.hidden = false;
-    else if (typeof(info.hidden) !== 'boolean') throw Error('Type hidden flag must be a boolean');
+    if (typeof(info.hidden) !== 'boolean') throw Error('Type hidden flag must be a boolean');
 
     if (!info.name) throw Error('A type name is required');
     if (typeof(info.name) !== 'string') throw Error('Type name must be a string');
 
     if (!info.displayName) info.displayName = info.name;
-    else if (typeof(info.displayName) !== 'string') throw Error('Display name must be a string');
-    else if (!info.hidden && dispToType[info.displayname]) throw Error(`A type (${dispToType[info.displayname]}) with display name ${info.displayName} already exists.`);
+    if (typeof(info.displayName) !== 'string') throw Error('Display name must be a string');
+    if (!info.hidden && dispToType[info.displayname]) throw Error(`A type (${dispToType[info.displayname]}) with display name ${info.displayName} already exists.`);
 
     if (!info.description) throw Error('To enforce good documentation, a type description is required');
     if (typeof(info.description) !== 'string') throw Error('Type description must be a string');
@@ -111,7 +111,7 @@ function defineType(info) {
     if (typeof(info.baseType) !== 'string') throw Error('Base type must be a string');
 
     if (!info.parser) info.parser = v => v;
-    else if (typeof(info.parser) !== 'function') throw Error('Type parser must be a function');
+    if (typeof(info.parser) !== 'function') throw Error('Type parser must be a function');
 
     let baseParamsMeta = null;
     let getParams = () => undefined;
@@ -163,7 +163,10 @@ function registerType(argType, serviceName) {
     types[name] = derivedParser;
     typesMeta[name] = meta;
 
-    if (!meta.hidden) dispToType[meta.displayName] = name;
+    if (!meta.hidden) {
+        if (dispToType[meta.displayName]) throw Error(`Attempt to redefine existing type: ${meta.displayName} (display name). Consider marking one as hidden.`);
+        dispToType[meta.displayName] = name;
+    }
 }
 
 defineType({
@@ -178,6 +181,7 @@ defineType({
     description: 'A piece of text with profanity filtering applied.',
     baseType: 'Any',
     displayName: 'String',
+    hidden: true, // required because display name 'String' is already used
     parser: input => {
         if(isProfane(input.toString())){
             throw new Error('This text is not appropriate.');
