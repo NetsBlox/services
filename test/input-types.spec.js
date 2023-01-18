@@ -602,4 +602,26 @@ describe(utils.suiteName(__filename), function() {
             types.forEach(argType => InputTypes.registerType(argType, 'Service2'));
         });
     });
+
+    describe('NonProfaneString', function() {
+        it('should convert to a string', async () => {
+            let rawInput = 0;
+            let parsedInput = await typesParser.NonProfaneString(rawInput);
+            assert.strictEqual(typeof parsedInput, 'string');
+        });
+
+        it('should allow non-profane input', async () => {
+            await typesParser.NonProfaneString('NetsBlox is great!');
+        });
+
+        it('should prevent profane input', async () => {
+            const { profaneChecker } = require('../src/utils');
+
+            profaneChecker.addWords('NetsBlox');
+
+            assert.rejects(async () => typesParser.NonProfaneString('NetsBlox is great!'));
+
+            profaneChecker.removeWords('NetsBlox');
+        });
+    });
 });

@@ -169,8 +169,8 @@ class ServicesAPI {
         ctx.request = req;
         const {username, state} = await NetsBloxCloud.getClientInfo(clientId)
         // TODO: add support for external states, too?
-        const projectId = state.browser?.projectId;
-        const roleId = state.browser?.roleId;
+        const projectId = state?.browser?.projectId;
+        const roleId = state?.browser?.roleId;
 
         ctx.caller = {
             username,

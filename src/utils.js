@@ -7,6 +7,9 @@ var assert = require('assert'),
     logger = new Logger('netsblox:api:utils'),
     version = require('../package.json').version;
 
+const Filter = require('bad-words');
+const profaneChecker = new Filter();
+
 const APP = `NetsBlox ${version}, http://netsblox.org`;
 const SERVER_NAME = process.env.SERVER_NAME || 'netsblox';
 
@@ -255,6 +258,12 @@ function isValidIdent(ident) {
     }
 }
 
+function isProfane(text) {
+    const normalized = text.toLowerCase();
+    return profaneChecker.isProfane(normalized) ||
+        profaneChecker.list.find(badWord => normalized.includes(badWord.toLowerCase()));
+}
+
 module.exports = {
     serialize,
     serializeArray,
@@ -279,4 +288,6 @@ module.exports = {
     defer,
     assertValidIdent,
     isValidIdent,
+    profaneChecker,
+    isProfane,
 };
