@@ -10,6 +10,7 @@
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
+const { isValidIdent } = require('../../utils');
 const dgram = require('dgram'),
     server = dgram.createSocket('udp4');
 
@@ -24,10 +25,9 @@ const RESERVED_SERVICE_NAMES = fs.readdirSync(path.join(__dirname, '..'))
     .map(normalizeServiceName);
 const MONGODB_DOC_TOO_LARGE = 'Attempt to write outside buffer bounds';
 
-const isValidServiceName = name => !RESERVED_SERVICE_NAMES.includes(normalizeServiceName(name));
-
-const isValidRPCName = name => 
-    !(!name || name.startsWith('_') ||  RESERVED_RPC_NAMES.includes(name));
+const isValidServiceName = name => isValidIdent(name) && !RESERVED_SERVICE_NAMES.includes(normalizeServiceName(name));
+const isValidRPCName = name => isValidIdent(name) && !RESERVED_RPC_NAMES.includes(name);
+const isValidArgName = name => isValidIdent(name);
 
 const IoTScape = {};
 IoTScape.serviceName = 'IoTScape';
@@ -127,12 +127,18 @@ IoTScape._createService = async function(definition, remote) {
 
     // Validate service name
     if(!isValidServiceName(name) || name.replace(/[^a-zA-Z0-9]/g, '') !== name){
-        logger.log(`Service name ${name} rejected`);
+        logger.log(`Service ${name} rejected due to invalid name`);
         return;
     }
 
     const serviceInfo = parsed.service;
     const methodsInfo = parsed.methods;
+
+    // Validate method names
+    if(!Object.keys(methodsInfo).every(method => isValidRPCName(method) && methodsInfo[method].params.every(param => isValidArgName(param.name)))){
+        logger.log(`Service ${name} rejected due to invalid method`);
+        return;
+    }
 
     const version = serviceInfo.version;
     const id = parsed.id;
@@ -233,13 +239,11 @@ async function _mergeWithExistingService(name, service) {
     let existing = await IoTScape._getDatabase().findOne({ name });
 
     if (existing !== null) {
-        let methodNames = _.uniq([
-            ...service.methods.map(method => method.name),
-            ...existing.methods.map(method => method.name)
-        ]);
-
-        // Validate methods
-        methodNames = methodNames.filter(isValidRPCName);
+        const methodNames = _.uniq(
+            [...service.methods, ...existing.methods]
+            .filter(method => isValidRPCName(method.name) && method.arguments.every(arg => isValidArgName(arg.name))) // validate methods
+            .map(method => method.name)
+        );
 
         // Use newer methods if available
         service.methods = methodNames.map((name) => {
