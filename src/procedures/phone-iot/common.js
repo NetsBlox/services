@@ -153,7 +153,7 @@ common.SENSOR_PACKERS = {
     'location': vals => { return { latitude: vals[0], longitude: vals[1], heading: vals[2], bearing: vals[2], altitude: vals[3] }; },
     'pressure': vals => { return { pressure: vals[0] }; },
     'temperature': vals => { return { temp: vals[0] }; },
-    'humidity': vals => { return { relative: vals[0] }; },
+    'humidity': vals => { return { humidity: vals[0] }; },
 };
 common.DEPRECATED_SENSORS = new Set([
     'rotation', 'gameRotation',
