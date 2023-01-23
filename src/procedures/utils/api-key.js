@@ -93,6 +93,12 @@ module.exports.AlphaVantageKey = new ApiKey(
     'ALPHA_VANTAGE_KEY'
 );
 
+module.exports.CatKey = new ApiKey(
+    'Cats',
+    'https://api.thecatapi.com/v1/images/search?api_key=YOUR_API_KEY',
+    'CAT_KEY'
+);
+
 class InvalidKeyError extends Error {
     constructor(apiKey) {
         const message = `Invalid API key. Please update your ${apiKey.provider} API key.`;
