@@ -103,7 +103,7 @@ const dogApiUrl = 'https://api.thedogapi.com/v1/images/search';
 // const catDogConsumer = new ApiConsumer('catDog', apiUrl, {cache: {ttl: 5*60}});
 
 
- CatDog._getImageUrl = async function(rsp, animalType) {
+ CatDog._getImageUrl = async function(rsp, animalType, breeds) {
     let apiUrl = '';
     
     if(animalType === "CAT"){
@@ -116,10 +116,11 @@ const dogApiUrl = 'https://api.thedogapi.com/v1/images/search';
     var config = {
         method: 'get',
         url: apiUrl,
-        // headers: { 
-        //   'Content-Type': 'application/json', 
+        headers: { 
+          'Content-Type': 'application/json', 
+          'x-breed_ids': breeds,
         //   'x-api-key': 'live_yL38pOVfFAQFLVu0Pk9bu1R26Msm8cZc6nmckkeymTJ9F3zpjBrCZtVhiM3WD4Pm'
-        // }
+        }
       };
 
     let firstResponse = await axios(config);
@@ -146,11 +147,12 @@ CatDog.hello = function() {
 
 /**
  * Get random cat image.
+ * @param {CatBreeds=} catBreeds The list of all possible Cat Breeds filterable.
  * @returns {Image} the requested image
  */
-CatDog.loadRandomCatImage = function() {
+CatDog.loadRandomCatImage = function(catBreeds = '') {
 
-    return CatDog._getImageUrl(this.response, "CAT");
+    return CatDog._getImageUrl(this.response, "CAT", catBreeds);
 }
 
 /**
@@ -159,7 +161,7 @@ CatDog.loadRandomCatImage = function() {
  */
 CatDog.loadRandomDogImage = function() {
 
-    return CatDog._getImageUrl(this.response, "DOG");
+    return CatDog._getImageUrl(this.response, "DOG", '');
 }
 
 module.exports = CatDog;
