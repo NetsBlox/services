@@ -1,172 +1,177 @@
-const express = require('express');
-const Logger = require('./logger');
-const assert = require('assert');
-const ObjectId = require('mongodb').ObjectId;
-const _ = require('lodash');
-const APIKey = require('./procedures/utils/api-key');
+const express = require("express");
+const Logger = require("./logger");
+const assert = require("assert");
+const _ = require("lodash");
+const APIKey = require("./procedures/utils/api-key");
 
 class APIKeys {
-    async init(db, logger) {
-        this.logger = logger ? logger.fork('api-keys') : new Logger('netsblox:api-keys');
+  constructor(cloud, logger) {
+    this.logger = logger
+      ? logger.fork("api-keys")
+      : new Logger("netsblox:api-keys");
+    this.cloud = cloud;
+  }
+
+  async get(username, apiKey) {
+    const { provider } = apiKey;
+    const serviceSettings = await this.cloud.getServiceSettings(username);
+    const groupSettings = Object.values(
+      serviceSettings.groups,
+    );
+    return this.getKeyFrom(provider, serviceSettings.user?.apiKeys) ||
+      this.getKeyFrom(provider, serviceSettings.member?.apiKeys) ||
+      this.getLeastSharedKey(
+        groupSettings.map((settings) =>
+          this.getKeyFrom(provider, settings?.apiKeys)
+        ),
+      );
+  }
+
+  getKeyFrom(provider, apiKeys) {
+    return (apiKeys || {})[provider];
+  }
+
+  getLeastSharedKey(keyValues) {
+    const counts = keyValues.reduce((counts, key) => {
+      counts[key] = (counts[key] || 0) + 1;
+      return counts;
+    }, {});
+
+    const keyPair = Object.entries(counts)
+      .sort(
+        ([_v1, c1], [_v2, c2]) => c1 < c2 ? -1 : 1,
+      )
+      .unshift();
+
+    return keyPair ? keyPair[0] : null;
+  }
+
+  async list(username, groupId) {
+    const settings = await this.cloud.getServiceSettings(username);
+    let keyDict;
+    if (groupId) {
+      keyDict = settings.groups[groupId]?.apiKeys || {};
+    } else {
+      keyDict = settings.user.apiKeys || {};
     }
+    return Object.entries(keyDict).map(([provider, value]) => ({
+      provider,
+      value,
+    }));
+  }
 
-    async get(apiKey, serviceSettings) {
-        const {provider} = apiKey;
-        return this.getKeyFrom(provider, serviceSettings.user?.apiKeys) ||
-            this.getKeyFrom(provider, serviceSettings.member?.apiKeys) ||
-            this.getLeastSharedKey(
-                serviceSettings.groups.map(settings => this.getKeyFrom(provider, settings?.apiKeys))
-            );
-    }
+  /**
+   * Create a new API key. Overwrite any existing key with the same owner and
+   * scope.
+   */
+  async create(username, provider, value, groupIds) {
+    // Technically, this isn't free from race conditions but shouldn't be a big deal since
+    // only the owner can set these anyway
+    // TODO: add support for group IDs
+    const settings = await this.cloud.getUserServiceSettings(username);
+    settings.apiKeys ||= {};
+    settings.apiKeys[provider] = value;
+    await this.cloud.setUserServiceSettings(username, settings);
+  }
 
-    getKeyFrom(provider, apiKeys) {
-        return (apiKeys || {})[provider];
-    }
+  async delete(id, username) {
+    // Technically, this isn't free from race conditions but shouldn't be a big deal since
+    // only the owner can set these anyway
+    const settings = await this.cloud.getServiceSettings(username);
+  }
 
-    getLeastSharedKey(keyValues) {
-        const counts = keyValues.reduce((counts, key) => {
-            counts[key] = (counts[key] || 0) + 1;
-            return counts;
-        }, {});
+  getAllApiKeys() {
+    return Object.values(APIKey)
+      .filter((value) => value.constructor.name === "ApiKey");
+  }
 
-        const keyPair = Object.entries(counts)
-            .sort(
-                ([_v1, c1], [_v2, c2]) => c1 < c2 ? -1 : 1
-            )
-            .unshift();
+  getApiProviders() {
+    return this.getAllApiKeys()
+      .map((key) => ({
+        provider: key.provider,
+        url: key.helpUrl,
+      }));
+  }
 
-        return keyPair ? keyPair[0] : null;
-    }
+  router() {
+    const router = express.Router({ mergeParams: true });
+    const EDITABLE_DOC_KEYS = ["value", "isGroupDefault", "groups"];
 
-    async list(username, groupId) {
-        const query = {owner: username};
-        if (groupId) {
-            query.groups = groupId;
-        }
-        return this.collection.find(query).toArray();
-    }
+    router.route("/").get(async (req, res) => {
+      const { username } = req.session;
+      const { group } = req.query;
+      // FIXME: update this
+      res.json(await this.list(username, group));
+    });
 
-    /**
-     * Create a new API key. Overwrite any existing key with the same owner and
-     * scope.
-     */
-    async create(owner, provider, value, isGroupDefault=false, groups=[]) {
-        const doc = {owner, provider, value, isGroupDefault, groups};
-        return this.collection.insertOne(doc);
-    }
+    router.route("/providers").get(async (req, res) => {
+      res.json(this.getApiProviders());
+    });
 
-    async setScope(id, isGroupDefault, groups) {
-        const filter = {_id: ObjectId(id)};
-        const update = {$set: {isGroupDefault, groups}};
-        assert(
-            typeof isGroupDefault === 'boolean',
-            `isGroupDefault must be a boolean! Received ${isGroupDefault}`
-        );
-        assert(
-            groups instanceof Array,
-            `groups must be an Array! Received ${groups}`
-        );
-        return this.collection.updateOne(filter, update);
-    }
+    router.route("/:provider").post(async (req, res) => {
+      const { provider } = req.params;
+      const { username } = req.session;
+      const { value, groups } = req.body;
 
-    async delete(id, username) {
-        const query = {_id: ObjectId(id)};
-        if (username) {
-            query.owner = username;
-        }
-        return this.collection.deleteOne(query);
-    }
+      const providers = this.getApiProviders().map(({ provider }) => provider);
+      if (!providers.includes(provider)) {
+        return res.status(400).send(`Invalid provider: ${provider}`);
+      }
 
-    async all() {
-        return this.collection.find({}).toArray();
-    }
+      if (!value) {
+        return res.status(400).send("Missing required field: value");
+      }
+      const result = await this.create(
+        username,
+        provider,
+        value,
+        groups,
+      );
+      res.sendStatus(200);
+    });
 
-    getAllApiKeys() {
-        return Object.values(APIKey)
-            .filter(value => value.constructor.name === 'ApiKey');
-    }
+    router.route("/").patch(async (req, res) => {
+      const { username } = req.session;
+      const { id } = req.body;
+      if (!id) {
+        return res.status(400).send("Missing required field: id");
+      }
+      const query = {
+        _id: ObjectId(id),
+        owner: username,
+      };
+      // TODO: update this...
+      const keys = EDITABLE_DOC_KEYS
+        .filter((key) => Object.prototype.hasOwnProperty.call(req.body, key));
+      const update = { $set: _.pick(req.body, keys) };
+      const doc = await this.collection.findOneAndUpdate(
+        query,
+        update,
+        { returnNewDocument: true },
+      );
 
-    getApiProviders() {
-        return this.getAllApiKeys()
-            .map(key => ({
-                provider: key.provider,
-                url: key.helpUrl,
-            }));
-    }
+      // TODO:
+      res.json(doc.value);
+    });
 
-    router() {
-        const router = express.Router({mergeParams: true});
-        const EDITABLE_DOC_KEYS = ['value', 'isGroupDefault', 'groups'];
+    router.route("/:id").options((req, res) => {
+      res.header(
+        "Access-Control-Allow-Methods",
+        "POST, GET, OPTIONS, PUT, PATCH, DELETE",
+      );
+      res.sendStatus(204);
+    });
+    router.route("/:provider").delete(async (req, res) => {
+      // TODO: get the group IDs and use them
+      const { username } = req.session;
+      const { provider } = req.params;
+      const deleted = await this.delete(username, provider, groupIds);
+      res.json(deleted);
+    });
 
-        router.route('/').get(async (req, res) => {
-            const {username} = req.session;
-            const {group} = req.query;
-            res.json(await this.list(username, group));
-        });
-
-        router.route('/providers').get(async (req, res) => {
-            res.json(this.getApiProviders());
-        });
-
-        router.route('/:type').post(async (req, res) => {
-            const {type} = req.params;
-            const {username} = req.session;
-            const {value, isGroupDefault, groups} = req.body;
-
-            if (!value) {
-                return res.status(400).send('Missing required field: value');
-            }
-            const result = await this.create(username, type, value, isGroupDefault, groups);
-            res.send(result.insertedId);
-        });
-
-        router.route('/').patch(async (req, res) => {
-            const {username} = req.session;
-            const {id} = req.body;
-            if (!id) {
-                return res.status(400).send('Missing required field: id');
-            }
-            const query = {
-                _id: ObjectId(id),
-                owner: username
-            };
-            const keys = EDITABLE_DOC_KEYS
-                .filter(key => Object.prototype.hasOwnProperty.call(req.body, key));
-            const update = {$set: _.pick(req.body, keys)};
-            const doc = await this.collection.findOneAndUpdate(
-                query,
-                update,
-                {returnNewDocument: true}
-            );
-            res.json(doc.value);
-        });
-
-        router.route('/:provider').post(async (req, res) => {
-            const {provider} = req.params;
-            const {username} = req.session;
-            const {value, isGroupDefault, groups} = req.body;
-
-            if (!value) {
-                return res.status(400).send('Missing required field: value');
-            }
-            // TODO: Validate the provider?
-            const result = await this.create(username, provider, value, isGroupDefault, groups);
-            res.send(result.insertedId);
-        });
-
-        router.route('/:id').options((req, res) => {
-            res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, PATCH, DELETE');
-            res.sendStatus(204);
-        });
-        router.route('/:id').delete(async (req, res) => {
-            const {username} = req.session;
-            const {id} = req.params;
-            const result = await this.delete(id, username);
-            res.json(!!result.deletedCount);
-        });
-
-        return router;
-    }
+    return router;
+  }
 }
 
-module.exports = new APIKeys();
+// TODO: can we separate out the storage/client?
+module.exports = APIKeys;
