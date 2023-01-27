@@ -8,59 +8,36 @@
 
 const logger = require('../utils/logger')('CatDog');
 const axios = require('axios');
+const { TheDogApiKey } = require('../utils/api-key');
 const {dogTypes} = require('./types');
 const ApiConsumer = require('../utils/api-consumer');
 dogTypes();
 
-const TheDogApi = {};
-
 // Dogs API Url
 const dogApiUrl = 'https://api.thedogapi.com/v1/images/search';
 
-// const dogConsumer = new ApiConsumer('catDog', apiUrl, {cache: {ttl: 5*60}});
-
-
- TheDogApi._getImageUrl = async function(rsp, breeds) {
-    let apiUrl = 'https://api.thedogapi.com/v1/images/search';
-
-    var config = {
-        method: 'get',
-        url: apiUrl,
-        params: {
-            breed_ids: breeds
-        },
-        headers: { 
-          'Content-Type': 'application/json', 
-        //   'x-api-key': 'live_yL38pOVfFAQFLVu0Pk9bu1R26Msm8cZc6nmckkeymTJ9F3zpjBrCZtVhiM3WD4Pm'
-        }
-      };
-
-    let firstResponse = await axios(config);
-    console.log("FIRST RESPONSE:", typeof firstResponse.data);
-    const imageUrl = firstResponse.data[0].url;
-    console.log("FIRST RESPONSE: THIS IS THE URL", typeof imageUrl);
-    logger.info(`HERE IS MY STRINGY ${imageUrl}`);
-   
-    let secondResponse = await axios({url: imageUrl, method: 'GET', responseType: 'arraybuffer'});
-
-    rsp.set('content-type', 'image/jpeg');
-    rsp.set('content-length', secondResponse.data.length);
-    rsp.set('connection', 'close');
-
-    // logger.info(`WHAT IS THIS IMAGEN ${secondResponse.data}`);
-    return rsp.status(200).send(secondResponse.data);
-
-}
-
+const TheDogApi = new ApiConsumer('TheDogApi', dogApiUrl, {cache: {ttl: 1}});
+ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey)
 
 /**
  * Get random dog image.
  * @param {BreedsOfDogs=} dogBreeds The list of all possible Dog Breeds filterable.
  * @returns {Image} the requested image
  */
-TheDogApi.getRandomDogImage = function(BreedsOfDogs = '') {
+TheDogApi.getRandomDogImage = async function(dogBreeds = '') {
+      //Requesting JSON from the Dog Api Url
+      const dogJson = await this._requestData({
+        baseUrl: 'https://api.thedogapi.com/v1/images/search?t=' + Date.now(),
+        queryString: '&breed_ids=' + dogBreeds,
+        
+    });
 
-    return TheDogApi._getImageUrl(this.response, BreedsOfDogs);
+    //Get the image URL from the received JSON
+    const imageUrl = dogJson[0].url;
+   
+    return this._sendImage({
+        baseUrl: imageUrl,
+    });
 }
 
 module.exports = TheDogApi;
