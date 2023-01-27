@@ -179,8 +179,8 @@ class ServicesAPI {
             clientId,
         };
         const apiKey = this.services.getApiKey(serviceName);
-        console.log({apiKey});
-        if (apiKey) {
+        const isLoggedIn = !!username;
+        if (apiKey && isLoggedIn){
             // TODO: handle invalid settings (parse error)
             const settings = await NetsBloxCloud.getServiceSettings(username);
             const apiKeyValue = await ApiKeys.get(apiKey, settings);
