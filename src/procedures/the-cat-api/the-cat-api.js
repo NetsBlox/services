@@ -6,66 +6,36 @@
  */
 
 
-const logger = require('../utils/logger')('CatDog');
-const axios = require('axios');
 const { TheCatApiKey } = require('../utils/api-key');
 const {catTypes} = require('./types');
 const ApiConsumer = require('../utils/api-consumer');
 catTypes();
 
-// const TheCatApi = {};
-
 // Cats API Url
 const catApiUrl = 'https://api.thecatapi.com/v1/images/search';
 
- const TheCatApi = new ApiConsumer('TheCatApi', catApiUrl, {cache: {ttl: 5*60}});
+ const TheCatApi = new ApiConsumer('TheCatApi', catApiUrl, {cache: {ttl: 1}});
  ApiConsumer.setRequiredApiKey(TheCatApi, TheCatApiKey)
 
+/**
+ * Get random cat image.
+ * @param {BreedsOfCats=} catBreeds The list of all possible Cat Breeds filterable.
+ * @returns {Image} the requested image
+ */
+TheCatApi.getRandomCatImage = async function(catBreeds = ''){
+    //Requesting JSON from the Cat Api Url
+    const catJson = await this._requestData({
+        baseUrl: 'https://api.thecatapi.com/v1/images/search?t=' + Date.now(),
+        queryString: '&breed_ids=' + catBreeds,
+        
+    });
 
-//  TheCatApi._getImageUrl = async function(rsp, breeds) {
-//     let apiUrl = 'https://api.thecatapi.com/v1/images/search';
-
-//     var config = {
-//         method: 'get',
-//         url: apiUrl,
-//         params: {
-//             breed_ids: breeds
-//         },
-//         headers: { 
-//           'Content-Type': 'application/json', 
-//         //   'x-api-key': 'live_yL38pOVfFAQFLVu0Pk9bu1R26Msm8cZc6nmckkeymTJ9F3zpjBrCZtVhiM3WD4Pm'
-//         }
-//       };
-
-//     let firstResponse = await axios(config);
-//     console.log("FIRST RESPONSE:", typeof firstResponse.data);
-//     const imageUrl = firstResponse.data[0].url;
-//     console.log("FIRST RESPONSE: THIS IS THE URL", typeof imageUrl);
-//     logger.info(`HERE IS MY STRINGY ${imageUrl}`);
+    //Get the image URL from the received JSON
+    const imageUrl = catJson[0].url;
    
-//     let secondResponse = await axios({url: imageUrl, method: 'GET', responseType: 'arraybuffer'});
-
-//     rsp.set('content-type', 'image/jpeg');
-//     rsp.set('content-length', secondResponse.data.length);
-//     rsp.set('connection', 'close');
-
-//     // logger.info(`WHAT IS THIS IMAGEN ${secondResponse.data}`);
-//     return rsp.status(200).send(secondResponse.data);
-
-// }
-
-
-// /**
-//  * Get random cat image.
-//  * @param {BreedsOfCats=} catBreeds The list of all possible Cat Breeds filterable.
-//  * @returns {Image} the requested image
-//  */
-// TheCatApi.getRandomCatImage = function(BreedsOfCats = '') {
-
-//     return TheCatApi._getImageUrl(this.response, BreedsOfCats);
-// }
-TheCatApi.hello = function(){
-    return 'WELCOME TO THE WORLD';
+    return this._sendImage({
+        baseUrl: imageUrl,
+    });
 }
 
 module.exports = TheCatApi;
