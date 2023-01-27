@@ -11,7 +11,7 @@ class CloudClient {
   async getServiceSettings(username) {
     return {
       user: this.userData[username] || {},
-      group: this.groupData,
+      groups: this.groupData,
     };
   }
 

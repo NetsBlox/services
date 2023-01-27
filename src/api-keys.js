@@ -28,7 +28,10 @@ class APIKeys {
   }
 
   getKeyFrom(provider, apiKeys) {
-    return (apiKeys || {})[provider];
+    const value = (apiKeys || {})[provider];
+    if (value) {
+      return new UserApiKey(provider, value);
+    }
   }
 
   getLeastSharedKey(keyValues) {
@@ -54,10 +57,9 @@ class APIKeys {
     } else {
       keyDict = settings.user.apiKeys || {};
     }
-    return Object.entries(keyDict).map(([provider, value]) => ({
-      provider,
-      value,
-    }));
+    return Object.entries(keyDict).map(([provider, value]) =>
+      new UserApiKey(provider, value)
+    );
   }
 
   /**
@@ -74,10 +76,23 @@ class APIKeys {
     await this.cloud.setUserServiceSettings(username, settings);
   }
 
-  async delete(id, username) {
+  async delete(owner, provider, groupIds) {
     // Technically, this isn't free from race conditions but shouldn't be a big deal since
     // only the owner can set these anyway
-    const settings = await this.cloud.getServiceSettings(username);
+    if (groupIds) {
+      await Promise.all(
+        groupIds.map((id) => this._deleteGroupKey(owner, id, provider)),
+      );
+    } else {
+      await this._deleteUserKey(owner, provider);
+    }
+  }
+
+  async _deleteUserKey(username, provider) {
+    const settings = await this.cloud.getUserServiceSettings(username);
+  }
+
+  async _deleteGroupKey(owner, groupId, provider) {
   }
 
   getAllApiKeys() {
@@ -173,5 +188,11 @@ class APIKeys {
   }
 }
 
+class UserApiKey {
+  constructor(provider, value) {
+    this.provider = provider;
+    this.value = value;
+  }
+}
 // TODO: can we separate out the storage/client?
 module.exports = APIKeys;

@@ -8,7 +8,7 @@ describe.only(utils.suiteName(__filename), function () {
 
   beforeEach(() => cloudClient = new InMemoryCloudClient());
 
-  it.only("should create API keys", async function () {
+  it("should create API keys", async function () {
     const { username, type, value } = newKey();
     const apiKeys = new APIKeys(cloudClient);
     await apiKeys.create(username, type, value);
@@ -19,18 +19,27 @@ describe.only(utils.suiteName(__filename), function () {
 
   it("should get API keys", async function () {
     const { username, type, value } = newKey();
-    await APIKeys.create(username, type, value);
+    const apiKeys = new APIKeys(cloudClient);
+    await apiKeys.create(username, type, value);
     const apiKey = APIKey.GoogleMapsKey;
-    const key = await APIKeys.get(apiKey, settings);
+    const key = await apiKeys.get(username, apiKey);
+    console.log(
+      await apiKeys.list(username),
+      apiKey,
+      key,
+    );
+    // TODO: update the key to be returned
     assert.notEqual(key.value, apiKey.value);
   });
 
   it("should delete keys", async function () {
     const { username, type, value } = newKey();
-    const { insertedId } = await APIKeys.create(username, type, value);
-    await APIKeys.delete(insertedId, username);
-    const doc = await APIKeys.collection.findOne({ owner: username });
-    assert(!doc);
+    const apiKeys = new APIKeys(cloudClient);
+    await apiKeys.create(username, type, value);
+    await apiKeys.delete(username); // TODO
+    const keys = await apiKeys.list(username);
+    const key = keys.find((key) => key.provider === type);
+    assert(!key, `new key (${type}) not deleted`);
   });
 
   let id = 1;
