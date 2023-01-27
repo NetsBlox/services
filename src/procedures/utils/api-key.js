@@ -93,10 +93,16 @@ module.exports.AlphaVantageKey = new ApiKey(
     'ALPHA_VANTAGE_KEY'
 );
 
-module.exports.CatKey = new ApiKey(
-    'Cats',
-    'https://api.thecatapi.com/v1/images/search?api_key=YOUR_API_KEY',
-    'CAT_KEY'
+module.exports.TheCatApiKey = new ApiKey(
+    'TheCatApi',
+    'https://thecatapi.com/signup',
+    'THE_CAT_API_KEY'
+);
+
+module.exports.TheDogApiKey = new ApiKey(
+    'TheDogApi',
+    'https://thedogapi.com/signup',
+    'THE_DOG_API_KEY'
 );
 
 class InvalidKeyError extends Error {
