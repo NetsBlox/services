@@ -1,13 +1,13 @@
 const utils = require("./assets/utils");
 
-describe(utils.suiteName(__filename), function () {
+describe.only(utils.suiteName(__filename), function () {
   const APIKeys = utils.reqSrc("api-keys");
   const APIKey = utils.reqSrc("procedures/utils/api-key");
   const CloudClientBuilder = require("./assets/mock-cloud-client");
   const assert = require("assert");
-  const groupIds = ["g1", "g2"];
+  const groupId = "g1";
   const username = `user_api_key_test`;
-  const groups = groupIds.map((id) => ({ id, owner: username }));
+  const groups = [{ id: groupId, owner: username }];
 
   beforeEach(() =>
     cloudClient = CloudClientBuilder.builder()
@@ -27,13 +27,9 @@ describe(utils.suiteName(__filename), function () {
   it("should create group keys", async function () {
     const { username, type, value } = newKey();
     const apiKeys = new APIKeys(cloudClient);
-    await apiKeys.create(username, type, value, groupIds);
-    const groupKeys = await Promise.all(
-      groupIds.map((groupId) => apiKeys.list(username, groupId)),
-    );
-    const key = groupKeys.every((keys) =>
-      keys.find((key) => key.provider === type)
-    );
+    await apiKeys.create(username, type, value, groupId);
+    const groupKeys = await apiKeys.list(username, groupId);
+    const key = groupKeys.find((key) => key.provider === type);
     assert(key, `new key (${type}) not found`);
   });
 
@@ -59,23 +55,18 @@ describe(utils.suiteName(__filename), function () {
   it("should delete group keys", async function () {
     const { username, type, value } = newKey();
     const apiKeys = new APIKeys(cloudClient);
-    const groupIds = ["g1", "g2"];
-    await apiKeys.create(username, type, value, groupIds);
-    await apiKeys.delete(username, type, groupIds);
-    const allKeys = await Promise.all(
-      groupIds.map((id) => apiKeys.list(username, id)),
-    );
-    const groupWithKeys = allKeys.find((keys) =>
-      keys.find((key) => key.provider === type)
-    );
-    assert(!groupWithKeys, `key not removed from each group`);
+    await apiKeys.create(username, type, value, groupId);
+    await apiKeys.delete(username, type, groupId);
+    const keys = await apiKeys.list(username, id);
+    const key = keys.find((key) => key.provider === type);
+    assert(!key, `key not removed from each group`);
   });
 
-  it.only("should throw error if not-group owner", async function () {
+  it("should throw error if not-group owner", async function () {
     const { username, type, value } = newKey();
     const apiKeys = new APIKeys(cloudClient);
     const otherUser = "someUser";
-    await assert.rejects(apiKeys.create(otherUser, type, value, groupIds));
+    await assert.rejects(apiKeys.create(otherUser, type, value, groupId));
   });
 
   let id = 1;

@@ -67,15 +67,11 @@ class APIKeys {
    * Create a new API key. Overwrite any existing key with the same owner and
    * scope.
    */
-  async create(username, provider, value, groupIds) {
+  async create(username, provider, value, groupId) {
     // Technically, this isn't free from race conditions but shouldn't be a big deal since
     // only the owner can set these anyway
-    if (groupIds) {
-      await Promise.all(
-        groupIds.map((id) =>
-          this._createGroupKey(username, id, provider, value)
-        ),
-      );
+    if (groupId) {
+      await this._createGroupKey(username, groupId, provider, value);
     } else {
       await this._createUserKey(username, provider, value);
     }
@@ -96,13 +92,11 @@ class APIKeys {
     await this.cloud.setGroupServiceSettings(groupId, settings);
   }
 
-  async delete(owner, provider, groupIds) {
+  async delete(owner, provider, groupId) {
     // Technically, this isn't free from race conditions but shouldn't be a big deal since
     // only the owner can set these anyway
-    if (groupIds) {
-      await Promise.all(
-        groupIds.map((id) => this._deleteGroupKey(owner, id, provider)),
-      );
+    if (groupId) {
+      await this._deleteGroupKey(owner, groupId, provider);
     } else {
       await this._deleteUserKey(owner, provider);
     }
@@ -147,7 +141,6 @@ class APIKeys {
     router.route("/").get(async (req, res) => {
       const { username } = req.session;
       const { group } = req.query;
-      // FIXME: update this
       res.json(await this.list(username, group));
     });
 
@@ -158,7 +151,7 @@ class APIKeys {
     router.route("/:provider").post(handleUserErrors(async (req, res) => {
       const { provider } = req.params;
       const { username } = req.session;
-      const { value, groups } = req.body;
+      const { value, group } = req.body;
 
       const providers = this.getApiProviders().map(({ provider }) => provider);
       if (!providers.includes(provider)) {
@@ -173,15 +166,15 @@ class APIKeys {
         username,
         provider,
         value,
-        groups,
+        group,
       );
       res.sendStatus(200);
     }));
 
-    router.route("/:id").options((req, res) => {
+    router.route("/:provider").options((req, res) => {
       res.header(
         "Access-Control-Allow-Methods",
-        "POST, GET, OPTIONS, PUT, PATCH, DELETE",
+        "POST, GET, OPTIONS, DELETE",
       );
       res.sendStatus(204);
     });
@@ -189,8 +182,8 @@ class APIKeys {
     router.route("/:provider").delete(handleUserErrors(async (req, res) => {
       const { username } = req.session;
       const { provider } = req.params;
-      const { groupIds } = req.query; // TODO: check this works
-      const deleted = await this.delete(username, provider, groupIds);
+      const { group } = req.query;
+      const deleted = await this.delete(username, provider, group);
       res.json(deleted);
     }));
 
