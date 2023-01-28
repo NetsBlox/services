@@ -3,6 +3,7 @@ const Logger = require("./logger");
 const assert = require("assert");
 const _ = require("lodash");
 const APIKey = require("./procedures/utils/api-key");
+const { NotAllowedError } = require("./error");
 
 class APIKeys {
   constructor(cloud, logger) {
@@ -69,11 +70,30 @@ class APIKeys {
   async create(username, provider, value, groupIds) {
     // Technically, this isn't free from race conditions but shouldn't be a big deal since
     // only the owner can set these anyway
-    // TODO: add support for group IDs
+    if (groupIds) {
+      await Promise.all(
+        groupIds.map((id) =>
+          this._createGroupKey(username, id, provider, value)
+        ),
+      );
+    } else {
+      await this._createUserKey(username, provider, value);
+    }
+  }
+
+  async _createUserKey(username, provider, value) {
     const settings = await this.cloud.getUserServiceSettings(username);
     settings.apiKeys ||= {};
     settings.apiKeys[provider] = value;
     await this.cloud.setUserServiceSettings(username, settings);
+  }
+
+  async _createGroupKey(username, groupId, provider, value) {
+    await this._ensureCanEditGroup(username, groupId);
+    const settings = await this.cloud.getGroupServiceSettings(groupId);
+    settings.apiKeys ||= {};
+    settings.apiKeys[provider] = value;
+    await this.cloud.setGroupServiceSettings(groupId, settings);
   }
 
   async delete(owner, provider, groupIds) {
@@ -90,9 +110,22 @@ class APIKeys {
 
   async _deleteUserKey(username, provider) {
     const settings = await this.cloud.getUserServiceSettings(username);
+    delete settings.apiKeys[provider];
+    await this.cloud.setUserServiceSettings(username, settings);
   }
 
   async _deleteGroupKey(owner, groupId, provider) {
+    await this._ensureCanEditGroup(owner, groupId);
+    const settings = await this.cloud.getGroupServiceSettings(groupId);
+    delete settings.apiKeys[provider];
+    await this.cloud.setGroupServiceSettings(groupId, settings);
+  }
+
+  async _ensureCanEditGroup(username, groupId) {
+    const group = await this.cloud.viewGroup(groupId);
+    if (group.owner !== username) {
+      throw new NotAllowedError();
+    }
   }
 
   getAllApiKeys() {
@@ -110,7 +143,6 @@ class APIKeys {
 
   router() {
     const router = express.Router({ mergeParams: true });
-    const EDITABLE_DOC_KEYS = ["value", "isGroupDefault", "groups"];
 
     router.route("/").get(async (req, res) => {
       const { username } = req.session;
@@ -123,19 +155,20 @@ class APIKeys {
       res.json(this.getApiProviders());
     });
 
-    router.route("/:provider").post(async (req, res) => {
+    router.route("/:provider").post(handleUserErrors(async (req, res) => {
       const { provider } = req.params;
       const { username } = req.session;
       const { value, groups } = req.body;
 
       const providers = this.getApiProviders().map(({ provider }) => provider);
       if (!providers.includes(provider)) {
-        return res.status(400).send(`Invalid provider: ${provider}`);
+        throw new InvalidKeyProviderError(provider);
       }
 
       if (!value) {
-        return res.status(400).send("Missing required field: value");
+        throw new MissingFieldError("value");
       }
+
       const result = await this.create(
         username,
         provider,
@@ -143,31 +176,7 @@ class APIKeys {
         groups,
       );
       res.sendStatus(200);
-    });
-
-    router.route("/").patch(async (req, res) => {
-      const { username } = req.session;
-      const { id } = req.body;
-      if (!id) {
-        return res.status(400).send("Missing required field: id");
-      }
-      const query = {
-        _id: ObjectId(id),
-        owner: username,
-      };
-      // TODO: update this...
-      const keys = EDITABLE_DOC_KEYS
-        .filter((key) => Object.prototype.hasOwnProperty.call(req.body, key));
-      const update = { $set: _.pick(req.body, keys) };
-      const doc = await this.collection.findOneAndUpdate(
-        query,
-        update,
-        { returnNewDocument: true },
-      );
-
-      // TODO:
-      res.json(doc.value);
-    });
+    }));
 
     router.route("/:id").options((req, res) => {
       res.header(
@@ -176,13 +185,14 @@ class APIKeys {
       );
       res.sendStatus(204);
     });
-    router.route("/:provider").delete(async (req, res) => {
-      // TODO: get the group IDs and use them
+
+    router.route("/:provider").delete(handleUserErrors(async (req, res) => {
       const { username } = req.session;
       const { provider } = req.params;
+      const { groupIds } = req.query; // TODO: check this works
       const deleted = await this.delete(username, provider, groupIds);
       res.json(deleted);
-    });
+    }));
 
     return router;
   }
@@ -194,5 +204,5 @@ class UserApiKey {
     this.value = value;
   }
 }
-// TODO: can we separate out the storage/client?
+
 module.exports = APIKeys;

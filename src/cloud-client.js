@@ -61,6 +61,11 @@ class NetsBloxCloud {
     return await fetch(url, options);
   }
 
+  async viewGroup(groupId) {
+    const url = `/groups/id/${groupId}`;
+    return await this.get(url);
+  }
+
   // Service Settings
   async getServiceSettings(username) {
     const url = `/services/settings/user/${username}/${this.id}/all`;
@@ -82,6 +87,19 @@ class NetsBloxCloud {
 
   async setUserServiceSettings(username, settings) {
     const url = `/services/settings/user/${username}/${this.id}`;
+    const response = await this.post(url, settings);
+    const isOk = response.status > 199 && response.status < 400;
+    return isOk; // FIXME: throwing might be better...
+  }
+
+  async getGroupServiceSettings(groupId) {
+    const url = `/services/settings/group/${groupId}/${this.id}`;
+    const settings = await this.get(url);
+    return JSON.parse(settings);
+  }
+
+  async setGroupServiceSettings(groupId, settings) {
+    const url = `/services/settings/group/${groupId}/${this.id}`;
     const response = await this.post(url, settings);
     const isOk = response.status > 199 && response.status < 400;
     return isOk; // FIXME: throwing might be better...
