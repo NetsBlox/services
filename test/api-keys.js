@@ -1,6 +1,6 @@
 const utils = require("./assets/utils");
 
-describe.only(utils.suiteName(__filename), function () {
+describe(utils.suiteName(__filename), function () {
   const APIKeys = utils.reqSrc("api-keys");
   const APIKey = utils.reqSrc("procedures/utils/api-key");
   const CloudClientBuilder = require("./assets/mock-cloud-client");
