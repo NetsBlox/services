@@ -69,9 +69,12 @@ function formatDate(date) {
     return `${padNumber(date.getFullYear(), 4)}/${padNumber(date.getMonth() + 1, 2)}/${padNumber(date.getDate(), 2)}`;
 }
 
-const { DATA, SPECIES } = (function() {
+const { DATA, SPECIES, CAMERAS } = (function() {
     const csvLines = fs.readFileSync(CSV_PATH, 'utf8').split(/\r?\n/);
     const res = {};
+
+    const locToCamera = {};
+    const locString = (lat, long) => `${lat.trim()}x${long.trim()}`;
 
     for (let i = 1; i < csvLines.length; ++i) {
         try {
@@ -99,6 +102,12 @@ const { DATA, SPECIES } = (function() {
                 adults: strictParseInt(items[15]),
                 young: strictParseInt(items[21] || '0'),
             });
+
+            locToCamera[locString(items[3], items[2])] = {
+                latitude: entry.latitude,
+                longitude: entry.longitude,
+                vegetationType: entry.vegetationType,
+            };
         } catch (ex) {
             throw new Error(`line ${i+1}: ${ex}`);
         }
@@ -122,7 +131,12 @@ const { DATA, SPECIES } = (function() {
         baseParams: SPECIES,
     });
 
-    return { DATA, SPECIES };
+    const CAMERAS = [];
+    for (const loc in locToCamera) {
+        CAMERAS.push(locToCamera[loc]);
+    }
+
+    return { DATA, SPECIES, CAMERAS };
 })();
 
 /**
@@ -131,6 +145,30 @@ const { DATA, SPECIES } = (function() {
  */
 Wildcam.getSpeciesList = function() {
     return SPECIES;
+};
+
+/**
+ * Returns all the cameras that are stored in the database, optionally filtering by proximity to a central location.
+ * @param {Latitude=} latitude Filters results to only cameras within a given distance from a central location. Requires ``longitude`` and ``radius`` also be set.
+ * @param {Longitude=} longitude Filters results to only cameras within a given distance from a central location. Requires ``latitude`` and ``radius`` also be set.
+ * @param {BoundedNumber<0>=} radius Filters results to only cameras within a given distance (in meters) from a central location. Requires ``latitude`` and ``longitude`` also be set.
+ * @returns {Array<Object>} All found cameras
+ */
+Wildcam.getCameras = function(latitude = null, longitude = null, radius = null) {
+    const center = { latitude, longitude };
+    if (latitude !== null || longitude !== null || radius !== null) {
+        if (latitude === null || longitude === null || radius === null) {
+            throw Error('Distance filtering requires three params: latitude, longitude, AND radius');
+        }
+    }
+
+    return CAMERAS.filter(x => {
+        if (radius !== null) {
+            const dist = geolib.getDistance(center, { latitude: x.latitude, longitude: x.longitude });
+            if (dist > radius) return false;
+        }
+        return true;
+    });
 };
 
 /**
@@ -143,7 +181,7 @@ Wildcam.getSpeciesList = function() {
  * @param {Species=} species Filters results to only entries which contained the requested species. If omitted, no species filtering is performed.
  * @param {Latitude=} latitude Filters results to only entries within a given distance from a central location. Requires ``longitude`` and ``radius`` also be set.
  * @param {Longitude=} longitude Filters results to only entries within a given distance from a central location. Requires ``latitude`` and ``radius`` also be set.
- * @param {BoundedNumber<0>=} radius Filters results to only entries within a given distance from a central location. Requires ``latitude`` and ``longitude`` also be set.
+ * @param {BoundedNumber<0>=} radius Filters results to only entries within a given distance (in meters) from a central location. Requires ``latitude`` and ``longitude`` also be set.
  * @returns {Array<Object>} All data entries matching the search, in chronological order
  */
 Wildcam.search = function (startDate = null, stopDate = null, species = null, latitude = null, longitude = null, radius = null) {
@@ -168,6 +206,17 @@ Wildcam.search = function (startDate = null, stopDate = null, species = null, la
         }
         return true;
     });
+};
+
+/**
+ * Equivalent to :func:`Wildcam.search`, but can filter to only images taken by a specific camera.
+ * @param {Date=} startDate The earliest date to include in the results. If omitted, no starting cutoff is used for filtering.
+ * @param {Date=} stopDate The latest date to include in the results. If omitted, no stopping cutoff is used for filtering.
+ * @param {Species=} species Filters results to only entries which contained the requested species. If omitted, no species filtering is performed.
+ * @param {Object=} camera Filters results to only entries taken by a specific camera. If omitted, no camera-based filtering is performed.
+ */
+Wildcam.searchByCamera = function (startDate = null, stopDate = null, species = null, camera = null) {
+    return Wildcam.search(startDate, stopDate, species, camera?.latitude, camera?.longitude, camera ? 10 : null); // small radius (meters) to make sure slight movement isn't a problem
 };
 
 /**
