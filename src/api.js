@@ -8,6 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const routeUtils = require("./procedures/utils/router-utils");
 const NetsBloxCloud = require("./cloud-client");
+const { UserError } = require("./error");
 
 class ServicesAPI {
   constructor() {

@@ -3,7 +3,7 @@ const Logger = require("./logger");
 const assert = require("assert");
 const _ = require("lodash");
 const APIKey = require("./procedures/utils/api-key");
-const { NotAllowedError } = require("./error");
+const { NotAllowedError, handleUserErrors } = require("./error");
 
 class APIKeys {
   constructor(cloud, logger) {
@@ -151,7 +151,8 @@ class APIKeys {
     router.route("/:provider").post(handleUserErrors(async (req, res) => {
       const { provider } = req.params;
       const { username } = req.session;
-      const { value, group } = req.body;
+      const { group } = req.query;
+      const { value } = req.body;
 
       const providers = this.getApiProviders().map(({ provider }) => provider);
       if (!providers.includes(provider)) {
