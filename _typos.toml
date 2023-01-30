@@ -26,7 +26,10 @@ extend-exclude = [
     "src/procedures/ice-core-data/data/domec-deuterium/*.txt",
     "src/procedures/nexrad-radar/RadarLocations.js",
     "src/procedures/word-guess/dict/*.*",
-    "/src/procedures/financial-data/currency-types.js",
+    "src/procedures/financial-data/currency-types.js",
+
+    # misc
+    "test/utils.spec.js",
 ]
 
 [type.js]
