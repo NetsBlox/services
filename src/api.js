@@ -166,7 +166,6 @@ class ServicesAPI {
     } else {
       return true;
     }
-
     return false;
   }
 
@@ -191,15 +190,14 @@ class ServicesAPI {
       clientId,
     };
     const apiKey = this.services.getApiKey(serviceName);
-    console.log({ apiKey });
-    if (apiKey) {
+    const isLoggedIn = !!username;
+    if (apiKey && isLoggedIn) {
       // TODO: handle invalid settings (parse error)
       const settings = await NetsBloxCloud.getServiceSettings(username);
       const apiKeyValue = await this.keys.get(username, apiKey);
       if (apiKeyValue) {
         ctx.apiKey = apiKeyValue;
       }
-      console.log("key", ctx.apiKey);
     }
     ctx.socket = new RemoteClient(projectId, roleId, clientId);
 
