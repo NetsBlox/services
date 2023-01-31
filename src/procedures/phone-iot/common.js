@@ -195,7 +195,7 @@ common.SENSOR_PACKERS = {
     return { temp: vals[0] };
   },
   "humidity": (vals) => {
-    return { relative: vals[0] };
+    return { humidity: vals[0] };
   },
 };
 common.DEPRECATED_SENSORS = new Set([

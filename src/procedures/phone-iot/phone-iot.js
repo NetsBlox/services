@@ -1342,7 +1342,7 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    *
    * @category Sensors
    * @param {Device} device id of the device
-   * @returns {Number} current light level
+   * @returns {Number} current pressure level
    */
   PhoneIoT.prototype.getPressure = function (device) {
     return this._passToDevice("getPressure", arguments);
@@ -1356,7 +1356,7 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    *
    * @category Sensors
    * @param {Device} device id of the device
-   * @returns {Number} current light level
+   * @returns {Number} current temperature
    */
   PhoneIoT.prototype.getTemperature = function (device) {
     return this._passToDevice("getTemperature", arguments);
@@ -1366,16 +1366,15 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    *
    * Sensor name: ``humidity``
    *
-   * Message fields: ``relative``, ``device``
+   * Message fields: ``humidity``, ``device``
    *
    * @category Sensors
    * @param {Device} device id of the device
-   * @returns {Number} current light level
+   * @returns {Number} current relative humidity
    */
   PhoneIoT.prototype.getRelativeHumidity = function (device) {
     return this._passToDevice("getRelativeHumidity", arguments);
   };
-
   /**
    * Gets the displayed image of an image-like control with the given ID.
    * This can be used on any control that displays images, which is currently only image displays.
