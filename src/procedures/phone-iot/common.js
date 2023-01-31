@@ -157,24 +157,46 @@ function packOrientation(vals) {
   return { x: vals[0], y: vals[1], z: vals[2], heading, dir, cardinalDir };
 }
 common.SENSOR_PACKERS = {
-    'gravity': packXYZ,
-    'gyroscope': packXYZ,
-    'orientation': packOrientation,
-    'accelerometer': packAcceleration,
-    'magneticField': packXYZ,
-    'rotation': packXYZW,
-    'linearAcceleration': packXYZ,
-    'gameRotation': packXYZ,
-    // also send 'value' for backwards compat - now called 'level'
-    'lightLevel': vals => { return { level: vals[0], value: vals[0] }; },
-    'microphoneLevel': vals => { return { volume: vals[0] }; },
-    'proximity': vals => { return { distance: vals[0] }; },
-    'stepCount': vals => { return { count: vals[0] }; },
-    // also send 'bearing' for backwards compat - now correctly called 'heading'
-    'location': vals => { return { latitude: vals[0], longitude: vals[1], heading: vals[2], bearing: vals[2], altitude: vals[3] }; },
-    'pressure': vals => { return { pressure: vals[0] }; },
-    'temperature': vals => { return { temp: vals[0] }; },
-    'humidity': vals => { return { humidity: vals[0] }; },
+  "gravity": packXYZ,
+  "gyroscope": packXYZ,
+  "orientation": packOrientation,
+  "accelerometer": packAcceleration,
+  "magneticField": packXYZ,
+  "rotation": packXYZW,
+  "linearAcceleration": packXYZ,
+  "gameRotation": packXYZ,
+  // also send 'value' for backwards compat - now called 'level'
+  "lightLevel": (vals) => {
+    return { level: vals[0], value: vals[0] };
+  },
+  "microphoneLevel": (vals) => {
+    return { volume: vals[0] };
+  },
+  "proximity": (vals) => {
+    return { distance: vals[0] };
+  },
+  "stepCount": (vals) => {
+    return { count: vals[0] };
+  },
+  // also send 'bearing' for backwards compat - now correctly called 'heading'
+  "location": (vals) => {
+    return {
+      latitude: vals[0],
+      longitude: vals[1],
+      heading: vals[2],
+      bearing: vals[2],
+      altitude: vals[3],
+    };
+  },
+  "pressure": (vals) => {
+    return { pressure: vals[0] };
+  },
+  "temperature": (vals) => {
+    return { temp: vals[0] };
+  },
+  "humidity": (vals) => {
+    return { humidity: vals[0] };
+  },
 };
 common.DEPRECATED_SENSORS = new Set([
   "rotation",

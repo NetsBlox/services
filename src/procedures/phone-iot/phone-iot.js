@@ -1286,95 +1286,95 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
     return this._passToDevice("getAltitude", arguments);
   };
 
-    /**
-     * Gets the current output of the proximity (distance) sensor, measured in cm.
-     * Phones typically have this sensor for turning off the display when you put it to your ear, but tablets typically do not.
-     * In any case, the distances are not typically very long, and some devices only have binary (near/far) sensors.
-     * 
-     * Sensor name: ``proximity``
-     * 
-     * Message fields: ``distance``, ``device``
-     * 
-     * @category Sensors
-     * @param {Device} device id of the device
-     * @returns {Number} current proximity sensor output
-     */
-    PhoneIoT.prototype.getProximity = function (device) {
-        return this._passToDevice('getProximity', arguments);
-    };
-    /**
-     * Gets the current step count from the device's step counter sensor.
-     * Not all devices have a step counter sensor, but you can manually emulate one by using the accelerometer.
-     * 
-     * Sensor name: ``stepCount``
-     * 
-     * Message fields: ``count``, ``device``
-     * 
-     * @category Sensors
-     * @param {Device} device id of the device
-     * @returns {Number} current step count
-     */
-    PhoneIoT.prototype.getStepCount = function (device) {
-        return this._passToDevice('getStepCount', arguments);
-    };
-    /**
-     * Gets the current light level from the device.
-     * This is represented as a number with higher values being brighter.
-     * 
-     * Sensor name: ``lightLevel``
-     * 
-     * Message fields: ``level``, ``device``
-     * 
-     * @category Sensors
-     * @param {Device} device id of the device
-     * @returns {Number} current light level
-     */
-    PhoneIoT.prototype.getLightLevel = function (device) {
-        return this._passToDevice('getLightLevel', arguments);
-    };
-    /**
-     * Gets the current atmospheric pressure around the device in kPa (kilopascals).
-     * For reference, ``1`` atmosphere of pressure is ``101.325`` kPa.
-     * 
-     * Sensor name: ``pressure``
-     * 
-     * Message fields: ``pressure``, ``device``
-     * 
-     * @category Sensors
-     * @param {Device} device id of the device
-     * @returns {Number} current pressure level
-     */
-    PhoneIoT.prototype.getPressure = function (device) {
-        return this._passToDevice('getPressure', arguments);
-    };
-    /**
-     * Gets the current ambient temperature around the device in Celsius.
-     * 
-     * Sensor name: ``temperature``
-     * 
-     * Message fields: ``temp``, ``device``
-     * 
-     * @category Sensors
-     * @param {Device} device id of the device
-     * @returns {Number} current temperature
-     */
-    PhoneIoT.prototype.getTemperature = function (device) {
-        return this._passToDevice('getTemperature', arguments);
-    };
-    /**
-     * Gets the relative humidity as a percent.
-     * 
-     * Sensor name: ``humidity``
-     * 
-     * Message fields: ``humidity``, ``device``
-     * 
-     * @category Sensors
-     * @param {Device} device id of the device
-     * @returns {Number} current relative humidity
-     */
-     PhoneIoT.prototype.getRelativeHumidity = function (device) {
-        return this._passToDevice('getRelativeHumidity', arguments);
-    };
+  /**
+   * Gets the current output of the proximity (distance) sensor, measured in cm.
+   * Phones typically have this sensor for turning off the display when you put it to your ear, but tablets typically do not.
+   * In any case, the distances are not typically very long, and some devices only have binary (near/far) sensors.
+   *
+   * Sensor name: ``proximity``
+   *
+   * Message fields: ``distance``, ``device``
+   *
+   * @category Sensors
+   * @param {Device} device id of the device
+   * @returns {Number} current proximity sensor output
+   */
+  PhoneIoT.prototype.getProximity = function (device) {
+    return this._passToDevice("getProximity", arguments);
+  };
+  /**
+   * Gets the current step count from the device's step counter sensor.
+   * Not all devices have a step counter sensor, but you can manually emulate one by using the accelerometer.
+   *
+   * Sensor name: ``stepCount``
+   *
+   * Message fields: ``count``, ``device``
+   *
+   * @category Sensors
+   * @param {Device} device id of the device
+   * @returns {Number} current step count
+   */
+  PhoneIoT.prototype.getStepCount = function (device) {
+    return this._passToDevice("getStepCount", arguments);
+  };
+  /**
+   * Gets the current light level from the device.
+   * This is represented as a number with higher values being brighter.
+   *
+   * Sensor name: ``lightLevel``
+   *
+   * Message fields: ``level``, ``device``
+   *
+   * @category Sensors
+   * @param {Device} device id of the device
+   * @returns {Number} current light level
+   */
+  PhoneIoT.prototype.getLightLevel = function (device) {
+    return this._passToDevice("getLightLevel", arguments);
+  };
+  /**
+   * Gets the current atmospheric pressure around the device in kPa (kilopascals).
+   * For reference, ``1`` atmosphere of pressure is ``101.325`` kPa.
+   *
+   * Sensor name: ``pressure``
+   *
+   * Message fields: ``pressure``, ``device``
+   *
+   * @category Sensors
+   * @param {Device} device id of the device
+   * @returns {Number} current pressure level
+   */
+  PhoneIoT.prototype.getPressure = function (device) {
+    return this._passToDevice("getPressure", arguments);
+  };
+  /**
+   * Gets the current ambient temperature around the device in Celsius.
+   *
+   * Sensor name: ``temperature``
+   *
+   * Message fields: ``temp``, ``device``
+   *
+   * @category Sensors
+   * @param {Device} device id of the device
+   * @returns {Number} current temperature
+   */
+  PhoneIoT.prototype.getTemperature = function (device) {
+    return this._passToDevice("getTemperature", arguments);
+  };
+  /**
+   * Gets the relative humidity as a percent.
+   *
+   * Sensor name: ``humidity``
+   *
+   * Message fields: ``humidity``, ``device``
+   *
+   * @category Sensors
+   * @param {Device} device id of the device
+   * @returns {Number} current relative humidity
+   */
+  PhoneIoT.prototype.getRelativeHumidity = function (device) {
+    return this._passToDevice("getRelativeHumidity", arguments);
+  };
   /**
    * Gets the displayed image of an image-like control with the given ID.
    * This can be used on any control that displays images, which is currently only image displays.
