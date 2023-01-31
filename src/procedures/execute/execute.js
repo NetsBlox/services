@@ -13,8 +13,8 @@ const Execute = {};
  * @param {Function} fn function (ringified blocks) to execute
  * @returns {Any} return value of ``fn``
  */
-Execute.call = async function(fn) {
-    return await fn();
+Execute.call = async function (fn) {
+  return await fn();
 };
 
 module.exports = Execute;
