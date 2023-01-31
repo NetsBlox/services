@@ -194,7 +194,7 @@ class ServicesAPI {
     if (apiKey && isLoggedIn) {
       // TODO: handle invalid settings (parse error)
       const settings = await NetsBloxCloud.getServiceSettings(username);
-      const apiKeyValue = await this.keys.get(username, apiKey);  // TODO: double check this
+      const apiKeyValue = await this.keys.get(username, apiKey); // TODO: double check this
       if (apiKeyValue) {
         ctx.apiKey = apiKeyValue;
       }
