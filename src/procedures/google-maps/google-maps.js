@@ -6,141 +6,159 @@
  * @service
  * @category Location
  */
-'use strict';
+"use strict";
 
-const logger = require('../utils/logger')('google-maps');
-const utils = require('../utils');
-const ApiConsumer = require('../utils/api-consumer');
-const {GoogleMapsKey} = require('../utils/api-key');
-const SphericalMercator = require('sphericalmercator');
-const geolib = require('geolib');
-const merc = new SphericalMercator({size:256});
-const Storage = require('../../storage');
+const logger = require("../utils/logger")("google-maps");
+const utils = require("../utils");
+const ApiConsumer = require("../utils/api-consumer");
+const { GoogleMapsKey } = require("../utils/api-key");
+const SphericalMercator = require("sphericalmercator");
+const geolib = require("geolib");
+const merc = new SphericalMercator({ size: 256 });
+const Storage = require("../../storage");
 const PRECISION = 7; // 6 or 5 is probably safe
 
 var storage;
 
 // Retrieving a static map image
-const getStorage = function() {
-    if (!storage) {
-        const oneHour = 3600;
-        storage = Storage.create('google-maps').collection;
-        storage.createIndex({ lastReadWrite: 1 }, { expireAfterSeconds: oneHour });
-    }
-    return storage;
+const getStorage = function () {
+  if (!storage) {
+    const oneHour = 3600;
+    storage = Storage.create("google-maps").collection;
+    storage.createIndex({ lastReadWrite: 1 }, { expireAfterSeconds: oneHour });
+  }
+  return storage;
 };
 
-const baseUrl = 'https://maps.googleapis.com/maps/api/staticmap';
-
+const baseUrl = "https://maps.googleapis.com/maps/api/staticmap";
 
 // We will rely on the default maxsize limit of the cache
-const GoogleMaps = new ApiConsumer('GoogleMaps', baseUrl, {cache: {ttl: Infinity}});
+const GoogleMaps = new ApiConsumer("GoogleMaps", baseUrl, {
+  cache: { ttl: Infinity },
+});
 ApiConsumer.setRequiredApiKey(GoogleMaps, GoogleMapsKey);
-GoogleMaps._coordsAt = function(x, y, map) {
-    x = Math.ceil(x / map.scale);
-    y = Math.ceil(y / map.scale);
-    let centerLl = [map.center.lon, map.center.lat];
-    let centerPx = merc.px(centerLl, map.zoom);
-    let targetPx = [centerPx[0] + parseInt(x), centerPx[1] - parseInt(y)];
-    let targetLl = merc.ll(targetPx, map.zoom); // long lat
-    let coords = {lat: targetLl[1], lon: targetLl[0]};
-    if (coords.lon < -180) coords.lon = coords.lon + 360;
-    if (coords.lon > 180) coords.lon = coords.lon - 360;
-    return coords;
+GoogleMaps._coordsAt = function (x, y, map) {
+  x = Math.ceil(x / map.scale);
+  y = Math.ceil(y / map.scale);
+  let centerLl = [map.center.lon, map.center.lat];
+  let centerPx = merc.px(centerLl, map.zoom);
+  let targetPx = [centerPx[0] + parseInt(x), centerPx[1] - parseInt(y)];
+  let targetLl = merc.ll(targetPx, map.zoom); // long lat
+  let coords = { lat: targetLl[1], lon: targetLl[0] };
+  if (coords.lon < -180) coords.lon = coords.lon + 360;
+  if (coords.lon > 180) coords.lon = coords.lon - 360;
+  return coords;
 };
 
-GoogleMaps._pixelsAt = function(lat, lon, map) {
-    // current latlon in px
-    let curPx = merc.px([map.center.lon, map.center.lat], map.zoom);
-    // new latlon in px
-    let targetPx = merc.px([lon, lat], map.zoom);
-    // difference in px
-    let pixelsXY = {x: (targetPx[0] - curPx[0]), y: -(targetPx[1] - curPx[1])};
-    // adjust it to map's scale
-    pixelsXY = {x: pixelsXY.x * map.scale, y: pixelsXY.y * map.scale};
-    return pixelsXY;
+GoogleMaps._pixelsAt = function (lat, lon, map) {
+  // current latlon in px
+  let curPx = merc.px([map.center.lon, map.center.lat], map.zoom);
+  // new latlon in px
+  let targetPx = merc.px([lon, lat], map.zoom);
+  // difference in px
+  let pixelsXY = { x: (targetPx[0] - curPx[0]), y: -(targetPx[1] - curPx[1]) };
+  // adjust it to map's scale
+  pixelsXY = { x: pixelsXY.x * map.scale, y: pixelsXY.y * map.scale };
+  return pixelsXY;
 };
 
-GoogleMaps._toPrecision = function(number, precisionLimit = PRECISION) {
-    return parseFloat(number).toFixed(precisionLimit);
+GoogleMaps._toPrecision = function (number, precisionLimit = PRECISION) {
+  return parseFloat(number).toFixed(precisionLimit);
 };
 
-GoogleMaps._getGoogleParams = function(options) {
-    const params = {
-        size: `${options.width}x${options.height}`,
-        scale: options.scale,
-        center: `${options.center.lat},${options.center.lon}`,
-        key: this.apiKey.value,
-        zoom: options.zoom || 12,
-        maptype: options.mapType
-    };
+GoogleMaps._getGoogleParams = function (options) {
+  const params = {
+    size: `${options.width}x${options.height}`,
+    scale: options.scale,
+    center: `${options.center.lat},${options.center.lon}`,
+    key: this.apiKey.value,
+    zoom: options.zoom || 12,
+    maptype: options.mapType,
+  };
 
-    return utils.encodeQueryData(params, false);
+  return utils.encodeQueryData(params, false);
 };
 
-GoogleMaps._getClientMap = function(clientId) {
-    logger.trace(`getting map for ${clientId}`);
+GoogleMaps._getClientMap = function (clientId) {
+  logger.trace(`getting map for ${clientId}`);
 
-    const query = {$set: {lastReadWrite: new Date()}};
-    return getStorage().findOneAndUpdate({clientId}, query)
-        .then(result => {
-            const doc = result.value;
-            if (!doc) {
-                throw new Error('No map found. Please request a map and try again.');
-            }
-            return doc.map;
-        });
+  const query = { $set: { lastReadWrite: new Date() } };
+  return getStorage().findOneAndUpdate({ clientId }, query)
+    .then((result) => {
+      const doc = result.value;
+      if (!doc) {
+        throw new Error("No map found. Please request a map and try again.");
+      }
+      return doc.map;
+    });
 };
 
-GoogleMaps._recordUserMap = function(caller, map) {
-    // Store the user's new map settings
-    // get the corners of the image. We need to actually get both they are NOT "just opposite" of each other.
-    const {clientId} = caller;
-    let northEastCornerCoords = this._coordsAt(map.width/2*map.scale, map.height/2*map.scale , map);
-    let southWestCornerCoords = this._coordsAt(-map.width/2*map.scale, -map.height/2*map.scale , map);
+GoogleMaps._recordUserMap = function (caller, map) {
+  // Store the user's new map settings
+  // get the corners of the image. We need to actually get both they are NOT "just opposite" of each other.
+  const { clientId } = caller;
+  let northEastCornerCoords = this._coordsAt(
+    map.width / 2 * map.scale,
+    map.height / 2 * map.scale,
+    map,
+  );
+  let southWestCornerCoords = this._coordsAt(
+    -map.width / 2 * map.scale,
+    -map.height / 2 * map.scale,
+    map,
+  );
 
-    map.min = {
-        lat: southWestCornerCoords.lat,
-        lon: southWestCornerCoords.lon
-    };
-    map.max = {
-        lat: northEastCornerCoords.lat,
-        lon: northEastCornerCoords.lon
-    };
+  map.min = {
+    lat: southWestCornerCoords.lat,
+    lon: southWestCornerCoords.lon,
+  };
+  map.max = {
+    lat: northEastCornerCoords.lat,
+    lon: northEastCornerCoords.lon,
+  };
 
-    const query = {
-        $set: {
-            lastReadWrite: new Date(),
-            clientId,
-            map,
-        }
-    };
-    return getStorage().updateOne({clientId}, query, {upsert: true})
-        .then(() => logger.trace(`Stored map for ${caller.clientId}: ${JSON.stringify(map)}`));
+  const query = {
+    $set: {
+      lastReadWrite: new Date(),
+      clientId,
+      map,
+    },
+  };
+  return getStorage().updateOne({ clientId }, query, { upsert: true })
+    .then(() =>
+      logger.trace(`Stored map for ${caller.clientId}: ${JSON.stringify(map)}`)
+    );
 };
 
-GoogleMaps._getMap = async function(latitude, longitude, width, height, zoom, mapType) {
-    // google maps imposes these limits currently - enforce them here as well for future proofing so overlays have reliable expectations
-    width = Math.min(width, 1280);
-    height = Math.min(height, 1280);
+GoogleMaps._getMap = async function (
+  latitude,
+  longitude,
+  width,
+  height,
+  zoom,
+  mapType,
+) {
+  // google maps imposes these limits currently - enforce them here as well for future proofing so overlays have reliable expectations
+  width = Math.min(width, 1280);
+  height = Math.min(height, 1280);
 
-    const scale = width <= 640 && height <= 640 ? 1 : 2;
-    const options = {
-        center: {
-            lat: GoogleMaps._toPrecision(latitude),
-            lon: GoogleMaps._toPrecision(longitude)
-        },
-        width: Math.floor(width / scale),   // floor for consistency going forward
-        height: Math.floor(height / scale), // floor for consistency going forward
-        zoom: zoom,
-        scale,
-        mapType: mapType || 'roadmap',
-    };
-    const queryString = this._getGoogleParams(options);
-    const cacheKey = JSON.stringify(options);
+  const scale = width <= 640 && height <= 640 ? 1 : 2;
+  const options = {
+    center: {
+      lat: GoogleMaps._toPrecision(latitude),
+      lon: GoogleMaps._toPrecision(longitude),
+    },
+    width: Math.floor(width / scale), // floor for consistency going forward
+    height: Math.floor(height / scale), // floor for consistency going forward
+    zoom: zoom,
+    scale,
+    mapType: mapType || "roadmap",
+  };
+  const queryString = this._getGoogleParams(options);
+  const cacheKey = JSON.stringify(options);
 
-    await this._recordUserMap(this.caller, options);
-    return this._sendImage({queryString, cacheKey});
+  await this._recordUserMap(this.caller, options);
+  return this._sendImage({ queryString, cacheKey });
 };
 
 /**
@@ -152,9 +170,8 @@ GoogleMaps._getMap = async function(latitude, longitude, width, height, zoom, ma
  * @param {BoundedInteger<1,25>} zoom Zoom level of map image
  * @returns {Image} Map image
  */
-GoogleMaps.getMap = function(latitude, longitude, width, height, zoom){
-
-    return this._getMap(latitude, longitude, width, height, zoom, 'roadmap');
+GoogleMaps.getMap = function (latitude, longitude, width, height, zoom) {
+  return this._getMap(latitude, longitude, width, height, zoom, "roadmap");
 };
 
 /**
@@ -166,9 +183,14 @@ GoogleMaps.getMap = function(latitude, longitude, width, height, zoom){
  * @param {BoundedInteger<1,25>} zoom Zoom level of map image
  * @returns {Image} Map image
  */
-GoogleMaps.getSatelliteMap = function(latitude, longitude, width, height, zoom){
-
-    return this._getMap(latitude, longitude, width, height, zoom, 'satellite');
+GoogleMaps.getSatelliteMap = function (
+  latitude,
+  longitude,
+  width,
+  height,
+  zoom,
+) {
+  return this._getMap(latitude, longitude, width, height, zoom, "satellite");
 };
 
 /**
@@ -180,9 +202,8 @@ GoogleMaps.getSatelliteMap = function(latitude, longitude, width, height, zoom){
  * @param {BoundedInteger<1,25>} zoom Zoom level of map image
  * @returns {Image} Map image
  */
-GoogleMaps.getTerrainMap = function(latitude, longitude, width, height, zoom){
-
-    return this._getMap(latitude, longitude, width, height, zoom, 'terrain');
+GoogleMaps.getTerrainMap = function (latitude, longitude, width, height, zoom) {
+  return this._getMap(latitude, longitude, width, height, zoom, "terrain");
 };
 
 /**
@@ -190,10 +211,10 @@ GoogleMaps.getTerrainMap = function(latitude, longitude, width, height, zoom){
  * @param {Longitude} longitude Longitude coordinate
  * @returns {Number} Map x coordinate of the given longitude
  */
-GoogleMaps.getXFromLongitude = async function(longitude) {
-    const mapInfo = await this._getClientMap(this.caller.clientId);
-    let pixels = this._pixelsAt(0, longitude, mapInfo);
-    return pixels.x;
+GoogleMaps.getXFromLongitude = async function (longitude) {
+  const mapInfo = await this._getClientMap(this.caller.clientId);
+  let pixels = this._pixelsAt(0, longitude, mapInfo);
+  return pixels.x;
 };
 
 /**
@@ -201,10 +222,10 @@ GoogleMaps.getXFromLongitude = async function(longitude) {
  * @param {Latitude} latitude Latitude coordinate
  * @returns {Number} Map y coordinate of the given latitude
  */
-GoogleMaps.getYFromLatitude = async function(latitude) {
-    const mapInfo = await this._getClientMap(this.caller.clientId);
-    let pixels = this._pixelsAt(latitude, 0, mapInfo);
-    return pixels.y;
+GoogleMaps.getYFromLatitude = async function (latitude) {
+  const mapInfo = await this._getClientMap(this.caller.clientId);
+  let pixels = this._pixelsAt(latitude, 0, mapInfo);
+  return pixels.y;
 };
 
 /**
@@ -212,10 +233,10 @@ GoogleMaps.getYFromLatitude = async function(latitude) {
  * @param {Number} x x value of map image
  * @returns {Longitude} Longitude of the x value from the image
  */
-GoogleMaps.getLongitudeFromX = async function(x){
-    const mapInfo = await this._getClientMap(this.caller.clientId);
-    let coords = this._coordsAt(x, 0, mapInfo);
-    return coords.lon;
+GoogleMaps.getLongitudeFromX = async function (x) {
+  const mapInfo = await this._getClientMap(this.caller.clientId);
+  let coords = this._coordsAt(x, 0, mapInfo);
+  return coords.lon;
 };
 
 /**
@@ -223,10 +244,10 @@ GoogleMaps.getLongitudeFromX = async function(x){
  * @param {Number} y y value of map image
  * @returns {Latitude} Latitude of the ``y`` value from the image
  */
-GoogleMaps.getLatitudeFromY = async function(y){
-    const mapInfo = await this._getClientMap(this.caller.clientId);
-    let coords = this._coordsAt(0, y, mapInfo);
-    return coords.lat;
+GoogleMaps.getLatitudeFromY = async function (y) {
+  const mapInfo = await this._getClientMap(this.caller.clientId);
+  let coords = this._coordsAt(0, y, mapInfo);
+  return coords.lat;
 };
 
 /**
@@ -236,8 +257,8 @@ GoogleMaps.getLatitudeFromY = async function(y){
  *
  * @deprecated
  */
-GoogleMaps.getLongitude = function(x){
-    return this.getLongitudeFromX(x);
+GoogleMaps.getLongitude = function (x) {
+  return this.getLongitudeFromX(x);
 };
 
 /**
@@ -247,8 +268,8 @@ GoogleMaps.getLongitude = function(x){
  *
  * @deprecated
  */
-GoogleMaps.getLatitude = function(y){
-    return this.getLatitudeFromY(y);
+GoogleMaps.getLatitude = function (y) {
+  return this.getLatitudeFromY(y);
 };
 
 /**
@@ -258,11 +279,11 @@ GoogleMaps.getLatitude = function(y){
  * @returns {Array} A list containing the latitude and longitude of the given point.
  */
 
-GoogleMaps.getEarthCoordinates = function(x, y){
-    return this._getClientMap(this.caller.clientId).then(mapInfo => {
-        let coords = this._coordsAt(x,y, mapInfo);
-        return [coords.lat, coords.lon];
-    });
+GoogleMaps.getEarthCoordinates = function (x, y) {
+  return this._getClientMap(this.caller.clientId).then((mapInfo) => {
+    let coords = this._coordsAt(x, y, mapInfo);
+    return [coords.lat, coords.lon];
+  });
 };
 
 /**
@@ -272,11 +293,11 @@ GoogleMaps.getEarthCoordinates = function(x, y){
  * @returns {Array} A list containing the ``[x, y]`` position of the given point.
  */
 
-GoogleMaps.getImageCoordinates = function(latitude, longitude){
-    return this._getClientMap(this.caller.clientId).then(mapInfo => {
-        let pixels = this._pixelsAt(latitude, longitude, mapInfo);
-        return [pixels.x, pixels.y];
-    });
+GoogleMaps.getImageCoordinates = function (latitude, longitude) {
+  return this._getClientMap(this.caller.clientId).then((mapInfo) => {
+    let pixels = this._pixelsAt(latitude, longitude, mapInfo);
+    return [pixels.x, pixels.y];
+  });
 };
 
 /**
@@ -287,64 +308,69 @@ GoogleMaps.getImageCoordinates = function(latitude, longitude){
  * @param {Longitude} endLongitude Longitude of end point
  * @returns {Number} Distance in meters
  */
-GoogleMaps.getDistance = function(startLatitude, startLongitude, endLatitude, endLongitude){
-    return geolib.getDistance(
-        {latitude: startLatitude, longitude: startLongitude},
-        {latitude: endLatitude, longitude: endLongitude}
-    );
+GoogleMaps.getDistance = function (
+  startLatitude,
+  startLongitude,
+  endLatitude,
+  endLongitude,
+) {
+  return geolib.getDistance(
+    { latitude: startLatitude, longitude: startLongitude },
+    { latitude: endLatitude, longitude: endLongitude },
+  );
 };
 
 /**
  * Get the maximum longitude of the current map.
  * @returns {Longitude}
  */
-GoogleMaps.maxLongitude = function() {
-    return this._getClientMap(this.caller.clientId)
-        .then(map => map.max.lon);
+GoogleMaps.maxLongitude = function () {
+  return this._getClientMap(this.caller.clientId)
+    .then((map) => map.max.lon);
 };
 
 /**
  * Get the maximum latitude of the current map.
  * @returns {Longitude}
  */
-GoogleMaps.maxLatitude = function() {
-    return this._getClientMap(this.caller.clientId)
-        .then(map => map.max.lat);
+GoogleMaps.maxLatitude = function () {
+  return this._getClientMap(this.caller.clientId)
+    .then((map) => map.max.lat);
 };
 
 /**
  * Get the minimum longitude of the current map.
  * @returns {Longitude}
  */
-GoogleMaps.minLongitude = async function() {
-    const map = await this._getClientMap(this.caller.clientId);
-    return map.min.lon;
+GoogleMaps.minLongitude = async function () {
+  const map = await this._getClientMap(this.caller.clientId);
+  return map.min.lon;
 };
 
 /**
  * Get the minimum latitude of the current map.
  * @returns {Longitude}
  */
-GoogleMaps.minLatitude = async function() {
-    const map = await this._getClientMap(this.caller.clientId);
-    return map.min.lat;
+GoogleMaps.minLatitude = async function () {
+  const map = await this._getClientMap(this.caller.clientId);
+  return map.min.lat;
 };
 
 // Map of argument name to old field name
 GoogleMaps.COMPATIBILITY = {
-    path: 'staticmap',
-    arguments: {
-        getMap: {
-            latitude: 'lat',
-            longitude: 'lon'
-        },
-        getXFromLongitude: {
-            longitude: 'lng'
-        },
-        getYFromLatitude: {
-            latitude: 'lat'
-        }
-    }
+  path: "staticmap",
+  arguments: {
+    getMap: {
+      latitude: "lat",
+      longitude: "lon",
+    },
+    getXFromLongitude: {
+      longitude: "lng",
+    },
+    getYFromLatitude: {
+      latitude: "lat",
+    },
+  },
 };
 
 module.exports = GoogleMaps;

@@ -7,20 +7,22 @@
  * @category GeoData
  */
 
-const logger = require('../utils/logger')('rain-viewer');
-const GoogleMaps = require('../google-maps/google-maps');
-const ApiConsumer = require('../utils/api-consumer');
-const jimp = require('jimp');
-const _ = require('lodash');
+const logger = require("../utils/logger")("rain-viewer");
+const GoogleMaps = require("../google-maps/google-maps");
+const ApiConsumer = require("../utils/api-consumer");
+const jimp = require("jimp");
+const _ = require("lodash");
 
-const { defineTypes, TIME_OFFSETS, COLOR_SCHEMES } = require('./types');
+const { defineTypes, TIME_OFFSETS, COLOR_SCHEMES } = require("./types");
 defineTypes();
 
-const RainViewer = new ApiConsumer('RainViewer', '', { cache: { ttl: 5 * 60 } }); // radar data updates every 10 minutes (or so)
+const RainViewer = new ApiConsumer("RainViewer", "", {
+  cache: { ttl: 5 * 60 },
+}); // radar data updates every 10 minutes (or so)
 
 function decimalize(val) {
-    const str = val.toString();
-    return str.includes('.') ? str : `${str}.0`;
+  const str = val.toString();
+  return str.includes(".") ? str : `${str}.0`;
 }
 
 /**
@@ -30,7 +32,7 @@ function decimalize(val) {
  * @returns {Array<TimeOffset>} The list of valid time offsets in chronological order.
  */
 RainViewer.getTimeOffsets = function () {
-    return Object.keys(TIME_OFFSETS);
+  return Object.keys(TIME_OFFSETS);
 };
 
 /**
@@ -39,7 +41,7 @@ RainViewer.getTimeOffsets = function () {
  * @returns {Array<ColorScheme>} The list of valid color schemes.
  */
 RainViewer.getColorSchemes = function () {
-    return Object.keys(COLOR_SCHEMES);
+  return Object.keys(COLOR_SCHEMES);
 };
 
 /**
@@ -58,66 +60,85 @@ RainViewer.getColorSchemes = function () {
  * @param {ColorScheme=} options.colorScheme An integer denoting the color scheme to use in the returned image (default 4).
  * @returns {Image} The rendered radar data overlay.
  */
-RainViewer.getOverlay = async function (latitude, longitude, width, height, zoom, timeOffset = TIME_OFFSETS['now'], options={}) {
-    latitude = GoogleMaps._toPrecision(latitude);
-    longitude = GoogleMaps._toPrecision(longitude);
+RainViewer.getOverlay = async function (
+  latitude,
+  longitude,
+  width,
+  height,
+  zoom,
+  timeOffset = TIME_OFFSETS["now"],
+  options = {},
+) {
+  latitude = GoogleMaps._toPrecision(latitude);
+  longitude = GoogleMaps._toPrecision(longitude);
 
-    width = Math.min(width, 1280); // google maps api invisibly enforces these, so we must match in order to line up properly
-    height = Math.min(height, 1280);
+  width = Math.min(width, 1280); // google maps api invisibly enforces these, so we must match in order to line up properly
+  height = Math.min(height, 1280);
 
-    const scale = width <= 640 && height <= 640 ? 1 : 2; // must be 1 or 2 - must match how the GoogleMaps service computes this value
-    width = Math.floor(width / scale);
-    height = Math.floor(height / scale);
+  const scale = width <= 640 && height <= 640 ? 1 : 2; // must be 1 or 2 - must match how the GoogleMaps service computes this value
+  width = Math.floor(width / scale);
+  height = Math.floor(height / scale);
 
-    const DEFAULT_OPTS = {
-        smooth: true,
-        showSnow: false,
-        colorScheme: 4,
-    };
-    options = _.merge({}, DEFAULT_OPTS, options);
+  const DEFAULT_OPTS = {
+    smooth: true,
+    showSnow: false,
+    colorScheme: 4,
+  };
+  options = _.merge({}, DEFAULT_OPTS, options);
 
-    const bg_width = width * scale;
-    const bg_height = height * scale;
-    const res = new jimp(bg_width, bg_height);
+  const bg_width = width * scale;
+  const bg_height = height * scale;
+  const res = new jimp(bg_width, bg_height);
 
-    const radarIndex = await this._requestData({
-        baseUrl: 'https://api.rainviewer.com/public/weather-maps.json',
-    });
-    const sample = radarIndex.radar[timeOffset[0]][timeOffset[1]];
+  const radarIndex = await this._requestData({
+    baseUrl: "https://api.rainviewer.com/public/weather-maps.json",
+  });
+  const sample = radarIndex.radar[timeOffset[0]][timeOffset[1]];
 
-    const mapInfo = {
-        center: { lat: latitude, lon: longitude },
-        width, height, zoom, scale,
-        mapType: 'roadmap', // just pretend this is a roadmap so the field has a valid value
-    };
+  const mapInfo = {
+    center: { lat: latitude, lon: longitude },
+    width,
+    height,
+    zoom,
+    scale,
+    mapType: "roadmap", // just pretend this is a roadmap so the field has a valid value
+  };
 
-    const radar_size = 256 * scale;
-    const rx = Math.ceil((bg_width - radar_size) / radar_size);
-    const ry = Math.ceil((bg_height - radar_size) / radar_size);
-    logger.trace(`radar tiling: ${2*rx+1}x${2*ry+1}`);
+  const radar_size = 256 * scale;
+  const rx = Math.ceil((bg_width - radar_size) / radar_size);
+  const ry = Math.ceil((bg_height - radar_size) / radar_size);
+  logger.trace(`radar tiling: ${2 * rx + 1}x${2 * ry + 1}`);
 
-    const tilesReq = [];
-    for (let i = -rx; i <= rx; ++i) {
-        for (let j = -ry; j <= ry; ++j) {
-            const { lat, lon } = GoogleMaps._coordsAt(radar_size * i, radar_size * j, mapInfo);
-            tilesReq.push(this._requestImage({
-                baseUrl: radarIndex.host,
-                path: `${sample.path}/${radar_size}/${zoom}/${decimalize(lat)}/${decimalize(lon)}/${options.colorScheme}/${(options.smooth ? 1 : 0)}_${(options.showSnow ? 1 : 0)}.png`,
-            }));
-        }
+  const tilesReq = [];
+  for (let i = -rx; i <= rx; ++i) {
+    for (let j = -ry; j <= ry; ++j) {
+      const { lat, lon } = GoogleMaps._coordsAt(
+        radar_size * i,
+        radar_size * j,
+        mapInfo,
+      );
+      tilesReq.push(this._requestImage({
+        baseUrl: radarIndex.host,
+        path: `${sample.path}/${radar_size}/${zoom}/${decimalize(lat)}/${
+          decimalize(lon)
+        }/${options.colorScheme}/${(options.smooth ? 1 : 0)}_${(options.showSnow
+          ? 1
+          : 0)}.png`,
+      }));
     }
-    const tiles = await Promise.all(tilesReq);
+  }
+  const tiles = await Promise.all(tilesReq);
 
-    for (let i = -rx; i <= rx; ++i) {
-        for (let j = -ry; j <= ry; ++j) {
-            const tile = await jimp.read(tiles[(i + rx) * (2 * ry + 1) + (j + ry)]);
-            const px = radar_size * i + Math.round((bg_width - radar_size) / 2);
-            const py = -radar_size * j + Math.round((bg_height - radar_size) / 2);
-            await res.composite(tile, px, py);
-        }
+  for (let i = -rx; i <= rx; ++i) {
+    for (let j = -ry; j <= ry; ++j) {
+      const tile = await jimp.read(tiles[(i + rx) * (2 * ry + 1) + (j + ry)]);
+      const px = radar_size * i + Math.round((bg_width - radar_size) / 2);
+      const py = -radar_size * j + Math.round((bg_height - radar_size) / 2);
+      await res.composite(tile, px, py);
     }
+  }
 
-    this._sendImageBuffer(await res.getBufferAsync(jimp.MIME_PNG));
+  this._sendImageBuffer(await res.getBufferAsync(jimp.MIME_PNG));
 };
 
 module.exports = RainViewer;
