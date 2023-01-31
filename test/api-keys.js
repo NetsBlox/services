@@ -3,14 +3,14 @@ const utils = require("./assets/utils");
 describe(utils.suiteName(__filename), function () {
   const APIKeys = utils.reqSrc("api-keys");
   const APIKey = utils.reqSrc("procedures/utils/api-key");
-  const CloudClientBuilder = require("./assets/mock-cloud-client");
+  const CloudClient = require("./assets/mock-cloud-client");
   const assert = require("assert");
   const groupId = "g1";
   const username = `user_api_key_test`;
   const groups = [{ id: groupId, owner: username }];
 
   beforeEach(() =>
-    cloudClient = CloudClientBuilder.builder()
+    cloudClient = CloudClient.builder()
       .withGroups(groups)
       .build()
   );
@@ -90,7 +90,7 @@ describe(utils.suiteName(__filename), function () {
       const groupData = {};
       groupData[groupId] = { apiKeys: { "Pixabay": "def" } };
 
-      cloudClient = CloudClientBuilder.builder()
+      cloudClient = CloudClient.builder()
         .withGroups(groups)
         .withUserSettings(userData)
         .withGroupSettings(groupData)
