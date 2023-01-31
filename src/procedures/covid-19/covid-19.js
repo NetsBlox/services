@@ -9,26 +9,26 @@
  * @service
  * @category Health
  */
-const _ = require('lodash');
-const getServiceStorage = require('../../advancedStorage');
-const vaccination = require('./vaccination/vaccination-data-source');
-const {registerTypes, VaccineCategories} = require('./types');
+const _ = require("lodash");
+const getServiceStorage = require("../../advancedStorage");
+const vaccination = require("./vaccination/vaccination-data-source");
+const { registerTypes, VaccineCategories } = require("./types");
 const schema = {
-    date: Date,
-    region: Object,
-    latitude: Number,
-    longitude: Number,
-    confirmed: Number,
-    deaths: Number,
-    recovered: Number,
+  date: Date,
+  region: Object,
+  latitude: Number,
+  longitude: Number,
+  confirmed: Number,
+  deaths: Number,
+  recovered: Number,
 };
-const COVID19Storage = getServiceStorage('COVID-19', schema);
+const COVID19Storage = getServiceStorage("COVID-19", schema);
 const COVID19 = {};
-COVID19.serviceName = 'COVID-19';
-const Data = require('./data');
-const logger = require('../utils/logger')('covid-19');
+COVID19.serviceName = "COVID-19";
+const Data = require("./data");
+const logger = require("../utils/logger")("covid-19");
 COVID19._data = new Data(logger, COVID19Storage);
-const {DEATH, CONFIRMED, RECOVERED} = COVID19._data.types;
+const { DEATH, CONFIRMED, RECOVERED } = COVID19._data.types;
 registerTypes();
 
 /**
@@ -40,8 +40,8 @@ registerTypes();
  * @param {String=} state State or province
  * @param {String=} city City
  */
-COVID19.getConfirmedCounts = async function(country, state='', city='') {
-    return await this._data.getData(CONFIRMED, country, state, city);
+COVID19.getConfirmedCounts = async function (country, state = "", city = "") {
+  return await this._data.getData(CONFIRMED, country, state, city);
 };
 
 /**
@@ -53,8 +53,8 @@ COVID19.getConfirmedCounts = async function(country, state='', city='') {
  * @param {String=} state State or province
  * @param {String=} city City
  */
-COVID19.getDeathCounts = async function(country, state='', city='') {
-    return await this._data.getData(DEATH, country, state, city);
+COVID19.getDeathCounts = async function (country, state = "", city = "") {
+  return await this._data.getData(DEATH, country, state, city);
 };
 
 /**
@@ -66,20 +66,20 @@ COVID19.getDeathCounts = async function(country, state='', city='') {
  * @param {String=} state State or province
  * @param {String=} city City
  */
-COVID19.getRecoveredCounts = async function(country, state='', city='') {
-    return await this._data.getData(RECOVERED, country, state, city);
+COVID19.getRecoveredCounts = async function (country, state = "", city = "") {
+  return await this._data.getData(RECOVERED, country, state, city);
 };
 
 /**
  * Get a list of all countries (and states, cities) with data available.
  * @returns {Array<Array<String>>} an array of ``[country, state, city]`` for each location with data available
  */
-COVID19.getLocationsWithData = async function() {
-    const locations = await this._data.getAllLocations();
-    return locations.map(loc => {
-        const {state, country, city} = loc;
-        return [country, state, city];
-    });
+COVID19.getLocationsWithData = async function () {
+  const locations = await this._data.getAllLocations();
+  return locations.map((loc) => {
+    const { state, country, city } = loc;
+    return [country, state, city];
+  });
 };
 
 /**
@@ -89,62 +89,76 @@ COVID19.getLocationsWithData = async function() {
  * @param {String=} state
  * @param {String=} city City
  */
-COVID19.getLocationCoordinates = async function(country, state='', city='') {
-    const data = await this._data.getLocation(country, state, city);
-    return _.pick(data, ['latitude', 'longitude']);
+COVID19.getLocationCoordinates = async function (
+  country,
+  state = "",
+  city = "",
+) {
+  const data = await this._data.getLocation(country, state, city);
+  return _.pick(data, ["latitude", "longitude"]);
 };
 
 /**
  * Get the list of US states that can be entered in the getVaccinationData RPC
- * 
+ *
  * @category Vaccination
  * @returns {Array<String>}
  */
-COVID19.getVaccinationStates = async function() {
-    return Object.keys(await vaccination.getUSData());
+COVID19.getVaccinationStates = async function () {
+  return Object.keys(await vaccination.getUSData());
 };
 /**
  * The list of countries that can be entered in the getVaccinationData RPC
- * 
+ *
  * @category Vaccination
  * @returns {Array<String>}
  */
-COVID19.getVaccinationCountries = async function() {
-    return Object.keys(await vaccination.getWorldData());
+COVID19.getVaccinationCountries = async function () {
+  return Object.keys(await vaccination.getWorldData());
 };
 /**
  * Get the list of options that can be entered in the getVaccinationData RPC
- * 
+ *
  * @category Vaccination
  * @returns {Array<String>}
  */
-COVID19.getVaccinationCategories = function() {
-    return VaccineCategories;
+COVID19.getVaccinationCategories = function () {
+  return VaccineCategories;
 };
 
-COVID19._getVaccineData = async function(country, state, category) {
-    let all = undefined;
-    if (country === 'United States' || country === 'USA' || country === 'US') {
-        if (!state) throw Error('state is required for United States search');
+COVID19._getVaccineData = async function (country, state, category) {
+  let all = undefined;
+  if (country === "United States" || country === "USA" || country === "US") {
+    if (!state) throw Error("state is required for United States search");
 
-        all = (await vaccination.getUSData())[state];
-        if (all === undefined) throw new Error(`state '${state}' is not in the database`);
-    } else {
-        if (state) throw Error('Countries other than United States should not specify state');
-
-        all = (await vaccination.getWorldData())[country];
-        if (all === undefined) throw new Error(`country '${country}' is not in the database`);
+    all = (await vaccination.getUSData())[state];
+    if (all === undefined) {
+      throw new Error(`state '${state}' is not in the database`);
+    }
+  } else {
+    if (state) {
+      throw Error(
+        "Countries other than United States should not specify state",
+      );
     }
 
-    if (!category) return all;
-
-    const res = {};
-    for (const date in all) {
-        const t = all[date][category];
-        if (t === undefined) throw new Error(`category '${category}' is not in the database`);
-        res[date] = t;
+    all = (await vaccination.getWorldData())[country];
+    if (all === undefined) {
+      throw new Error(`country '${country}' is not in the database`);
     }
-    return res;
+  }
+
+  if (!category) return all;
+
+  const res = {};
+  for (const date in all) {
+    const t = all[date][category];
+    if (t === undefined) {
+      throw new Error(`category '${category}' is not in the database`);
+    }
+    res[date] = t;
+  }
+  return res;
 };
 
 /**
@@ -160,23 +174,29 @@ COVID19._getVaccineData = async function(country, state, category) {
  * @param {String=} endDate latest date to include in result (mm/dd/yyyy)
  * @returns {Array} the requested data
  */
-COVID19.getVaccinationData = async function(country, state, category, startDate, endDate){
-    const data = (await COVID19._getVaccineData(country, state, category));
-    if (!startDate && !endDate) return data;
-    const res = [];
+COVID19.getVaccinationData = async function (
+  country,
+  state,
+  category,
+  startDate,
+  endDate,
+) {
+  const data = await COVID19._getVaccineData(country, state, category);
+  if (!startDate && !endDate) return data;
+  const res = [];
 
-    startDate = new Date(startDate || '01/01/0001');
-    endDate = new Date(endDate || '12/31/9999');
-    for (const date in data) {
-        const d = new Date(date);
-        if (startDate <= d && d <= endDate) res.push([date, data[date]]);
-    }
+  startDate = new Date(startDate || "01/01/0001");
+  endDate = new Date(endDate || "12/31/9999");
+  for (const date in data) {
+    const d = new Date(date);
+    if (startDate <= d && d <= endDate) res.push([date, data[date]]);
+  }
 
-    return res;
+  return res;
 };
 
-COVID19.initialize = function() {
-    this._data.importMissingData();
+COVID19.initialize = function () {
+  this._data.importMissingData();
 };
 
 module.exports = COVID19;
