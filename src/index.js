@@ -4,7 +4,6 @@ const ServicesAPI = require("./api");
 const express = require("express");
 const Storage = require("./storage/connection");
 const ServiceStorage = require("./storage");
-const ApiKeys = require("./api-keys");
 const Logger = require("./logger");
 const routeUtils = require("./procedures/utils/router-utils");
 const types = require("./input-types");
@@ -45,7 +44,7 @@ async function listen(port) {
     "/keys",
     ...routeUtils.allDefaults(),
     routeUtils.ensureLoggedIn,
-    ApiKeys.router(),
+    ServicesAPI.keys.router(),
   );
   app.use("/input-types", async (_, res) => {
     res.status(200).json(types.typesMeta);

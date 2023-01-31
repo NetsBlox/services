@@ -6,66 +6,18 @@ const fs = require("fs");
 const PROJECT_ROOT = path.join(__dirname, "..", "..");
 const reqSrc = (p) => require(PROJECT_ROOT + "/src/" + p);
 
-//const Client = reqSrc('client');
-//const Socket = require('./mock-websocket');
 const Logger = reqSrc("logger");
 const Storage = reqSrc("storage/connection");
 const ServiceStorage = reqSrc("storage/index");
 const mainLogger = new Logger("netsblox:test");
-//const serverUtils = reqSrc('server-utils');
 const Services = reqSrc("api").services;
-//const Projects = reqSrc('storage/projects');
 
 // Create configured room helpers
 let logger = new Logger("netsblox:test");
-const createSocket = function (username) {
-  const uuid = serverUtils.getNewClientId();
-  const client = NetworkTopology.onConnect(new Socket(), uuid);
-  client.username = username || client.uuid;
-  return client;
-};
-
-const createRoom = async function (config) {
-  // Get the room and attach a project
-  const roleNames = Object.keys(config.roles);
-
-  // Ensure there is an owner
-  config.owner = config.owner || roleNames
-    .map((name) => config.roles[name])
-    .reduce((l1, l2) => l1.concat(l2), [])
-    .unshift();
-
-  const { name, owner } = config;
-  const project = await Projects.new({ name, owner });
-  const roles = roleNames.map((name) => serverUtils.getEmptyRole(name));
-  await project.setRoles(roles);
-  const ids = await project.getRoleIdsFor(roleNames);
-
-  const projectId = project.getId();
-  roleNames.forEach((name, i) => {
-    const roleId = ids[i];
-    const usernames = config.roles[name] || [];
-
-    usernames.forEach((username) => {
-      const socket = createSocket(username);
-      NetworkTopology.setClientState(socket.uuid, projectId, roleId, username);
-      return socket;
-    });
-  });
-
-  return project;
-};
-
-const sendEmptyRole = function (msg) {
-  return {
-    type: "project-response",
-    id: msg.id,
-    project: serverUtils.getEmptyRole(this.role),
-  };
-};
 
 let connection = null;
 const connect = async function () {
+  return;
   const mongoUri = "mongodb://127.0.0.1:27017/netsblox-tests";
   if (!connection) {
     connection = Storage.connect(mongoUri)
@@ -150,20 +102,6 @@ function suiteName(filename) {
     .replace(/\.spec$/, "");
 }
 
-async function expect(fn, err) {
-  const start = Date.now();
-  const maxEndTime = start + 1500;
-  let result = await fn();
-  while (!result) {
-    await sleep(25);
-    if (Date.now() > maxEndTime) {
-      throw err;
-    }
-    result = await fn();
-  }
-  return result;
-}
-
 module.exports = {
   verifyRPCInterfaces: function (serviceName, interfaces) {
     describe(`${serviceName} interfaces`, function () {
@@ -196,12 +134,9 @@ module.exports = {
   reset: reset,
   sleep: sleep,
   logger: mainLogger,
-  createRoom: createRoom,
-  createSocket: createSocket,
-  sendEmptyRole: sendEmptyRole,
   shouldThrow,
   suiteName,
-  expect,
+
   nop: () => {},
 
   reqSrc,

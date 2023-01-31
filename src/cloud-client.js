@@ -23,18 +23,6 @@ class NetsBloxCloud {
     return await this.get(url);
   }
 
-  async getServiceSettings(username) {
-    const url = `/services/settings/user/${username}/${this.id}/all`;
-    const settings = await this.get(url);
-    return _.mapValues(settings, (value) => {
-      if (value) {
-        if (value.map) return value.map(JSON.parse);
-        return JSON.parse(value);
-      }
-      return value;
-    });
-  }
-
   async userExists(username) {
     const user = await this.viewUser(username).catch(nop);
     return !!user;
@@ -71,6 +59,50 @@ class NetsBloxCloud {
 
     options.headers = headers;
     return await fetch(url, options);
+  }
+
+  async viewGroup(groupId) {
+    const url = `/groups/id/${groupId}`;
+    return await this.get(url);
+  }
+
+  // Service Settings
+  async getServiceSettings(username) {
+    const url = `/services/settings/user/${username}/${this.id}/all`;
+    const settings = await this.get(url);
+    return _.mapValues(settings, (value) => {
+      if (value) {
+        if (value.map) return value.map(JSON.parse);
+        return JSON.parse(value);
+      }
+      return value;
+    });
+  }
+
+  async getUserServiceSettings(username) {
+    const url = `/services/settings/user/${username}/${this.id}`;
+    const settings = await this.get(url);
+    return JSON.parse(settings);
+  }
+
+  async setUserServiceSettings(username, settings) {
+    const url = `/services/settings/user/${username}/${this.id}`;
+    const response = await this.post(url, settings);
+    const isOk = response.status > 199 && response.status < 400;
+    return isOk; // FIXME: throwing might be better...
+  }
+
+  async getGroupServiceSettings(groupId) {
+    const url = `/services/settings/group/${groupId}/${this.id}`;
+    const settings = await this.get(url);
+    return JSON.parse(settings);
+  }
+
+  async setGroupServiceSettings(groupId, settings) {
+    const url = `/services/settings/group/${groupId}/${this.id}`;
+    const response = await this.post(url, settings);
+    const isOk = response.status > 199 && response.status < 400;
+    return isOk; // FIXME: throwing might be better...
   }
 }
 

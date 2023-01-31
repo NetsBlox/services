@@ -1,30 +1,38 @@
 const express = require("express");
 const Logger = require("./logger");
 const assert = require("assert");
-const ObjectId = require("mongodb").ObjectId;
 const _ = require("lodash");
 const APIKey = require("./procedures/utils/api-key");
+const { NotAllowedError, handleUserErrors } = require("./error");
 
 class APIKeys {
-  async init(db, logger) {
+  constructor(cloud, logger) {
     this.logger = logger
       ? logger.fork("api-keys")
       : new Logger("netsblox:api-keys");
+    this.cloud = cloud;
   }
 
-  async get(apiKey, serviceSettings) {
+  async get(username, apiKey) {
     const { provider } = apiKey;
+    const serviceSettings = await this.cloud.getServiceSettings(username);
+    const groupSettings = Object.values(
+      serviceSettings.groups,
+    );
     return this.getKeyFrom(provider, serviceSettings.user?.apiKeys) ||
       this.getKeyFrom(provider, serviceSettings.member?.apiKeys) ||
       this.getLeastSharedKey(
-        serviceSettings.groups.map((settings) =>
+        groupSettings.map((settings) =>
           this.getKeyFrom(provider, settings?.apiKeys)
         ),
       );
   }
 
   getKeyFrom(provider, apiKeys) {
-    return (apiKeys || {})[provider];
+    const value = (apiKeys || {})[provider];
+    if (value) {
+      return new UserApiKey(provider, value);
+    }
   }
 
   getLeastSharedKey(keyValues) {
@@ -43,46 +51,75 @@ class APIKeys {
   }
 
   async list(username, groupId) {
-    const query = { owner: username };
+    const settings = await this.cloud.getServiceSettings(username);
+    let keyDict;
     if (groupId) {
-      query.groups = groupId;
+      keyDict = settings.groups[groupId]?.apiKeys || {};
+    } else {
+      keyDict = settings.user.apiKeys || {};
     }
-    return this.collection.find(query).toArray();
+    return Object.entries(keyDict).map(([provider, value]) =>
+      new UserApiKey(provider, value)
+    );
   }
 
   /**
    * Create a new API key. Overwrite any existing key with the same owner and
    * scope.
    */
-  async create(owner, provider, value, isGroupDefault = false, groups = []) {
-    const doc = { owner, provider, value, isGroupDefault, groups };
-    return this.collection.insertOne(doc);
-  }
-
-  async setScope(id, isGroupDefault, groups) {
-    const filter = { _id: ObjectId(id) };
-    const update = { $set: { isGroupDefault, groups } };
-    assert(
-      typeof isGroupDefault === "boolean",
-      `isGroupDefault must be a boolean! Received ${isGroupDefault}`,
-    );
-    assert(
-      groups instanceof Array,
-      `groups must be an Array! Received ${groups}`,
-    );
-    return this.collection.updateOne(filter, update);
-  }
-
-  async delete(id, username) {
-    const query = { _id: ObjectId(id) };
-    if (username) {
-      query.owner = username;
+  async create(username, provider, value, groupId) {
+    // Technically, this isn't free from race conditions but shouldn't be a big deal since
+    // only the owner can set these anyway
+    if (groupId) {
+      await this._createGroupKey(username, groupId, provider, value);
+    } else {
+      await this._createUserKey(username, provider, value);
     }
-    return this.collection.deleteOne(query);
   }
 
-  async all() {
-    return this.collection.find({}).toArray();
+  async _createUserKey(username, provider, value) {
+    const settings = await this.cloud.getUserServiceSettings(username);
+    settings.apiKeys ||= {};
+    settings.apiKeys[provider] = value;
+    await this.cloud.setUserServiceSettings(username, settings);
+  }
+
+  async _createGroupKey(username, groupId, provider, value) {
+    await this._ensureCanEditGroup(username, groupId);
+    const settings = await this.cloud.getGroupServiceSettings(groupId);
+    settings.apiKeys ||= {};
+    settings.apiKeys[provider] = value;
+    await this.cloud.setGroupServiceSettings(groupId, settings);
+  }
+
+  async delete(owner, provider, groupId) {
+    // Technically, this isn't free from race conditions but shouldn't be a big deal since
+    // only the owner can set these anyway
+    if (groupId) {
+      await this._deleteGroupKey(owner, groupId, provider);
+    } else {
+      await this._deleteUserKey(owner, provider);
+    }
+  }
+
+  async _deleteUserKey(username, provider) {
+    const settings = await this.cloud.getUserServiceSettings(username);
+    delete settings.apiKeys[provider];
+    await this.cloud.setUserServiceSettings(username, settings);
+  }
+
+  async _deleteGroupKey(owner, groupId, provider) {
+    await this._ensureCanEditGroup(owner, groupId);
+    const settings = await this.cloud.getGroupServiceSettings(groupId);
+    delete settings.apiKeys[provider];
+    await this.cloud.setGroupServiceSettings(groupId, settings);
+  }
+
+  async _ensureCanEditGroup(username, groupId) {
+    const group = await this.cloud.viewGroup(groupId);
+    if (group.owner !== username) {
+      throw new NotAllowedError();
+    }
   }
 
   getAllApiKeys() {
@@ -100,7 +137,6 @@ class APIKeys {
 
   router() {
     const router = express.Router({ mergeParams: true });
-    const EDITABLE_DOC_KEYS = ["value", "isGroupDefault", "groups"];
 
     router.route("/").get(async (req, res) => {
       const { username } = req.session;
@@ -112,80 +148,55 @@ class APIKeys {
       res.json(this.getApiProviders());
     });
 
-    router.route("/:type").post(async (req, res) => {
-      const { type } = req.params;
-      const { username } = req.session;
-      const { value, isGroupDefault, groups } = req.body;
-
-      if (!value) {
-        return res.status(400).send("Missing required field: value");
-      }
-      const result = await this.create(
-        username,
-        type,
-        value,
-        isGroupDefault,
-        groups,
-      );
-      res.send(result.insertedId);
-    });
-
-    router.route("/").patch(async (req, res) => {
-      const { username } = req.session;
-      const { id } = req.body;
-      if (!id) {
-        return res.status(400).send("Missing required field: id");
-      }
-      const query = {
-        _id: ObjectId(id),
-        owner: username,
-      };
-      const keys = EDITABLE_DOC_KEYS
-        .filter((key) => Object.prototype.hasOwnProperty.call(req.body, key));
-      const update = { $set: _.pick(req.body, keys) };
-      const doc = await this.collection.findOneAndUpdate(
-        query,
-        update,
-        { returnNewDocument: true },
-      );
-      res.json(doc.value);
-    });
-
-    router.route("/:provider").post(async (req, res) => {
+    router.route("/:provider").post(handleUserErrors(async (req, res) => {
       const { provider } = req.params;
       const { username } = req.session;
-      const { value, isGroupDefault, groups } = req.body;
+      const { group } = req.query;
+      const { value } = req.body;
+
+      const providers = this.getApiProviders().map(({ provider }) => provider);
+      if (!providers.includes(provider)) {
+        throw new InvalidKeyProviderError(provider);
+      }
 
       if (!value) {
-        return res.status(400).send("Missing required field: value");
+        throw new MissingFieldError("value");
       }
-      // TODO: Validate the provider?
+
       const result = await this.create(
         username,
         provider,
         value,
-        isGroupDefault,
-        groups,
+        group,
       );
-      res.send(result.insertedId);
-    });
+      res.sendStatus(200);
+    }));
 
-    router.route("/:id").options((req, res) => {
+    router.route("/:provider").options((req, res) => {
       res.header(
         "Access-Control-Allow-Methods",
-        "POST, GET, OPTIONS, PUT, PATCH, DELETE",
+        "POST, GET, OPTIONS, DELETE",
       );
       res.sendStatus(204);
     });
-    router.route("/:id").delete(async (req, res) => {
+
+    router.route("/:provider").delete(handleUserErrors(async (req, res) => {
       const { username } = req.session;
-      const { id } = req.params;
-      const result = await this.delete(id, username);
-      res.json(!!result.deletedCount);
-    });
+      const { provider } = req.params;
+      const { group } = req.query;
+      const deleted = await this.delete(username, provider, group);
+      res.json(deleted);
+    }));
 
     return router;
   }
 }
 
-module.exports = new APIKeys();
+class UserApiKey {
+  constructor(provider, value) {
+    this.provider = provider;
+    this.value = value;
+  }
+}
+
+module.exports = APIKeys;

@@ -8,6 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const routeUtils = require("./procedures/utils/router-utils");
 const NetsBloxCloud = require("./cloud-client");
+const { UserError } = require("./error");
 
 class ServicesAPI {
   constructor() {
@@ -15,6 +16,7 @@ class ServicesAPI {
 
     this.logger = new Logger("netsblox:services");
     this.services = new Services(this.logger);
+    this.keys = new ApiKeys(NetsBloxCloud, this.logger);
   }
 
   async initialize() {
@@ -164,7 +166,6 @@ class ServicesAPI {
     } else {
       return true;
     }
-
     return false;
   }
 
@@ -193,11 +194,10 @@ class ServicesAPI {
     if (apiKey && isLoggedIn) {
       // TODO: handle invalid settings (parse error)
       const settings = await NetsBloxCloud.getServiceSettings(username);
-      const apiKeyValue = await ApiKeys.get(apiKey, settings);
+      const apiKeyValue = await this.keys.get(username, apiKey); // TODO: double check this
       if (apiKeyValue) {
         ctx.apiKey = apiKeyValue;
       }
-      console.log("key", ctx.apiKey);
     }
     ctx.socket = new RemoteClient(projectId, roleId, clientId);
 
