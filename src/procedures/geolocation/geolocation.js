@@ -6,67 +6,67 @@
  * @service
  * @category Location
  */
-const {GoogleMapsKey, TimezoneDBKey} = require('../utils/api-key');
-const utils = require('../utils');
+const { GoogleMapsKey, TimezoneDBKey } = require("../utils/api-key");
+const utils = require("../utils");
 const GeoLocationRPC = {};
 utils.setRequiredApiKey(GeoLocationRPC, GoogleMapsKey);
-const {RPCError} = utils;
+const { RPCError } = utils;
 
-const logger = require('../utils/logger')('geolocation');
-const CacheManager = require('cache-manager');
-const NodeGeocoder = require('node-geocoder');
-const jsonQuery = require('json-query');
-const rp = require('request-promise');
+const logger = require("../utils/logger")("geolocation");
+const CacheManager = require("cache-manager");
+const NodeGeocoder = require("node-geocoder");
+const jsonQuery = require("json-query");
+const rp = require("request-promise");
 
-const cache = CacheManager.caching({ store: 'memory', max: 1000, ttl: 36000 });
+const cache = CacheManager.caching({ store: "memory", max: 1000, ttl: 36000 });
 const GEOCODER_API = process.env.GOOGLE_GEOCODING_API;
 const geocoder = NodeGeocoder({
-    provider:    'google',
-    httpAdapter: 'https',      // Default
-    apiKey:      GEOCODER_API, // for Mapquest, OpenCage, Google Premier
-    formatter:   null          // 'gpx', 'string', ...
+  provider: "google",
+  httpAdapter: "https", // Default
+  apiKey: GEOCODER_API, // for Mapquest, OpenCage, Google Premier
+  formatter: null, // 'gpx', 'string', ...
 });
 
-const TIMEZONEDB_URL = 'http://api.timezonedb.com/v2.1';
+const TIMEZONEDB_URL = "http://api.timezonedb.com/v2.1";
 
 // turns coordinates into key strings used to bust the match new requests to cached values
 // might be a good idea to add a precision limit to reduce cache misses
 const locString = (lat, lon) => `${lat}, ${lon}`;
 
 // helper to filter json down
-function queryJson(json, query){
-    const res = jsonQuery(query, { data: json }).value;
-    if (res === undefined || res === null) throw Error('No results found.');
-    return res;
+function queryJson(json, query) {
+  const res = jsonQuery(query, { data: json }).value;
+  if (res === undefined || res === null) throw Error("No results found.");
+  return res;
 }
 
 async function reverseGeocode(lat, lon, query) {
-    return await cache.wrap(locString(lat, lon) + query, async () => {
-        logger.trace('Geocoding (not cached)', lat, lon, query);
-        try {
-            const res = await geocoder.reverse({ lat, lon });
-            return queryJson(res[0], query); // only interested in the first match
-        } catch (e) {
-            const message = `Reverse geocoding (${lat},${lon}) error: ${e.message}`;
-            logger.warn(message);
-            throw Error(`Failed to lookup geocode at ${lat}, ${lon}`);
-        }
-    });
+  return await cache.wrap(locString(lat, lon) + query, async () => {
+    logger.trace("Geocoding (not cached)", lat, lon, query);
+    try {
+      const res = await geocoder.reverse({ lat, lon });
+      return queryJson(res[0], query); // only interested in the first match
+    } catch (e) {
+      const message = `Reverse geocoding (${lat},${lon}) error: ${e.message}`;
+      logger.warn(message);
+      throw Error(`Failed to lookup geocode at ${lat}, ${lon}`);
+    }
+  });
 }
 
 async function rawGeolocate(address) {
-    return await cache.wrap(address, async () => {
-        logger.trace('Geocoding (not cached)', address);
-        try {
-            const res = await geocoder.geocode(address);
-            if (res.length === 0 || !res[0]) throw Error('no results');
-            return res[0];
-        } catch (e) {
-            const message = `Geocoding (${address}) error: ${e.message}`;
-            logger.warn(message);
-            throw Error(`Failed to find location for ${address}`);
-        }
-    });
+  return await cache.wrap(address, async () => {
+    logger.trace("Geocoding (not cached)", address);
+    try {
+      const res = await geocoder.geocode(address);
+      if (res.length === 0 || !res[0]) throw Error("no results");
+      return res[0];
+    } catch (e) {
+      const message = `Geocoding (${address}) error: ${e.message}`;
+      logger.warn(message);
+      throw Error(`Failed to find location for ${address}`);
+    }
+  });
 }
 
 /**
@@ -75,8 +75,8 @@ async function rawGeolocate(address) {
  * @returns {Object} structured data representing the location of the address
  */
 GeoLocationRPC.geolocate = async function (address) {
-    const raw = await rawGeolocate(address);
-    return { latitude: raw.latitude, longitude: raw.longitude };
+  const raw = await rawGeolocate(address);
+  return { latitude: raw.latitude, longitude: raw.longitude };
 };
 
 /**
@@ -87,39 +87,42 @@ GeoLocationRPC.geolocate = async function (address) {
  * @returns {Object} information about the target's timezone
  */
 GeoLocationRPC.timezone = async function (address) {
-    if (typeof(address) === 'string') {
-        address = await rawGeolocate(address);
-        address = [address.latitude, address.longitude];
-    }
-    const [latitude, longitude] = address;
+  if (typeof (address) === "string") {
+    address = await rawGeolocate(address);
+    address = [address.latitude, address.longitude];
+  }
+  const [latitude, longitude] = address;
 
-    return await cache.wrap(locString(latitude, longitude) + '.timezone', async () => {
-        logger.trace('timezone info (not cached)', latitude, longitude);
-        const res = await rp({
-            method: 'get',
-            uri: `${TIMEZONEDB_URL}/get-time-zone`,
-            qs: {
-                key: TimezoneDBKey.value,
-                format: 'json',
-                by: 'position',
-                lat: latitude,
-                lng: longitude,
-            },
-            json: true,
-        });
-        return {
-            abbr: res.abbreviation,
-            gmtOffset: res.gmtOffset / 3600,
-            daylightSavings: res.dst != 0, // != is intentional
-            localTime: res.formatted.split(' ')[1],
-            localTimestamp: res.timestamp,
-            countryCode: res.countryCode,
-            country: res.countryName,
-            zone: res.zoneName,
-        };
-    }).catch(err => {
-        throw new RPCError(err?.error?.message);
-    });
+  return await cache.wrap(
+    locString(latitude, longitude) + ".timezone",
+    async () => {
+      logger.trace("timezone info (not cached)", latitude, longitude);
+      const res = await rp({
+        method: "get",
+        uri: `${TIMEZONEDB_URL}/get-time-zone`,
+        qs: {
+          key: TimezoneDBKey.value,
+          format: "json",
+          by: "position",
+          lat: latitude,
+          lng: longitude,
+        },
+        json: true,
+      });
+      return {
+        abbr: res.abbreviation,
+        gmtOffset: res.gmtOffset / 3600,
+        daylightSavings: res.dst != 0, // != is intentional
+        localTime: res.formatted.split(" ")[1],
+        localTimestamp: res.timestamp,
+        countryCode: res.countryCode,
+        country: res.countryName,
+        zone: res.zoneName,
+      };
+    },
+  ).catch((err) => {
+    throw new RPCError(err?.error?.message);
+  });
 };
 
 /**
@@ -129,8 +132,8 @@ GeoLocationRPC.timezone = async function (address) {
  * @returns {String} the target street address
  */
 GeoLocationRPC.streetAddress = async function (address) {
-    const info = await rawGeolocate(address);
-    return info.formattedAddress;
+  const info = await rawGeolocate(address);
+  return info.formattedAddress;
 };
 
 /**
@@ -141,7 +144,7 @@ GeoLocationRPC.streetAddress = async function (address) {
  * @returns {String} city name
  */
 GeoLocationRPC.city = function (latitude, longitude) {
-    return reverseGeocode(latitude, longitude, '.city');
+  return reverseGeocode(latitude, longitude, ".city");
 };
 
 /**
@@ -154,8 +157,12 @@ GeoLocationRPC.city = function (latitude, longitude) {
  * @param {Longitude} longitude longitude of the target location
  * @returns {String} county name
  */
-GeoLocationRPC['county*'] = function (latitude, longitude) {
-    return reverseGeocode(latitude, longitude, '.administrativeLevels.level2long');
+GeoLocationRPC["county*"] = function (latitude, longitude) {
+  return reverseGeocode(
+    latitude,
+    longitude,
+    ".administrativeLevels.level2long",
+  );
 };
 
 /**
@@ -168,8 +175,12 @@ GeoLocationRPC['county*'] = function (latitude, longitude) {
  * @param {Longitude} longitude longitude of the target location
  * @returns {String} state name
  */
-GeoLocationRPC['state*'] = function (latitude, longitude) {
-    return reverseGeocode(latitude, longitude, '.administrativeLevels.level1long');
+GeoLocationRPC["state*"] = function (latitude, longitude) {
+  return reverseGeocode(
+    latitude,
+    longitude,
+    ".administrativeLevels.level1long",
+  );
 };
 
 /**
@@ -182,8 +193,12 @@ GeoLocationRPC['state*'] = function (latitude, longitude) {
  * @param {Longitude} longitude longitude of the target location
  * @returns {String} state code
  */
-GeoLocationRPC['stateCode*'] = function (latitude, longitude) {
-    return reverseGeocode(latitude, longitude, '.administrativeLevels.level1short');
+GeoLocationRPC["stateCode*"] = function (latitude, longitude) {
+  return reverseGeocode(
+    latitude,
+    longitude,
+    ".administrativeLevels.level1short",
+  );
 };
 
 /**
@@ -194,7 +209,7 @@ GeoLocationRPC['stateCode*'] = function (latitude, longitude) {
  * @returns {String} country name
  */
 GeoLocationRPC.country = function (latitude, longitude) {
-    return reverseGeocode(latitude, longitude, '.country');
+  return reverseGeocode(latitude, longitude, ".country");
 };
 
 /**
@@ -205,7 +220,7 @@ GeoLocationRPC.country = function (latitude, longitude) {
  * @returns {String} country code
  */
 GeoLocationRPC.countryCode = function (latitude, longitude) {
-    return reverseGeocode(latitude, longitude, '.countryCode');
+  return reverseGeocode(latitude, longitude, ".countryCode");
 };
 
 /**
@@ -216,22 +231,22 @@ GeoLocationRPC.countryCode = function (latitude, longitude) {
  * @returns {Array} list of administative level names
  */
 GeoLocationRPC.info = async function (latitude, longitude) {
-    const [topResult] = await geocoder.reverse({ lat: latitude, lon: longitude });
-    const { city, administrativeLevels, country, countryCode } = topResult;
-    if (!city || !administrativeLevels || !country || !countryCode) {
-        throw Error(`Failed to lookup geocode at ${latitude}, ${longitude}`);
-    }
-    const levels = [];
+  const [topResult] = await geocoder.reverse({ lat: latitude, lon: longitude });
+  const { city, administrativeLevels, country, countryCode } = topResult;
+  if (!city || !administrativeLevels || !country || !countryCode) {
+    throw Error(`Failed to lookup geocode at ${latitude}, ${longitude}`);
+  }
+  const levels = [];
 
-    // find and pull out all the provided admin levels
-    levels.push(city);
-    for (const level in administrativeLevels) {
-        levels.push(administrativeLevels[level]);
-    }
-    levels.push(country);
-    levels.push(countryCode);
+  // find and pull out all the provided admin levels
+  levels.push(city);
+  for (const level in administrativeLevels) {
+    levels.push(administrativeLevels[level]);
+  }
+  levels.push(country);
+  levels.push(countryCode);
 
-    return levels.reverse(); // reverse so that it's big to small
+  return levels.reverse(); // reverse so that it's big to small
 };
 
 /**
@@ -242,33 +257,45 @@ GeoLocationRPC.info = async function (latitude, longitude) {
  * @param {Number=} radius search radius in meters (default 50km)
  * @returns {Array<Object>} list of nearby locations
  */
-GeoLocationRPC.nearbySearch = async function (latitude, longitude, keyword, radius = 50000) {
-    const requestOptions = {
-        method: 'get',
-        uri: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
-        qs: { location: `${latitude},${longitude}`, radius, key: this.apiKey.value },
-        json: true,
-    };
-    if (keyword) {
-        requestOptions.qs.keyword = keyword;
-    }
+GeoLocationRPC.nearbySearch = async function (
+  latitude,
+  longitude,
+  keyword,
+  radius = 50000,
+) {
+  const requestOptions = {
+    method: "get",
+    uri: "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+    qs: {
+      location: `${latitude},${longitude}`,
+      radius,
+      key: this.apiKey.value,
+    },
+    json: true,
+  };
+  if (keyword) {
+    requestOptions.qs.keyword = keyword;
+  }
 
-    return await cache.wrap(locString(latitude, longitude) + keyword + radius, async () => {
-        const res = await rp(requestOptions);
-        if (res.error_message) {
-            throw Error(res.error_message);
-        }
-        const places = res.results;
-        const topResults = places.slice(0, 10).map(place => {
-            return {
-                latitude: place.geometry.location.lat,
-                longitude: place.geometry.location.lng,
-                name: place.name,
-                types: place.types,
-            };
-        });
-        return topResults;
-    });
+  return await cache.wrap(
+    locString(latitude, longitude) + keyword + radius,
+    async () => {
+      const res = await rp(requestOptions);
+      if (res.error_message) {
+        throw Error(res.error_message);
+      }
+      const places = res.results;
+      const topResults = places.slice(0, 10).map((place) => {
+        return {
+          latitude: place.geometry.location.lat,
+          longitude: place.geometry.location.lng,
+          name: place.name,
+          types: place.types,
+        };
+      });
+      return topResults;
+    },
+  );
 };
 
 module.exports = GeoLocationRPC;

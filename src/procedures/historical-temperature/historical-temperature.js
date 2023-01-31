@@ -1,10 +1,10 @@
 /**
  * Access to Berkeley Earth data.
  * See http://berkeleyearth.org/data/ for additional details.
- * 
+ *
  * These RPCs take a ``region`` argument, which can either be a country
  * or one of the following special values:
- * 
+ *
  * - ``all land`` - get data for all landmasses around the world
  * - ``global`` - get data for the entire Earth (including oceans)
  * - ``northern hemisphere`` - only northern landmasses
@@ -14,21 +14,27 @@
  * @category Climate
  */
 
-const ApiConsumer = require('../utils/api-consumer');
-const BerkeleyEarth = new ApiConsumer('HistoricalTemperature', 'http://berkeleyearth.lbl.gov/auto/', { cache: { ttl: 60 * 60 * 24 * 30 } });
-const _ = require('lodash');
+const ApiConsumer = require("../utils/api-consumer");
+const BerkeleyEarth = new ApiConsumer(
+  "HistoricalTemperature",
+  "http://berkeleyearth.lbl.gov/auto/",
+  { cache: { ttl: 60 * 60 * 24 * 30 } },
+);
+const _ = require("lodash");
 
 /*
  * Associates less obviously named regions to their URLs
  */
 const regionsDictionary = {
-    allland: 'Global/Complete_TAVG_complete.txt',
-    'all-land': 'Global/Complete_TAVG_complete.txt',
-    global: 'Global/Land_and_Ocean_complete.txt',
-    northern: 'Regional/TAVG/Text/northern-hemisphere-TAVG-Trend.txt',
-    southern: 'Regional/TAVG/Text/southern-hemisphere-TAVG-Trend.txt',
-    'northern-hemisphere': 'Regional/TAVG/Text/northern-hemisphere-TAVG-Trend.txt',
-    'southern-hemisphere': 'Regional/TAVG/Text/southern-hemisphere-TAVG-Trend.txt',
+  allland: "Global/Complete_TAVG_complete.txt",
+  "all-land": "Global/Complete_TAVG_complete.txt",
+  global: "Global/Land_and_Ocean_complete.txt",
+  northern: "Regional/TAVG/Text/northern-hemisphere-TAVG-Trend.txt",
+  southern: "Regional/TAVG/Text/southern-hemisphere-TAVG-Trend.txt",
+  "northern-hemisphere":
+    "Regional/TAVG/Text/northern-hemisphere-TAVG-Trend.txt",
+  "southern-hemisphere":
+    "Regional/TAVG/Text/southern-hemisphere-TAVG-Trend.txt",
 };
 
 /**
@@ -37,7 +43,7 @@ const regionsDictionary = {
  * @returns {Array<Array>} Monthly data points
  */
 BerkeleyEarth.monthlyAnomaly = function (region) {
-    return this._getCountryData(region, 'monthly');
+  return this._getCountryData(region, "monthly");
 };
 
 /**
@@ -46,7 +52,7 @@ BerkeleyEarth.monthlyAnomaly = function (region) {
  * @returns {Array<Array>} Monthly data points
  */
 BerkeleyEarth.annualAnomaly = function (region) {
-    return this._getCountryData(region, 'annual');
+  return this._getCountryData(region, "annual");
 };
 
 /**
@@ -55,7 +61,7 @@ BerkeleyEarth.annualAnomaly = function (region) {
  * @returns {Array<Array>} Monthly data points
  */
 BerkeleyEarth.fiveYearAnomaly = function (region) {
-    return this._getCountryData(region, '5year');
+  return this._getCountryData(region, "5year");
 };
 
 /**
@@ -64,7 +70,7 @@ BerkeleyEarth.fiveYearAnomaly = function (region) {
  * @returns {Array<Array>} Monthly data points
  */
 BerkeleyEarth.tenYearAnomaly = function (region) {
-    return this._getCountryData(region, '10year');
+  return this._getCountryData(region, "10year");
 };
 
 /**
@@ -73,16 +79,16 @@ BerkeleyEarth.tenYearAnomaly = function (region) {
  * @returns {Array<Array>} Monthly data points
  */
 BerkeleyEarth.twentyYearAnomaly = function (region) {
-    return this._getCountryData(region, '20year');
+  return this._getCountryData(region, "20year");
 };
 
 // Indices for data columns
 BerkeleyEarth._dataColumns = {
-    'monthly': 2,
-    'annual': 4,
-    '5year': 6,
-    '10year': 8,
-    '20year': 10,
+  "monthly": 2,
+  "annual": 4,
+  "5year": 6,
+  "10year": 8,
+  "20year": 10,
 };
 
 /**
@@ -92,21 +98,22 @@ BerkeleyEarth._dataColumns = {
  * @returns {Array<Array>} Parsed data
  */
 BerkeleyEarth._getCountryData = function (country, type) {
-    country = country.toLowerCase().trim().replace(/\s+/, '-');
-    const options = {
-        path: `Regional/TAVG/Text/${country}-TAVG-Trend.txt`
-    };
+  country = country.toLowerCase().trim().replace(/\s+/, "-");
+  const options = {
+    path: `Regional/TAVG/Text/${country}-TAVG-Trend.txt`,
+  };
 
-    // Check for special region names
-    if (Object.keys(regionsDictionary).indexOf(country) !== -1) {
-        options.path = regionsDictionary[country];
-    }
+  // Check for special region names
+  if (Object.keys(regionsDictionary).indexOf(country) !== -1) {
+    options.path = regionsDictionary[country];
+  }
 
-    return this._requestData(options).then(this._extractData.bind(this, type)).catch(err => {
-        if (err.statusCode === 404) {
-            throw new Error('Unknown country or region');
-        }
-        throw err;
+  return this._requestData(options).then(this._extractData.bind(this, type))
+    .catch((err) => {
+      if (err.statusCode === 404) {
+        throw new Error("Unknown country or region");
+      }
+      throw err;
     });
 };
 
@@ -117,34 +124,37 @@ BerkeleyEarth._getCountryData = function (country, type) {
  * @returns {Array<Array>} Parsed data
  */
 BerkeleyEarth._extractData = function (type, res) {
-    let lines = res.split('\n');
-    let data = [];
+  let lines = res.split("\n");
+  let data = [];
 
-    // Validate data type
-    if (Object.keys(this._dataColumns).indexOf(type) === -1) {
-        return this.response.status(500).send('Invalid data type requested');
+  // Validate data type
+  if (Object.keys(this._dataColumns).indexOf(type) === -1) {
+    return this.response.status(500).send("Invalid data type requested");
+  }
+
+  const dataColumn = this._dataColumns[type];
+
+  for (let line of lines) {
+    // Skip comments and empty lines
+    if (line.length < 1 || line.startsWith("%")) {
+      continue;
     }
-
-    const dataColumn = this._dataColumns[type];
-
-    for (let line of lines) {
-        // Skip comments and empty lines
-        if (line.length < 1 || line.startsWith('%')) {
-            continue;
-        }
-        let parts = line.trim().split(/\s+/);
-        if (parts.length < 10 || parts[dataColumn] == 'NaN') {
-            continue;
-        }
-        data.push([parseInt(parts[0]) + parseInt(parts[1]) / 12, parts[dataColumn]]);
+    let parts = line.trim().split(/\s+/);
+    if (parts.length < 10 || parts[dataColumn] == "NaN") {
+      continue;
     }
+    data.push([
+      parseInt(parts[0]) + parseInt(parts[1]) / 12,
+      parts[dataColumn],
+    ]);
+  }
 
-    // Fix some files being ordered incorrectly
-    data = data.sort((a, b) => a[0] - b[0]);
+  // Fix some files being ordered incorrectly
+  data = data.sort((a, b) => a[0] - b[0]);
 
-    // Remove duplicates
-    data = _.sortedUniqBy(data, row => row[0]);
-    return data;
+  // Remove duplicates
+  data = _.sortedUniqBy(data, (row) => row[0]);
+  return data;
 };
 
 module.exports = BerkeleyEarth;
