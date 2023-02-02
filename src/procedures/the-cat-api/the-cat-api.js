@@ -7,9 +7,9 @@
 
 
 const { TheCatApiKey } = require('../utils/api-key');
-const {catTypes} = require('./types');
+const {registerTypes, CAT_BREEDS} = require('./types');
 const ApiConsumer = require('../utils/api-consumer');
-catTypes();
+registerTypes();
 
 // Cats API Url
 const catApiUrl = 'https://api.thecatapi.com/v1/images/search';
@@ -19,14 +19,14 @@ const catApiUrl = 'https://api.thecatapi.com/v1/images/search';
 
 /**
  * Get random cat image.
- * @param {BreedsOfCats=} catBreeds The list of all possible Cat Breeds filterable.
+ * @param {CatBreeds=} catBreed cat breed supported by API.
  * @returns {Image} the requested image
  */
-TheCatApi.getRandomCatImage = async function(catBreeds = ''){
+TheCatApi.getRandomCatImage = async function(catBreed = ''){
     //Requesting JSON from the Cat Api Url
     const catJson = await this._requestData({
         baseUrl: 'https://api.thecatapi.com/v1/images/search?t=' + Date.now(),
-        queryString: '&breed_ids=' + catBreeds,
+        queryString: '&breed_ids=' + catBreed,
         
     });
 
@@ -37,5 +37,13 @@ TheCatApi.getRandomCatImage = async function(catBreeds = ''){
         baseUrl: imageUrl,
     });
 }
+
+/**
+ * Get list of cat breeds.
+ * @returns {CatBreeds} list of cat breeds supported by API.
+ */
+TheDogApi.getCatBreeds = function (){
+    return Object.keys(CAT_BREEDS);
+  }
 
 module.exports = TheCatApi;

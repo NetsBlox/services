@@ -176,13 +176,13 @@ const DOG_BREEDS = {
     YorkshireTerrier: 264
 };
 
-function dogTypes() {
+function registerTypes() {
     types.defineType({
-        name: 'BreedsOfDogs',
-        description: 'List of available Dog Breeds',
+        name: 'DogBreeds',
+        description: 'List of dog breeds supported by the API',
         baseType: 'Enum',
         baseParams: DOG_BREEDS,
     });
 }
 
-module.exports = { dogTypes };
+module.exports = { registerTypes, DOG_BREEDS };

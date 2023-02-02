@@ -73,13 +73,13 @@ const CAT_BREEDS = {
 };
 
 
-function catTypes() {
+function registerTypes() {
     types.defineType({
-        name: 'BreedsOfCats',
-        description: 'List of available Cat Breeds',
+        name: 'CatBreeds',
+        description: 'List of cat breeds supported by the API',
         baseType: 'Enum',
         baseParams: CAT_BREEDS,
     });
 }
 
-module.exports = { catTypes };
+module.exports = { registerTypes, CAT_BREEDS };

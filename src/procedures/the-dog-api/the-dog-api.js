@@ -6,12 +6,10 @@
  */
 
 
-const logger = require('../utils/logger')('CatDog');
-const axios = require('axios');
 const { TheDogApiKey } = require('../utils/api-key');
-const {dogTypes} = require('./types');
+const {registerTypes, DOG_BREEDS} = require('./types');
 const ApiConsumer = require('../utils/api-consumer');
-dogTypes();
+registerTypes();
 
 // Dogs API Url
 const dogApiUrl = 'https://api.thedogapi.com/v1/images/search';
@@ -21,14 +19,14 @@ ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey)
 
 /**
  * Get random dog image.
- * @param {BreedsOfDogs=} dogBreeds The list of all possible Dog Breeds filterable.
+ * @param {DogBreeds=} dogBreed dog breed supported by API.
  * @returns {Image} the requested image
  */
-TheDogApi.getRandomDogImage = async function(dogBreeds = '') {
+TheDogApi.getRandomDogImage = async function(dogBreed = '') {
       //Requesting JSON from the Dog Api Url
       const dogJson = await this._requestData({
         baseUrl: 'https://api.thedogapi.com/v1/images/search?t=' + Date.now(),
-        queryString: '&breed_ids=' + dogBreeds,
+        queryString: '&breed_ids=' + dogBreed,
         
     });
 
@@ -38,6 +36,14 @@ TheDogApi.getRandomDogImage = async function(dogBreeds = '') {
     return this._sendImage({
         baseUrl: imageUrl,
     });
+}
+
+/**
+ * Get list of dog breeds.
+ * @returns {DogBreeds} list of dog breeds supported by API.
+ */
+TheDogApi.getDogBreeds = function (){
+  return Object.keys(DOG_BREEDS);
 }
 
 module.exports = TheDogApi;

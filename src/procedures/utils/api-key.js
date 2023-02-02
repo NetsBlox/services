@@ -94,15 +94,13 @@ module.exports.AlphaVantageKey = new ApiKey(
 );
 
 module.exports.TheCatApiKey = new ApiKey(
-    'TheCatApi',
+    'The Cat Api',
     'https://thecatapi.com/signup',
-    'THE_CAT_API_KEY'
 );
 
 module.exports.TheDogApiKey = new ApiKey(
-    'TheDogApi',
+    'The Dog Api',
     'https://thedogapi.com/signup',
-    'THE_DOG_API_KEY'
 );
 
 class InvalidKeyError extends Error {
