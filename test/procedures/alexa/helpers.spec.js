@@ -1,13 +1,13 @@
-const utils = require('../../assets/utils');
+const utils = require("../../assets/utils");
 
-describe(utils.suiteName(__filename), function() {
-    const assert = require('assert');
-    const helpers = utils.reqSrc('procedures/alexa/helpers');
+describe(utils.suiteName(__filename), function () {
+  const assert = require("assert");
+  const helpers = utils.reqSrc("procedures/alexa/helpers");
 
-    describe('textBtwn', function() {
-        it('should get text between delimiters', function() {
-            const text = 'abcdefghi';
-            assert.equal(helpers.textBtwn(text, 'abc', 'ghi'), 'def');
-        });
+  describe("textBtwn", function () {
+    it("should get text between delimiters", function () {
+      const text = "abcdefghi";
+      assert.equal(helpers.textBtwn(text, "abc", "ghi"), "def");
     });
+  });
 });
