@@ -1,15 +1,15 @@
 {
-    "cSpell.ignoreWords": [
-        "Blox",
-        "cooldown",
-        "netsblox",
-        "pressable",
-        "roboscape",
-        "rpcs",
-        "textbox",
-        "toggleable",
-        "touchpad",
-        "touchpads",
-        "upsert"
-    ]
+  "cSpell.ignoreWords": [
+    "Blox",
+    "cooldown",
+    "netsblox",
+    "pressable",
+    "roboscape",
+    "rpcs",
+    "textbox",
+    "toggleable",
+    "touchpad",
+    "touchpads",
+    "upsert"
+  ]
 }

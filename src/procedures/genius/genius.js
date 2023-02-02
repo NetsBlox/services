@@ -8,26 +8,26 @@
  * @category Society
  * @category Media
  */
-const {parse: parseHTML} = require('node-html-parser');
-const ApiConsumer = require('../utils/api-consumer');
-const {GeniusKey} = require('../utils/api-key');
-const baseUrl = 'https://api.genius.com/';
+const { parse: parseHTML } = require("node-html-parser");
+const ApiConsumer = require("../utils/api-consumer");
+const { GeniusKey } = require("../utils/api-key");
+const baseUrl = "https://api.genius.com/";
 const days = 24 * 60 * 60;
-const Genius = new ApiConsumer('Genius', baseUrl, {cache: {ttl: 7*days}});
+const Genius = new ApiConsumer("Genius", baseUrl, { cache: { ttl: 7 * days } });
 ApiConsumer.setRequiredApiKey(Genius, GeniusKey);
-const prepare = require('./data-prep');
+const prepare = require("./data-prep");
 
-Genius._requestData = async function(options) {
-    options.headers = options.headers || {};
-    options.headers.Authorization = `Bearer ${this.apiKey.value}`;
-    try {
-        return await ApiConsumer.prototype._requestData.call(this, options);
-    } catch (err) {
-        if (err.statusCode === 404) {
-            throw new Error('Song or artist not found.');
-        }
-        throw err;
+Genius._requestData = async function (options) {
+  options.headers = options.headers || {};
+  options.headers.Authorization = `Bearer ${this.apiKey.value}`;
+  try {
+    return await ApiConsumer.prototype._requestData.call(this, options);
+  } catch (err) {
+    if (err.statusCode === 404) {
+      throw new Error("Song or artist not found.");
     }
+    throw err;
+  }
 };
 
 /**
@@ -36,12 +36,14 @@ Genius._requestData = async function(options) {
  * @param{String} query
  * @returns{Array<Object>}
  */
-Genius.searchSongs = async function(query) {
-    const response = await this._requestData({
-        path: 'search',
-        queryString: `q=${encodeURIComponent(query)}`,
-    });
-    return response.response.hits.map(hit => prepare.SongSearchResult(hit.result));
+Genius.searchSongs = async function (query) {
+  const response = await this._requestData({
+    path: "search",
+    queryString: `q=${encodeURIComponent(query)}`,
+  });
+  return response.response.hits.map((hit) =>
+    prepare.SongSearchResult(hit.result)
+  );
 };
 
 /**
@@ -50,12 +52,12 @@ Genius.searchSongs = async function(query) {
  * @param{BoundedInteger<1>} ID
  * @returns{Array<Object>}
  */
-Genius.getSong = async function(id) {
-    const {response} = await this._requestData({
-        path: `songs/${id}`,
-        queryString: 'text_format=plain',
-    });
-    return prepare.Song(response.song);
+Genius.getSong = async function (id) {
+  const { response } = await this._requestData({
+    path: `songs/${id}`,
+    queryString: "text_format=plain",
+  });
+  return prepare.Song(response.song);
 };
 
 /**
@@ -64,12 +66,12 @@ Genius.getSong = async function(id) {
  * @param{BoundedInteger<1>} ID
  * @returns{Array<Object>}
  */
-Genius.getArtist = async function(id) {
-    const {response} = await this._requestData({
-        path: `artists/${id}`,
-        queryString: 'text_format=plain',
-    });
-    return prepare.Artist(response.artist);
+Genius.getArtist = async function (id) {
+  const { response } = await this._requestData({
+    path: `artists/${id}`,
+    queryString: "text_format=plain",
+  });
+  return prepare.Artist(response.artist);
 };
 
 /**
@@ -78,12 +80,12 @@ Genius.getArtist = async function(id) {
  * @param{BoundedInteger<1>} ID
  * @returns{Array<Object>}
  */
-Genius.getSongsByArtist = async function(id) {
-    const {response} = await this._requestData({
-        path: `artists/${id}/songs`,
-        queryString: 'text_format=plain&per_page=50&sort=popularity',
-    });
-    return response.songs.map(prepare.SongSearchResult);
+Genius.getSongsByArtist = async function (id) {
+  const { response } = await this._requestData({
+    path: `artists/${id}/songs`,
+    queryString: "text_format=plain&per_page=50&sort=popularity",
+  });
+  return response.songs.map(prepare.SongSearchResult);
 };
 
 /**
@@ -92,72 +94,77 @@ Genius.getSongsByArtist = async function(id) {
  * @param{BoundedInteger<1>} ID
  * @returns{String}
  */
-Genius.getSongLyrics = async function(id) {
-    // This approach is based off the one used by lyricsgenius (python module).
-    // It's a bit ugly as it fetches the HTML for the lyrics and scrapes it...
-    const {response} = await this._requestData({
-        path: `songs/${id}`,
-        queryString: 'text_format=plain',
-    });
-    if (!response.song.path) {
-        throw new Error(`No lyrics available for ${response.song.title}`);
-    }
+Genius.getSongLyrics = async function (id) {
+  // This approach is based off the one used by lyricsgenius (python module).
+  // It's a bit ugly as it fetches the HTML for the lyrics and scrapes it...
+  const { response } = await this._requestData({
+    path: `songs/${id}`,
+    queryString: "text_format=plain",
+  });
+  if (!response.song.path) {
+    throw new Error(`No lyrics available for ${response.song.title}`);
+  }
 
-    const baseUrl = 'https://genius.com';
-    const lyricsHTML = await this._requestData({
-        baseUrl,
-        path: response.song.path,
-    });
-    try {
-        return this._parseLyrics(lyricsHTML);
-    } catch (err) {
-        if (err instanceof LyricsSectionNotFound) {
-            const url = baseUrl + response.song.path;
-            throw new Error(`Could not find the lyrics section.\nPlease report this if the song has lyrics.\nSong URL: ${url}`);
-        }
+  const baseUrl = "https://genius.com";
+  const lyricsHTML = await this._requestData({
+    baseUrl,
+    path: response.song.path,
+  });
+  try {
+    return this._parseLyrics(lyricsHTML);
+  } catch (err) {
+    if (err instanceof LyricsSectionNotFound) {
+      const url = baseUrl + response.song.path;
+      throw new Error(
+        `Could not find the lyrics section.\nPlease report this if the song has lyrics.\nSong URL: ${url}`,
+      );
     }
+  }
 };
 
-Genius._parseLyrics = function(html) {
-    const doc = parseHTML(html);
-    const isLyricsElement = node => {
-        const isDiv = node.tagName === 'DIV';
-        if (!isDiv) return false;
+Genius._parseLyrics = function (html) {
+  const doc = parseHTML(html);
+  const isLyricsElement = (node) => {
+    const isDiv = node.tagName === "DIV";
+    if (!isDiv) return false;
 
-        const classes = node.classList;
-        if (!classes) return false;
+    const classes = node.classList;
+    if (!classes) return false;
 
-        for (let className of classes.values()) {
-            if (className.startsWith('Lyrics__Root') || className === 'lyrics') {
-                return true;
-            }
-        }
+    for (let className of classes.values()) {
+      if (className.startsWith("Lyrics__Root") || className === "lyrics") {
+        return true;
+      }
+    }
 
-        return false;
-    };
-    const lyricsElement = findElement(doc, isLyricsElement);
-    if (!lyricsElement) throw LyricsSectionNotFound();
-    return getTextWithNewLines(lyricsElement);
+    return false;
+  };
+  const lyricsElement = findElement(doc, isLyricsElement);
+  if (!lyricsElement) throw LyricsSectionNotFound();
+  return getTextWithNewLines(lyricsElement);
 };
 
 function getTextWithNewLines(node) {
-    if (node.childNodes.length > 0) {
-        return node.childNodes.reduce((txt, node) => txt + getTextWithNewLines(node), '');
-    } else if (node.tagName === 'BR') {
-        return '\n';
-    } else {
-        return node.text;
-    }
+  if (node.childNodes.length > 0) {
+    return node.childNodes.reduce(
+      (txt, node) => txt + getTextWithNewLines(node),
+      "",
+    );
+  } else if (node.tagName === "BR") {
+    return "\n";
+  } else {
+    return node.text;
+  }
 }
 
 function findElement(node, fn) {
-    if (fn(node)) return node;
-    for (let i = 0; i < node.childNodes.length; i++) {
-        const match = findElement(node.childNodes[i], fn);
-        if (match) {
-            return match;
-        }
+  if (fn(node)) return node;
+  for (let i = 0; i < node.childNodes.length; i++) {
+    const match = findElement(node.childNodes[i], fn);
+    if (match) {
+      return match;
     }
+  }
 }
 
 class LyricsSectionNotFound extends Error {}

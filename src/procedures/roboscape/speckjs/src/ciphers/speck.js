@@ -1,10 +1,10 @@
-const Speck = require('./speck/lib'),
-  BlockCipher = require('../blockCipher');
+const Speck = require("./speck/lib"),
+  BlockCipher = require("../blockCipher");
 
 class Speck32 extends BlockCipher {
   constructor() {
     super(16, 4, 22);
-    this.lib = Speck['32/64'];
+    this.lib = Speck["32/64"];
   }
 
   _expandKey(keyWords) {

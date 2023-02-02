@@ -5,37 +5,37 @@
  * @category Society
  */
 
-
-const { TheCatApiKey } = require('../utils/api-key');
-const {catTypes} = require('./types');
-const ApiConsumer = require('../utils/api-consumer');
+const { TheCatApiKey } = require("../utils/api-key");
+const { catTypes } = require("./types");
+const ApiConsumer = require("../utils/api-consumer");
 catTypes();
 
 // Cats API Url
-const catApiUrl = 'https://api.thecatapi.com/v1/images/search';
+const catApiUrl = "https://api.thecatapi.com/v1/images/search";
 
- const TheCatApi = new ApiConsumer('TheCatApi', catApiUrl, {cache: {ttl: 1}});
- ApiConsumer.setRequiredApiKey(TheCatApi, TheCatApiKey)
+const TheCatApi = new ApiConsumer("TheCatApi", catApiUrl, {
+  cache: { ttl: 1 },
+});
+ApiConsumer.setRequiredApiKey(TheCatApi, TheCatApiKey);
 
 /**
  * Get random cat image.
  * @param {BreedsOfCats=} catBreeds The list of all possible Cat Breeds filterable.
  * @returns {Image} the requested image
  */
-TheCatApi.getRandomCatImage = async function(catBreeds = ''){
-    //Requesting JSON from the Cat Api Url
-    const catJson = await this._requestData({
-        baseUrl: 'https://api.thecatapi.com/v1/images/search?t=' + Date.now(),
-        queryString: '&breed_ids=' + catBreeds,
-        
-    });
+TheCatApi.getRandomCatImage = async function (catBreeds = "") {
+  //Requesting JSON from the Cat Api Url
+  const catJson = await this._requestData({
+    baseUrl: "https://api.thecatapi.com/v1/images/search?t=" + Date.now(),
+    queryString: "&breed_ids=" + catBreeds,
+  });
 
-    //Get the image URL from the received JSON
-    const imageUrl = catJson[0].url;
-   
-    return this._sendImage({
-        baseUrl: imageUrl,
-    });
-}
+  //Get the image URL from the received JSON
+  const imageUrl = catJson[0].url;
+
+  return this._sendImage({
+    baseUrl: imageUrl,
+  });
+};
 
 module.exports = TheCatApi;
