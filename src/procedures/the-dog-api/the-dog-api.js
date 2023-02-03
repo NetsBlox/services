@@ -22,7 +22,7 @@ ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey);
 
 /**
  * Get random dog image.
- * @param {DogBreed=} dogBreed provides a specific breed to search for. If ommited, no-breed-based filtering is performed.
+ * @param {DogBreed=} dogBreed provides a specific breed to search for. If omitted, no-breed-based filtering is performed.
  * @returns {Image} the requested image
  */
 TheDogApi.getRandomDogImage = async function (dogBreed = "") {

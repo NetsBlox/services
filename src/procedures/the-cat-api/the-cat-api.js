@@ -22,7 +22,7 @@ ApiConsumer.setRequiredApiKey(TheCatApi, TheCatApiKey);
 
 /**
  * Get random cat image.
- * @param {CatBreed=} catBreed provides a specific breed to search for. If ommited, no-breed-based filtering is performed.
+ * @param {CatBreed=} catBreed provides a specific breed to search for. If omitted, no-breed-based filtering is performed.
  * @returns {Image} the requested image
  */
 TheCatApi.getRandomCatImage = async function (catBreed = "") {
