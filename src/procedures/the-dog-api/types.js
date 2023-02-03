@@ -177,7 +177,7 @@ const DOG_BREEDS = {
 
 function registerTypes() {
   types.defineType({
-    name: "DogBreeds",
+    name: "DogBreed",
     description: "List of dog breeds supported by the API",
     baseType: "Enum",
     baseParams: DOG_BREEDS,

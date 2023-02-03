@@ -1,8 +1,10 @@
 /**
  * The Cats Service provides access to the Cat API data from https://api.thecatapi.com/v1/.
  *
+ * @alpha
  * @service
  * @category Society
+ * @category Media
  */
 
 const { TheCatApiKey } = require("../utils/api-key");
@@ -20,7 +22,7 @@ ApiConsumer.setRequiredApiKey(TheCatApi, TheCatApiKey);
 
 /**
  * Get random cat image.
- * @param {CatBreeds=} catBreed cat breed supported by API.
+ * @param {CatBreed=} catBreed provides a specific breed to search for. If ommited, no-breed-based filtering is performed.
  * @returns {Image} the requested image
  */
 TheCatApi.getRandomCatImage = async function (catBreed = "") {
@@ -40,7 +42,7 @@ TheCatApi.getRandomCatImage = async function (catBreed = "") {
 
 /**
  * Get list of cat breeds.
- * @returns {CatBreeds} list of cat breeds supported by API.
+ * @returns {CatBreed} list of cat breeds supported by API.
  */
 TheCatApi.getCatBreeds = function () {
   return Object.keys(CAT_BREEDS);

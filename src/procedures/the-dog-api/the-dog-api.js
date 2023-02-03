@@ -1,8 +1,10 @@
 /**
  * The Dogs Service provides access to the Dog API data from https://api.thedogapi.com/v1/.
  *
+ * @alpha
  * @service
  * @category Society
+ * @category Media
  */
 
 const { TheDogApiKey } = require("../utils/api-key");
@@ -20,7 +22,7 @@ ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey);
 
 /**
  * Get random dog image.
- * @param {DogBreeds=} dogBreed dog breed supported by API.
+ * @param {DogBreed=} dogBreed provides a specific breed to search for. If ommited, no-breed-based filtering is performed.
  * @returns {Image} the requested image
  */
 TheDogApi.getRandomDogImage = async function (dogBreed = "") {
@@ -40,7 +42,7 @@ TheDogApi.getRandomDogImage = async function (dogBreed = "") {
 
 /**
  * Get list of dog breeds.
- * @returns {DogBreeds} list of dog breeds supported by API.
+ * @returns {DogBreed} list of dog breeds supported by API.
  */
 TheDogApi.getDogBreeds = function () {
   return Object.keys(DOG_BREEDS);

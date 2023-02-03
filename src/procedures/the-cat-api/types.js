@@ -72,7 +72,7 @@ const CAT_BREEDS = {
 
 function registerTypes() {
   types.defineType({
-    name: "CatBreeds",
+    name: "CatBreed",
     description: "List of cat breeds supported by the API",
     baseType: "Enum",
     baseParams: CAT_BREEDS,
