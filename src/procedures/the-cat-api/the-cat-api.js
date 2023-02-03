@@ -42,7 +42,7 @@ TheCatApi.getRandomCatImage = async function (catBreed = "") {
 
 /**
  * Get list of cat breeds.
- * @returns {CatBreed} list of cat breeds supported by API.
+ * @returns Array<CatBreed> list of cat breeds supported by API.
  */
 TheCatApi.getCatBreeds = function () {
   return Object.keys(CAT_BREEDS);

@@ -42,7 +42,7 @@ TheDogApi.getRandomDogImage = async function (dogBreed = "") {
 
 /**
  * Get list of dog breeds.
- * @returns {DogBreed} list of dog breeds supported by API.
+ * @returns Array<DogBreed> list of dog breeds supported by API.
  */
 TheDogApi.getDogBreeds = function () {
   return Object.keys(DOG_BREEDS);
