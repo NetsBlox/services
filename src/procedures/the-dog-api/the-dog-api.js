@@ -25,16 +25,21 @@ ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey);
  * @returns {Image} the requested image
  */
 TheDogApi.getRandomDogImage = async function(dogBreed = '') {
-      //Requesting JSON from the Dog Api Url
-      const dogJson = await this._requestData({
-        baseUrl: 'https://api.thedogapi.com/v1/images/search?t=' + Date.now(),
-        queryString: '&breed_ids=' + dogBreed,
-        
-    });
+  //Requesting JSON from the Dog Api Url
+  const dogJson = await this._requestData({
+    baseUrl: 'https://api.thedogapi.com/v1/images/search?t=' + Date.now(),
+    queryString: '&breed_ids=' + dogBreed,
+
+  });
 
   //Get the image URL from the received JSON
   const imageUrl = dogJson[0].url;
-  }
+
+  return this._sendImage({
+      baseUrl: imageUrl,
+  });
+}
+
 /**
  * Get list of dog breeds.
  * @returns {DogBreeds} list of dog breeds supported by API.

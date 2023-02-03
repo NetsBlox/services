@@ -24,17 +24,21 @@ ApiConsumer.setRequiredApiKey(TheCatApi, TheCatApiKey);
  * @param {CatBreeds=} catBreed cat breed supported by API.
  * @returns {Image} the requested image
  */
-TheCatApi.getRandomCatImage = async function(catBreed = ''){
-    //Requesting JSON from the Cat Api Url
-    const catJson = await this._requestData({
-        baseUrl: 'https://api.thecatapi.com/v1/images/search?t=' + Date.now(),
-        queryString: '&breed_ids=' + catBreed,
-        
-    });
+TheCatApi.getRandomDogImage = async function(catBreed = '') {
+  //Requesting JSON from the Cat Api Url
+  const catJson = await this._requestData({
+    baseUrl: 'https://api.thecatapi.com/v1/images/search?t=' + Date.now(),
+    queryString: '&breed_ids=' + catBreed,
+
+  });
 
   //Get the image URL from the received JSON
   const imageUrl = catJson[0].url;
-  }
+
+  return this._sendImage({
+      baseUrl: imageUrl,
+  });
+}
 /**
  * Get list of cat breeds.
  * @returns {CatBreeds} list of cat breeds supported by API.
