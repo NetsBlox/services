@@ -70,7 +70,6 @@ const CAT_BREEDS = {
   YorkChocolate: "ycho",
 };
 
-<<<<<<< HEAD
 
 function registerTypes() {
     types.defineType({
@@ -82,15 +81,3 @@ function registerTypes() {
 }
 
 module.exports = { registerTypes, CAT_BREEDS };
-=======
-function catTypes() {
-  types.defineType({
-    name: "BreedsOfCats",
-    description: "List of available Cat Breeds",
-    baseType: "Enum",
-    baseParams: CAT_BREEDS,
-  });
-}
-
-module.exports = { catTypes };
->>>>>>> 765e96475f26c1bf2e25c8e22c160a9132a6104f

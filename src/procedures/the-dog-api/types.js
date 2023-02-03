@@ -175,7 +175,6 @@ const DOG_BREEDS = {
   YorkshireTerrier: 264,
 };
 
-<<<<<<< HEAD
 function registerTypes() {
     types.defineType({
         name: 'DogBreeds',
@@ -186,15 +185,3 @@ function registerTypes() {
 }
 
 module.exports = { registerTypes, DOG_BREEDS };
-=======
-function dogTypes() {
-  types.defineType({
-    name: "BreedsOfDogs",
-    description: "List of available Dog Breeds",
-    baseType: "Enum",
-    baseParams: DOG_BREEDS,
-  });
-}
-
-module.exports = { dogTypes };
->>>>>>> 765e96475f26c1bf2e25c8e22c160a9132a6104f
