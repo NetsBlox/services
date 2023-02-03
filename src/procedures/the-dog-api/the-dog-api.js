@@ -12,12 +12,10 @@ const ApiConsumer = require('../utils/api-consumer');
 registerTypes();
 
 // Dogs API Url
-const dogApiUrl = "https://api.thedogapi.com/v1/images/search";
+const dogApiUrl = 'https://api.thedogapi.com/v1/images/search';
 
-const TheDogApi = new ApiConsumer("TheDogApi", dogApiUrl, {
-  cache: { ttl: 1 },
-});
-ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey);
+const TheDogApi = new ApiConsumer('TheDogApi', dogApiUrl, {cache: {ttl: 1}});
+ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey)
 
 /**
  * Get random dog image.
@@ -32,12 +30,12 @@ TheDogApi.getRandomDogImage = async function(dogBreed = '') {
 
   });
 
-  //Get the image URL from the received JSON
-  const imageUrl = dogJson[0].url;
-
-  return this._sendImage({
-      baseUrl: imageUrl,
-  });
+    //Get the image URL from the received JSON
+    const imageUrl = dogJson[0].url;
+   
+    return this._sendImage({
+        baseUrl: imageUrl,
+    });
 }
 
 /**

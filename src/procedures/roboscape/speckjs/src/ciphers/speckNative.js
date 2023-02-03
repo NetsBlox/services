@@ -1,7 +1,5 @@
-const { printBinary, mod, lcsn, rcsn, asciiToBits, chopString } = require(
-    "../utils",
-  ),
-  BlockCipher = require("../blockCipher");
+const { printBinary, mod, lcsn, rcsn, asciiToBits, chopString } = require('../utils'),
+  BlockCipher = require('../blockCipher');
 
 class SpeckNative32 extends BlockCipher {
   constructor() {
@@ -15,15 +13,15 @@ class SpeckNative32 extends BlockCipher {
     let rKeys = [];
     // build the initial L and K CHECK
     const m = this.m;
-    const sixteenOnes = Math.pow(2, 16) - 1;
+    const sixteenOnes = Math.pow(2,16) - 1;
 
     let key = [...keyWords]; // shallow copy to dereference
     var k = key[3];
     for (var i = 0, j; i < this.numRounds; ++i) {
-      rKeys[i] = k;
-      j = 2 - i % 3;
-      key[j] = rcsn(key[j], 7, 16) + k & sixteenOnes ^ i;
-      k = lcsn(k, 2, 16) ^ key[j];
+        rKeys[i] = k;
+        j = 2 - i % 3;
+        key[j] = rcsn(key[j], 7, 16) + k & sixteenOnes ^ i;
+        k = lcsn(k, 2, 16) ^ key[j];
     }
 
     return rKeys;
@@ -51,7 +49,7 @@ class SpeckNative32 extends BlockCipher {
   _encrypt(words, rKeys) {
     // console.log('input words to encrypt', words);
     let [x, y] = words;
-    for (let i = 0; i < this.numRounds; i++) {
+    for (let i=0; i<this.numRounds; i++) {
       [x, y] = this._round(x, y, rKeys[i]);
     }
     return [x, y];
@@ -60,7 +58,7 @@ class SpeckNative32 extends BlockCipher {
   _decrypt(words, rKeys) {
     // console.log('input words to decrypt', words);
     let [x, y] = words;
-    for (let i = this.numRounds - 1; i >= 0; i--) {
+    for (let i=this.numRounds-1; i >= 0; i--) {
       [x, y] = this._roundI(x, y, rKeys[i]);
     }
     return [x, y];

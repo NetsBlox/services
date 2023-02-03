@@ -7,10 +7,10 @@
  * @category Climate
  */
 
-const { getData } = require("./data");
+const {getData} = require('./data');
 
 const MaunaLoaCO2Data = {};
-MaunaLoaCO2Data.serviceName = "MaunaLoaCO2Data";
+MaunaLoaCO2Data.serviceName = 'MaunaLoaCO2Data';
 
 /**
  * Get the mole fraction of CO2 (in parts per million) by year. Missing measurements
@@ -22,14 +22,9 @@ MaunaLoaCO2Data.serviceName = "MaunaLoaCO2Data";
  * @param {Number=} endyear last year of data to include
  * @returns {Array}
  */
-MaunaLoaCO2Data.getRawCO2 = async function (
-  startyear = -Infinity,
-  endyear = Infinity,
-) {
-  return (await getData()).filter((datum) =>
-    datum.date > startyear && datum.date < endyear
-  )
-    .map((datum) => [datum.date, datum.interpolated]);
+MaunaLoaCO2Data.getRawCO2 = async function(startyear=-Infinity, endyear=Infinity){
+    return (await getData()).filter(datum => datum.date > startyear && datum.date < endyear)
+        .map(datum => [datum.date, datum.interpolated]);
 };
 
 /**
@@ -42,14 +37,9 @@ MaunaLoaCO2Data.getRawCO2 = async function (
  * @param {Number=} endyear last year of data to include
  * @returns {Array}
  */
-MaunaLoaCO2Data.getCO2Trend = async function (
-  startyear = -Infinity,
-  endyear = Infinity,
-) {
-  return (await getData()).filter((datum) =>
-    datum.date > startyear && datum.date < endyear
-  )
-    .map((datum) => [datum.date, datum.trend]);
+MaunaLoaCO2Data.getCO2Trend = async function(startyear=-Infinity, endyear=Infinity){
+    return (await getData()).filter(datum => datum.date > startyear && datum.date < endyear)
+        .map(datum => [datum.date, datum.trend]);
 };
 
 module.exports = MaunaLoaCO2Data;

@@ -8,17 +8,17 @@
  */
 
 const CommonWords = {};
-const fs = require("fs");
-const path = require("path");
-const { SUPPORTED_LANGUAGES } = require("./types");
+const fs = require('fs');
+const path = require('path');
+const {SUPPORTED_LANGUAGES} = require('./types');
 const words = Object.fromEntries(
-  Object.values(SUPPORTED_LANGUAGES).map((lang) => [lang, readWordList(lang)]),
+    Object.values(SUPPORTED_LANGUAGES).map(lang => [lang, readWordList(lang)])
 );
 
 function readWordList(lang) {
-  const filepath = path.join(__dirname, "words", lang + ".txt");
-  return fs.readFileSync(filepath, "utf8")
-    .split("\n").filter((line) => !!line.trim());
+    const filepath = path.join(__dirname, 'words', lang + '.txt');
+    return fs.readFileSync(filepath, 'utf8')
+        .split('\n').filter(line => !!line.trim());
 }
 
 /**
@@ -26,8 +26,8 @@ function readWordList(lang) {
  *
  * @return Array<SupportedLanguage>
  */
-CommonWords.getLanguages = function () {
-  return Object.keys(SUPPORTED_LANGUAGES);
+CommonWords.getLanguages = function() {
+    return Object.keys(SUPPORTED_LANGUAGES);
 };
 
 /**
@@ -37,8 +37,8 @@ CommonWords.getLanguages = function () {
  * @param{BoundedInteger<1>=} start Index to start from (default 1)
  * @param{BoundedInteger<1>=} end Index of last word to include (default 10)
  */
-CommonWords.getWords = function (language, start = 1, end = 10) {
-  return words[language].slice(start - 1, end);
+CommonWords.getWords = function(language, start=1, end=10) {
+    return words[language].slice(start-1, end);
 };
 
 module.exports = CommonWords;

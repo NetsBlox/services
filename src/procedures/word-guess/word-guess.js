@@ -5,33 +5,31 @@
  * @category Games
  */
 
-const fs = require("fs");
-const path = require("path");
-const { Nodehun } = require("nodehun");
-const CommonWords = require("../common-words/common-words");
-const { RPCError } = require("../utils");
-const _ = require("lodash");
+const fs = require('fs');
+const path = require('path');
+const { Nodehun } = require('nodehun');
+const CommonWords = require('../common-words/common-words');
+const { RPCError } = require('../utils');
+const _ = require('lodash');
 
 // Setup dictionary
-const dicFile = fs.readFileSync(path.join(__dirname, "dict", "en-custom.dic"));
-const affFile = fs.readFileSync(path.join(__dirname, "dict", "en-custom.aff"));
+const dicFile = fs.readFileSync(path.join(__dirname, 'dict', 'en-custom.dic'));
+const affFile = fs.readFileSync(path.join(__dirname, 'dict', 'en-custom.aff'));
 const nodehun = new Nodehun(affFile, dicFile);
 
-const wordleGuesses = fs.readFileSync(
-  path.join(__dirname, "dict", "wordle", "valid-words.csv"),
-).toString().split("\n");
-const wordleAnswers = fs.readFileSync(
-  path.join(__dirname, "dict", "wordle", "word-bank.csv"),
-).toString().split("\n");
+const wordleGuesses = fs.readFileSync(path.join(__dirname, 'dict', 'wordle', 'valid-words.csv')).toString().split('\n');
+const wordleAnswers = fs.readFileSync(path.join(__dirname, 'dict', 'wordle', 'word-bank.csv')).toString().split('\n');
 
 const WordGuess = {};
 
-WordGuess._states = {};
+WordGuess._states = {
+
+};
 
 WordGuess._GameState = {
-  Playing: "Playing",
-  Won: "Won",
-  Lost: "Lost",
+    Playing: 'Playing',
+    Won: 'Won',
+    Lost: 'Lost',
 };
 
 const MAX_TIME = 24 * 60 * 60;
@@ -40,9 +38,9 @@ const MAX_TIME = 24 * 60 * 60;
  * Clean up old gamestates
  */
 WordGuess._cleanStates = function () {
-  WordGuess._states = _.pickBy(WordGuess._states, (state) => {
-    return Date.now() - state.time < MAX_TIME;
-  });
+    WordGuess._states = _.pickBy(WordGuess._states, state => {
+        return Date.now() - state.time < MAX_TIME;
+    });
 };
 
 setInterval(WordGuess._cleanStates, 24 * 60 * 60 * 1000);
@@ -54,8 +52,8 @@ setInterval(WordGuess._cleanStates, 24 * 60 * 60 * 1000);
  * @returns {String} A random word of the given length
  */
 WordGuess._getRandomCommonWord = function (length, filter = () => true) {
-  const possibilities = WordGuess.getWordList(length).filter(filter);
-  return possibilities[_.random(possibilities.length - 1)];
+    const possibilities = WordGuess.getWordList(length).filter(filter);
+    return possibilities[_.random(possibilities.length - 1)];
 };
 
 /**
@@ -64,11 +62,11 @@ WordGuess._getRandomCommonWord = function (length, filter = () => true) {
  * @param {BoundedInteger<3,10>=} length Length of word to search for (default ``5``)
  */
 WordGuess.start = function (length = 5) {
-  WordGuess._states[this.caller.clientId] = {
-    time: Date.now(),
-    word: WordGuess._getRandomCommonWord(length),
-    gamestate: WordGuess._GameState.Playing,
-  };
+    WordGuess._states[this.caller.clientId] = {
+        time: Date.now(),
+        word: WordGuess._getRandomCommonWord(length),
+        gamestate: WordGuess._GameState.Playing
+    };
 };
 
 /**
@@ -80,36 +78,32 @@ WordGuess.start = function (length = 5) {
  * @param {BoundedString<3,10>} word Guess for this round
  */
 WordGuess.guess = function (word) {
-  word = word.toLowerCase();
+    word = word.toLowerCase();
 
-  // Check the user has an existing game
-  if (!Object.keys(WordGuess._states).includes(this.caller.clientId)) {
-    throw new RPCError("No game in progress");
-  }
+    // Check the user has an existing game
+    if (!Object.keys(WordGuess._states).includes(this.caller.clientId)) {
+        throw new RPCError('No game in progress');
+    }
 
-  if (
-    WordGuess._states[this.caller.clientId].gamestate !=
-      WordGuess._GameState.Playing
-  ) {
-    throw new RPCError("Game already complete");
-  }
+    if (WordGuess._states[this.caller.clientId].gamestate != WordGuess._GameState.Playing) {
+        throw new RPCError('Game already complete');
+    }
 
-  // Reject words of wrong length
-  let realWord = WordGuess._states[this.caller.clientId].word;
-  this._validateGuess(word, realWord);
+    // Reject words of wrong length
+    let realWord = WordGuess._states[this.caller.clientId].word;
+    this._validateGuess(word, realWord);
 
-  WordGuess._states[this.caller.clientId].time = Date.now();
+    WordGuess._states[this.caller.clientId].time = Date.now();
 
-  // Match word
-  const matches = WordGuess._calculateMatches(realWord, word);
+    // Match word
+    const matches = WordGuess._calculateMatches(realWord, word);
 
-  // Check for won game
-  if (_.sum(matches) == word.length * 3) {
-    WordGuess._states[this.caller.clientId].gamestate =
-      WordGuess._GameState.Won;
-  }
+    // Check for won game
+    if (_.sum(matches) == word.length * 3) {
+        WordGuess._states[this.caller.clientId].gamestate = WordGuess._GameState.Won;
+    }
 
-  return matches;
+    return matches;
 };
 
 /**
@@ -119,50 +113,47 @@ WordGuess.guess = function (word) {
  * @returns {Array} Array of integers corresponding to result
  */
 WordGuess._calculateMatches = function (realWord, word) {
-  const realLetters = realWord.split("");
+    const realLetters = realWord.split('');
 
-  let matches = [];
+    let matches = [];
 
-  // Find exact matches
-  for (let i = 0; i < realWord.length; i++) {
-    if (word[i] == realLetters[i]) {
-      matches.push(3);
-      realLetters[i] = "-";
-    } else {
-      matches.push(1);
+    // Find exact matches
+    for (let i = 0; i < realWord.length; i++) {
+        if (word[i] == realLetters[i]) {
+            matches.push(3);
+            realLetters[i] = '-';
+        } else {
+            matches.push(1);
+        }
     }
-  }
 
-  // Find near-match
-  for (let i = 0; i < realWord.length; i++) {
-    if (matches[i] == 1 && realLetters.includes(word[i])) {
-      matches[i] = 2;
-      realLetters[realWord.indexOf(word[i])] = "-";
+    // Find near-match
+    for (let i = 0; i < realWord.length; i++) {
+        if (matches[i] == 1 && realLetters.includes(word[i])) {
+            matches[i] = 2;
+            realLetters[realWord.indexOf(word[i])] = '-';
+        }
     }
-  }
 
-  return matches;
+    return matches;
 };
 
 /**
  * Give up on the current game and learn the target word
  */
 WordGuess.giveUp = function () {
-  // Check the user has an existing game
-  if (!Object.keys(WordGuess._states).includes(this.caller.clientId)) {
-    throw new RPCError("No game in progress");
-  }
+    // Check the user has an existing game
+    if (!Object.keys(WordGuess._states).includes(this.caller.clientId)) {
+        throw new RPCError('No game in progress');
+    }
 
-  if (
-    WordGuess._states[this.caller.clientId].gamestate !=
-      WordGuess._GameState.Playing
-  ) {
-    throw new RPCError("Game complete");
-  }
+    if (WordGuess._states[this.caller.clientId].gamestate != WordGuess._GameState.Playing) {
+        throw new RPCError('Game complete');
+    }
 
-  WordGuess._states[this.caller.clientId].gamestate = WordGuess._GameState.Lost;
+    WordGuess._states[this.caller.clientId].gamestate = WordGuess._GameState.Lost;
 
-  return WordGuess._states[this.caller.clientId].word;
+    return WordGuess._states[this.caller.clientId].word;
 };
 
 /**
@@ -171,19 +162,16 @@ WordGuess.giveUp = function () {
  * @returns {Array<String>} word list
  */
 WordGuess.getWordList = function (length) {
-  // Special case for 5-letter words to use Wordle list
-  const allPossibilities = length === 5
-    ? wordleAnswers
-    : CommonWords.getWords("en", 1, 10000);
-  const possibilities = allPossibilities.filter((word) =>
-    word.length == length
-  );
+    // Special case for 5-letter words to use Wordle list
+    const allPossibilities = length === 5 ?
+        wordleAnswers : CommonWords.getWords('en', 1, 10000);
+    const possibilities = allPossibilities.filter(word => word.length == length);
 
-  if (possibilities.length == 0) {
-    throw new RPCError("No words available of that length.");
-  }
+    if (possibilities.length == 0) {
+        throw new RPCError('No words available of that length.');
+    }
 
-  return possibilities;
+    return possibilities;
 };
 
 /**
@@ -192,23 +180,23 @@ WordGuess.getWordList = function (length) {
  * @param {String} realWord Solution word
  */
 WordGuess._validateGuess = function (guess, realWord) {
-  // Length test
-  if (guess.length != realWord.length) {
-    throw new RPCError("Guess should have length " + realWord.length);
-  }
-
-  // Special case for Wordle-size games
-  if (realWord.length == 5) {
-    if (!wordleGuesses.includes(guess)) {
-      throw new RPCError("Invalid word");
+    // Length test
+    if (guess.length != realWord.length) {
+        throw new RPCError('Guess should have length ' + realWord.length);
     }
-    return;
-  }
 
-  // Require word to be in dictionary
-  if (!guess.match(/\p{L}+/gu) || !nodehun.spellSync(guess)) {
-    throw new RPCError("Invalid word");
-  }
+    // Special case for Wordle-size games
+    if (realWord.length == 5) {
+        if (!wordleGuesses.includes(guess)) {
+            throw new RPCError('Invalid word');
+        }
+        return;
+    }
+
+    // Require word to be in dictionary
+    if (!guess.match(/\p{L}+/gu) || !nodehun.spellSync(guess)) {
+        throw new RPCError('Invalid word');
+    }
 };
 
 module.exports = WordGuess;

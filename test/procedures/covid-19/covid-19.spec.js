@@ -1,21 +1,15 @@
-const utils = require("../../assets/utils");
+const utils = require('../../assets/utils');
 
-describe(utils.suiteName(__filename), function () {
-  utils.verifyRPCInterfaces("COVID-19", [
-    ["getLocationsWithData"],
-    ["getLocationCoordinates", ["country", "state", "city"]],
-    ["getRecoveredCounts", ["country", "state", "city"]],
-    ["getDeathCounts", ["country", "state", "city"]],
-    ["getConfirmedCounts", ["country", "state", "city"]],
-    ["getVaccinationData", [
-      "country",
-      "state",
-      "category",
-      "startDate",
-      "endDate",
-    ]],
-    ["getVaccinationStates"],
-    ["getVaccinationCountries"],
-    ["getVaccinationCategories"],
-  ]);
+describe(utils.suiteName(__filename), function() {
+    utils.verifyRPCInterfaces('COVID-19', [
+        ['getLocationsWithData'],
+        ['getLocationCoordinates', ['country', 'state', 'city']],
+        ['getRecoveredCounts', ['country', 'state', 'city']],
+        ['getDeathCounts', ['country', 'state', 'city']],
+        ['getConfirmedCounts', ['country', 'state', 'city']],
+        ['getVaccinationData', ['country', 'state', 'category', 'startDate', 'endDate']],
+        ['getVaccinationStates'],
+        ['getVaccinationCountries'],
+        ['getVaccinationCategories'],
+    ]);
 });

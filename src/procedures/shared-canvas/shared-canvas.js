@@ -12,28 +12,28 @@
  * @service
  * @category Media
  */
-"use strict";
+'use strict';
 
-const logger = require("../utils/logger")("shared-canvas");
-const utils = require("../utils");
-const jimp = require("jimp");
-const { getCanvas, saveCanvas, getUser, EDIT_COOLDOWN } = require("./storage");
-const { defineTypes } = require("./types");
+const logger = require('../utils/logger')('shared-canvas');
+const utils = require('../utils');
+const jimp = require('jimp');
+const { getCanvas, saveCanvas, getUser, EDIT_COOLDOWN } = require('./storage');
+const { defineTypes } = require('./types');
 
 defineTypes();
 
 const UPDATE_INTERVAL = 60 * 1000; // ms
 let canvasChanged = false;
 async function _saveLoop() {
-  try {
-    if (canvasChanged) {
-      canvasChanged = false; // reset before save
-      await saveCanvas();
+    try {
+        if (canvasChanged) {
+            canvasChanged = false; // reset before save
+            await saveCanvas();
+        }
+    } catch (e) {
+        logger.error(`canvas save error: ${e}`);
     }
-  } catch (e) {
-    logger.error(`canvas save error: ${e}`);
-  }
-  setTimeout(_saveLoop, UPDATE_INTERVAL);
+    setTimeout(_saveLoop, UPDATE_INTERVAL);
 }
 setTimeout(_saveLoop, UPDATE_INTERVAL);
 
@@ -47,9 +47,9 @@ const SharedCanvas = {};
  * @returns {SharedCanvasColor} The pixel color at the given location.
  */
 SharedCanvas.getPixel = async function (x, y) {
-  const canvas = await getCanvas();
-  const { r, g, b } = jimp.intToRGBA(canvas.getPixelColor(x, y));
-  return [r, g, b];
+    const canvas = await getCanvas();
+    const { r, g, b } = jimp.intToRGBA(canvas.getPixelColor(x, y));
+    return [ r, g, b ];
 };
 
 /**
@@ -65,16 +65,16 @@ SharedCanvas.getPixel = async function (x, y) {
  * @returns {Boolean} ``true`` if the edit was successful, otherwise ``false`` (attempt to edit during cooldown).
  */
 SharedCanvas.setPixel = async function (x, y, color) {
-  const user = await getUser(this.caller);
-  if (!user.canEdit()) return false;
-  user.markEdit();
+    const user = await getUser(this.caller);
+    if (!user.canEdit()) return false;
+    user.markEdit();
 
-  const canvas = await getCanvas();
-  const [r, g, b] = color;
-  canvas.setPixelColor(jimp.rgbaToInt(r, g, b, 255), x, y);
-  canvasChanged = true; // mark this change (after) so we'll trigger a save on the next save cycle
+    const canvas = await getCanvas();
+    const [ r, g, b ] = color;
+    canvas.setPixelColor(jimp.rgbaToInt(r, g, b, 255), x, y);
+    canvasChanged = true; // mark this change (after) so we'll trigger a save on the next save cycle
 
-  return true;
+    return true;
 };
 
 /**
@@ -84,17 +84,17 @@ SharedCanvas.setPixel = async function (x, y, color) {
  * @returns {BoundedNumber<0>} Remaining cooldown time (in seconds), or ``0`` if no cooldown remaining.
  */
 SharedCanvas.getCooldownRemaining = async function () {
-  const user = await getUser(this.caller);
-  return Math.max(user.msTillCooldown() / 1000, 0);
+    const user = await getUser(this.caller);
+    return Math.max(user.msTillCooldown() / 1000, 0);
 };
 
 /**
  * Gets the edit cooldown time (in seconds) that is imposed after each edit.
- *
+ * 
  * @returns {BoundedNumber<0>} Edit cooldown (in seconds).
  */
 SharedCanvas.getCooldown = function () {
-  return EDIT_COOLDOWN / 1000;
+    return EDIT_COOLDOWN / 1000;
 };
 
 /**
@@ -103,8 +103,8 @@ SharedCanvas.getCooldown = function () {
  * @returns {BoundedInteger<0>} Total number of edits that have been made on this account.
  */
 SharedCanvas.getEditCount = async function () {
-  const user = await getUser(this.caller);
-  return user.numEdits;
+    const user = await getUser(this.caller);
+    return user.numEdits;
 };
 
 /**
@@ -113,25 +113,21 @@ SharedCanvas.getEditCount = async function () {
  * @returns {Tuple<BoundedInteger<1>,BoundedInteger<1>>} The width and height of the canvas, as a list.
  */
 SharedCanvas.getSize = async function () {
-  const canvas = await getCanvas();
-  return [canvas.bitmap.width, canvas.bitmap.height];
+    const canvas = await getCanvas();
+    return [canvas.bitmap.width, canvas.bitmap.height];
 };
 /**
  * Gets the current canvas width.
  *
  * @returns {BoundedInteger<1>} The canvas width.
  */
-SharedCanvas.getWidth = async function () {
-  return (await this.getSize())[0];
-};
+SharedCanvas.getWidth = async function () { return (await this.getSize())[0]; };
 /**
  * Gets the current canvas height.
  *
  * @returns {BoundedInteger<1>} The canvas height.
  */
-SharedCanvas.getHeight = async function () {
-  return (await this.getSize())[1];
-};
+SharedCanvas.getHeight = async function () { return (await this.getSize())[1]; };
 
 /**
  * Gets a snapshot of the current canvas as an image.
@@ -145,51 +141,19 @@ SharedCanvas.getHeight = async function () {
  * @param {BoundedInteger<1>=} scale Zoom scale of the returned image (final size cannot be larger than the full canvas) (default ``1``).
  * @returns {Image} The requested slice of the current canvas as an image.
  */
-SharedCanvas.getImage = async function (
-  x = 0,
-  y = 0,
-  width,
-  height,
-  scale = 1,
-) {
-  const canvas = await getCanvas();
-  if (!width) width = canvas.bitmap.width - x;
-  if (!height) height = canvas.bitmap.height - y;
+SharedCanvas.getImage = async function (x = 0, y = 0, width, height, scale = 1) {
+    const canvas = await getCanvas();
+    if (!width) width = canvas.bitmap.width - x;
+    if (!height) height = canvas.bitmap.height - y;
 
-  if (x + width > canvas.bitmap.width) {
-    throw Error(
-      `X position ${x} with width ${width} extends beyond the canvas width (${canvas.bitmap.width})`,
-    );
-  }
-  if (y + height > canvas.bitmap.height) {
-    throw Error(
-      `Y position ${y} with height ${height} extends beyond the canvas height (${canvas.bitmap.height})`,
-    );
-  }
+    if (x + width > canvas.bitmap.width) throw Error(`X position ${x} with width ${width} extends beyond the canvas width (${canvas.bitmap.width})`);
+    if (y + height > canvas.bitmap.height) throw Error(`Y position ${y} with height ${height} extends beyond the canvas height (${canvas.bitmap.height})`);
 
-  if (width * scale > canvas.bitmap.width) {
-    throw Error(
-      `Scaled image width (${
-        width * scale
-      }) exceeds full canvas width (${canvas.bitmap.width})`,
-    );
-  }
-  if (height * scale > canvas.bitmap.height) {
-    throw Error(
-      `Scaled image height (${
-        height * scale
-      }) exceeds full canvas height (${canvas.bitmap.height})`,
-    );
-  }
+    if (width * scale > canvas.bitmap.width) throw Error(`Scaled image width (${width * scale}) exceeds full canvas width (${canvas.bitmap.width})`);
+    if (height * scale > canvas.bitmap.height) throw Error(`Scaled image height (${height * scale}) exceeds full canvas height (${canvas.bitmap.height})`);
 
-  const img = canvas.clone().crop(x, y, width, height).scale(
-    scale,
-    jimp.RESIZE_NEAREST_NEIGHBOR,
-  );
-  return utils.sendImageBuffer(
-    this.response,
-    await img.getBufferAsync(jimp.MIME_PNG),
-  );
+    const img = canvas.clone().crop(x, y, width, height).scale(scale, jimp.RESIZE_NEAREST_NEIGHBOR);
+    return utils.sendImageBuffer(this.response, await img.getBufferAsync(jimp.MIME_PNG));
 };
 
 module.exports = SharedCanvas;

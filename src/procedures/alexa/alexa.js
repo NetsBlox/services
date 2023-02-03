@@ -17,15 +17,15 @@
  * @category Devices
  */
 const Alexa = {};
-const AlexaSkill = require("./skill");
-const GetStorage = require("./storage");
-const { registerTypes, SkillCategories, SlotTypes } = require("./types");
-const h = require("./helpers");
-const schemas = require("./schemas");
+const AlexaSkill = require('./skill');
+const GetStorage = require('./storage');
+const {registerTypes, SkillCategories, SlotTypes} = require('./types');
+const h = require('./helpers');
+const schemas = require('./schemas');
 registerTypes();
 
-Alexa.initialize = async function () {
-  await h.registerOAuthClient();
+Alexa.initialize = async function() {
+    await h.registerOAuthClient();
 };
 
 /**
@@ -42,51 +42,43 @@ Alexa.initialize = async function () {
  * @param{Array<String>=} configuration.examples
  * @returns{String} ID
  */
-Alexa.createSkill = async function (configuration) {
-  const smapiClient = await h.getAPIClient(this.caller);
-  configuration = h.getConfigWithDefaults(configuration);
-  const stage = "development";
+Alexa.createSkill = async function(configuration) {
+    const smapiClient = await h.getAPIClient(this.caller);
+    configuration = h.getConfigWithDefaults(configuration);
+    const stage = 'development';
 
-  const vendorId = await h.getVendorID(smapiClient);
+    const vendorId = await h.getVendorID(smapiClient);
 
-  const manifest = schemas.manifest(this.caller.username, configuration);
-  const interactionModel = schemas.interactionModel(configuration);
-  const accountLinkingRequest = schemas.accountLinking();
+    const manifest = schemas.manifest(this.caller.username, configuration);
+    const interactionModel = schemas.interactionModel(configuration);
+    const accountLinkingRequest = schemas.accountLinking();
 
-  let skillId;
-  try {
-    skillId = (await smapiClient.createSkillForVendorV1(
-      { vendorId, manifest },
-      vendorId,
-    )).skillId;
-    await h.retryWhile(
-      () =>
-        smapiClient.setInteractionModelV1(skillId, stage, "en-US", {
-          interactionModel,
-        }),
-      (err) => err.statusCode === 404,
-    );
-    await smapiClient.updateAccountLinkingInfoV1(skillId, stage, {
-      accountLinkingRequest,
-    });
-  } catch (err) {
-    if (skillId) {
-      await smapiClient.deleteSkillV1(skillId);
+    let skillId;
+    try {
+        skillId = (await smapiClient.createSkillForVendorV1({vendorId, manifest}, vendorId)).skillId;
+        await h.retryWhile(
+            () => smapiClient.setInteractionModelV1(skillId, stage, 'en-US', {interactionModel}),
+            err => err.statusCode === 404,
+        );
+        await smapiClient.updateAccountLinkingInfoV1(skillId, stage, {accountLinkingRequest});
+    } catch (err) {
+        if (skillId) {
+            await smapiClient.deleteSkillV1(skillId);
+        }
+        throw h.clarifyError(err);
     }
-    throw h.clarifyError(err);
-  }
 
-  const { skills } = GetStorage();
-  await skills.updateOne({ _id: skillId }, {
-    $set: {
-      config: configuration,
-      context: this.caller,
-      author: this.caller.username,
-      createdAt: new Date(),
-    },
-  }, { upsert: true });
+    const {skills} = GetStorage();
+    await skills.updateOne({_id: skillId}, {
+        $set: {
+            config: configuration,
+            context: this.caller,
+            author: this.caller.username,
+            createdAt: new Date()
+        }
+    }, {upsert: true});
 
-  return skillId;
+    return skillId;
 };
 
 /**
@@ -96,31 +88,24 @@ Alexa.createSkill = async function (configuration) {
  * @param{String} utterance Text to send to skill
  * @returns{String} ID
  */
-Alexa.invokeSkill = async function (id, utterance) {
-  const stage = "development";
-  const locale = "en-US";
-  const skillData = await h.getSkillData(id);
-  const skill = new AlexaSkill(skillData);
+Alexa.invokeSkill = async function(id, utterance) {
+    const stage = 'development';
+    const locale = 'en-US';
+    const skillData = await h.getSkillData(id);
+    const skill = new AlexaSkill(skillData);
 
-  const smapiClient = await h.getAPIClient(this.caller);
-  try {
-    const { selectedIntent } = await smapiClient.profileNluV1(
-      { utterance },
-      id,
-      stage,
-      locale,
-    );
-    if (!selectedIntent) {
-      throw new Error(
-        "No matching intent found. Please try again later as the model may still be building.",
-      );
+    const smapiClient = await h.getAPIClient(this.caller);
+    try {
+        const {selectedIntent} = await smapiClient.profileNluV1({utterance}, id, stage, locale);
+        if (!selectedIntent) {
+            throw new Error('No matching intent found. Please try again later as the model may still be building.');
+        }
+        const {name, slots} = selectedIntent;
+
+        return await skill.invokeIntent(name, slots);
+    } catch (err) {
+        throw h.clarifyError(err);
     }
-    const { name, slots } = selectedIntent;
-
-    return await skill.invokeIntent(name, slots);
-  } catch (err) {
-    throw h.clarifyError(err);
-  }
 };
 
 /**
@@ -128,24 +113,24 @@ Alexa.invokeSkill = async function (id, utterance) {
  *
  * @param{String} ID ID of the Alexa skill to delete
  */
-Alexa.deleteSkill = async function (id) {
-  const { skills } = GetStorage();
-  const skillData = await h.getSkillData(id);
-  if (skillData.author !== this.caller.username) {
-    throw new Error("Unauthorized: Skills can only be deleted by the author.");
-  }
-
-  const smapiClient = await h.getAPIClient(this.caller);
-  try {
-    await smapiClient.deleteSkillV1(skillData._id);
-    await skills.deleteOne({ _id: skillData._id });
-  } catch (err) {
-    if (err.statusCode === 404) {
-      await skills.deleteOne({ _id: skillData._id });
-    } else {
-      throw err;
+Alexa.deleteSkill = async function(id) {
+    const {skills} = GetStorage();
+    const skillData = await h.getSkillData(id);
+    if (skillData.author !== this.caller.username) {
+        throw new Error('Unauthorized: Skills can only be deleted by the author.');
     }
-  }
+
+    const smapiClient = await h.getAPIClient(this.caller);
+    try {
+        await smapiClient.deleteSkillV1(skillData._id);
+        await skills.deleteOne({_id: skillData._id});
+    } catch (err) {
+        if (err.statusCode === 404) {
+            await skills.deleteOne({_id: skillData._id});
+        } else {
+            throw err;
+        }
+    }
 };
 
 /**
@@ -153,11 +138,10 @@ Alexa.deleteSkill = async function (id) {
  *
  * @returns{Array<String>} IDs
  */
-Alexa.listSkills = async function () {
-  const { skills } = GetStorage();
-  const skillConfigs = await skills.find({ author: this.caller.username })
-    .toArray();
-  return skillConfigs.map((skill) => skill._id);
+Alexa.listSkills = async function() {
+    const {skills} = GetStorage();
+    const skillConfigs = await skills.find({author: this.caller.username}).toArray();
+    return skillConfigs.map(skill => skill._id);
 };
 
 /**
@@ -165,9 +149,9 @@ Alexa.listSkills = async function () {
  *
  * @param{String} ID
  */
-Alexa.getSkill = async function (id) {
-  const { config } = await h.getSkillData(id);
-  return config;
+Alexa.getSkill = async function(id) {
+    const {config} = await h.getSkillData(id);
+    return config;
 };
 
 /**
@@ -184,62 +168,56 @@ Alexa.getSkill = async function (id) {
  * @param{String=} configuration.summary
  * @param{Array<String>=} configuration.examples
  */
-Alexa.updateSkill = async function (id, configuration) {
-  const smapiClient = await h.getAPIClient(this.caller);
-  configuration = h.getConfigWithDefaults(configuration);
+Alexa.updateSkill = async function(id, configuration) {
+    const smapiClient = await h.getAPIClient(this.caller);
+    configuration = h.getConfigWithDefaults(configuration);
 
-  const vendorId = await h.getVendorID(smapiClient);
-  const manifest = schemas.manifest(vendorId, configuration);
-  const interactionModel = schemas.interactionModel(configuration);
-  try {
-    const stage = "development";
-    await smapiClient.updateSkillManifestV1(id, stage, { manifest });
-    await smapiClient.setInteractionModelV1(id, stage, "en-US", {
-      interactionModel,
-    });
-  } catch (err) {
-    throw h.clarifyError(err);
-  }
+    const vendorId = await h.getVendorID(smapiClient);
+    const manifest = schemas.manifest(vendorId, configuration);
+    const interactionModel = schemas.interactionModel(configuration);
+    try {
+        const stage = 'development';
+        await smapiClient.updateSkillManifestV1(id, stage, {manifest});
+        await smapiClient.setInteractionModelV1(id, stage, 'en-US', {interactionModel});
+    } catch (err) {
+        throw h.clarifyError(err);
+    }
 
-  const { skills } = GetStorage();
-  await skills.updateOne({ _id: id }, {
-    $set: {
-      config: configuration,
-      context: this.caller,
-      author: this.caller.username,
-      updatedAt: new Date(),
-    },
-  }, { upsert: true });
+    const {skills} = GetStorage();
+    await skills.updateOne({_id: id}, {
+        $set: {
+            config: configuration,
+            context: this.caller,
+            author: this.caller.username,
+            updatedAt: new Date()
+        }
+    }, {upsert: true});
 };
 
 /**
  * Get a list of all valid categories for Alexa skills.
  */
-Alexa.getSkillCategories = function () {
-  return SkillCategories;
+Alexa.getSkillCategories = function() {
+    return SkillCategories;
 };
 
 /**
  * Get a list of all valid slot types that can be added to an intent.
  * For more information, check out https://developer.amazon.com/en-US/docs/alexa/custom-skills/slot-type-reference.html
  */
-Alexa.getSlotTypes = function () {
-  return SlotTypes;
+Alexa.getSlotTypes = function() {
+    return SlotTypes;
 };
 
 Alexa.isSupported = () => {
-  const envVars = ["ALEXA_CLIENT_ID", "ALEXA_CLIENT_SECRET", "SERVER_URL"];
-  const missingVars = envVars.filter((varName) => !process.env[varName]);
-  const isSupported = missingVars.length === 0;
-  if (!isSupported) {
-    // eslint-disable-next-line no-console
-    console.log(
-      `Alexa service is disabled because the following environment variables are not set: ${
-        missingVars.join(", ")
-      }`,
-    );
-  }
-  return isSupported;
+    const envVars = ['ALEXA_CLIENT_ID', 'ALEXA_CLIENT_SECRET', 'SERVER_URL'];
+    const missingVars = envVars.filter(varName => !process.env[varName]);
+    const isSupported = missingVars.length === 0;
+    if (!isSupported) {
+        // eslint-disable-next-line no-console
+        console.log(`Alexa service is disabled because the following environment variables are not set: ${missingVars.join(', ')}`);
+    }
+    return isSupported;
 };
 
 module.exports = Alexa;

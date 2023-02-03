@@ -1,4 +1,4 @@
-const utils = require("../assets/utils");
+const utils = require('../assets/utils');
 
 const INDEX_SNAPSHOT_SHUFFLED = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
@@ -39,25 +39,20 @@ const INDEX_SNAPSHOT_SHUFFLED = `
 `;
 
 describe(utils.suiteName(__filename), () => {
-  const hurricane = utils.reqSrc("procedures/hurricane-data/hurricane-data.js");
-  const assert = require("assert");
+    const hurricane = utils.reqSrc('procedures/hurricane-data/hurricane-data.js');
+    const assert = require('assert');
 
-  utils.verifyRPCInterfaces("HurricaneData", [
-    ["getHurricaneData", ["name", "year"]],
-    ["getHurricanesInYear", ["year"]],
-    ["getYearsWithHurricaneNamed", ["name"]],
-  ]);
+    utils.verifyRPCInterfaces('HurricaneData', [
+        ['getHurricaneData', ['name', 'year']],
+        ['getHurricanesInYear', ['year']],
+        ['getYearsWithHurricaneNamed', ['name']],
+    ]);
 
-  describe("_extractFiles", () => {
-    it("should give most recent files", () => {
-      const { baseFile, nepacFile } = hurricane._extractFiles(
-        INDEX_SNAPSHOT_SHUFFLED,
-      );
-      assert.deepStrictEqual(baseFile.name, "hurdat2-1851-2020-052921.txt");
-      assert.deepStrictEqual(
-        nepacFile.name,
-        "hurdat2-nepac-1949-2020-043021a.txt",
-      );
+    describe('_extractFiles', () => {
+        it('should give most recent files', () => {
+            const { baseFile, nepacFile } = hurricane._extractFiles(INDEX_SNAPSHOT_SHUFFLED);
+            assert.deepStrictEqual(baseFile.name, 'hurdat2-1851-2020-052921.txt');
+            assert.deepStrictEqual(nepacFile.name, 'hurdat2-nepac-1949-2020-043021a.txt');
+        });
     });
-  });
 });
