@@ -93,6 +93,16 @@ module.exports.AlphaVantageKey = new ApiKey(
   "ALPHA_VANTAGE_KEY",
 );
 
+module.exports.TheCatApiKey = new ApiKey(
+  'The Cat Api',
+  'https://thecatapi.com/signup',
+);
+
+module.exports.TheDogApiKey = new ApiKey(
+  'The Dog Api',
+  'https://thedogapi.com/signup',
+);
+
 class InvalidKeyError extends Error {
   constructor(apiKey) {
     const message =
