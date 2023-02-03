@@ -1,9 +1,9 @@
-const utils = require('../assets/utils');
+const utils = require("../assets/utils");
 
-describe(utils.suiteName(__filename), function() {
-    utils.verifyRPCInterfaces('TheDogApi', [
-        ['getRandomDogImage', ['dogBreed']],
-        ['getDogBreeds', []],
-        ['getBreedInfo', ['dogBreed']],
-    ]);
+describe(utils.suiteName(__filename), function () {
+  utils.verifyRPCInterfaces("TheDogApi", [
+    ["getRandomDogImage", ["dogBreed"]],
+    ["getDogBreeds", []],
+    ["getBreedInfo", ["dogBreed"]],
+  ]);
 });
