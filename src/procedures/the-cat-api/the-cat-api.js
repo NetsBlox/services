@@ -48,5 +48,4 @@ TheCatApi.getCatBreeds = function () {
   return Object.keys(CAT_BREEDS);
 };
 
-
 module.exports = TheCatApi;
