@@ -27,6 +27,7 @@ extend-exclude = [
     "src/procedures/nexrad-radar/RadarLocations.js",
     "src/procedures/word-guess/dict/*.*",
     "src/procedures/financial-data/currency-types.js",
+    "src/procedures/the-cat-api/types.js",
 
     # misc
     "test/utils.spec.js",
