@@ -5,7 +5,6 @@
  *
  * - `Zooniverse <https://classroom.zooniverse.org/#/wildcam-gorongosa-lab/explorers/map/>`__
  *
- * @alpha
  * @service
  * @category GeoData
  * @category Media
