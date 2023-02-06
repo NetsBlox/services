@@ -39,8 +39,8 @@ router.get(
     const isLoggedIn = !!username;
     if (!isLoggedIn) {
       if (LoginURL) {
-        const baseUrl = h.getServerURL();
-        const url = `${baseUrl}/services/routes/alexa/login.html`;
+        const baseUrl = h.getServicesURL();
+        const url = `${baseUrl}/routes/alexa/login.html`;
         res.redirect(
           `${LoginURL}?redirect=${encodeURIComponent(url)}&url=${
             encodeURIComponent(baseUrl)
@@ -54,7 +54,7 @@ router.get(
     res.send(AmazonLoginTemplate({
       username,
       clientID: h.getClientID(),
-      serverURL: h.getServerURL(),
+      serverURL: h.getCloudURL(),
     }));
   }),
 );
@@ -85,7 +85,7 @@ router.put(
         code: amazonResponse,
         client_id: process.env.ALEXA_CLIENT_ID,
         client_secret: process.env.ALEXA_CLIENT_SECRET,
-        redirect_uri: h.getServerURL() + "/services/routes/alexa/tokens",
+        redirect_uri: h.getServicesURL() + "/routes/alexa/tokens",
       }),
       headers: {
         "content-type": "application/x-www-form-urlencoded;charset=utf-8",

@@ -104,6 +104,13 @@ class NetsBloxCloud {
     const isOk = response.status > 199 && response.status < 400;
     return isOk; // FIXME: throwing might be better...
   }
+
+  // OAuth
+  async getOAuthClients() {
+    const url = `/oauth/clients/`;
+    const clients = await this.get(url);
+    return JSON.parse(clients);
+  }
 }
 
 const config = require("./config");
