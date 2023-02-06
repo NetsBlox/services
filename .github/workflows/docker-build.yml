@@ -3,7 +3,7 @@ name: Push Docker Hub
 on:
   push:
     branches:
-      - master
+      - main
   release:
     types:
       - published
@@ -34,16 +34,7 @@ jobs:
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: netsblox/base
-          dockerfile: Dockerfile.base
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          tags: "${{ env.TAG }},${{ env.RELEASE_TAG }}"
-
-      - name: Publish to Docker Hub
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: netsblox/server
+          name: netsblox/services
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           tags: "${{ env.TAG }},${{ env.RELEASE_TAG }}"
