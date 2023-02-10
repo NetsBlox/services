@@ -70,13 +70,12 @@ class NetsBloxCloud {
   async getServiceSettings(username) {
     const url = `/services/settings/user/${username}/${this.id}/all`;
     const settings = await this.get(url);
-    return _.mapValues(settings, (value) => {
-      if (value) {
-        if (value.map) return value.map(JSON.parse);
-        return JSON.parse(value);
-      }
-      return value;
-    });
+    // settings fields are strings which we happen to use to store JSON
+    // so we need to JSON.parse them, too
+    settings.user = JSON.parse(settings.user);
+    settings.member = JSON.parse(settings.member);
+    settings.groups = _.mapValues(settings.groups, JSON.parse);
+    return settings;
   }
 
   async getUserServiceSettings(username) {
