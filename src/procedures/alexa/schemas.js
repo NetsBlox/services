@@ -30,7 +30,7 @@ schemas.manifest = (author, config) => {
     apis: {
       custom: {
         endpoint: {
-          uri: `${h.getServerURL()}/services/routes/alexa`,
+          uri: `${h.getServicesURL()}/routes/alexa`,
           sslCertificateType: "Trusted",
         },
       },
@@ -44,16 +44,16 @@ schemas.manifest = (author, config) => {
       containsAds: false,
       locales: {
         "en-US": {
-          privacyPolicyUrl: `${h.getServerURL()}/privacy.html`,
-          termsOfUseUrl: `${h.getServerURL()}/tos.html`,
+          privacyPolicyUrl: `${h.getCloudURL()}/privacy.html`,
+          termsOfUseUrl: `${h.getCloudURL()}/tos.html`,
         },
       },
     },
   };
 
   if (iconsEnabled) {
-    const baseURL = h.getServerURL() +
-      `/services/routes/alexa/icon/${encodeURIComponent(author)}/${
+    const baseURL = h.getServicesURL() +
+      `/routes/alexa/icon/${encodeURIComponent(author)}/${
         encodeURIComponent(config.name)
       }`;
     if (config.smallIcon) {
@@ -71,8 +71,8 @@ schemas.manifest = (author, config) => {
 schemas.accountLinking = () => ({
   type: "AUTH_CODE",
   skipOnEnablement: false,
-  authorizationUrl: `${h.getServerURL()}/api/v2/oauth/`,
-  accessTokenUrl: `${h.getServerURL()}/api/v2/oauth/token`,
+  authorizationUrl: `${h.getCloudURL()}/oauth/authorize`,
+  accessTokenUrl: `${h.getCloudURL()}/oauth/token/`,
   clientId: h.getOAuthClientID(),
   clientSecret: "unused",
   accessTokenScheme: "HTTP_BASIC",

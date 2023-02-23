@@ -1,24 +1,12 @@
 const _ = require("lodash");
-const { SERVER_URL } = process.env;
 const AlexaSMAPI = require("ask-smapi-sdk");
-const clientID = process.env.ALEXA_CLIENT_ID;
-const clientSecret = process.env.ALEXA_CLIENT_SECRET;
 const GetStorage = require("./storage");
-// FIXME: address the oauth stuff
-//const OAuth = require('../../../api/core/oauth');
 const OAUTH_CLIENT_NAME = "Amazon Alexa";
 const assert = require("assert");
+const config = require("../../../config");
 
-let alexaClientID;
-async function registerOAuthClient() {
-  const clients = await OAuth.getClients();
-  const alexaClient = clients.find((client) =>
-    client.name === OAUTH_CLIENT_NAME
-  );
-  alexaClientID = alexaClient
-    ? alexaClient._id
-    : await OAuth.createClient(null, OAUTH_CLIENT_NAME);
-}
+const clientID = process.env.ALEXA_CLIENT_ID;
+const clientSecret = process.env.ALEXA_CLIENT_SECRET;
 
 function getClientID() {
   return clientID;
@@ -77,8 +65,12 @@ function sleep(duration) {
   return new Promise((resolve) => setTimeout(resolve, duration));
 }
 
-function getServerURL() {
-  return SERVER_URL; // FIXME?
+function getCloudURL() {
+  return config.NetsBloxCloud;
+}
+
+function getServicesURL() {
+  return config.ServerURL;
 }
 
 function getOAuthClientID() {
@@ -143,7 +135,8 @@ module.exports = {
   sleep,
   registerOAuthClient,
   getOAuthClientID,
-  getServerURL,
+  getServicesURL,
+  getCloudURL,
   getClientID,
   getConfigWithDefaults,
   getSkillData,
@@ -151,4 +144,5 @@ module.exports = {
   getImageFromCostumeXml,
   textBtwn,
   getVendorID,
+  OAUTH_CLIENT_NAME,
 };
