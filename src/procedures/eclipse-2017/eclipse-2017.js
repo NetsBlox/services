@@ -95,7 +95,6 @@ function loadLatestUpdates(numUpdates) {
             latestReadings[reading.pws].requestTime < reading.requestTime)
         ) latestReadings[reading.pws] = reading;
       });
-      logger.trace("preloaded latest updates");
     });
 }
 
