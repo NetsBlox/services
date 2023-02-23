@@ -36,7 +36,7 @@ const ensureLoggedIn = function (caller) {
 
 const getAPIClient = async function (caller) {
   ensureLoggedIn(caller);
-  const collection = GetStorage().tokens; // TODO: does this work?
+  const collection = GetStorage().tokens;
   const tokens = await collection.findOne({ username: caller.username });
   if (!tokens) {
     throw new Error("Amazon Login required. Please login.");
