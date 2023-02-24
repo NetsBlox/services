@@ -240,19 +240,20 @@ Alexa.isSupported = () => {
     return false;
   }
 
-  const clients = await NetsBloxCloud.getOAuthClients();
-  const isRegistered = clients.some((client) =>
-    client.name === OAUTH_CLIENT_NAME
-  );
-  if (!isRegistered) {
-    // eslint-disable-next-line no-console
-    console.log(
-      "Alexa service is disabled because it is not registered as an OAuth client with NetsBlox Cloud",
-    );
-    return false;
-  }
+  return false;
+  // const clients = await NetsBloxCloud.getOAuthClients();
+  // const isRegistered = clients.some((client) =>
+  //   client.name === OAUTH_CLIENT_NAME
+  // );
+  // if (!isRegistered) {
+  //   // eslint-disable-next-line no-console
+  //   console.log(
+  //     "Alexa service is disabled because it is not registered as an OAuth client with NetsBlox Cloud",
+  //   );
+  //   return false;
+  // }
 
-  return true;
+  // return true;
 };
 
 module.exports = Alexa;
