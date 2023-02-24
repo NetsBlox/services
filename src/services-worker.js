@@ -105,7 +105,7 @@ class ServicesWorker {
 
   async loadRPCs() {
     const DBServices = await this.loadRPCsFromDatabase();
-    const FSServices = this.loadRPCsFromFS();
+    const FSServices = await this.loadRPCsFromFS();
 
     for (const service of FSServices.concat(DBServices)) {
       this.validateTypes(service);
@@ -113,20 +113,16 @@ class ServicesWorker {
     }
   }
 
-  loadRPCsFromFS() {
+  async loadRPCsFromFS() {
     const PROCEDURES_DIR = path.join(__dirname, "procedures");
-    return fs.readdirSync(PROCEDURES_DIR)
+    const typesAndServices = fs.readdirSync(PROCEDURES_DIR)
       .map((name) => [name, path.join(PROCEDURES_DIR, name, name + ".js")])
       .filter((pair) => fs.existsSync(pair[1]))
       .map((pair) => {
         const [name, path] = pair;
-        const [types, service] = InputTypes.withTypeTape(() => require(path));
+        const [types, service] = InputTypes.withTypeTape(() => require(path)); // This needs to be sync
 
         service._docs = new Docs(path);
-        if (service.init) {
-          service.init(this._logger);
-        }
-        service._docs.apiKey = service.apiKey;
 
         // Register the rpc actions, method signatures
         if (service.serviceName) {
@@ -139,6 +135,16 @@ class ServicesWorker {
         } else {
           service.serviceName = this.getDefaultServiceName(name);
         }
+
+        return [types, service];
+      });
+
+    const services = await Promise.all(
+      typesAndServices.map(async ([types, service]) => {
+        if (service.init) {
+          service.init(this._logger);
+        }
+        service._docs.apiKey = service.apiKey;
 
         // after we produce the final service name, validate service name, rpc names, and arg names
         try {
@@ -177,7 +183,7 @@ class ServicesWorker {
           service.isSupported = () => true;
         }
 
-        if (!service.isSupported()) {
+        if (!await service.isSupported()) {
           /* eslint-disable no-console*/
           console.error(
             `${service.serviceName} is not supported in this deployment.`,
@@ -196,7 +202,10 @@ class ServicesWorker {
           InputTypes.registerType(argType, service.serviceName)
         );
         return service;
-      });
+      }),
+    );
+
+    return services;
   }
 
   async loadRPCsFromDatabase() {

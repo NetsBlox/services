@@ -9,9 +9,9 @@ describe(utils.suiteName(__filename), function () {
   const assert = require("assert");
   const _ = require("lodash");
 
-  before(() => {
-    Services.loadRPCsFromFS()
-      .forEach((service) => Services.registerRPC(service));
+  before(async () => {
+    const services = await Services.loadRPCsFromFS();
+    services.forEach((service) => Services.registerRPC(service));
   });
 
   describe("sendRPCResult", function () {
