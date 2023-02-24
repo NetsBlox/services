@@ -10,8 +10,8 @@ describe(utils.suiteName(__filename), function () {
   const _ = require("lodash");
 
   before(() => {
-    Services.loadRPCsFromFS()
-      .forEach((service) => Services.registerRPC(service));
+    const services = await Services.loadRPCsFromFS();
+    services.forEach((service) => Services.registerRPC(service));
   });
 
   describe("sendRPCResult", function () {
