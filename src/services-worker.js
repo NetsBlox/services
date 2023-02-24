@@ -120,7 +120,7 @@ class ServicesWorker {
       .filter((pair) => fs.existsSync(pair[1]))
       .map((pair) => {
         const [name, path] = pair;
-        const [types, service] = InputTypes.withTypeTape(() => require(path));  // This needs to be sync
+        const [types, service] = InputTypes.withTypeTape(() => require(path)); // This needs to be sync
 
         service._docs = new Docs(path);
 
@@ -138,7 +138,6 @@ class ServicesWorker {
 
         return [types, service];
       });
-
 
     const services = await Promise.all(
       typesAndServices.map(async ([types, service]) => {
@@ -203,7 +202,7 @@ class ServicesWorker {
           InputTypes.registerType(argType, service.serviceName)
         );
         return service;
-      })
+      }),
     );
 
     return services;
