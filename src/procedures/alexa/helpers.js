@@ -3,7 +3,7 @@ const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
 const OAUTH_CLIENT_NAME = "Amazon Alexa";
 const assert = require("assert");
-const config = require("../../../config");
+const config = require("../../config");
 
 const clientID = process.env.ALEXA_CLIENT_ID;
 const clientSecret = process.env.ALEXA_CLIENT_SECRET;
@@ -133,7 +133,6 @@ module.exports = {
   getAPIClient,
   clarifyError,
   sleep,
-  registerOAuthClient,
   getOAuthClientID,
   getServicesURL,
   getCloudURL,
