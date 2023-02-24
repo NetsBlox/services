@@ -9,7 +9,7 @@ describe(utils.suiteName(__filename), function () {
   const assert = require("assert");
   const _ = require("lodash");
 
-  before(() => {
+  before(async () => {
     const services = await Services.loadRPCsFromFS();
     services.forEach((service) => Services.registerRPC(service));
   });
