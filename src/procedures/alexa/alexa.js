@@ -22,11 +22,8 @@ const GetStorage = require("./storage");
 const { registerTypes, SkillCategories, SlotTypes } = require("./types");
 const h = require("./helpers");
 const schemas = require("./schemas");
+const NetsBloxCloud = require("../../cloud-client");
 registerTypes();
-
-Alexa.initialize = async function () {
-  await h.registerOAuthClient();
-};
 
 /**
  * Create an Alexa Skill from a configuration.
@@ -227,7 +224,7 @@ Alexa.getSlotTypes = function () {
   return SlotTypes;
 };
 
-Alexa.isSupported = () => {
+Alexa.isSupported = async () => {
   const envVars = ["ALEXA_CLIENT_ID", "ALEXA_CLIENT_SECRET", "SERVER_URL"];
   const missingVars = envVars.filter((varName) => !process.env[varName]);
   if (!missingVars.length === 0) {
@@ -240,20 +237,19 @@ Alexa.isSupported = () => {
     return false;
   }
 
-  return false;
-  // const clients = await NetsBloxCloud.getOAuthClients();
-  // const isRegistered = clients.some((client) =>
-  //   client.name === OAUTH_CLIENT_NAME
-  // );
-  // if (!isRegistered) {
-  //   // eslint-disable-next-line no-console
-  //   console.log(
-  //     "Alexa service is disabled because it is not registered as an OAuth client with NetsBlox Cloud",
-  //   );
-  //   return false;
-  // }
+  const clients = await NetsBloxCloud.getOAuthClients();
+  const isRegistered = clients.some((client) =>
+    client.name === OAUTH_CLIENT_NAME
+  );
+  if (!isRegistered) {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Alexa service is disabled because it is not registered as an OAuth client with NetsBlox Cloud",
+    );
+    return false;
+  }
 
-  // return true;
+  return true;
 };
 
 module.exports = Alexa;

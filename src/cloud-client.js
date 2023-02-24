@@ -108,7 +108,7 @@ class NetsBloxCloud {
   async getOAuthClients() {
     const url = `/oauth/clients/`;
     const clients = await this.get(url);
-    return JSON.parse(clients);
+    return clients;
   }
 }
 
