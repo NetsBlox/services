@@ -11,13 +11,12 @@ const ServicesWorker = require("../src/services-worker");
 const Storage = require("../src/storage/connection");
 const ServiceStorage = require("../src/storage");
 const axios = require("axios");
-const config = require("../src/config");
+const config = require('../src/config');
 
 main().catch((err) => console.error(err));
 
 async function main() {
   const db = await Storage.connect();
-  console.log("connected");
   ServiceStorage.init(new Logger("services"), db);
   await build();
 }
@@ -26,9 +25,7 @@ let INPUT_TYPES = undefined;
 async function build() {
   const services = new ServicesWorker(new Logger("netsblox:build-docs"));
   await services.load(); // needed for docs
-  console.log("services loaded");
   INPUT_TYPES = await getLoadedTypes(); // needed for other functions
-  console.log("types loaded");
   await compileDocs(services);
 }
 
@@ -98,7 +95,7 @@ async function loadSubservice(path) {
     } else if (config.ServerURL) {
       const msg =
         `${config.ServerURL} is not a valid address for NetsBlox services. ` +
-        "It should be set to the services server such as https://services.netsblox.org";
+        'It should be set to the services server such as https://services.netsblox.org';
 
       throw new Error(msg);
     }
@@ -132,7 +129,7 @@ function getServiceFilter(
 }
 
 const SERVICE_DIR_REGEX = /(.*)\/.*\.js/;
-const DOCS_PATH = path.join(__dirname, "..", "docs");
+const DOCS_PATH = path.join(__dirname, '..', "docs");
 const GENERATED_PATH = path.join(DOCS_PATH, "_generated");
 const SERVICES_PATH = path.join(GENERATED_PATH, "services");
 
