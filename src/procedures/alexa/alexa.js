@@ -237,6 +237,13 @@ Alexa.isSupported = async () => {
     return false;
   }
 
+  if (!NetsBloxCloud.isConfigured()) {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Alexa service is disabled because the NetsBlox Cloud is not configured");
+    return false;
+  }
+
   const clients = await NetsBloxCloud.getOAuthClients();
   const isRegistered = clients.some((client) =>
     client.name === OAUTH_CLIENT_NAME
