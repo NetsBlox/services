@@ -11,11 +11,13 @@ const ServicesWorker = require("../src/services-worker");
 const Storage = require("../src/storage/connection");
 const ServiceStorage = require("../src/storage");
 const axios = require("axios");
+const config = require('../src/config');
 
 main().catch((err) => console.error(err));
 
 async function main() {
   const db = await Storage.connect();
+  console.log('connected');
   ServiceStorage.init(new Logger("services"), db);
   await build();
 }
@@ -24,7 +26,9 @@ let INPUT_TYPES = undefined;
 async function build() {
   const services = new ServicesWorker(new Logger("netsblox:build-docs"));
   await services.load(); // needed for docs
+  console.log('services loaded');
   INPUT_TYPES = await getLoadedTypes(); // needed for other functions
+  console.log('types loaded');
   await compileDocs(services);
 }
 
@@ -83,7 +87,7 @@ function getParamString(param, link = false) {
 
 async function loadSubservice(path) {
   try {
-    const root = process.env.SERVER_URL || "http://127.0.0.1:8080/services";
+    const root = config.ServerURL;
     return await axios.get(`${root}${path}`);
   } catch (err) {
     if (err.errno === "ECONNREFUSED") {
@@ -91,11 +95,11 @@ async function loadSubservice(path) {
         ? `Unable to connect to ${process.env.SERVER_URL}. Is this the correct address?`
         : "Unable to connect to services server. Please set the SERVER_URL environment variable and retry.";
       throw new Error(msg);
-    } else if (process.env.SERVER_URL) {
+    } else if (config.ServerURL) {
       const msg =
-        `${process.env.SERVER_URL} is not a valid address for NetsBlox services. ` +
-        'It should be either the services server directly or the main server URL with "/services" appended.\n\n' +
-        "For example, https://editor.netsblox.org/services.";
+        `${config.ServerURL} is not a valid address for NetsBlox services. ` +
+        'It should be set to the services server such as https://services.netsblox.org';
+
       throw new Error(msg);
     }
     throw err;
@@ -128,7 +132,7 @@ function getServiceFilter(
 }
 
 const SERVICE_DIR_REGEX = /(.*)\/.*\.js/;
-const DOCS_PATH = path.join(__dirname, "docs");
+const DOCS_PATH = path.join(__dirname, '..', "docs");
 const GENERATED_PATH = path.join(DOCS_PATH, "_generated");
 const SERVICES_PATH = path.join(GENERATED_PATH, "services");
 
@@ -325,7 +329,7 @@ async function recursiveResolveCopy(from, to, vars) {
 async function cleanRoot() {
   const docsFiles = new Set(await fsp.readdir(DOCS_PATH));
   if (docsFiles.has("_generated")) {
-    await fsp.rmdir(GENERATED_PATH, { recursive: true });
+    await fsp.rm(GENERATED_PATH, { recursive: true });
     docsFiles.delete("_generated");
   }
   await fsp.mkdir(GENERATED_PATH);
