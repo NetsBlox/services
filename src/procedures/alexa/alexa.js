@@ -240,7 +240,8 @@ Alexa.isSupported = async () => {
   if (!NetsBloxCloud.isConfigured()) {
     // eslint-disable-next-line no-console
     console.log(
-      "Alexa service is disabled because the NetsBlox Cloud is not configured");
+      "Alexa service is disabled because the NetsBlox Cloud is not configured",
+    );
     return false;
   }
 

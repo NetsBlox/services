@@ -113,7 +113,6 @@ class NetsBloxCloud {
 
   isConfigured() {
     return this.cloudUrl && this.id && this.secret;
-    
   }
 }
 
