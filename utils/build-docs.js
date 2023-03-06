@@ -6,10 +6,10 @@ const fsp = require("fs").promises;
 const fse = require("fs-extra");
 const path = require("path");
 const { exec } = require("child_process");
-const Logger = require("./logger");
-const ServicesWorker = require("./services-worker");
-const Storage = require("./storage/connection");
-const ServiceStorage = require("./storage");
+const Logger = require("../src/logger");
+const ServicesWorker = require("../src/services-worker");
+const Storage = require("../src/storage/connection");
+const ServiceStorage = require("../src/storage");
 const axios = require("axios");
 
 main().catch((err) => console.error(err));
@@ -83,17 +83,17 @@ function getParamString(param, link = false) {
 
 async function loadSubservice(path) {
   try {
-    const root = process.env.SERVICES_URL || "http://127.0.0.1:8080/services";
+    const root = process.env.SERVER_URL || "http://127.0.0.1:8080/services";
     return await axios.get(`${root}${path}`);
   } catch (err) {
     if (err.errno === "ECONNREFUSED") {
-      const msg = process.env.SERVICES_URL
-        ? `Unable to connect to ${process.env.SERVICES_URL}. Is this the correct address?`
-        : "Unable to connect to services server. Please set the SERVICES_URL environment variable and retry.";
+      const msg = process.env.SERVER_URL
+        ? `Unable to connect to ${process.env.SERVER_URL}. Is this the correct address?`
+        : "Unable to connect to services server. Please set the SERVER_URL environment variable and retry.";
       throw new Error(msg);
-    } else if (process.env.SERVICES_URL) {
+    } else if (process.env.SERVER_URL) {
       const msg =
-        `${process.env.SERVICES_URL} is not a valid address for NetsBlox services. ` +
+        `${process.env.SERVER_URL} is not a valid address for NetsBlox services. ` +
         'It should be either the services server directly or the main server URL with "/services" appended.\n\n' +
         "For example, https://editor.netsblox.org/services.";
       throw new Error(msg);
