@@ -12,6 +12,14 @@ function getClientID() {
   return clientID;
 }
 
+function getOAuthClientID() {
+  return clientID;
+}
+
+function getOAuthSecret() {
+  return clientSecret;
+}
+
 function clarifyError(error) {
   if (error.response) {
     const { violations = [] } = error.response || {};
@@ -73,10 +81,6 @@ function getServicesURL() {
   return config.ServerURL;
 }
 
-function getOAuthClientID() {
-  return alexaClientID;
-}
-
 function getConfigWithDefaults(configuration) {
   const skillConfigDefaults = {
     description: "An under-development Alexa Skill created in NetsBlox!",
@@ -133,7 +137,10 @@ module.exports = {
   getAPIClient,
   clarifyError,
   sleep,
+
   getOAuthClientID,
+  getOAuthSecret,
+
   getServicesURL,
   getCloudURL,
   getClientID,
