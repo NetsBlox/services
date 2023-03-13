@@ -45,8 +45,8 @@ const getAPIClient = async function (caller) {
 
   const { access_token, refresh_token } = tokens;
   const refreshTokenConfig = {
-    "clientId": clientID,
-    "clientSecret": clientSecret,
+    "clientId": lwaClientID,
+    "clientSecret": lwaClientSecret,
     "refreshToken": refresh_token,
     "accessToken": access_token,
   };
