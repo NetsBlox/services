@@ -127,21 +127,21 @@ function textBtwn(text, start, end) {
 }
 
 const oauth = {
-    getClientID() {
-      return oauthClientID;
-    },
-    getClientSecret() {
-      return oauthClientSecret;
-    }
+  getClientID() {
+    return oauthClientID;
+  },
+  getClientSecret() {
+    return oauthClientSecret;
+  },
 };
 
 const lwa = {
-    getClientID() {
-      return lwaClientID;
-    },
-    getClientSecret() {
-      return lwaClientSecret;
-    }
+  getClientID() {
+    return lwaClientID;
+  },
+  getClientSecret() {
+    return lwaClientSecret;
+  },
 };
 
 module.exports = {
