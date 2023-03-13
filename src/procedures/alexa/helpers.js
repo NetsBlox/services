@@ -10,7 +10,7 @@ const lwaClientSecret = process.env.LWA_CLIENT_SECRET;
 
 // NetsBlox core server credentials
 const OAUTH_CLIENT_NAME = "Amazon Alexa";
-const oauthClientID = process.env.ALEXA_CLIENT_ID;
+const oauthClientID = process.env.OAUTH_CLIENT_ID;
 const oauthClientSecret = process.env.OAUTH_CLIENT_SECRET;
 
 function clarifyError(error) {
