@@ -73,8 +73,8 @@ schemas.accountLinking = () => ({
   skipOnEnablement: false,
   authorizationUrl: `${h.getCloudURL()}/oauth/authorize`,
   accessTokenUrl: `${h.getCloudURL()}/oauth/token/`,
-  clientId: h.getOAuthClientID(),
-  clientSecret: h.getOAuthSecret(),
+  clientId: h.oauth.getClientID(),
+  clientSecret: h.oauth.getSecret(),
   accessTokenScheme: "HTTP_BASIC",
 });
 
