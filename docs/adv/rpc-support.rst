@@ -26,3 +26,4 @@ Required Environment Variables for RPCs
 <% } %>
 
 To simplify this process (and to keep your ``~/.bashrc`` clean), these values can be stored in a ``.env`` file in the project root directory and they will be loaded into the environment on starting NetsBlox.
+

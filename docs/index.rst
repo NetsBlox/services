@@ -24,6 +24,7 @@ NetsBlox Documentation
     adv/deploy.rst
     adv/cli.rst
     adv/rpc-support.rst
+    adv/configure-alexa-service.rst
 
 .. toctree::
     :maxdepth: 2
