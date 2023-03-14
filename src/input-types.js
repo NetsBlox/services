@@ -3,7 +3,7 @@ const _ = require("lodash");
 const blocks2js = require("./blocks2js");
 const { cleanMarkup } = require("./jsdoc-extractor");
 const { isProfane } = require("./utils");
-const Cloud = require('./cloud-client');
+const Cloud = require("./cloud-client");
 
 let typeTape = null;
 function withTypeTape(fn) {
