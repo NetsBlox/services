@@ -225,7 +225,13 @@ Alexa.getSlotTypes = function () {
 };
 
 Alexa.isSupported = async () => {
-  const envVars = ["ALEXA_CLIENT_ID", "ALEXA_CLIENT_SECRET", "SERVER_URL"];
+  const envVars = [
+    "LWA_CLIENT_ID",
+    "LWA_CLIENT_SECRET",
+    "SERVER_URL",
+    "OAUTH_CLIENT_ID",
+    "OAUTH_CLIENT_SECRET"
+  ];
   const missingVars = envVars.filter((varName) => !process.env[varName]);
   if (missingVars.length > 0) {
     // eslint-disable-next-line no-console
