@@ -230,7 +230,7 @@ Alexa.isSupported = async () => {
     "LWA_CLIENT_SECRET",
     "SERVER_URL",
     "OAUTH_CLIENT_ID",
-    "OAUTH_CLIENT_SECRET"
+    "OAUTH_CLIENT_SECRET",
   ];
   const missingVars = envVars.filter((varName) => !process.env[varName]);
   if (missingVars.length > 0) {
