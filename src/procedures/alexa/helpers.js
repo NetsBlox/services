@@ -1,24 +1,17 @@
 const _ = require("lodash");
 const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
-const OAUTH_CLIENT_NAME = "Amazon Alexa";
 const assert = require("assert");
 const config = require("../../config");
 
-const clientID = process.env.ALEXA_CLIENT_ID;
-const clientSecret = process.env.ALEXA_CLIENT_SECRET;
+// login with alexa credentials
+const lwaClientID = process.env.LWA_CLIENT_ID;
+const lwaClientSecret = process.env.LWA_CLIENT_SECRET;
 
-function getClientID() {
-  return clientID;
-}
-
-function getOAuthClientID() {
-  return clientID;
-}
-
-function getOAuthSecret() {
-  return clientSecret;
-}
+// NetsBlox core server credentials
+const OAUTH_CLIENT_NAME = "Amazon Alexa";
+const oauthClientID = process.env.OAUTH_CLIENT_ID;
+const oauthClientSecret = process.env.OAUTH_CLIENT_SECRET;
 
 function clarifyError(error) {
   if (error.response) {
@@ -52,8 +45,8 @@ const getAPIClient = async function (caller) {
 
   const { access_token, refresh_token } = tokens;
   const refreshTokenConfig = {
-    "clientId": clientID,
-    "clientSecret": clientSecret,
+    "clientId": lwaClientID,
+    "clientSecret": lwaClientSecret,
     "refreshToken": refresh_token,
     "accessToken": access_token,
   };
@@ -133,17 +126,34 @@ function textBtwn(text, start, end) {
   return text.substring(startIndex, endIndex);
 }
 
+const oauth = {
+  getClientID() {
+    return oauthClientID;
+  },
+  getClientSecret() {
+    return oauthClientSecret;
+  },
+};
+
+const lwa = {
+  getClientID() {
+    return lwaClientID;
+  },
+  getClientSecret() {
+    return lwaClientSecret;
+  },
+};
+
 module.exports = {
   getAPIClient,
   clarifyError,
   sleep,
 
-  getOAuthClientID,
-  getOAuthSecret,
+  oauth,
+  lwa,
 
   getServicesURL,
   getCloudURL,
-  getClientID,
   getConfigWithDefaults,
   getSkillData,
   retryWhile,

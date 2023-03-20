@@ -110,6 +110,10 @@ class NetsBloxCloud {
     const clients = await this.get(url);
     return clients;
   }
+
+  isConfigured() {
+    return this.cloudUrl && this.id && this.secret;
+  }
 }
 
 const config = require("./config");

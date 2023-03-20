@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const config = require("./config");
 const ServicesAPI = require("./api");
 const express = require("express");
 const Storage = require("./storage/connection");
@@ -87,7 +88,7 @@ async function listen(port) {
 }
 
 if (require.main === module) {
-  listen(process.env.PORT || 6000);
+  listen(config.Port);
 }
 
 module.exports = listen;

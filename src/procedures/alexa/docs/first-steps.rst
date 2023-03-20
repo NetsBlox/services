@@ -3,7 +3,7 @@ Creating Your First Alexa Skill
 
 Let's make our first Alexa skill in NetsBlox! At a high level, the service expects the user to provide a configuration for an Alexa service (as a table) and then will create the skill from this configuration. The skill will be automatically available on your phone or any Alexa device that uses the same Amazon account (though it may need to be enabled, first!). In this walkthrough, we will create a simple Alexa skill and test it within NetsBlox!
 
-Before using any Alexa RPCs, you will first need to `register as a developer with Amazon <https://developer.amazon.com/settings/console/registration?return_to=/settings/console/mycid>`_ and login to Amazon `here </services/routes/alexa/login.html>`_.
+Before using any Alexa RPCs, you will first need to `register as a developer with Amazon <https://developer.amazon.com/settings/console/registration?return_to=/settings/console/mycid>`__ and login to Amazon `here </services/routes/alexa/login.html>`__.
 
 Creating the Configuration
 ##########################
@@ -19,7 +19,7 @@ Next, we will create a new variable, "skill config", for our skill configuration
 
 |
 
-After setting some of the basic parameters for our skill, we can now create our first intent for it. To start, we will just define a handler for an existing intent type provided by Amazon called "AMAZON.StopIntent". For a complete list of built-in intent types, check out the Alexa documentation `here <https://developer.amazon.com/en-US/docs/alexa/custom-skills/standard-built-in-intents.html>`_.
+After setting some of the basic parameters for our skill, we can now create our first intent for it. To start, we will just define a handler for an existing intent type provided by Amazon called "AMAZON.StopIntent". For a complete list of built-in intent types, check out the Alexa documentation `here <https://developer.amazon.com/en-US/docs/alexa/custom-skills/standard-built-in-intents.html>`__.
 
 |
 
@@ -63,7 +63,7 @@ And finally we can create the skill using the `createSkill` RPC! We will store t
 
 |
 
-Before creating more skills, feel free to check out the `best practices for defining utterances <https://developer.amazon.com/en-US/docs/alexa/custom-skills/best-practices-for-sample-utterances-and-custom-slot-type-values.html#sample-utterance-phrasing>`_.
+Before creating more skills, feel free to check out the `best practices for defining utterances <https://developer.amazon.com/en-US/docs/alexa/custom-skills/best-practices-for-sample-utterances-and-custom-slot-type-values.html#sample-utterance-phrasing>`__.
 
 Testing the Skill in NetsBlox
 #############################
@@ -90,4 +90,4 @@ Skills can also be tested in the Alexa App or on other Alexa devices like the Ec
 5. Select "Enable to Use". It will likely prompt you to link your NetsBlox account. Login and grant permissions to the skill from NetsBlox (following the on-screen directions).
 6. Start using your skill! It might be good to start with a command like "tell (invocation name) to (intent utterance)".
 
-If there are any issues or problems, feel free to report them on `GitHub <https://github.com/NetsBlox/NetsBlox/issues>`_!
+If there are any issues or problems, feel free to report them on `GitHub <https://github.com/NetsBlox/NetsBlox/issues>`__!
