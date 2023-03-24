@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "npx mocha --recursive test/"
+    "test": "ENV=test npx mocha --recursive test/"
   },
   "author": "Brian Broll",
   "license": "ISC",
