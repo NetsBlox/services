@@ -21,7 +21,7 @@ const types = require("../../input-types");
 types.defineType({
   name: "TimePeriod",
   description:
-    "Frequency of time series data to return from :doc:`/services/AlphaVantage/index`.",
+    "Frequency of time series data to return from :doc:`/services/FinancialData/index`.",
   baseType: "Enum",
   baseParams: {
     "1 min": 1,
@@ -37,14 +37,14 @@ types.defineType({
 types.defineType({
   name: "DateFormat",
   description:
-    "Type of date format to return from :doc:`/services/AlphaVantage/index`. This is either ``traditional``, which is a human-readable format, or ``fractional``, which is the year plus a fractional component representing the month, day, etc. into said year. ``fractional`` is useful for plotting data using :func:`Chart.draw`.",
+    "Type of date format to return from :doc:`/services/FinancialData/index`. This is either ``traditional``, which is a human-readable format, or ``fractional``, which is the year plus a fractional component representing the month, day, etc. into said year. ``fractional`` is useful for plotting data using :func:`Chart.draw`.",
   baseType: "Enum",
   baseParams: ["traditional", "fractional"],
 });
 types.defineType({
   name: "EquityField",
   description:
-    "A specific field of equity data to return from :doc:`/services/AlphaVantage/index`.",
+    "A specific field of equity data to return from :doc:`/services/FinancialData/index`.",
   baseType: "Enum",
   baseParams: ["all", "open", "high", "low", "close", "volume"],
 });

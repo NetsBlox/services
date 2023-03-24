@@ -225,9 +225,15 @@ Alexa.getSlotTypes = function () {
 };
 
 Alexa.isSupported = async () => {
-  const envVars = ["ALEXA_CLIENT_ID", "ALEXA_CLIENT_SECRET", "SERVER_URL"];
+  const envVars = [
+    "LWA_CLIENT_ID",
+    "LWA_CLIENT_SECRET",
+    "SERVER_URL",
+    "OAUTH_CLIENT_ID",
+    "OAUTH_CLIENT_SECRET",
+  ];
   const missingVars = envVars.filter((varName) => !process.env[varName]);
-  if (!missingVars.length === 0) {
+  if (missingVars.length > 0) {
     // eslint-disable-next-line no-console
     console.log(
       `Alexa service is disabled because the following environment variables are not set: ${
@@ -237,9 +243,17 @@ Alexa.isSupported = async () => {
     return false;
   }
 
+  if (!NetsBloxCloud.isConfigured()) {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Alexa service is disabled because the NetsBlox Cloud is not configured",
+    );
+    return false;
+  }
+
   const clients = await NetsBloxCloud.getOAuthClients();
   const isRegistered = clients.some((client) =>
-    client.name === OAUTH_CLIENT_NAME
+    client.name === h.OAUTH_CLIENT_NAME
   );
   if (!isRegistered) {
     // eslint-disable-next-line no-console

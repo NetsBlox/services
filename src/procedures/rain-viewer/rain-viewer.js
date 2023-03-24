@@ -52,7 +52,7 @@ RainViewer.getColorSchemes = function () {
  * @param {Longitude} longitude Longitude of the returned map (centered).
  * @param {BoundedInteger<1>} width Width (in pixels) of the returned map.
  * @param {BoundedInteger<1>} height Height (in pixels) of the returned map.
- * @param {BoundedInteger<1,25>} zoom The zoom level of the returned image (see the :doc:`/service/GoogleMaps/index` service).
+ * @param {BoundedInteger<1,25>} zoom The zoom level of the returned image (see the :doc:`/services/GoogleMaps/index` service).
  * @param {TimeOffset=} timeOffset The time offset of the desired forecast (defaults to ``now``, which represents current weather).
  * @param {Object=} options Additional drawing options.
  * @param {Boolean=} options.smooth If set to true, smooths the radar overlay in the returned image to be more aesthetically pleasing (default true).

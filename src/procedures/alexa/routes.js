@@ -53,7 +53,7 @@ router.get(
     }
     res.send(AmazonLoginTemplate({
       username,
-      clientID: h.getClientID(),
+      clientID: h.lwa.getClientID(),
       serverURL: h.getCloudURL(),
     }));
   }),
