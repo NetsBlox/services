@@ -4,6 +4,7 @@ const GetStorage = require("./storage");
 const OAUTH_CLIENT_NAME = "Amazon Alexa";
 const assert = require("assert");
 const config = require("../../config");
+const { sleep } = require("../../utils");
 
 const clientID = process.env.ALEXA_CLIENT_ID;
 const clientSecret = process.env.ALEXA_CLIENT_SECRET;
@@ -68,10 +69,6 @@ const getVendorID = async function (smapiClient) {
   assert(vendors.length, "Developer account required.");
   return vendors[0].id;
 };
-
-function sleep(duration) {
-  return new Promise((resolve) => setTimeout(resolve, duration));
-}
 
 function getCloudURL() {
   return config.NetsBloxCloud;
