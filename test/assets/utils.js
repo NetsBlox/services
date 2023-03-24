@@ -17,7 +17,6 @@ let logger = new Logger("netsblox:test");
 
 let connection = null;
 const connect = async function () {
-  return;
   const mongoUri = "mongodb://127.0.0.1:27017/netsblox-tests";
   if (!connection) {
     connection = Storage.connect(mongoUri)
