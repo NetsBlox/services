@@ -270,6 +270,67 @@ function isProfane(text) {
     );
 }
 
+// pausable timers - required for testing
+const timers = [];
+let timersStopped = false;
+
+class Timer {
+  constructor(callback, delay) {
+    this.callback = callback;
+    this.delay = delay;
+
+    this.startTime = null;
+    this.id = null;
+  }
+
+  pause() {
+    global.clearTimeout(this.id);
+    this.id = null;
+    const endTime = this.startTime + this.delay;
+    this.delay = endTime - Date.now();
+  }
+
+  start() {
+    this.id = global.setTimeout(this.callback, this.delay);
+    this.startTime = Date.now();
+  }
+}
+
+function setTimeout(callback, delay = 0) {
+  let timer;
+  const cb = () => {
+    const index = timers.findIndex((t) => t === timer);
+    timers.splice(index, 1);
+    return callback();
+  };
+  timer = new Timer(cb, delay);
+  timers.push(timer);
+
+  if (!timersStopped) {
+    timer.start();
+  }
+  return timer;
+}
+
+function clearTimeout(timer) {
+  timer.pause();
+  const index = timers.findIndex((t) => t === timer);
+  timers.splice(index, 1);
+}
+
+function stopTimers() {
+  timersStopped = true;
+  timers.forEach((timer) => timer.pause());
+}
+
+function startTimers() {
+  timersStopped = false;
+  timers.forEach((timer) => timer.start());
+}
+
+function clearTimers() {
+  timers.splice(0, timers.length);
+}
 module.exports = {
   serialize,
   serializeArray,
@@ -296,4 +357,11 @@ module.exports = {
   isValidIdent,
   profaneChecker,
   isProfane,
+
+  setTimeout,
+  clearTimeout,
+
+  stopTimers,
+  startTimers,
+  clearTimers,
 };
