@@ -10,6 +10,7 @@ const NULL_LAT_LNG = -9999;
 const State = require("./state");
 const AUTO_UPDATE = !process.env.COVID_DISABLE_AUTO_UPDATE &&
   process.env.ENV !== "test";
+const { setInterval } = require("../../../timers");
 
 const TYPES = {
   DEATH: "deaths",

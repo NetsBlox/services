@@ -1,5 +1,5 @@
 const logger = require("../utils/logger")("iotscape-services");
-const { setTimeout } = require("../../utils");
+const { setTimeout, setInterval } = require("../../timers");
 
 /**
  * Stores information about registered services, with a list of IDs and their respective hosts

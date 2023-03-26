@@ -3,7 +3,7 @@ const getRPCLogger = require("../utils/logger");
 const acl = require("./accessControl");
 const ROBOSCAPE_MODE = process.env.ROBOSCAPE_MODE || "both";
 const ciphers = require("./ciphers");
-const { setTimeout } = require("../../utils");
+const { setTimeout } = require("../../timers");
 
 // these might be better defined as an attribute on the robot
 const FORGET_TIME = 120; // forgetting a robot in seconds

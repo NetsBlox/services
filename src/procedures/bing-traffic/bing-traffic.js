@@ -10,7 +10,7 @@
 "use strict";
 
 const logger = require("../utils/logger")("bing-traffic");
-const { setTimeout } = require("../../utils");
+const { setTimeout } = require("../../timers");
 const { BingMapsKey, InvalidKeyError } = require("../utils/api-key");
 const utils = require("../utils");
 const axios = require("axios");

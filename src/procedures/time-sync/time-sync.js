@@ -17,7 +17,7 @@
 "use strict";
 
 const TimeSync = {};
-const { setTimeout } = require("../../utils");
+const { setTimeout } = require("../../timers");
 
 const CONTEXTS = {};
 

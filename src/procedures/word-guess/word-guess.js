@@ -11,6 +11,7 @@ const { Nodehun } = require("nodehun");
 const CommonWords = require("../common-words/common-words");
 const { RPCError } = require("../utils");
 const _ = require("lodash");
+const { setInterval } = require("../../timers");
 
 // Setup dictionary
 const dicFile = fs.readFileSync(path.join(__dirname, "dict", "en-custom.dic"));

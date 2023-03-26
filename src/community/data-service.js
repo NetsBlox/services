@@ -7,7 +7,7 @@ const { CACHE_DIR = "cache" } = process.env;
 const fs = require("fs");
 const { promisify } = require("util");
 const rm_rf = promisify(require("rimraf"));
-const { setTimeout } = require("../utils");
+const { setTimeout } = require("../timers");
 
 class DataService {
   constructor(record, cache = true) {

@@ -4,7 +4,7 @@
 // RPC context for each room.
 
 const fs = require("fs");
-const { setTimeout } = require("./utils");
+const { setTimeout } = require("./timers");
 const path = require("path");
 const utils = require("./utils");
 const JsonToSnapList = require("./procedures/utils").jsonToSnapList;
