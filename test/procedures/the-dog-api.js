@@ -4,6 +4,5 @@ describe(utils.suiteName(__filename), function () {
   utils.verifyRPCInterfaces("TheDogApi", [
     ["getRandomDogImage", ["dogBreed"]],
     ["getDogBreeds", []],
-    ["getBreedInfo", ["dogBreed"]],
   ]);
 });
