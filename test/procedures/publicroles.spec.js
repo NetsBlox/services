@@ -11,12 +11,15 @@ describe(utils.suiteName(__filename), function () {
   ]);
 
   describe("getPublicRoleId", function () {
-    let publicroles;
+    let testSuite, publicroles;
     before(async () => {
       publicroles = new RPCMock(PublicRoles);
-      await utils.reset();
+      testSuite = await utils.TestSuiteBuilder().setup();
     });
-    after(() => publicroles.destroy());
+    after(() => {
+      testSuite.takedown();
+      publicroles.destroy();
+    });
 
     // TODO: update this to the new version
     it.skip("should return the public role ID of the socket", async function () {

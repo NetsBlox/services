@@ -43,25 +43,11 @@ describe(utils.suiteName(__filename), function () {
       assert.equal(response.code, 404);
     });
 
-    it("should return 400 if missing uuid", function () {
+    it("should return 400 if missing client ID", function () {
       const response = new MockResponse();
       const serviceName = "PublicRoles";
       const request = new MockRequest(serviceName, "getPublicRoleId");
-      delete request.query.uuid;
-      const isValid = ServicesAPI.validateRPCRequest(
-        serviceName,
-        request,
-        response,
-      );
-      assert(!isValid, "RPC request falsely reported as valid");
-      assert.equal(response.code, 400);
-    });
-
-    it("should return 400 if missing uuid", function () {
-      const response = new MockResponse();
-      const serviceName = "PublicRoles";
-      const request = new MockRequest(serviceName, "getPublicRoleId");
-      delete request.query.projectId;
+      delete request.query.clientId;
       const isValid = ServicesAPI.validateRPCRequest(
         serviceName,
         request,
@@ -87,8 +73,8 @@ describe(utils.suiteName(__filename), function () {
 
   function MockRequest(service, rpc) {
     this.query = {
-      uuid: "abc123",
       projectId: "project1",
+      clientId: "someClientId",
     };
     this.params = {
       serviceName: service,

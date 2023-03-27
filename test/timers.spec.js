@@ -1,6 +1,6 @@
 const testUtils = require("./assets/utils.js");
 
-describe.only(testUtils.suiteName(__filename), function () {
+describe(testUtils.suiteName(__filename), function () {
   const { newScope, sleep } = testUtils.reqSrc("timers");
   const assert = require("assert");
 

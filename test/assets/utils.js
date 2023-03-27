@@ -120,6 +120,10 @@ class TestSuiteBuilder {
 }
 
 class TestSuite {
+  dropDatabase() {
+    Storage._db.dropDatabase();
+  }
+
   async takedown() {
     timers.stopTimers();
     // disconnect database
