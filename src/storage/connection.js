@@ -47,7 +47,8 @@ Storage.prototype.connect = async function (mongoURI) {
 };
 
 Storage.prototype.disconnect = function () {
-  return this._client.close(true);
+  this._client.close(true);
+  this._client = null;
 };
 
 module.exports = new Storage();

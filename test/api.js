@@ -1,13 +1,19 @@
 const utils = require("./assets/utils");
 
 describe(utils.suiteName(__filename), function () {
+  const { TestSuiteBuilder } = utils;
   const ServicesAPI = utils.reqSrc("api");
   const MockResponse = require("./assets/mock-response");
   const assert = require("assert");
 
+  let testSuite;
   before(async () => {
-    await utils.reset();
+    testSuite = await TestSuiteBuilder().setup();
     await ServicesAPI.initialize();
+  });
+
+  after(() => {
+    testSuite.takedown();
   });
 
   describe("validateRPCRequest", function () {

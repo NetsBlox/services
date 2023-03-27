@@ -1,10 +1,16 @@
 const testUtils = require("./assets/utils.js");
 
 describe.only(testUtils.suiteName(__filename), function () {
-  const timers = testUtils.reqSrc("timers");
-  const utils = testUtils.reqSrc("utils");
+  const { newScope, sleep } = testUtils.reqSrc("timers");
   const assert = require("assert");
 
+  let testSuite;
+  before(async () => testSuite = await testUtils.TestSuiteBuilder().setup());
+  after(() => testSuite.takedown());
+
+  let timers;
+  beforeEach(() => timers = newScope());
+  afterEach(() => timers.stopTimers());
   describe("setTimeout", function () {
     it("should setTimeout w/ duration", function (done) {
       timers.setTimeout(done, 10);
@@ -27,10 +33,9 @@ describe.only(testUtils.suiteName(__filename), function () {
     it("should call multiple times", async function () {
       let called = 0;
       const cb = () => called++;
-      const timer = timers.setInterval(cb);
-      await utils.sleep(10);
+      timers.setInterval(cb);
+      await sleep(10);
       assert(called > 1);
-      timers.clearInterval(timer);
     });
 
     it("should pause", async function () {
@@ -38,9 +43,8 @@ describe.only(testUtils.suiteName(__filename), function () {
       const cb = () => called++;
       const timer = timers.setInterval(cb);
       timer.pause();
-      await utils.sleep(10);
+      await sleep(10);
       assert.equal(called, 0);
-      timers.clearInterval(timer);
     });
   });
 
@@ -50,9 +54,8 @@ describe.only(testUtils.suiteName(__filename), function () {
       const cb = () => called++;
       const timer = timers.setInterval(cb);
       timers.clearInterval(timer);
-      await utils.sleep(10);
+      await sleep(10);
       assert.equal(called, 0);
-      timers.clearInterval(timer);
     });
   });
 
