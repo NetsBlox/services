@@ -14,7 +14,8 @@ RUN cd /tmp && \
 	cp -av lib/x86_64-linux-gnu/* /usr/lib/x86_64-linux-gnu/
 
 # Install updated C++ std lib (required for NodeHun)
-RUN apt-get install -y libstdc++-10-dev gnuplot
+RUN apt-get install -y libstdc++-10-dev gnuplot \
+  libsdl-pango-dev libgif-dev  # Required for canvas (chart service)
 
 # Clean up and install NetsBlox dependencies
 RUN apt-get clean && \
