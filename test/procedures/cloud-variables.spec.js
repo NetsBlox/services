@@ -8,10 +8,16 @@ describe(utils.suiteName(__filename), function () {
   );
   const MockService = require("../assets/mock-service");
   const assert = require("assert");
-  let cloudvariables;
+  let cloudvariables, testSuite;
 
-  before(() => cloudvariables = new MockService(CloudVariables));
-  after(() => cloudvariables.destroy());
+  before(async () => {
+    testSuite = await utils.TestSuiteBuilder().setup();
+    cloudvariables = new MockService(CloudVariables);
+  });
+  after(() => {
+    cloudvariables.destroy();
+    testSuite.takedown();
+  });
 
   utils.verifyRPCInterfaces("CloudVariables", [
     ["lockVariable", ["name", "password"]],
@@ -30,8 +36,6 @@ describe(utils.suiteName(__filename), function () {
   function newVar() {
     return `var${counter++}`;
   }
-
-  before(() => utils.reset());
 
   describe("public", function () {
     it("should not set variables w/ invalid names", function () {
@@ -89,17 +93,19 @@ describe(utils.suiteName(__filename), function () {
     });
 
     describe("locking variables", function () {
-      const name = "lock-var-test";
+      let name;
+      let index = 1;
       const initialValue = "world";
       const client1 = "_netsblox_1";
       const client2 = "_netsblox_2";
 
-      beforeEach(() => {
+      beforeEach(async () => {
         cloudvariables.unwrap()._setMaxLockAge(5 * 1000 * 60);
         cloudvariables.setRequester(client1);
-        return utils.reset()
-          .then(() => cloudvariables.setVariable(name, initialValue))
-          .then(() => cloudvariables.lockVariable(name));
+        testSuite.dropDatabase();
+        name = `lock-var-test-${index++}`;
+        await cloudvariables.setVariable(name, initialValue);
+        await cloudvariables.lockVariable(name);
       });
 
       it("should return error if variable doesnt exist", function (done) {

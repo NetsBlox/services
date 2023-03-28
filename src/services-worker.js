@@ -4,6 +4,7 @@
 // RPC context for each room.
 
 const fs = require("fs");
+const { setTimeout } = require("./timers");
 const path = require("path");
 const utils = require("./utils");
 const JsonToSnapList = require("./procedures/utils").jsonToSnapList;
@@ -471,7 +472,10 @@ class ServicesWorker {
   checkStaleServices() {
     const minutes = 60 * 1000;
     this.removeStaleRPCInstances();
-    setTimeout(() => this.checkStaleServices(), 10 * minutes);
+    setTimeout(
+      () => this.checkStaleServices(),
+      10 * minutes,
+    );
   }
 
   removeStaleRPCInstances() {

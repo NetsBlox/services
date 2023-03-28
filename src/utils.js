@@ -7,6 +7,7 @@ var assert = require("assert"),
   logger = new Logger("netsblox:api:utils"),
   version = require("../package.json").version;
 
+const { setTimeout } = require("./timers");
 const Filter = require("bad-words");
 const profaneChecker = new Filter();
 
@@ -216,10 +217,6 @@ const getNewClientId = function () {
   return clientId;
 };
 
-function sleep(duration) {
-  return new Promise((resolve) => setTimeout(resolve, duration));
-}
-
 function defer() {
   const deferred = {};
   deferred.promise = new Promise((res, rej) => {
@@ -227,18 +224,6 @@ function defer() {
     deferred.reject = rej;
   });
   return deferred;
-}
-
-function ninvoke(obj, method, ...args) {
-  const fn = obj[method];
-  const deferred = defer();
-  const callback = (err, result) => {
-    if (err) return deferred.reject(err);
-    return deferred.resolve(result);
-  };
-  args.push(callback);
-  fn.apply(obj, args);
-  return deferred.promise;
 }
 
 function assertValidIdent(ident) {
@@ -290,7 +275,6 @@ module.exports = {
   version,
   sortByDateField,
   getNewClientId,
-  sleep,
   defer,
   assertValidIdent,
   isValidIdent,

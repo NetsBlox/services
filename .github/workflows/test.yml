@@ -5,9 +5,9 @@ name: Run Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -16,9 +16,9 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        mongodb-version: [2.6]
+        mongodb-version: [5]
         python-version: [^3.6]
 
     steps:
@@ -37,8 +37,10 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
     - run: pip3 install -U sphinx sphinx_rtd_theme
+    - run: sudo apt-get update 
+    - run: sudo apt install libsdl-pango-dev libgif-dev
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm run test-ci
+    - run: npm test
       env:
           GOOGLE_GEOCODING_API: ${{ secrets.GOOGLE_GEOCODING_API }}

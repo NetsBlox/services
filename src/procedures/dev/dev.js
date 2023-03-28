@@ -5,6 +5,7 @@
  */
 
 const fs = require("fs");
+const { setTimeout } = require("../../timers");
 const path = require("path");
 const logoPath = path.join(__dirname, "netsblox_logo.png");
 const buffer = fs.readFileSync(logoPath);
