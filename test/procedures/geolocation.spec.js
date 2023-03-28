@@ -6,8 +6,14 @@ describe(utils.suiteName(__filename), function () {
     RPCMock = require("../assets/mock-service"),
     geocoding;
 
-  before(() => geocoding = new RPCMock(Geocoding));
-  after(() => geocoding.destroy());
+  before(async () => {
+    testSuite = await utils.TestSuiteBuilder().setup();
+  });
+  after(() => {
+    testSuite.takedown();
+  });
+  beforeEach(() => geocoding = new RPCMock(Geocoding));
+  afterEach(() => geocoding.destroy());
   utils.verifyRPCInterfaces("Geolocation", [
     ["nearbySearch", ["latitude", "longitude", "keyword", "radius"]],
     ["city", ["latitude", "longitude"]],
@@ -24,12 +30,15 @@ describe(utils.suiteName(__filename), function () {
 
   describe("geolocate", function () {
     it("should use proper key for caching", async () => {
+      geocoding._service._rawGeolocate = () => 123;
       await geocoding.geolocate("Moscow, Russia");
-      const { latitude, longitude } = await geocoding.geolocate(
+      let called = false;
+      geocoding._service._rawGeolocate = () => called = true;
+
+      await geocoding.geolocate(
         "1025 16th Ave S, Nashville, TN 37212",
       );
-      assert.equal(Math.floor(latitude), 36);
-      assert.equal(Math.floor(longitude), -87);
+      assert(called);
     });
   });
 

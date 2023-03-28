@@ -1,3 +1,4 @@
+const { setTimeout } = require("../../timers");
 const newLogger = require("./logger"),
   jsonQuery = require("json-query"),
   utils = require("./index"),

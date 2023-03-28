@@ -3,6 +3,7 @@ const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
 const assert = require("assert");
 const config = require("../../config");
+const { sleep } = require("../../utils");
 
 // login with alexa credentials
 const lwaClientID = process.env.LWA_CLIENT_ID;
@@ -61,10 +62,6 @@ const getVendorID = async function (smapiClient) {
   assert(vendors.length, "Developer account required.");
   return vendors[0].id;
 };
-
-function sleep(duration) {
-  return new Promise((resolve) => setTimeout(resolve, duration));
-}
 
 function getCloudURL() {
   return config.NetsBloxCloud;

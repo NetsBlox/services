@@ -1,5 +1,6 @@
 const Logger = require("../logger");
 const { MongoClient } = require("mongodb");
+const assert = require("assert");
 
 var Storage = function () {
   this._logger = new Logger("netsblox:storage");
@@ -14,6 +15,7 @@ Storage.prototype.connect = async function (mongoURI) {
   mongoURI = mongoURI || process.env.MONGO_URI || process.env.MONGOLAB_URI ||
     "mongodb://localhost:27017";
   const dbName = this.getDatabaseFromURI(mongoURI);
+  assert(!this._client, "Connecting when already connected!");
   try {
     const client = await MongoClient.connect(mongoURI);
     const db = client.db(dbName);
@@ -45,7 +47,8 @@ Storage.prototype.connect = async function (mongoURI) {
 };
 
 Storage.prototype.disconnect = function () {
-  return this._client.close(true);
+  this._client.close(true);
+  this._client = null;
 };
 
 module.exports = new Storage();

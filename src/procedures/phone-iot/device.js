@@ -4,6 +4,7 @@ const acl = require("../roboscape/accessControl");
 const PHONE_IOT_MODE = process.env.PHONE_IOT_MODE || "both";
 const ciphers = require("../roboscape/ciphers");
 const common = require("./common");
+const { setTimeout } = require("../../timers");
 
 // network protocols (UDP unless otherwise stated)
 // A - accelerometer
