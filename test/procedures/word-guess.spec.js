@@ -14,6 +14,9 @@ describe(utils.suiteName(__filename), function () {
     ["getWordList", ["length"]],
   ]);
 
+  let testSuite;
+  before(async () => testSuite = await utils.TestSuiteBuilder().setup());
+  after(() => testSuite.takedown());
   beforeEach(function () {
     wordguess = new RPCMock(WordGuess);
   });

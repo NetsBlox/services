@@ -1,7 +1,7 @@
 const utils = require("../assets/utils");
 
 describe(utils.suiteName(__filename), function () {
-  const { sleep } = utils.reqSrc("utils");
+  const { sleep } = utils.reqSrc("timers");
   const ServicesWorker = utils.reqSrc("api").services;
   const ServiceCreation = utils.reqSrc(
     "procedures/service-creation/service-creation",
@@ -12,10 +12,16 @@ describe(utils.suiteName(__filename), function () {
   // All entries from NetsBlox are sent as strings
   const toStringEntries = (data) =>
     data.map((row) => row.map((item) => item.toString()));
-  let service;
+  let testSuite, service;
 
-  before(() => service = new RPCMock(ServiceCreation));
-  after(() => service.destroy());
+  before(async () => {
+    service = new RPCMock(ServiceCreation);
+    testSuite = await utils.TestSuiteBuilder().setup();
+  });
+  after(() => {
+    testSuite.takedown();
+    service.destroy();
+  });
 
   utils.verifyRPCInterfaces("ServiceCreation", [
     ["getCreateFromTableOptions", ["data"]],
@@ -73,7 +79,7 @@ describe(utils.suiteName(__filename), function () {
     });
 
     describe("success", function () {
-      before(() => utils.reset());
+      before(() => testSuite.dropDatabase());
 
       it("should emit service update event", function (done) {
         service.setRequester("client_1234", "brian");
@@ -85,15 +91,17 @@ describe(utils.suiteName(__filename), function () {
         const name = "createNewServiceTest";
         service.setRequester("client_1234", "brian");
         await service.createServiceFromTable(name, data);
-        await utils.expect(
-          () => {
-            const serviceNames = ServicesWorker.getServices().map((service) =>
-              service.serviceName
-            );
-            return serviceNames.includes(name);
-          },
-          new Error("Service not created"),
-        );
+
+        const maxDuration = 100;
+        const endTime = Date.now() + maxDuration;
+        while (Date.now() < endTime) { // poll for new service
+          const serviceNames = ServicesWorker.getServices().map((service) =>
+            service.serviceName
+          );
+          if (serviceNames.includes(name)) return;
+          await sleep(10);
+        }
+        throw new Error("Service not created");
       });
     });
   });

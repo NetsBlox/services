@@ -8,6 +8,9 @@ const BASE_URL =
 const START_DATE = "01-22-2020";
 const NULL_LAT_LNG = -9999;
 const State = require("./state");
+const AUTO_UPDATE = !process.env.COVID_DISABLE_AUTO_UPDATE &&
+  process.env.ENV !== "test";
+const { setInterval } = require("../../../timers");
 
 const TYPES = {
   DEATH: "deaths",
@@ -21,8 +24,8 @@ class COVIDData {
     this._model = model;
     this.types = TYPES;
     this._intervalId = null;
-    const autoUpdate = !process.env["COVID_DISABLE_AUTO_UPDATE"];
-    if (autoUpdate) {
+
+    if (AUTO_UPDATE) {
       const hour = 1000 * 60 * 60;
       this.setUpdateInterval(4 * hour);
     }
@@ -36,6 +39,7 @@ class COVIDData {
   }
 
   async importMissingData() {
+    if (!AUTO_UPDATE) return;
     let day = new Date(START_DATE);
     const skipDates = (await this.existingDates()).sort();
     const mostRecentDate = skipDates.length

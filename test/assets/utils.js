@@ -1,10 +1,12 @@
 const _ = require("lodash");
 const assert = require("assert");
+const mongoose = require("mongoose");
 
 const path = require("path");
 const fs = require("fs");
 const PROJECT_ROOT = path.join(__dirname, "..", "..");
 const reqSrc = (p) => require(PROJECT_ROOT + "/src/" + p);
+const timers = reqSrc("timers");
 
 const Logger = reqSrc("logger");
 const Storage = reqSrc("storage/connection");
@@ -17,7 +19,6 @@ let logger = new Logger("netsblox:test");
 
 let connection = null;
 const connect = async function () {
-  return;
   const mongoUri = "mongodb://127.0.0.1:27017/netsblox-tests";
   if (!connection) {
     connection = Storage.connect(mongoUri)
@@ -47,7 +48,8 @@ async function reset(seedDefaults = true) {
   // Reload the server and the paths
   return connect()
     .then((_db) => db = _db)
-    .then(() => db.dropDatabase());
+    .then(() => db.dropDatabase())
+    .then(() => Storage);
   //.then(() => fixtures.init(Storage, db))
   //.then(() => seedDefaults && fixtures.seedDefaults(Storage))
   //.then(() => logger.info('Finished loading test fixtures!'))
@@ -102,6 +104,35 @@ function suiteName(filename) {
     .replace(/\.spec$/, "");
 }
 
+class TestSuiteBuilder {
+  constructor() {
+  }
+
+  async setup() {
+    await reset();
+    timers.startTimers();
+    return new TestSuite();
+  }
+
+  static new() {
+    return new TestSuiteBuilder();
+  }
+}
+
+class TestSuite {
+  dropDatabase() {
+    Storage._db.dropDatabase();
+  }
+
+  async takedown() {
+    timers.stopTimers();
+    // disconnect database
+    connection = null;
+    Storage.disconnect();
+    mongoose.disconnect();
+  }
+}
+
 module.exports = {
   verifyRPCInterfaces: function (serviceName, interfaces) {
     describe(`${serviceName} interfaces`, function () {
@@ -131,7 +162,6 @@ module.exports = {
     });
   },
   connect: connect,
-  reset: reset,
   sleep: sleep,
   logger: mainLogger,
   shouldThrow,
@@ -140,4 +170,5 @@ module.exports = {
   nop: () => {},
 
   reqSrc,
+  TestSuiteBuilder: TestSuiteBuilder.new,
 };

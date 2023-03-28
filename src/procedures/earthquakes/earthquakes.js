@@ -8,6 +8,7 @@
 "use strict";
 
 const logger = require("../utils/logger")("earthquakes");
+const { setTimeout } = require("../../timers");
 var moment = require("moment"),
   _ = require("lodash"),
   request = require("request"),

@@ -1,7 +1,7 @@
 const utils = require("../assets/utils");
 
 describe(utils.suiteName(__filename), function () {
-  utils.verifyRPCInterfaces("AlphaVantage", [
+  utils.verifyRPCInterfaces("FinancialData", [
     ["convertCurrency", ["fromSymbol", "amount", "toSymbol"]],
     ["currencySymbolSearch", ["search"]],
     ["equitiesSymbolSearch", ["search"]],

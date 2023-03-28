@@ -15,6 +15,7 @@
 "use strict";
 
 const logger = require("../utils/logger")("shared-canvas");
+const { setTimeout } = require("../../timers");
 const utils = require("../utils");
 const jimp = require("jimp");
 const { getCanvas, saveCanvas, getUser, EDIT_COOLDOWN } = require("./storage");

@@ -54,20 +54,22 @@ async function reverseGeocode(lat, lon, query) {
   });
 }
 
-async function rawGeolocate(address) {
-  return await cache.wrap(address, async () => {
-    logger.trace("Geocoding (not cached)", address);
-    try {
-      const res = await geocoder.geocode(address);
-      if (res.length === 0 || !res[0]) throw Error("no results");
-      return res[0];
-    } catch (e) {
-      const message = `Geocoding (${address}) error: ${e.message}`;
-      logger.warn(message);
-      throw Error(`Failed to find location for ${address}`);
-    }
-  });
-}
+GeoLocationRPC._rawGeolocate = async function (address) {
+  logger.trace("Geocoding (not cached)", address);
+  try {
+    const res = await geocoder.geocode(address);
+    if (res.length === 0 || !res[0]) throw Error("no results");
+    return res[0];
+  } catch (e) {
+    const message = `Geocoding (${address}) error: ${e.message}`;
+    logger.warn(message);
+    throw Error(`Failed to find location for ${address}`);
+  }
+};
+
+GeoLocationRPC._cachedGeolocate = async function (address) {
+  return await cache.wrap(address, async () => this._rawGeolocate(address));
+};
 
 /**
  * Geolocates the address and returns the coordinates
@@ -75,7 +77,7 @@ async function rawGeolocate(address) {
  * @returns {Object} structured data representing the location of the address
  */
 GeoLocationRPC.geolocate = async function (address) {
-  const raw = await rawGeolocate(address);
+  const raw = await this._cachedGeolocate(address);
   return { latitude: raw.latitude, longitude: raw.longitude };
 };
 
@@ -88,7 +90,7 @@ GeoLocationRPC.geolocate = async function (address) {
  */
 GeoLocationRPC.timezone = async function (address) {
   if (typeof (address) === "string") {
-    address = await rawGeolocate(address);
+    address = await this._cachedGeolocate(address);
     address = [address.latitude, address.longitude];
   }
   const [latitude, longitude] = address;
@@ -132,7 +134,7 @@ GeoLocationRPC.timezone = async function (address) {
  * @returns {String} the target street address
  */
 GeoLocationRPC.streetAddress = async function (address) {
-  const info = await rawGeolocate(address);
+  const info = await this._cachedGeolocate(address);
   return info.formattedAddress;
 };
 

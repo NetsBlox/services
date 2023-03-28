@@ -46,6 +46,7 @@ const PHONE_IOT_MODE = process.env.PHONE_IOT_MODE || "both";
 const common = require("./common");
 const types = require("../../input-types");
 const _ = require("lodash");
+const { setTimeout } = require("../../timers");
 
 // these types are used for communication with PhoneIoT
 types.defineType({

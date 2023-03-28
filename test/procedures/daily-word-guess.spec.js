@@ -13,7 +13,9 @@ describe(utils.suiteName(__filename), function () {
   const DailyWordGuess = utils.reqSrc(
     "procedures/daily-word-guess/daily-word-guess",
   );
-  before(() => utils.reset());
+  let testSuite;
+  before(async () => testSuite = await utils.TestSuiteBuilder().setup());
+  after(() => testSuite.takedown());
 
   it("should have same result when simultaneous requests made to _getDailyWord", async function () {
     const concurrentCalls = [...new Array(50)];
