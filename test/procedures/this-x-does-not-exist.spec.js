@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const utils = require("../assets/utils");
 
@@ -15,14 +15,16 @@ describe(utils.suiteName(__filename), function () {
     ["getCongressPerson", []],
   ];
   const deprecated = [
-    'getArtwork',
-    'getPerson',
-    'getCat',
-    'getHorse',
+    "getArtwork",
+    "getPerson",
+    "getCat",
+    "getHorse",
   ];
   utils.verifyRPCInterfaces("ThisXDoesNotExist", rpcs);
 
-  const xdneSrc = utils.reqSrc("procedures/this-x-does-not-exist/this-x-does-not-exist");
+  const xdneSrc = utils.reqSrc(
+    "procedures/this-x-does-not-exist/this-x-does-not-exist",
+  );
   const RPCMock = require("../assets/mock-service");
   let xdne;
 
@@ -35,7 +37,7 @@ describe(utils.suiteName(__filename), function () {
 
   describe("rpcs", function () {
     for (const [rpc, params] of rpcs) {
-      if (params.length !== 0 || deprecated.some(x => x === rpc)) continue;
+      if (params.length !== 0 || deprecated.some((x) => x === rpc)) continue;
       it(`should successfully invoke '${rpc}'`, async function () {
         await xdne[rpc]();
       });
