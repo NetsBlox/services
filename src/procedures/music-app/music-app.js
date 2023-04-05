@@ -18,9 +18,7 @@ MusicApp.hello = function() {
 }
 
 MusicApp.listSounds = function(){
-   var image_path = path.join(__dirname, "img_test.png");
    var audio_path = path.join(__dirname, "YG_WEST_COAST_HIP_HOP_STRINGS_1.mp3");
-
 
     // read image file
     return new Promise((resolve, reject) => { fs.readFile(audio_path, (err, data)=>{
@@ -29,7 +27,6 @@ MusicApp.listSounds = function(){
             throw err;
         }
         utils.sendAudioBuffer(this.response, data)
-        // utils.sendImageBuffer(this.response, data)
         resolve();
     }) });
   
