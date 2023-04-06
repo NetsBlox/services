@@ -18,7 +18,7 @@ MusicApp.hello = function() {
 }
 
 MusicApp.listSounds = function(){
-   var audio_path = path.join(__dirname, "YG_WEST_COAST_HIP_HOP_STRINGS_1.mp3");
+   var audio_path = path.join(__dirname, "YG_RNB_RHODES_4.mp3");
 
     // read image file
     return new Promise((resolve, reject) => { fs.readFile(audio_path, (err, data)=>{
