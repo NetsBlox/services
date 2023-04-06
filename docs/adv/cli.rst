@@ -91,8 +91,8 @@ The CLI is useful for managing deployments and can be particularly useful when d
 .. code-block:: sh
 
     netsblox host list # list the hosts
-    netsblox host use dev # connect to another cloud (in this case, "dev")
-    netsblox host add customDev http://localhost:8080 # add a new host
+    netsblox host use local # connect to another cloud (in this case, "local")
+    netsblox host add customCloud http://localhost:8080 # add a new host
 
 
 Adding Custom Service Hosts
