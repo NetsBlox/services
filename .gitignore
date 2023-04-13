@@ -13,3 +13,4 @@ test-blob-storage
 cache
 _build/
 _generated/
+*.mp3
