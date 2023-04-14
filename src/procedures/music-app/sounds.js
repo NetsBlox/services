@@ -8,12 +8,12 @@ const SOUNDS = {
 };
 
 function registerTypes() {
-    types.defineType({
-      name: "AvailableSounds",
-      description: "List of available sounds",
-      baseType: "Enum",
-      baseParams: SOUNDS,
-    });
-  }
-  
-  module.exports = { registerTypes, SOUNDS };
+  types.defineType({
+    name: "AvailableSounds",
+    description: "List of available sounds",
+    baseType: "Enum",
+    baseParams: SOUNDS,
+  });
+}
+
+module.exports = { registerTypes, SOUNDS };

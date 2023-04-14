@@ -35,7 +35,6 @@ MusicApp._filetoBuffer = function(audio_path){
 /**
  * Play Available Sound.
  * @param {AvailableSounds=} availableSound provides a sound from the list of stored sounds
- * 
  */
 MusicApp.playableSounds = function (availableSound = "") {
   var audio_path = path.join(__dirname, availableSound);
