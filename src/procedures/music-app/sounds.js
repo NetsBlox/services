@@ -3,7 +3,7 @@ const types = require("../../input-types");
 const SOUNDS = {
     RnBRhodes4: "YG_RNB_RHODES_4.mp3",
     RnBPiano4: "YG_RNB_RHODES_4.mp3",
-    WestCoastHipHopString1: "YG_WEST_COAST_HIP_HOP_STRINGS_1.mp3",
+    WestCoastHipHopString1: "./availableSounds/YG_WEST_COAST_HIP_HOP_STRINGS_1.mp3",
 
 };
 
