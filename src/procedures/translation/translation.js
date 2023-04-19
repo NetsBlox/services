@@ -32,8 +32,8 @@ types.defineType({
         "Ocp-Apim-Subscription-Key": TranslationConsumer.apiKey.value,
       },
     })).translation;
-    return Object.keys(SUPPORTED_LANGUAGES)
-  })()
+    return Object.keys(SUPPORTED_LANGUAGES);
+  })(),
 });
 
 /**

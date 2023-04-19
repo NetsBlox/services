@@ -156,7 +156,8 @@ function defineType(info) {
 
   let baseParamsMeta = null;
   let getParams = () => undefined;
-  const getMeta = params => Array.isArray(params) ? params : Object.keys(params);
+  const getMeta = (params) =>
+    Array.isArray(params) ? params : Object.keys(params);
   if (typeof (info.baseParams) === "object") {
     getParams = () => info.baseParams;
     if (!(info.baseParams instanceof Promise)) {
