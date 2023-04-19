@@ -8,6 +8,7 @@
  */
 
 const { AzureTranslationKey } = require("../utils/api-key");
+const types = require("../../input-types");
 const ApiConsumer = require("../utils/api-consumer");
 const TranslationConsumer = new ApiConsumer(
   "Translation",
@@ -15,6 +16,25 @@ const TranslationConsumer = new ApiConsumer(
   { cache: { ttl: 12 * 60 * 60 } },
 );
 ApiConsumer.setRequiredApiKey(TranslationConsumer, AzureTranslationKey);
+
+let SUPPORTED_LANGUAGES = undefined;
+types.defineType({
+  name: "Language",
+  description:
+    "A language supported by the :doc:`/services/Translation/index` service.",
+  baseType: "Enum",
+  baseParams: (async () => {
+    SUPPORTED_LANGUAGES = (await TranslationConsumer._requestData({
+      path: "languages",
+      queryString: "?api-version=3.0&scope=translation",
+      headers: {
+        "Content-Type": "application/json",
+        "Ocp-Apim-Subscription-Key": TranslationConsumer.apiKey.value,
+      },
+    })).translation;
+    return Object.keys(SUPPORTED_LANGUAGES)
+  })()
+});
 
 /**
  * Generates a GUID-like string
@@ -29,8 +49,8 @@ TranslationConsumer._get_guid = function () {
 /**
  * Translate text between languages
  * @param {String} text Text in another language
- * @param {String=} from Language to translate from (auto-detects if not specified)
- * @param {String} to Language to translate to
+ * @param {Language=} from Language to translate from (auto-detects if not specified)
+ * @param {Language} to Language to translate to
  * @returns {String} Text translated to requested language
  */
 TranslationConsumer.translate = function (text, from, to) {
@@ -70,7 +90,7 @@ TranslationConsumer.toEnglish = function (text) {
 /**
  * Attempt to detect language of input text
  * @param {String} text Text in an unknown language
- * @returns {String} Abbreviation for name of language detected in text
+ * @returns {Language} Abbreviation for name of language detected in text
  */
 TranslationConsumer.detectLanguage = function (text) {
   let body = [{ "Text": text }];
@@ -93,20 +113,10 @@ TranslationConsumer.detectLanguage = function (text) {
 
 /**
  * Attempt to detect language of input text
- * @returns {Array} List of languages supported by the translator
+ * @returns {Object} List of languages supported by the translator
  */
 TranslationConsumer.getSupportedLanguages = function () {
-  return this._sendAnswer({
-    path: "languages",
-    queryString: "?api-version=3.0&scope=translation",
-    headers: {
-      "Content-Type": "application/json",
-      "Ocp-Apim-Subscription-Key": this.apiKey.value,
-    },
-  }, ".translation")
-    .catch((err) => {
-      throw err;
-    });
+  return SUPPORTED_LANGUAGES;
 };
 
 module.exports = TranslationConsumer;

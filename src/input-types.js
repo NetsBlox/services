@@ -156,11 +156,12 @@ function defineType(info) {
 
   let baseParamsMeta = null;
   let getParams = () => undefined;
+  const getMeta = params => Array.isArray(params) ? params : Object.keys(params);
   if (typeof (info.baseParams) === "object") {
     getParams = () => info.baseParams;
-    baseParamsMeta = Array.isArray(info.baseParams)
-      ? info.baseParams
-      : Object.keys(info.baseParams);
+    if (!(info.baseParams instanceof Promise)) {
+      baseParamsMeta = getMeta(info.baseParams);
+    }
   } else if (typeof (info.baseParams) === "function") {
     getParams = info.baseParams;
   } else if (info.baseParams) {
@@ -177,6 +178,13 @@ function defineType(info) {
       params: baseParamsMeta,
     },
   };
+  // promises get late linking into the type metadata
+  if (info.baseParams instanceof Promise) {
+    (async () => {
+      typeMeta.baseType.params = getMeta(await info.baseParams);
+    })();
+  }
+
   const argType = new RPCArgumentType(
     info.name,
     typeMeta,
