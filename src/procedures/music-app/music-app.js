@@ -32,21 +32,16 @@ MusicApp._filetoBuffer = function(audio_path){
       });
 }
 
-/**
- * Play Available Sound.
- * @param {AvailableSounds=} availableSound provides a sound from the list of stored sounds
- */
-MusicApp.playableSounds = function (availableSound = "") {
-  var audio_path = path.join(__dirname, availableSound);
+// /**
+//  * Play Available Sound.
+//  * @param {AvailableSounds=} availableSound provides a sound from the list of stored sounds
+//  */
+// MusicApp.playableSounds = function (availableSound = "") {
+//   var audio_path = path.join(__dirname, availableSound);
 
-  return this._filetoBuffer(audio_path);
+//   return this._filetoBuffer(audio_path);
   
-};
-
-// MusicApp.playSynth = function(){
-//     const synth = new Tone.Synth().toDestination();
-//     synth.triggetAttackRelease("C4", "8n");
-// }
+// };
 
 /**
  * Get Sounds based on query.
@@ -60,7 +55,7 @@ MusicApp.getNamesBySoundType = async function (soundType = ""){
     for (let i = 0; i < queriedJSON.length; i ++){
         names.push(queriedJSON[i].name)
     }
-    console.dir(names);
+    // console.dir(names);
 
     return names;
 }
@@ -77,7 +72,7 @@ MusicApp.getMetaDataByName = async function (nameOfSound = ""){
     // for (let i = 0; i < queriedJSON.length; i ++){
     //     names.push(queriedJSON[i].name)
     // }
-    console.dir(queriedJSON[0]);
+    // console.dir(queriedJSON[0]);
 
     return queriedJSON[0];
 }
