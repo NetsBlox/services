@@ -43,10 +43,10 @@ MusicApp.playableSounds = function (availableSound = "") {
   
 };
 
-MusicApp.playSynth = function(){
-    const synth = new Tone.Synth().toDestination();
-    synth.triggetAttackRelease("C4", "8n");
-}
+// MusicApp.playSynth = function(){
+//     const synth = new Tone.Synth().toDestination();
+//     synth.triggetAttackRelease("C4", "8n");
+// }
 
 /**
  * Get Sounds based on query.
