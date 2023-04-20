@@ -10,6 +10,34 @@ const router = express();
 const rp = require("request-promise");
 
 router.get(
+  "/:author/",
+  async (req, res) => {
+    const { author } = req.params;
+    const storage = getDatabase();
+    const options = {
+      projection: { name: 1 },
+    };
+    const autograders = await storage.find({ author }, options).toArray();
+    return res.json(autograders.map((grader) => grader.name));
+  },
+);
+
+router.get(
+  "/:author/:name/config.json",
+  async (req, res) => {
+    const { author, name } = req.params;
+    const storage = getDatabase();
+
+    const autograder = await storage.findOne({ author, name });
+    if (!autograder) {
+      return res.sendStatus(404);
+    }
+
+    return res.json(autograder.config);
+  },
+);
+
+router.get(
   "/:author/:name.js",
   async (req, res) => {
     const { author, name } = req.params;
