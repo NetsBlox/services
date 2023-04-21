@@ -61,6 +61,24 @@ MusicApp.getNamesBySoundType = async function (soundType = ""){
 }
 
 /**
+ * Get Sounds based on query.
+ * @param {String=} soundType 
+ * @param {Array<String>=} keywords
+ * @returns {Array}
+ */
+MusicApp.getSounds = async function (soundType = "", keywords = ""){
+  var names = [];
+  const queriedJSON = localSounds.soundCategories.filter(obj => obj.soundType === soundType.toUpperCase());
+
+  for (let i = 0; i < queriedJSON.length; i ++){
+      names.push(queriedJSON[i].name)
+  }
+  // console.dir(names);
+
+  return names;
+}
+
+/**
  * Get Sound Metadata based on name.
  * @param {String=} nameOfSound
  * @returns {Array}
