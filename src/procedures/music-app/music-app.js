@@ -72,6 +72,8 @@ MusicApp.getSoundNames = async function (soundType = "", keywords = []){
   var names = [];
   let queriedJSON = "";
 
+  //Check is soundType exists
+  if(soundType.length !== 0){
   // If keywords is empty only filter by soundType
   if (keywords.length === 0){
     queriedJSON = localSounds.soundCategories.filter(function (obj)
@@ -97,8 +99,32 @@ MusicApp.getSoundNames = async function (soundType = "", keywords = []){
         returnedJSON = returnedJSON.filter(obj => obj.name.includes(keywords[i].toUpperCase()));
       }
     }
-    queriedJSON = returnedJSON;
-}
+    queriedJSON = returnedJSON; 
+    }
+  }
+  else{
+    let returnedJSON = "";
+
+    //Loop through list of keywords given
+    for(let i = 0; i < keywords.length; i++){
+      if(i === 0){
+
+        //Filter SoundCategories JSON by first keyword
+        const result = localSounds.soundCategories.filter(function (obj){
+          return obj.name.includes(keywords[i].toUpperCase());
+        });
+        returnedJSON = result;
+      }
+      else{
+
+        //Filter Queried JSON further by next keyword
+        returnedJSON = returnedJSON.filter(obj => obj.name.includes(keywords[i].toUpperCase()));
+      }
+    }
+    queriedJSON = returnedJSON; 
+
+  }
+
 
   //Convert JSON to array of String names
   for (let i = 0; i < queriedJSON.length; i ++){
