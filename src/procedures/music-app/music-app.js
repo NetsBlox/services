@@ -48,14 +48,16 @@ MusicApp._filetoBuffer = function(audio_path){
  * @param {String=} soundType 
  * @returns {Array}
  */
-MusicApp.getNamesBySoundType = async function (soundType = ""){
+MusicApp._getNamesBySoundType = async function (soundType = ""){
     var names = [];
+
+    //Filter SoundCategories JSON by soundType
     const queriedJSON = localSounds.soundCategories.filter(obj => obj.soundType === soundType.toUpperCase());
   
+    //Convert JSON to array of String names
     for (let i = 0; i < queriedJSON.length; i ++){
         names.push(queriedJSON[i].name)
     }
-    // console.dir(names);
 
     return names;
 }
@@ -63,17 +65,45 @@ MusicApp.getNamesBySoundType = async function (soundType = ""){
 /**
  * Get Sounds based on query.
  * @param {String=} soundType 
- * @param {Array<String>=} keywords
+ * @param {Array=} keywords
  * @returns {Array}
  */
-MusicApp.getSounds = async function (soundType = "", keywords = ""){
+MusicApp.getSoundNames = async function (soundType = "", keywords = []){
   var names = [];
-  const queriedJSON = localSounds.soundCategories.filter(obj => obj.soundType === soundType.toUpperCase());
+  let queriedJSON = "";
 
+  // If keywords is empty only filter by soundType
+  if (keywords.length === 0){
+    queriedJSON = localSounds.soundCategories.filter(function (obj)
+    { return obj.soundType === soundType.toUpperCase(); 
+    });
+  }
+  else{
+    let returnedJSON = "";
+
+    //Loop through list of keywords given
+    for(let i = 0; i < keywords.length; i++){
+      if(i === 0){
+
+        //Filter SoundCategories JSON by soundType and first keyword
+        const result = localSounds.soundCategories.filter(function (obj){
+          return obj.soundType === soundType.toUpperCase() && obj.name.includes(keywords[i].toUpperCase());
+        });
+        returnedJSON = result;
+      }
+      else{
+
+        //Filter Queried JSON further by next keyword
+        returnedJSON = returnedJSON.filter(obj => obj.name.includes(keywords[i].toUpperCase()));
+      }
+    }
+    queriedJSON = returnedJSON;
+}
+
+  //Convert JSON to array of String names
   for (let i = 0; i < queriedJSON.length; i ++){
       names.push(queriedJSON[i].name)
   }
-  // console.dir(names);
 
   return names;
 }
@@ -84,14 +114,7 @@ MusicApp.getSounds = async function (soundType = "", keywords = ""){
  * @returns {Array}
  */
 MusicApp.getMetaDataByName = async function (nameOfSound = ""){
-    var metadata = [];
     const queriedJSON = localSounds.soundCategories.filter(obj => obj.name === nameOfSound);
-  
-    // for (let i = 0; i < queriedJSON.length; i ++){
-    //     names.push(queriedJSON[i].name)
-    // }
-    // console.dir(queriedJSON[0]);
-
     return queriedJSON[0];
 }
 
@@ -100,7 +123,7 @@ MusicApp.getMetaDataByName = async function (nameOfSound = ""){
  * @param {String=} nameOfSound 
  * 
  */
-MusicApp.getSoundByName = async function (nameOfSound = ""){
+MusicApp.nameToSound = async function (nameOfSound = ""){
     const queriedJSON = localSounds.soundCategories.filter(obj => obj.name === nameOfSound)
     var audio_path = path.join(__dirname, queriedJSON[0].path)
     return this._filetoBuffer(audio_path);
