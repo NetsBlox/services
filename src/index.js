@@ -49,7 +49,9 @@ async function listen(port) {
   );
   app.use(
     "/docs",
-    express.static(path.join(__dirname, "..", "docs", "_build", "html")),
+    express.static(
+      path.join(__dirname, "..", "docs", "_generated", "_build", "html"),
+    ),
   );
   app.use("/input-types", async (_, res) => {
     res.status(200).json(types.typesMeta);
