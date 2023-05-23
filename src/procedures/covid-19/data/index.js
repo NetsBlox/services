@@ -46,7 +46,7 @@ class COVIDData {
       ? skipDates[skipDates.length - 1]
       : START_DATE;
     this.logger.info(`importing missing data since ${mostRecentDate}`);
-    while (!this.isToday(day)) {
+    while (!this.isEndDate(day)) {
       const dateString = this.getDateString(day);
       if (!skipDates.includes(dateString)) {
         const report = await this.fetchDailyReport(day);
@@ -63,9 +63,9 @@ class COVIDData {
     return dates.map((d) => this.getDateString(d)).sort();
   }
 
-  isToday(date) {
-    const today = new Date();
-    return this.getDateString(date) === this.getDateString(today);
+  isEndDate(date) {
+    const endDate = new Date("2023-03-10");
+    return this.getDateString(date) === this.getDateString(endDate);
   }
 
   getDateString(date) {
