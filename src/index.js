@@ -47,6 +47,10 @@ async function listen(port) {
     routeUtils.ensureLoggedIn,
     ServicesAPI.keys.router(),
   );
+  app.use(
+    "/docs",
+    express.static(path.join(__dirname, "..", "docs", "_build", "html")),
+  );
   app.use("/input-types", async (_, res) => {
     res.status(200).json(types.typesMeta);
   });
