@@ -29,12 +29,12 @@ async function listen(port) {
     );
     next();
   });
-  app.options("*", (req, res) => res.sendStatus(204));
+  app.options("*", (_req, res) => res.sendStatus(204));
 
   const db = await Storage.connect();
   await ServiceStorage.init(logger, db);
   await ServicesAPI.initialize();
-  app.use((req, res, next) => {
+  app.use((_req, res, next) => {
     res.header(
       "Access-Control-Allow-Methods",
       "POST, GET, OPTIONS, PUT, PATCH, DELETE",
