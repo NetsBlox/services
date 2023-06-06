@@ -103,6 +103,11 @@ module.exports.TheDogApiKey = new ApiKey(
   "https://thedogapi.com/signup",
 );
 
+module.exports.ChuckNorrisApiKey = new ApiKey(
+  "Chuck Norris",
+  "https://api.chucknorris.io/",
+);
+
 class InvalidKeyError extends Error {
   constructor(apiKey) {
     const message =
