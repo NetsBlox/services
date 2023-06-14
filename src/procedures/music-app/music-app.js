@@ -10,14 +10,11 @@
 const fs = require("fs");
 const path = require("path");
 const utils = require("../utils/index");
-const { registerTypes, SOUNDS } = require("./sounds");
 const MusicApp = {};
-registerTypes();
 
 
 
-const localSounds = JSON.parse(fs.readFileSync('src/procedures/music-app/soundCategories.json', 'utf8'));
-
+const soundLibrary = JSON.parse(fs.readFileSync('src/procedures/music-app/NetsBlox-SoundLibrary/netsbloxSoundLibrary.json', 'utf8'));
 
 MusicApp._filetoBuffer = function(audio_path){
     return new Promise((resolve, reject) => {
@@ -32,16 +29,6 @@ MusicApp._filetoBuffer = function(audio_path){
       });
 }
 
-// /**
-//  * Play Available Sound.
-//  * @param {AvailableSounds=} availableSound provides a sound from the list of stored sounds
-//  */
-// MusicApp.playableSounds = function (availableSound = "") {
-//   var audio_path = path.join(__dirname, availableSound);
-
-//   return this._filetoBuffer(audio_path);
-  
-// };
 
 /**
  * Get Sounds based on query.
@@ -52,11 +39,11 @@ MusicApp._getNamesBySoundType = async function (soundType = ""){
     var names = [];
 
     //Filter SoundCategories JSON by soundType
-    const queriedJSON = localSounds.soundCategories.filter(obj => obj.soundType === soundType.toUpperCase());
+    const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(obj => obj.SoundType === soundType.toUpperCase());
   
     //Convert JSON to array of String names
     for (let i = 0; i < queriedJSON.length; i ++){
-        names.push(queriedJSON[i].name)
+        names.push(queriedJSON[i].Name)
     }
 
     return names;
@@ -64,39 +51,42 @@ MusicApp._getNamesBySoundType = async function (soundType = ""){
 
 /**
  * Get Sounds based on query.
- * @param {String=} soundType 
- * @param {Array=} keywords
+ * @param {String=} SoundType
+ * @param {String=} BPM
+ * @param {String=} Key
+ * @param {String=} Chords
+ * @param {Array=} Keywords
  * @returns {Array}
  */
-MusicApp.getSoundNames = async function (soundType = "", keywords = []){
+MusicApp.getSoundNames = async function (SoundType = "", BPM = "", Key = "", Chords = "", Keywords = []){
   var names = [];
   let queriedJSON = "";
 
   //Check is soundType exists
-  if(soundType.length !== 0){
+  if(SoundType.length !== 0){
   // If keywords is empty only filter by soundType
-  if (keywords.length === 0){
-    queriedJSON = localSounds.soundCategories.filter(function (obj)
-    { return obj.soundType === soundType.toUpperCase(); 
+  if (Keywords.length === 0){
+    queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj)
+    { return obj.SoundType === SoundType.toUpperCase(); 
     });
   }
   else{
     let returnedJSON = "";
 
     //Loop through list of keywords given
-    for(let i = 0; i < keywords.length; i++){
+    for(let i = 0; i < Keywords.length; i++){
       if(i === 0){
 
         //Filter SoundCategories JSON by soundType and first keyword
-        const result = localSounds.soundCategories.filter(function (obj){
-          return obj.soundType === soundType.toUpperCase() && obj.name.includes(keywords[i].toUpperCase());
+        const result = soundLibrary.netsbloxSoundLibrary.filter(function (obj){
+          return obj.SoundType === SoundType.toUpperCase() && obj.Name.includes(Keywords[i].toUpperCase());
         });
         returnedJSON = result;
       }
       else{
 
         //Filter Queried JSON further by next keyword
-        returnedJSON = returnedJSON.filter(obj => obj.name.includes(keywords[i].toUpperCase()));
+        returnedJSON = returnedJSON.filter(obj => obj.Name.includes(Keywords[i].toUpperCase()));
       }
     }
     queriedJSON = returnedJSON; 
@@ -106,19 +96,19 @@ MusicApp.getSoundNames = async function (soundType = "", keywords = []){
     let returnedJSON = "";
 
     //Loop through list of keywords given
-    for(let i = 0; i < keywords.length; i++){
+    for(let i = 0; i < Keywords.length; i++){
       if(i === 0){
 
         //Filter SoundCategories JSON by first keyword
-        const result = localSounds.soundCategories.filter(function (obj){
-          return obj.name.includes(keywords[i].toUpperCase());
+        const result = soundLibrary.netsbloxSoundLibrary.filter(function (obj){
+          return obj.Name.includes(Keywords[i].toUpperCase());
         });
         returnedJSON = result;
       }
       else{
 
         //Filter Queried JSON further by next keyword
-        returnedJSON = returnedJSON.filter(obj => obj.name.includes(keywords[i].toUpperCase()));
+        returnedJSON = returnedJSON.filter(obj => obj.Name.includes(Keywords[i].toUpperCase()));
       }
     }
     queriedJSON = returnedJSON; 
@@ -128,7 +118,7 @@ MusicApp.getSoundNames = async function (soundType = "", keywords = []){
 
   //Convert JSON to array of String names
   for (let i = 0; i < queriedJSON.length; i ++){
-      names.push(queriedJSON[i].name)
+      names.push(queriedJSON[i].Name)
   }
 
   return names;
@@ -140,7 +130,7 @@ MusicApp.getSoundNames = async function (soundType = "", keywords = []){
  * @returns {Array}
  */
 MusicApp.getMetaDataByName = async function (nameOfSound = ""){
-    const queriedJSON = localSounds.soundCategories.filter(obj => obj.name === nameOfSound);
+    const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(obj => obj.Name === nameOfSound);
     return queriedJSON[0];
 }
 
@@ -150,7 +140,7 @@ MusicApp.getMetaDataByName = async function (nameOfSound = ""){
  * 
  */
 MusicApp.nameToSound = async function (nameOfSound = ""){
-    const queriedJSON = localSounds.soundCategories.filter(obj => obj.name === nameOfSound)
+    const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(obj => obj.Name === nameOfSound)
     var audio_path = path.join(__dirname, queriedJSON[0].path)
     return this._filetoBuffer(audio_path);
 }
