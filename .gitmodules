@@ -9,3 +9,6 @@
 [submodule "src/server/services/procedures/music-app/NetsBlox-SoundLibrary"]
 	path = src/server/services/procedures/music-app/NetsBlox-SoundLibrary
 	url = https://github.com/NetsBlox/NetsBlox-SoundLibrary.git
+[submodule "src/procedures/music-app/NetsBlox-SoundLibrary"]
+	path = src/procedures/music-app/NetsBlox-SoundLibrary
+	url = https://github.com/NetsBlox/NetsBlox-SoundLibrary
