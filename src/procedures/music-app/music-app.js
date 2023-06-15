@@ -62,71 +62,19 @@ MusicApp.getSoundNames = async function (InstrumentName = "", BPM = "", Key = ""
   var names = [];
   let queriedJSON = "";
 
-  //Filter by Instrument if no other variables are chosen
-  if(InstrumentName !== "" && BPM !== "" && Key !== "" && Chords !== ""){
+  //Ensure at least one field is selected
+  if(InstrumentName !== "" || BPM !== "" || Key !== "" || Chords !== ""){
     queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj)
-    {
-      return obj.InstrumentName === InstrumentName && obj.BPM === BPM && obj.Key === Key && obj.ChordProgression === Chords;
+    { // Check if field value is empty before finding obj with value.
+      return  (InstrumentName === "" || obj.InstrumentName === InstrumentName) &&
+              (BPM === "" || obj.BPM === BPM) &&
+              (Key === "" || obj.Key === Key) && 
+              (Chords === "" || obj.ChordProgression === Chords);
     })
   }
   else{
-    names.push("All fields must be selected");
+    throw Error("At least one field must be selected");
   }
-
-
-  // //Check is soundType exists
-  // if(SoundType.length !== 0){
-  // // If keywords is empty only filter by soundType
-  // if (Keywords.length === 0){
-  //   queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj)
-  //   { return obj.SoundType === SoundType.toUpperCase(); 
-  //   });
-  // }
-  // else{
-  //   let returnedJSON = "";
-
-  //   //Loop through list of keywords given
-  //   for(let i = 0; i < Keywords.length; i++){
-  //     if(i === 0){
-
-  //       //Filter SoundCategories JSON by soundType and first keyword
-  //       const result = soundLibrary.netsbloxSoundLibrary.filter(function (obj){
-  //         return obj.SoundType === SoundType.toUpperCase() && obj.Name.includes(Keywords[i].toUpperCase());
-  //       });
-  //       returnedJSON = result;
-  //     }
-  //     else{
-
-  //       //Filter Queried JSON further by next keyword
-  //       returnedJSON = returnedJSON.filter(obj => obj.Name.includes(Keywords[i].toUpperCase()));
-  //     }
-  //   }
-  //   queriedJSON = returnedJSON; 
-  //   }
-  // }
-  // else{
-  //   let returnedJSON = "";
-
-  //   //Loop through list of keywords given
-  //   for(let i = 0; i < Keywords.length; i++){
-  //     if(i === 0){
-
-  //       //Filter soundLibrary JSON by first keyword
-  //       const result = soundLibrary.netsbloxSoundLibrary.filter(function (obj){
-  //         return obj.Name.includes(Keywords[i].toUpperCase());
-  //       });
-  //       returnedJSON = result;
-  //     }
-  //     else{
-
-  //       //Filter Queried JSON further by next keyword
-  //       returnedJSON = returnedJSON.filter(obj => obj.Name.includes(Keywords[i].toUpperCase()));
-  //     }
-  //   }
-  //   queriedJSON = returnedJSON; 
-
-  // }
-
 
   //Convert JSON to array of String names
   for (let i = 0; i < queriedJSON.length; i ++){
@@ -141,7 +89,7 @@ MusicApp.getSoundNames = async function (InstrumentName = "", BPM = "", Key = ""
  * @param {String=} nameOfSound
  * @returns {Array}
  */
-MusicApp.getMetaDataByName = async function (nameOfSound = ""){
+MusicApp._getMetaDataByName = async function (nameOfSound = ""){
     const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(obj => obj.soundName === nameOfSound);
     return queriedJSON[0];
 }
