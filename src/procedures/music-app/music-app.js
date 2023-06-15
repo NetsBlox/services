@@ -15,7 +15,7 @@ const MusicApp = {};
 registerTypes();
 
 
-const soundLibrary = JSON.parse(fs.readFileSync('src/procedures/music-app/NetsBlox-SoundLibrary/netsbloxSoundLibrary.json', 'utf8'));
+const soundLibrary = JSON.parse(fs.readFileSync('src/procedures/music-app/soundLibrary.json', 'utf8'));
 
 MusicApp._filetoBuffer = function(audio_path){
     return new Promise((resolve, reject) => {
