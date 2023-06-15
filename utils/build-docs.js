@@ -87,7 +87,7 @@ async function loadSubservice(path) {
     const root = config.ServerURL;
     return await axios.get(`${root}${path}`);
   } catch (err) {
-    if (err.errno === "ECONNREFUSED") {
+    if (err.code === "ECONNREFUSED") {
       const msg = process.env.SERVER_URL
         ? `Unable to connect to ${process.env.SERVER_URL}. Is this the correct address?`
         : "Unable to connect to services server. Please set the SERVER_URL environment variable and retry.";

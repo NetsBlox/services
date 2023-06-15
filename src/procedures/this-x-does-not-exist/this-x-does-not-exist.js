@@ -34,6 +34,7 @@ TXDNE._getX = async function (rsp, url) {
 /**
  * Gets an image of a person that does not exist
  *
+ * @deprecated
  * @returns {Image} a random image of the given type
  */
 TXDNE.getPerson = function () {
@@ -46,6 +47,7 @@ TXDNE.getPerson = function () {
 /**
  * Gets an image of a cat that does not exist
  *
+ * @deprecated
  * @returns {Image} a random image of the given type
  */
 TXDNE.getCat = function () {
@@ -55,6 +57,7 @@ TXDNE.getCat = function () {
 /**
  * Gets an image of a horse that does not exist
  *
+ * @deprecated
  * @returns {Image} a random image of the given type
  */
 TXDNE.getHorse = function () {
@@ -64,6 +67,7 @@ TXDNE.getHorse = function () {
 /**
  * Gets an image of an artwork that does not exist
  *
+ * @deprecated
  * @returns {Image} a random image of the given type
  */
 TXDNE.getArtwork = function () {

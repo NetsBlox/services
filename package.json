@@ -47,6 +47,7 @@
     "turf": "^3.0.14"
   },
   "devDependencies": {
-    "mocha": "^10.1.0"
+    "mocha": "^10.1.0",
+    "supertest": "^6.3.3"
   }
 }
