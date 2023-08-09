@@ -74,7 +74,10 @@ function reqUpdates(stations) {
     let stationChunks = _.chunk(stations, callsPerRound);
     let fire = async () => {
       let ids = stationChunks.shift();
-      console.log(`getting updates from ${ids.length} stations ids`, ids.join());
+      console.log(
+        `getting updates from ${ids.length} stations ids`,
+        ids.join(),
+      );
       promises = promises.concat(ids.map(reqUpdate));
       if (stationChunks.length > 0) {
         setTimeout(fire, INTERVAL);

@@ -81,15 +81,23 @@ module.exports.draw = function (data, opts) {
     .set("style fill solid")
     .set("datafile separator ','");
 
-  if (opts.title) graph.set(`title ${escape(opts.title)} font ',${opts.fontSize}'`);
+  if (opts.title) {
+    graph.set(`title ${escape(opts.title)} font ',${opts.fontSize}'`);
+  }
   if (opts.xRange) graph.set(`xrange [${opts.xRange.min}:${opts.xRange.max}]`);
   if (opts.yRange) graph.set(`yrange [${opts.yRange.min}:${opts.yRange.max}]`);
   if (opts.outputName) graph.set(`output ${escape(opts.outputName)}`);
-  if (opts.xLabel) graph.set(`xlabel ${escape(opts.xLabel)} font ',${opts.fontSize}'`);
-  if (opts.yLabel) graph.set(`ylabel ${escape(opts.yLabel)} font ',${opts.fontSize}'`);
+  if (opts.xLabel) {
+    graph.set(`xlabel ${escape(opts.xLabel)} font ',${opts.fontSize}'`);
+  }
+  if (opts.yLabel) {
+    graph.set(`ylabel ${escape(opts.yLabel)} font ',${opts.fontSize}'`);
+  }
   if (opts.xTicks) graph.set(`xtics ${opts.xTicks.join(", ")}`);
   if (opts.legendLocation) graph.set(`key ${opts.legendLocation}`);
-  if (opts.logscale) graph.set(`logscale ${opts.logscale.axes} ${opts.logscale.base}`);
+  if (opts.logscale) {
+    graph.set(`logscale ${opts.logscale.axes} ${opts.logscale.base}`);
+  }
   if (opts.timeSeries.axis) {
     graph.set(`${opts.timeSeries.axis}data time`);
     graph.set(`timefmt ${escape(opts.timeSeries.inputFormat)}`);

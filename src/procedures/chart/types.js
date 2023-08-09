@@ -19,7 +19,11 @@ const LineTypes = [
 ];
 
 const LegendLocations = [
-  'top left', 'top right', 'bottom left', 'bottom right', 'outside',
+  "top left",
+  "top right",
+  "bottom left",
+  "bottom right",
+  "outside",
 ];
 
 module.exports = function registerTypes() {
