@@ -122,7 +122,7 @@ TwitterConsumer.tweetsPerDay = function (screenName) {
   }).then((res) => {
     var oldestDate = new Date(res[res.length - 1].created_at);
     var diffDays = Math.round(
-      Math.abs((oldestDate.getTime() - dateToday.getTime()) / (oneDay)),
+      Math.abs((oldestDate.getTime() - dateToday.getTime()) / oneDay),
     );
     return this.response.json(res.length / diffDays);
   }).catch(this._handleError.bind(this));
