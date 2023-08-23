@@ -19,6 +19,7 @@ const soundLibrary = JSON.parse(
 );
 
 MusicApp._filetoBuffer = function (audio_path) {
+  let r = this.response;
   return new Promise((resolve, reject) => {
     fs.readFile(audio_path, (err, data) => {
       // error handle
@@ -90,6 +91,18 @@ MusicApp.getSoundNames = async function (
 };
 
 /**
+ * Get Sound based on name.
+ * @param {String=} nameOfSound
+ */
+MusicApp.nameToSound = async function (nameOfSound = "") {
+  const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter((obj) =>
+    obj.soundName === nameOfSound
+  );
+  var audio_path = path.join(__dirname, queriedJSON[0].Path);
+  return this._filetoBuffer(audio_path);
+};
+
+/**
  * Get Sound Metadata based on name.
  * @param {String=} nameOfSound
  * @returns {Array}
@@ -101,15 +114,5 @@ MusicApp._getMetaDataByName = async function (nameOfSound = "") {
   return queriedJSON[0];
 };
 
-/**
- * Get Sound based on name.
- * @param {String=} nameOfSound
- */
-MusicApp.nameToSound = async function (nameOfSound = "") {
-  const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter((obj) =>
-    obj.soundName === nameOfSound
-  );
-  var audio_path = path.join(__dirname, queriedJSON[0].Path);
-  return this._filetoBuffer(audio_path);
-};
+
 module.exports = MusicApp;
