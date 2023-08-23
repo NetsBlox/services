@@ -114,5 +114,4 @@ MusicApp._getMetaDataByName = async function (nameOfSound = "") {
   return queriedJSON[0];
 };
 
-
 module.exports = MusicApp;
