@@ -63,7 +63,7 @@ const dispToType = { Any: "Any" }; // maps display name to internal name
 
 function getTypeParser(type) {
   if (!type) return undefined;
-  return typeof (type) !== "object"
+  return typeof type !== "object"
     ? types[type]
     : (input) => types[type.name](input, type.params);
 }
@@ -97,7 +97,7 @@ const DEFINE_TYPE_FIELDS = [
 //         - if no parser is specified, the result of the base type parser is returned directly.
 // returns: a derived parser function of form (input, params, ctx) => T
 function defineType(info) {
-  if (typeof (info) !== "object") throw Error("Type info must be an object");
+  if (typeof info !== "object") throw Error("Type info must be an object");
 
   const extra_fields = new Set(Object.keys(info));
   for (const expected of DEFINE_TYPE_FIELDS) extra_fields.delete(expected);

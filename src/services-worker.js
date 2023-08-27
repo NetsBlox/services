@@ -78,9 +78,9 @@ class ServicesWorker {
     }
 
     const getParser = (tydoc) => {
-      if (typeof (tydoc) != "object") return undefined;
+      if (typeof tydoc != "object") return undefined;
       const ty = tydoc.type ? tydoc.type : tydoc;
-      return InputTypes.parse[typeof (ty) == "object" ? ty.name : ty];
+      return InputTypes.parse[typeof ty == "object" ? ty.name : ty];
     };
 
     for (const rpc of docs.rpcs) {

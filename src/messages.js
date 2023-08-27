@@ -12,7 +12,7 @@ class Message {
 }
 
 class SendMessage extends Message {
-  constructor(projectId, roleId, address, type, contents) {
+  constructor(address, type, contents) {
     const target = { address: { address } };
     super(target, type, contents);
   }
@@ -20,7 +20,13 @@ class SendMessage extends Message {
 
 class SendMessageToClient extends Message {
   constructor(projectId, roleId, clientId, type, contents) {
-    const target = { client: { projectId, roleId, clientId } };
+    const state = {
+      Browser: {
+        projectId,
+        roleId,
+      },
+    };
+    const target = { client: { state, clientId } };
     super(target, type, contents);
   }
 }
