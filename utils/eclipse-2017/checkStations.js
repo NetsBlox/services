@@ -38,27 +38,27 @@ let getReadingsCol = () => {
 };
 
 function loadStations(fileName) {
-  let stations = [];
-  let deferred = Q.defer();
-  let stream = fs.createReadStream(fileName);
-  var csvStream = csv
-    .parse({ headers: true, objectMode: true })
-    .on("data", function (data) {
-      data.latitude = parseFloat(data.latitude);
-      data.longitude = parseFloat(data.longitude);
-      data.distance = parseFloat(data.distance);
-      data.views = parseInt(data.views);
-      data.elevation = parseInt(data.elevation);
-      delete data.updatedAt;
-      stations.push(data);
-    })
-    .on("end", function () {
-      console.log("done loading stations");
-      deferred.resolve(stations);
-    });
+  return new Promise((resolve, reject) => {
+    let stations = [];
+    let stream = fs.createReadStream(fileName);
+    var csvStream = csv
+      .parse({ headers: true, objectMode: true })
+      .on("data", function (data) {
+        data.latitude = parseFloat(data.latitude);
+        data.longitude = parseFloat(data.longitude);
+        data.distance = parseFloat(data.distance);
+        data.views = parseInt(data.views);
+        data.elevation = parseInt(data.elevation);
+        delete data.updatedAt;
+        stations.push(data);
+      })
+      .on("end", function () {
+        console.log("done loading stations");
+        resolve(stations);
+      });
 
-  stream.pipe(csvStream);
-  return deferred.promise;
+    stream.pipe(csvStream);
+  });
 }
 
 // gets a list of station ids
@@ -67,37 +67,40 @@ function reqUpdates(stations) {
     stations = stations.map((item) => item.pws);
   }
   let promises = [];
-  let deferred = Q.defer();
-  let rounds = Math.ceil(stations.length / API_LIMIT);
-  let callsPerRound = Math.ceil(stations.length / rounds);
-  // every minute query up to callsPerRound stations
-  let stationChunks = _.chunk(stations, callsPerRound);
-  let fire = () => {
-    let ids = stationChunks.shift();
-    console.log(`getting updates from ${ids.length} stations ids`, ids.join());
-    promises = promises.concat(ids.map(reqUpdate));
-    if (stationChunks.length > 0) {
-      setTimeout(fire, INTERVAL);
-    } else {
-      const responses = await Promise.allSettled(promises);
-      responses = responses.filter((item) => {
-        if (item.state === "rejected") {
-          console.log("failed", item.reason);
-          return false;
-        }
-        return true;
-      });
-      let updatesArr = responses.map((item) => item.value);
-      // change falsy updates' temp to 0
-      updatesArr = updatesArr.map((up) => {
-        if (up && up.temp < 0) up.temp = 0;
-        return up;
-      });
-      deferred.resolve(updatesArr);
-    }
-  };
-  fire();
-  return deferred.promise;
+  return new Promise((resolve, reject) => {
+    let rounds = Math.ceil(stations.length / API_LIMIT);
+    let callsPerRound = Math.ceil(stations.length / rounds);
+    // every minute query up to callsPerRound stations
+    let stationChunks = _.chunk(stations, callsPerRound);
+    let fire = async () => {
+      let ids = stationChunks.shift();
+      console.log(
+        `getting updates from ${ids.length} stations ids`,
+        ids.join(),
+      );
+      promises = promises.concat(ids.map(reqUpdate));
+      if (stationChunks.length > 0) {
+        setTimeout(fire, INTERVAL);
+      } else {
+        const responses = await Promise.allSettled(promises);
+        responses = responses.filter((item) => {
+          if (item.state === "rejected") {
+            console.log("failed", item.reason);
+            return false;
+          }
+          return true;
+        });
+        let updatesArr = responses.map((item) => item.value);
+        // change falsy updates' temp to 0
+        updatesArr = updatesArr.map((up) => {
+          if (up && up.temp < 0) up.temp = 0;
+          return up;
+        });
+        resolve(updatesArr);
+      }
+    };
+    fire();
+  });
 }
 
 // loads the stations collection for the first time

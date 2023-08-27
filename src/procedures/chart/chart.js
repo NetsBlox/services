@@ -34,6 +34,9 @@ const defaults = {
   timeInputFormat: "%s",
   timeDisplayFormat: "%H:%M",
   logscale: undefined,
+  fontSize: 10,
+  legendLocation: undefined,
+  lineWidth: undefined,
 };
 
 // calculates data stats
@@ -208,6 +211,9 @@ chart._parseDrawInputs = async function (lines, options) {
     "xLabel",
     "yLabel",
     "isCategorical",
+    "fontSize",
+    "legendLocation",
+    "lineWidth",
   ]);
 
   opts.yRange = {
@@ -239,7 +245,7 @@ chart._parseDrawInputs = async function (lines, options) {
 
   // setup grid
   const grid = GRID_TYPES[options.grid];
-  if (grid !== undefined) opts.grid = grid;
+  if (grid !== undefined) opts.grid = _.merge({}, grid);
 
   const logscale = await parseLogscale(options);
   if (logscale !== undefined) opts.logscale = logscale;
@@ -280,6 +286,9 @@ chart._parseDrawInputs = async function (lines, options) {
  * @param {TimeFormat=} options.timeInputFormat input time format for time series data
  * @param {TimeFormat=} options.timeDisplayFormat output time format for time series data
  * @param {Array=} options.logscale logscale settings to use
+ * @param {BoundedInteger<1, 256>=} options.fontSize font size to use for the title and axis labels (default 10).
+ * @param {LegendLocation=} options.legendLocation the location of the legend
+ * @param {BoundedInteger<1, 32>=} options.lineWidth the width of the lines to draw
  *
  * @returns {Image} the generated chart
  */

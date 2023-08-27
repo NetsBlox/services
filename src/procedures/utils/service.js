@@ -57,7 +57,7 @@ class NBService {
    */
   __queryJson(json, query) {
     try {
-      if (typeof (json) === "string") {
+      if (typeof json === "string") {
         json = JSON.parse(json);
       }
     } catch (e) {

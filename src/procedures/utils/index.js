@@ -14,19 +14,19 @@ const sendImageBuffer = (response, imageBuffer, logger) => {
 };
 
 const collectStream = (stream, logger) => {
-  let deferred = Q.defer();
-  var imageBuffer = new Buffer(0);
-  stream.on("data", function (data) {
-    imageBuffer = Buffer.concat([imageBuffer, data]);
+  return new Promise((resolve, reject) => {
+    var imageBuffer = new Buffer(0);
+    stream.on("data", function (data) {
+      imageBuffer = Buffer.concat([imageBuffer, data]);
+    });
+    stream.on("end", function () {
+      resolve(imageBuffer);
+    });
+    stream.on("error", (err) => {
+      reject(err);
+      if (logger) logger.error("errored", err);
+    });
   });
-  stream.on("end", function () {
-    deferred.resolve(imageBuffer);
-  });
-  stream.on("error", (err) => {
-    deferred.reject(err);
-    if (logger) logger.error("errored", err);
-  });
-  return deferred.promise;
 };
 
 // creates snap friendly structure out of an array ofsimple keyValue json object or just single on of them.
