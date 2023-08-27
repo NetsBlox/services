@@ -119,7 +119,7 @@ let seedDB = (fileName) => {
   });
 };
 
-// given enough readings in the readigsCollection calculates the average reading age for stations
+// given enough readings in the readingsCollection calculates the average reading age for stations
 // not returning proper promise
 let calcStationStats = () => {
   let aggregateQuery = {

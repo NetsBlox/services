@@ -14,7 +14,7 @@ This service provides the ability to create autograders via specifying a configu
 This configuration is then saved in the database.
 
 The autograders service also exposes an endpoint ``/api/autograders/:username/:name.js``.
-When an autograder is requested, the configuration is retrieved from the database and then the autograder code is generated and served to the requestor.
+When an autograder is requested, the configuration is retrieved from the database and then the autograder code is generated and served to the requester.
 
 Client-side extensions
 ----------------------
