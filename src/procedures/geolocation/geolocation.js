@@ -89,7 +89,7 @@ GeoLocationRPC.geolocate = async function (address) {
  * @returns {Object} information about the target's timezone
  */
 GeoLocationRPC.timezone = async function (address) {
-  if (typeof (address) === "string") {
+  if (typeof address === "string") {
     address = await this._cachedGeolocate(address);
     address = [address.latitude, address.longitude];
   }
