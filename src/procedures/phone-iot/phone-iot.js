@@ -270,6 +270,7 @@ PhoneIoT.prototype.getColor = function (red, green, blue, alpha = 255) {
  * Given a list of numbers representing a vector, this RPC returns the magnitude (length) of the vector.
  * This can be used to get the total acceleration from the accelerometer (which gives a vector).
  *
+ * @deprecated
  * @category Utility
  * @param {Array<Number>} vec the vector value
  * @returns {Number} magnitude of the vector (a non-negative number)
@@ -281,6 +282,7 @@ PhoneIoT.prototype.magnitude = function (vec) {
  * Given a list of numbers representing a vector, returns the normalized vector (same direction but with a magnitude of ``1.0``).
  * This is identical to dividing each component by the magnitude.
  *
+ * @deprecated
  * @category Utility
  * @param {Array<Number>} vec the vector value
  * @returns {Array<Number>} the normalized vector
@@ -1148,7 +1150,7 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
   };
 
   /**
-   * Gets the current output of the gyroscope sensor, which measures rotational acceleration (in degrees/s²) along the three axes of the device.
+   * Gets the current output of the gyroscope sensor, which measures angular velocity (in degrees/s) along the three axes of the device.
    *
    * Sensor name: ``gyroscope``
    *
