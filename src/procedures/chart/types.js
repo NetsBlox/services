@@ -18,6 +18,14 @@ const LineTypes = [
   // For more info, check out http://www.gnuplot.info/docs_4.2/node145.html
 ];
 
+const LegendLocations = [
+  "top left",
+  "top right",
+  "bottom left",
+  "bottom right",
+  "outside",
+];
+
 module.exports = function registerTypes() {
   types.defineType({
     name: "LineType",
@@ -31,5 +39,12 @@ module.exports = function registerTypes() {
     description:
       "A string describing the time format such as %m/%d/%Y. For a complete list, check out the table at http://gnuplot.sourceforge.net/docs_4.2/node274.html",
     baseType: "String",
+  });
+
+  types.defineType({
+    name: "LegendLocation",
+    description: "The location of the legend in a Chart plot.",
+    baseType: "Enum",
+    baseParams: LegendLocations,
   });
 };
