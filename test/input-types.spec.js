@@ -17,7 +17,10 @@ describe(utils.suiteName(__filename), function () {
     it("should no-op string inputs", async () => {
       assert.strictEqual(await typesParser.String(""), "");
       assert.strictEqual(await typesParser.String("test"), "test");
-      assert.strictEqual(await typesParser.String(" hello world "), " hello world ");
+      assert.strictEqual(
+        await typesParser.String(" hello world "),
+        " hello world ",
+      );
     });
     it("should forbid array inputs", async () => {
       await utils.shouldThrow(() => typesParser.String([]));
@@ -27,7 +30,9 @@ describe(utils.suiteName(__filename), function () {
     it("should forbid object inputs", async () => {
       await utils.shouldThrow(() => typesParser.String({}));
       await utils.shouldThrow(() => typesParser.String({ test: 4 }));
-      await utils.shouldThrow(() => typesParser.String({ test: 4, more: "thingy" }));
+      await utils.shouldThrow(() =>
+        typesParser.String({ test: 4, more: "thingy" })
+      );
     });
   });
 
