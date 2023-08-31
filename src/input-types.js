@@ -236,7 +236,10 @@ defineType({
   name: "String",
   description: "Any piece of text.",
   baseType: "Any",
-  parser: (input) => input.toString(),
+  parser: (input) => {
+    if (typeof input === "object") throw new InputTypeError();
+    return input.toString();
+  },
 });
 
 defineType({
