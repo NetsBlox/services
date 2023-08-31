@@ -110,8 +110,12 @@ describe(utils.suiteName(__filename), function () {
     it("should forbid years outside the range", async () => {
       await utils.shouldThrow(() => typesParser.YearSince("1948", [1950]));
       await utils.shouldThrow(() => typesParser.YearSince("1949", [1950]));
-      await utils.shouldThrow(() => typesParser.YearSince(new Date().getFullYear() + 1, [1950]));
-      await utils.shouldThrow(() => typesParser.YearSince(new Date().getFullYear() + 2, [1950]));
+      await utils.shouldThrow(() =>
+        typesParser.YearSince(new Date().getFullYear() + 1, [1950])
+      );
+      await utils.shouldThrow(() =>
+        typesParser.YearSince(new Date().getFullYear() + 2, [1950])
+      );
     });
     it("should forbid non-integers", async () => {
       await utils.shouldThrow(() => typesParser.YearSince("1975.2", [1950]));
@@ -120,9 +124,24 @@ describe(utils.suiteName(__filename), function () {
       assert.deepStrictEqual(await typesParser.YearSince("1950", [1950]), 1950);
       assert.deepStrictEqual(await typesParser.YearSince("1951", [1950]), 1951);
       assert.deepStrictEqual(await typesParser.YearSince("1952", [1950]), 1952);
-      assert.deepStrictEqual(await typesParser.YearSince((new Date().getFullYear() - 2).toString(), [1950]), new Date().getFullYear() - 2);
-      assert.deepStrictEqual(await typesParser.YearSince((new Date().getFullYear() - 1).toString(), [1950]), new Date().getFullYear() - 1);
-      assert.deepStrictEqual(await typesParser.YearSince(new Date().getFullYear().toString(), [1950]), new Date().getFullYear());
+      assert.deepStrictEqual(
+        await typesParser.YearSince((new Date().getFullYear() - 2).toString(), [
+          1950,
+        ]),
+        new Date().getFullYear() - 2,
+      );
+      assert.deepStrictEqual(
+        await typesParser.YearSince((new Date().getFullYear() - 1).toString(), [
+          1950,
+        ]),
+        new Date().getFullYear() - 1,
+      );
+      assert.deepStrictEqual(
+        await typesParser.YearSince(new Date().getFullYear().toString(), [
+          1950,
+        ]),
+        new Date().getFullYear(),
+      );
     });
   });
 
