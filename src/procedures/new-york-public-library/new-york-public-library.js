@@ -10,7 +10,7 @@ const ApiConsumer = require("../utils/api-consumer");
 const { NewYorkPublicLibraryKey } = require("../utils/api-key");
 const NYPL = new ApiConsumer(
   "NewYorkPublicLibrary",
-  "http://api.repo.nypl.org/api/v1",
+  "http://api.repo.nypl.org/api/v2",
   { cache: { ttl: 5 * 60 } },
 );
 ApiConsumer.setRequiredApiKey(NYPL, NewYorkPublicLibraryKey);
