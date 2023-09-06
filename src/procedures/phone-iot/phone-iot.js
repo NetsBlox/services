@@ -692,7 +692,7 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    * @param {Object=} options Additional options
    * @param {String=} options.group The name of the group to associate this radio button with. You do not need this value to access the control later. If not specified, defaults to ``main``.
    * @param {String=} options.id The id to use for the control. If not specified, a new one will be automatically generated.
-   * @param {String=} options.event The name of an event to send every time the user clicks the radio button. Note that clicking a radio button always checks it, unlike toggles. You must call :func:`PhoneIoT.listenToGUI` to actually receive these messages. If not specified, no event is sent. Message fields: ``device``, ``id``, ``state``.
+   * @param {String=} options.event The name of an event to send every time the user clicks the radio button. Note that clicking a radio button always checks it, unlike toggles. You must call :func:`PhoneIoT.listenToGUI` to actually receive these messages. If not specified, no event is sent. Message fields: ``device``, ``id``.
    * @param {Boolean=} options.checked Defaults to ``false``. If set to ``true``, the radio button will be initially checked. Note that, while the user cannot check multiple radio buttons, you are free to do so programmatically.
    * @param {Color=} options.color The color of the radio button itself.
    * @param {Color=} options.textColor The text color of the radio button.
