@@ -120,17 +120,25 @@ class RPCError extends Error {
   }
 }
 
+/**
+ * Get the public address of the cloud server.
+ */
 function getCloudURL() {
   return config.NetsBloxCloud;
 }
 
+/**
+ * Get the public address of the services server.
+ */
 function getServicesURL() {
   return config.ServerURL;
 }
 
+/**
+ * Get the public address of the NetsBlox editor.
+ */
 function getEditorURL() {
-  // FIXME:
-  return "http://localhost:5000";
+  return config.EditorURL;
 }
 
 module.exports = {
