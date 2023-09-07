@@ -183,7 +183,9 @@ Autograders.addLTIConsumer = async function (autograder, consumer) {
     }
 
     const launchUrl =
-      `${utils.getServicesURL()}/routes/autograders/lti/v1.1/${author}/${autograder}/launch`;
+      `${utils.getServicesURL()}/routes/autograders/v2/lti/v1.1/user/${
+        encodeURIComponent(author)
+      }/${encodeURIComponent(autograder)}/launch`;
 
     return {
       launchUrl,

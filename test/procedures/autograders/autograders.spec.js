@@ -228,6 +228,15 @@ describe(utils.suiteName(__filename), function () {
       assert.equal(grader.ltiConsumers.length, 1);
     });
 
+    it("should escape spaces, etc, in launch URL", async function () {
+      const name = "Escape Spaces";
+      await service.createAutograder(getValidConfig(name));
+
+      const consumer = "testConsumer";
+      const consumerData = await service.addLTIConsumer(name, consumer);
+      assert(!consumerData.launchUrl.includes(" "));
+    });
+
     it("should not add duplicate consumer", async function () {
       const name = "DuplicateConsumerTest";
       await service.createAutograder(getValidConfig(name));
