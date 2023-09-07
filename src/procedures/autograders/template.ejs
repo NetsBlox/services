@@ -719,4 +719,21 @@
     }
 
     NetsBloxExtensions.register(CustomBlockAutograder);
+
+    if (config.initialAssignment) {
+        function checkLoaded() {
+            if (!NetsBloxExtensions.isLoaded(config.name)) {
+                return setTimeout(checkLoaded, 100);
+            }
+
+            const autograder = NetsBloxExtensions.registry.find(ext => ext.name === config.name);
+            const assignment = autograder.assignments
+                .find(a => a.name === config.initialAssignment);
+
+            if (assignment) {
+                autograder.loadAssignment(assignment);
+            }
+        }
+        checkLoaded();
+    }
 })();

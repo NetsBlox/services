@@ -129,6 +129,7 @@ router.post(
       consumer: consumer.name,
       outcomeServiceUrl: req.body.lis_outcome_service_url,
       sourcedId: req.body.lis_result_sourcedid,
+      assignment: req.body.custom_assignment,
       createdAt: new Date(),
     };
     await tokens.insertOne(token);
@@ -177,7 +178,20 @@ router.get(
       autograder.config,
       ltiConfig,
     );
-    console.log({ autograder, config });
+
+    // if assignment is set from the tool consumer, strip out all other assignments and start
+    // the given assignment immediately
+    if (token.assignment) {
+      const name = token.assignment.trim().toLowerCase();
+      const assignment = config.assignments
+        .find((assgn) => assgn.name.trim().toLowerCase() === name);
+
+      if (assignment) {
+        config.assignments = [assignment];
+        config.initialAssignment = assignment.name;
+      }
+    }
+
     config.integrations.push("lti1.1");
     const code = AutograderCode.replace(
       "AUTOGRADER_CONFIG",
