@@ -10,7 +10,7 @@ describe(testUtils.suiteName(__filename), function () {
   after(() => testSuite.takedown());
 
   it("should list autograders by author", async function () {
-    const storage = getDatabase();
+    const storage = getDatabase().autograders;
     await storage.insertOne({ name: "test1", author: "brian" });
     await storage.insertOne({ name: "test10", author: "notBrian" });
     const response = await request(routes)
@@ -23,7 +23,7 @@ describe(testUtils.suiteName(__filename), function () {
   });
 
   it("should return autograder config", async function () {
-    const storage = getDatabase();
+    const storage = getDatabase().autograders;
     const config = { name: "testConfig", assignments: [] };
     const autograder = { name: "testConfig", author: "brian", config };
     await storage.insertOne(autograder);

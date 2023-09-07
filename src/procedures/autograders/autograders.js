@@ -8,9 +8,11 @@
  * @category Utilities
  */
 const assert = require("assert");
+const uuid = require("uuid");
 const _ = require("lodash");
 const MONGODB_DOC_TOO_LARGE = "Attempt to write outside buffer bounds";
 const getDatabase = require("./storage");
+const utils = require("../utils");
 const Integrations = require("./integrations");
 const TEST_TYPES = ["CustomBlockTest"];
 
@@ -106,7 +108,7 @@ const Autograders = {};
 Autograders.createAutograder = async function (config) {
   ensureLoggedIn(this.caller);
   config = preprocessConfig(config);
-  const storage = getDatabase();
+  const { autograders } = getDatabase();
   const author = this.caller.username;
   const extension = {
     type: "Autograder",
@@ -115,10 +117,12 @@ Autograders.createAutograder = async function (config) {
     createdAt: new Date(),
     version: "0.0.1",
     config,
+    ltiConsumers: [],
   };
+
   const query = { $set: extension };
   try {
-    await storage.updateOne({ author, name: config.name }, query, {
+    await autograders.updateOne({ author, name: config.name }, query, {
       upsert: true,
     });
   } catch (err) {
@@ -132,17 +136,135 @@ Autograders.createAutograder = async function (config) {
 };
 
 /**
+ * Add an LTI (v1.1) consumer to an existing autograder.
+ *
+ * @category LTI
+ * @param {String} autograder - name of the autograder to update
+ * @param {String} consumer - name of the consumer to add (eg, Coursera)
+ */
+Autograders.addLTIConsumer = async function (autograder, consumer) {
+  ensureLoggedIn(this.caller);
+  const { autograders } = getDatabase();
+  const author = this.caller.username;
+  try {
+    const secret = uuid.v4();
+    const consumerData = {
+      name: consumer,
+      secret,
+    };
+    // Add it if ltiConsumers exists and doesn't contain it
+    const result = await autograders.updateOne(
+      {
+        author,
+        name: autograder,
+        ltiConsumers: { $not: { $elemMatch: { name: consumer } } },
+      },
+      { $push: { ltiConsumers: consumerData } },
+    );
+
+    if (result.modifiedCount === 0) {
+      // Check if the autograder:
+      //  - doesn't exist
+      //  - already contains the consumer
+      //  - needs to be updated from the old format
+      const grader = await autograders.findOne(
+        { author, name: autograder },
+      );
+      if (!grader) {
+        throw new Error("Autograder not found.");
+      } else if (grader.ltiConsumers) {
+        throw new Error(`LTI Consumer already exists: ${consumer}`);
+      } else {
+        await autograders.updateOne(
+          { author, name: autograder, ltiConsumers: { $exists: false } },
+          { $set: { ltiConsumers: [consumerData] } },
+        );
+      }
+    }
+
+    const launchUrl =
+      `${utils.getServicesURL()}/routes/autograders/lti/v1.1/${author}/${autograder}/launch`;
+
+    return {
+      launchUrl,
+      consumerKey: consumer,
+      secret,
+    };
+  } catch (err) {
+    if (err.message === MONGODB_DOC_TOO_LARGE) {
+      throw new Error(
+        "Upload is too large. Please decrease the size and try again.",
+      );
+    }
+    throw err;
+  }
+};
+
+/**
+ * List LTI (v1.1) consumers for an existing autograder.
+ *
+ * @category LTI
+ * @param {String} autograder - name of the autograder to update
+ */
+Autograders.getLTIConsumers = async function (autograder) {
+  ensureLoggedIn(this.caller);
+  const { autograders } = getDatabase();
+  const author = this.caller.username;
+  const grader = await autograders.findOne(
+    { author, name: autograder },
+  );
+
+  if (!grader) {
+    throw new Error("Autograder not found.");
+  }
+
+  const consumers = grader.ltiConsumers || [];
+  return consumers.map((c) => c.name);
+};
+
+/**
+ * Remove an LTI (v1.1) consumer from an existing autograder.
+ *
+ * @category LTI
+ * @param {String} autograder - name of the autograder to update
+ * @param {String} consumer - name of the consumer to add (eg, Coursera)
+ */
+Autograders.removeLTIConsumer = async function (autograder, consumer) {
+  ensureLoggedIn(this.caller);
+  const { autograders } = getDatabase();
+  const author = this.caller.username;
+  const grader = await autograders.findOne(
+    { author, name: autograder },
+  );
+
+  if (!grader) {
+    throw new Error("Autograder not found.");
+  }
+
+  const consumers = grader.ltiConsumers || [];
+  const consumerData = consumers.find((c) => c.name === consumer);
+  if (consumerData) {
+    await autograders.updateOne(
+      { author, name: autograder },
+      {
+        $pull: { ltiConsumers: consumerData },
+      },
+    );
+  }
+};
+
+/**
  * List the autograders for the given user.
  */
 Autograders.getAutograders = async function () {
   ensureLoggedIn(this.caller);
   const author = this.caller.username;
-  const storage = getDatabase();
+  const { autograders } = getDatabase();
   const options = {
     projection: { name: 1 },
   };
-  const autograders = await storage.find({ author }, options).toArray();
-  return autograders.map((grader) => grader.name);
+  const graders = await autograders.find({ author }, options).toArray();
+  return graders.map((grader) => grader.name);
 };
 
 /**
@@ -152,9 +274,9 @@ Autograders.getAutograders = async function () {
  */
 Autograders.getAutograderConfig = async function (name) {
   ensureLoggedIn(this.caller);
-  const storage = getDatabase();
   const author = this.caller.username;
-  const autograder = await storage.findOne({ author, name });
+  const { autograders } = getDatabase();
+  const autograder = await autograders.findOne({ author, name });
   if (!autograder) {
     throw new Error("Autograder not found.");
   }
