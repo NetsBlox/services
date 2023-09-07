@@ -1,6 +1,7 @@
 // a set of utilities to be used by rpcs
 const { defer } = require("../../utils");
 const cloud = require("../../cloud-client");
+const config = require("../../config");
 
 // sets up the headers and send an image
 const sendImageBuffer = (response, imageBuffer, logger) => {
@@ -119,6 +120,19 @@ class RPCError extends Error {
   }
 }
 
+function getCloudURL() {
+  return config.NetsBloxCloud;
+}
+
+function getServicesURL() {
+  return config.ServerURL;
+}
+
+function getEditorURL() {
+  // FIXME:
+  return "http://localhost:5000";
+}
+
 module.exports = {
   getRoleNames,
   getRoleIds,
@@ -131,4 +145,8 @@ module.exports = {
   setRequiredApiKey,
   RPCError,
   defer,
+
+  getCloudURL,
+  getServicesURL,
+  getEditorURL,
 };

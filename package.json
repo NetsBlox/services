@@ -36,6 +36,7 @@
     "nexrad-level-2-plot": "^1.1.0",
     "node-geocoder": "^3.16.0",
     "node-html-parser": "^5.1.0",
+    "node-oauth1": "^1.3.0",
     "node-schedule": "^1.3.2",
     "nodehun": "^3.0.2",
     "nodemailer": "=2.6.4",
@@ -44,7 +45,8 @@
     "snap2js": "1.6.0",
     "sphericalmercator": "^1.0.5",
     "temp-units-conv": "^0.1.1",
-    "turf": "^3.0.14"
+    "turf": "^3.0.14",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "mocha": "^10.1.0",

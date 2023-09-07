@@ -2,8 +2,9 @@ const _ = require("lodash");
 const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
 const assert = require("assert");
-const config = require("../../config");
 const { sleep } = require("../../utils");
+const { getCloudURL, getServicesURL } = require("../utils");
+// FIXME: is sleep defined?
 
 // login with alexa credentials
 const lwaClientID = process.env.LWA_CLIENT_ID;
@@ -62,14 +63,6 @@ const getVendorID = async function (smapiClient) {
   assert(vendors.length, "Developer account required.");
   return vendors[0].id;
 };
-
-function getCloudURL() {
-  return config.NetsBloxCloud;
-}
-
-function getServicesURL() {
-  return config.ServerURL;
-}
 
 function getConfigWithDefaults(configuration) {
   const skillConfigDefaults = {
@@ -158,4 +151,6 @@ module.exports = {
   textBtwn,
   getVendorID,
   OAUTH_CLIENT_NAME,
+  getCloudURL,
+  getServicesURL,
 };
