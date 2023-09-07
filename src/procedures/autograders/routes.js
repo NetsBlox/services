@@ -15,7 +15,6 @@ const rp = require("request-promise");
 const utils = require("../utils");
 const { isValidLti1Signature, sha1 } = require("./utils");
 
-// TODO: add v2 prefix
 router.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", req.get("origin"));
   res.header("Access-Control-Allow-Credentials", true);
@@ -29,86 +28,78 @@ router.use(function (req, res, next) {
   );
   next();
 });
+
 router.options("*", (req, res) => res.sendStatus(204));
 
-router.get(
-  "/:author/",
-  async (req, res) => {
-    const { author } = req.params;
-    const storage = getDatabase().autograders;
-    const options = {
-      projection: { name: 1 },
-    };
-    const autograders = await storage.find({ author }, options).toArray();
-    return res.json(autograders.map((grader) => grader.name));
-  },
-);
+//////////////////// Route Handlers ////////////////////
+async function listGraders(req, res) {
+  const { author } = req.params;
+  const storage = getDatabase().autograders;
+  const options = {
+    projection: { name: 1 },
+  };
+  const autograders = await storage.find({ author }, options).toArray();
+  return res.json(autograders.map((grader) => grader.name));
+}
 
-router.get(
-  "/:author/:name/config.json",
-  async (req, res) => {
-    const { author, name } = req.params;
-    const storage = getDatabase().autograders;
+async function getGraderConfig(req, res) {
+  const { author, name } = req.params;
+  const storage = getDatabase().autograders;
 
-    const autograder = await storage.findOne({ author, name });
-    if (!autograder) {
-      return res.sendStatus(404);
-    }
+  const autograder = await storage.findOne({ author, name });
+  if (!autograder) {
+    return res.sendStatus(404);
+  }
 
-    return res.json(autograder.config);
-  },
-);
+  return res.json(autograder.config);
+}
 
-router.get(
-  "/:author/:name.js",
-  async (req, res) => {
-    const { author, name } = req.params;
-    const storage = getDatabase().autograders;
-    const autograder = await storage.findOne({ author, name });
-    if (!autograder) {
-      return res.sendStatus(404);
-    }
+async function getGraderExtension(req, res) {
+  const { author, name } = req.params;
+  const storage = getDatabase().autograders;
+  const autograder = await storage.findOne({ author, name });
+  if (!autograder) {
+    return res.sendStatus(404);
+  }
 
-    const code = AutograderCode.replace(
-      "AUTOGRADER_CONFIG",
-      JSON.stringify(autograder.config),
-    );
-    return res.send(code);
-  },
-);
+  const code = AutograderCode.replace(
+    "AUTOGRADER_CONFIG",
+    JSON.stringify(autograder.config),
+  );
+  return res.send(code);
+}
 
+async function submitCoursera(req, res) {
+  const url =
+    "https://www.coursera.org/api/onDemandProgrammingScriptSubmissions.v1";
+  try {
+    const response = await rp({
+      uri: url,
+      method: "POST",
+      json: req.body,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache",
+      },
+    });
+    return res.send(response);
+  } catch (err) {
+    const isStatusCodeError = err.name === "StatusCodeError";
+    const status = isStatusCodeError ? err.statusCode : 500;
+    const message = isStatusCodeError
+      ? err.error.message
+      : `An error occurred: ${err.message}`;
+    return res.status(status).send(message);
+  }
+}
+
+//////////////////// v2 Routes ////////////////////
+router.get("/v2/user/:author/", listGraders);
+router.get("/v2/user/:author/:name/config.json", getGraderConfig);
+router.get("/v2/user/:author/:name.js", getGraderExtension);
 router.post(
-  "/submit/coursera",
+  "/v2/lti/v1.1/user/:author/:name/launch",
   async (req, res) => {
-    const url =
-      "https://www.coursera.org/api/onDemandProgrammingScriptSubmissions.v1";
-    try {
-      const response = await rp({
-        uri: url,
-        method: "POST",
-        json: req.body,
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-        },
-      });
-      return res.send(response);
-    } catch (err) {
-      const isStatusCodeError = err.name === "StatusCodeError";
-      const status = isStatusCodeError ? err.statusCode : 500;
-      const message = isStatusCodeError
-        ? err.error.message
-        : `An error occurred: ${err.message}`;
-      return res.status(status).send(message);
-    }
-  },
-);
-
-router.post(
-  "/lti/v1.1/:author/:name/launch",
-  async (req, res) => {
-    // TODO: verify that the consumer is valid...
-    // TODO: issue a token for a version of the autograder w/ secrets inlined, too
     const { author, name } = req.params;
     const { autograders, tokens } = getDatabase();
 
@@ -117,7 +108,6 @@ router.post(
       return res.sendStatus(404);
     }
 
-    console.log(req.body);
     const consumerName = req.body.oauth_consumer_key;
     const consumers = autograder.ltiConsumers || [];
     const consumer = consumers.find((c) => c.name === consumerName);
@@ -126,9 +116,6 @@ router.post(
       return res.sendStatus(400); // FIXME: handle errors here
     }
 
-    // TODO: check the oauth_signature is correct (using the consumer secret)
-    console.log("----> received post request!");
-    console.log(req.body);
     if (!isValidLti1Signature(req.body, consumer.secret)) {
       return res.sendStatus(403);
     }
@@ -149,7 +136,7 @@ router.post(
     const baseUrl = utils.getServicesURL();
     const editorUrl = utils.getEditorURL();
     const extUrl =
-      `${baseUrl}/routes/autograders/v2/lti/v1.1/${token.id}/grader.js`; // TODO: add an integration URL here
+      `${baseUrl}/routes/autograders/v2/lti/v1.1/token/${token.id}/grader.js`;
     const url = `${editorUrl}?extensions=[${
       encodeURIComponent(JSON.stringify(extUrl))
     }]`;
@@ -158,12 +145,12 @@ router.post(
 );
 
 router.get(
-  "/v2/lti/v1.1/:tokenId/grader.js",
+  "/v2/lti/v1.1/token/:tokenId/grader.js",
   async (req, res) => {
     const { tokenId } = req.params;
     const { tokens, autograders } = getDatabase();
 
-    // check on a token
+    // check on the token
     const token = await tokens.findOne({ id: tokenId });
     if (!token) {
       return res.status(404).send("Invalid token.");
@@ -279,5 +266,11 @@ router.post(
     return res.sendStatus(response.status);
   },
 );
+
+//////////////////// v1 Routes ////////////////////
+router.get("/:author/", listGraders);
+router.get("/:author/:name/config.json", getGraderConfig);
+router.get("/:author/:name.js", getGraderExtension);
+router.post("/submit/coursera", submitCoursera);
 
 module.exports = router;
