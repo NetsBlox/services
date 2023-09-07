@@ -7,7 +7,8 @@ describe(utils.suiteName(__filename), function () {
   const assert = require("assert");
 
   let testSuite;
-  before(async () => {
+  before(async function () {
+    this.timeout(5000);
     testSuite = await TestSuiteBuilder().setup();
     await ServicesAPI.initialize();
   });
