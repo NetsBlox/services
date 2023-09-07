@@ -14,6 +14,9 @@ describe(utils.suiteName(__filename), function () {
     ["getAutograders"],
     ["getAutograderConfig", ["name"]],
     ["createAutograder", ["configuration"]],
+    ["getLTIConsumers", ["autograder"]],
+    ["addLTIConsumer", ["autograder", "consumer"]],
+    ["removeLTIConsumer", ["autograder", "consumer"]],
   ]);
 
   describe("getAutograders", function () {
