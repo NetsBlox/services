@@ -532,6 +532,14 @@ defineType({
 });
 
 defineType({
+  name: "YearSince",
+  description:
+    "A year starting at some point and ranging up to the current year",
+  baseType: "BoundedInteger",
+  baseParams: (p) => [p[0], new Date().getFullYear()],
+});
+
+defineType({
   name: "BoundedString",
   description: "A string (text) with a minimum and/or maximum length.",
   baseType: "String",
