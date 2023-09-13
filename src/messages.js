@@ -21,7 +21,7 @@ class SendMessage extends Message {
 class SendMessageToClient extends Message {
   constructor(projectId, roleId, clientId, type, contents) {
     const state = {
-      Browser: {
+      browser: {
         projectId,
         roleId,
       },
