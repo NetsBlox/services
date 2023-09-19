@@ -126,6 +126,18 @@ types.defineType({
   baseParams: ["0", "100"],
 });
 types.defineType({
+  name: "VibrationDuration",
+  description: "The amount of time (in seconds) used by the :doc:`/services/PhoneIoT/index` vibration utilities.",
+  baseType: "BoundedNumber",
+  baseParams: ["0.1", "10"],
+});
+types.defineType({
+  name: "VibrationStrength",
+  description: "The strength of a vibration produced by the :doc:`/services/PhoneIoT/index` vibration utilities.",
+  baseType: "BoundedNumber",
+  baseParams: ["0", "100"],
+});
+types.defineType({
   name: "Device",
   description:
     "A :doc:`/services/PhoneIoT/index` device ID. The device must be connected to be valid.",
@@ -1410,6 +1422,24 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    */
   PhoneIoT.prototype.setImage = function (device, id, img) {
     return this._passToDevice("setImage", arguments);
+  };
+  /**
+   * Causes the phone to vibrate with a specified duration (in seconds) and strength.
+   * ``durations`` can either be a single number representing a continuous vibration for that amount of time (in seconds), or it can be a list of durations.
+   * For instance, ``[1, 0.5, 2]`` would mean: vibrate for 1 second, stop for 0.5 seconds, then vibrate for 2 seconds.
+   * 
+   * Some older devices lack support for customizable vibration patterns/durations,
+   * in which case PhoneIoT may have to resort to an approximation of the desired pattern using longer vibrations.
+   * 
+   * @category Utility
+   * @param {Device} device id of the device
+   * @param {Union<Array<VibrationDuration>, VibrationDuration>} durations the duration of a vibration or a pattern of on/off times
+   * @param {VibrationStrength=} strength the strength of vibration (default 100)
+   */
+  PhoneIoT.prototype.vibrate = function (device, durations, strength = 100) {
+    arguments[1] = Array.isArray(durations) ? durations : [durations];
+    arguments[2] = strength;
+    return this._passToDevice("vibrate", arguments);
   };
 
   // /**

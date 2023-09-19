@@ -28,6 +28,7 @@ const { setTimeout } = require("../../timers");
 // J - get pos vector
 // j - add joystick
 // K - get relative humidity
+// k - vibrate
 // L - linear acceleration
 // l - light level
 // M - magnetic field
@@ -871,6 +872,23 @@ Device.prototype.getRelativeHumidity = async function (device, args, clientId) {
   return throwIfErr(await response).vals[0];
 };
 
+Device.prototype.vibrate = async function (device, args, clientId) {
+  const { response, password } = this.rpcHeader("vibrate", clientId);
+  const durations = args[0];
+  const strength = args[1];
+
+  const message = Buffer.alloc(9 + 4 * (1 + durations.length));
+  message.write("k", 0, 1);
+  message.writeBigInt64BE(common.gracefulPasswordParse(password), 1);
+  message.writeFloatBE(strength, 9);
+  for (let i = 0; i < durations.length; ++i) {
+    message.writeFloatBE(durations[i], 9 + 4 * (i + 1));
+  }
+  this.sendToDevice(message);
+
+  throwIfErr(await response);
+};
+
 Device.prototype._getLocationRaw = async function (device, args, clientId) {
   const { response, password } = this.rpcHeader("location", clientId);
 
@@ -1148,6 +1166,8 @@ Device.prototype.onMessage = function (message) {
     this._sendVoidResult("clearcontrols", message, "failed to clear controls");
   } else if (command === "c") {
     this._sendVoidResult("removecontrol", message, "failed to remove control");
+  } else if (command === 'k') {
+    this._sendVoidResult("vibrate", message, "vibration is not supported");
   } else if (command === "u") {
     const img = message.slice(11);
     this.sendToClient(
