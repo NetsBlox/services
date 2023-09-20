@@ -1166,7 +1166,7 @@ Device.prototype.onMessage = function (message) {
     this._sendVoidResult("clearcontrols", message, "failed to clear controls");
   } else if (command === "c") {
     this._sendVoidResult("removecontrol", message, "failed to remove control");
-  } else if (command === 'k') {
+  } else if (command === "k") {
     this._sendVoidResult("vibrate", message, "vibration is not supported");
   } else if (command === "u") {
     const img = message.slice(11);
