@@ -56,5 +56,6 @@ describe(utils.suiteName(__filename), function () {
     ["getPressure", ["device"]],
     ["getTemperature", ["device"]],
     ["getRelativeHumidity", ["device"]],
+    ["vibrate", ["device", "durations", "strength"]],
   ]);
 });
