@@ -6,7 +6,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_Eb_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_Eb_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_Eb_3625"
     },
     {
@@ -15,7 +15,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_C#_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_C#_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_C#_1564"
     },
     {
@@ -24,7 +24,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_F#_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_F#_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_F#_1564"
     },
     {
@@ -33,7 +33,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_C_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_C_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_C_1564"
     },
     {
@@ -42,7 +42,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_B_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_B_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_B_1564"
     },
     {
@@ -51,7 +51,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_F_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_F_1564.mp3",
       "soundName": "Saxophone_80BPM_F_1564"
     },
     {
@@ -60,7 +60,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_G_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_G_1564.mp3",
       "soundName": "Saxophone_80BPM_G_1564"
     },
     {
@@ -69,7 +69,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_F#_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_F#_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_F#_3625"
     },
     {
@@ -78,7 +78,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_A_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_A_1564.mp3",
       "soundName": "BoardingArea_70BPM_A_1564"
     },
     {
@@ -87,7 +87,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_F#_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_F#_1564.mp3",
       "soundName": "80sWaveBells_80BPM_F#_1564"
     },
     {
@@ -96,7 +96,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_Ab_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_Ab_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_Ab_1564"
     },
     {
@@ -105,7 +105,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_G_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_G_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_G_1564"
     },
     {
@@ -114,7 +114,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_F_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_F_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_F_1564"
     },
     {
@@ -123,7 +123,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_C#_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_C#_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_C#_3625"
     },
     {
@@ -132,7 +132,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_Eb_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_Eb_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_Eb_1564"
     },
     {
@@ -141,7 +141,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_C_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_C_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_C_3625"
     },
     {
@@ -150,7 +150,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_B_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_B_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_B_3625"
     },
     {
@@ -159,7 +159,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_F#_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_F#_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_F#_1564"
     },
     {
@@ -168,7 +168,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_E_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_E_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_E_1564"
     },
     {
@@ -177,7 +177,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_D_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_D_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_D_1564"
     },
     {
@@ -186,7 +186,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_Bb_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_Bb_1564.mp3",
       "soundName": "SunriseChords_110BPM_Bb_1564"
     },
     {
@@ -195,7 +195,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_A_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_A_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_A_3625"
     },
     {
@@ -204,7 +204,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_Eb_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_Eb_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_Eb_3625"
     },
     {
@@ -213,7 +213,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_E_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_E_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_E_3625"
     },
     {
@@ -222,7 +222,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_D_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_D_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_D_3625"
     },
     {
@@ -231,7 +231,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_C#_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_C#_1564.mp3",
       "soundName": "SunriseChords_100BPM_C#_1564"
     },
     {
@@ -240,7 +240,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_A_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_A_1564.mp3",
       "soundName": "SunriseChords_100BPM_A_1564"
     },
     {
@@ -249,7 +249,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_F#_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_F#_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_F#_1564"
     },
     {
@@ -258,7 +258,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_Bb_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_Bb_1564.mp3",
       "soundName": "Saxophone_80BPM_Bb_1564"
     },
     {
@@ -267,7 +267,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_D_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_D_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_D_1564"
     },
     {
@@ -276,7 +276,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_E_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_E_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_E_1564"
     },
     {
@@ -285,7 +285,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_C#_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_C#_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_C#_3625"
     },
     {
@@ -294,7 +294,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_A_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_A_1564.mp3",
       "soundName": "BoardingArea_80BPM_A_1564"
     },
     {
@@ -303,7 +303,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_Eb_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_Eb_1564.mp3",
       "soundName": "SunriseChords_100BPM_Eb_1564"
     },
     {
@@ -312,7 +312,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_Bb_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_Bb_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_Bb_3625"
     },
     {
@@ -321,7 +321,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_F_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_F_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_F_3625"
     },
     {
@@ -330,7 +330,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_G_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_G_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_G_3625"
     },
     {
@@ -339,7 +339,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_Ab_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_Ab_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_Ab_3625"
     },
     {
@@ -348,7 +348,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_A_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_A_1564.mp3",
       "soundName": "SunriseChords_110BPM_A_1564"
     },
     {
@@ -357,7 +357,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_F_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_F_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_F_3625"
     },
     {
@@ -366,7 +366,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_G_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_G_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_G_3625"
     },
     {
@@ -375,7 +375,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_C#_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_C#_1564.mp3",
       "soundName": "BoardingArea_70BPM_C#_1564"
     },
     {
@@ -384,7 +384,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_Ab_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_Ab_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_Ab_3625"
     },
     {
@@ -393,7 +393,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_Eb_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_Eb_1564.mp3",
       "soundName": "BoardingArea_70BPM_Eb_1564"
     },
     {
@@ -402,7 +402,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_E_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_E_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_E_3625"
     },
     {
@@ -411,7 +411,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_D_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_D_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_D_3625"
     },
     {
@@ -420,7 +420,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_Ab_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_Ab_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_Ab_1564"
     },
     {
@@ -429,7 +429,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_G_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_G_1564.mp3",
       "soundName": "80sWaveBells_80BPM_G_1564"
     },
     {
@@ -438,7 +438,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_F_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_F_1564.mp3",
       "soundName": "80sWaveBells_80BPM_F_1564"
     },
     {
@@ -447,7 +447,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_Eb_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_Eb_1564.mp3",
       "soundName": "BoardingArea_80BPM_Eb_1564"
     },
     {
@@ -456,7 +456,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_Ab_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_Ab_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_Ab_1564"
     },
     {
@@ -465,7 +465,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_D_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_D_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_D_1564"
     },
     {
@@ -474,7 +474,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_E_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_E_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_E_1564"
     },
     {
@@ -483,7 +483,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_C_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_C_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_C_1564"
     },
     {
@@ -492,7 +492,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_B_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_B_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_B_1564"
     },
     {
@@ -501,7 +501,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_A_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_A_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_A_1564"
     },
     {
@@ -510,7 +510,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_C#_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_C#_1564.mp3",
       "soundName": "BoardingArea_80BPM_C#_1564"
     },
     {
@@ -519,7 +519,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_G_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_G_1564.mp3",
       "soundName": "SunriseChords_110BPM_G_1564"
     },
     {
@@ -528,7 +528,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_F_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_F_1564.mp3",
       "soundName": "SunriseChords_110BPM_F_1564"
     },
     {
@@ -537,7 +537,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_Ab_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_Ab_1564.mp3",
       "soundName": "80sWaveBells_80BPM_Ab_1564"
     },
     {
@@ -546,7 +546,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_F#_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_F#_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_F#_1564"
     },
     {
@@ -555,7 +555,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_A_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_A_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_A_3625"
     },
     {
@@ -564,7 +564,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_Ab_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_Ab_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_Ab_1564"
     },
     {
@@ -573,7 +573,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_Bb_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_Bb_1564.mp3",
       "soundName": "BoardingArea_70BPM_Bb_1564"
     },
     {
@@ -582,7 +582,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_Ab_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_Ab_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_Ab_1564"
     },
     {
@@ -591,7 +591,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_Ab_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_Ab_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_Ab_3625"
     },
     {
@@ -600,7 +600,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_A_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_A_1564.mp3",
       "soundName": "80sWaveBells_80BPM_A_1564"
     },
     {
@@ -609,7 +609,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_B_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_B_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_B_3625"
     },
     {
@@ -618,7 +618,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_C_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_C_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_C_3625"
     },
     {
@@ -627,7 +627,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_Ab_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_Ab_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_Ab_1564"
     },
     {
@@ -636,7 +636,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_C_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_C_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_C_1564"
     },
     {
@@ -645,7 +645,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_B_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_B_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_B_1564"
     },
     {
@@ -654,7 +654,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_F_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_F_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_F_1564"
     },
     {
@@ -663,7 +663,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_G_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_G_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_G_1564"
     },
     {
@@ -672,7 +672,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_D_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_D_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_D_1564"
     },
     {
@@ -681,7 +681,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_E_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_E_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_E_1564"
     },
     {
@@ -690,7 +690,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_Bb_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_Bb_1564.mp3",
       "soundName": "BoardingArea_80BPM_Bb_1564"
     },
     {
@@ -699,7 +699,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_Bb_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_Bb_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_Bb_1564"
     },
     {
@@ -708,7 +708,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_F#_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_F#_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_F#_3625"
     },
     {
@@ -717,7 +717,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_D_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_D_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_D_1564"
     },
     {
@@ -726,7 +726,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_E_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_E_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_E_1564"
     },
     {
@@ -735,7 +735,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_A_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_A_1564.mp3",
       "soundName": "Saxophone_80BPM_A_1564"
     },
     {
@@ -744,7 +744,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_G_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_G_1564.mp3",
       "soundName": "BoardingArea_70BPM_G_1564"
     },
     {
@@ -753,7 +753,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_F_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_F_1564.mp3",
       "soundName": "BoardingArea_70BPM_F_1564"
     },
     {
@@ -762,7 +762,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_F#_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_F#_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_F#_1564"
     },
     {
@@ -771,7 +771,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_F#_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_F#_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_F#_3625"
     },
     {
@@ -780,7 +780,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_A_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_A_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_A_1564"
     },
     {
@@ -789,7 +789,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_D_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_D_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_D_3625"
     },
     {
@@ -798,7 +798,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_E_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_E_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_E_3625"
     },
     {
@@ -807,7 +807,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_Bb_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_Bb_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_Bb_3625"
     },
     {
@@ -816,7 +816,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_Eb_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_Eb_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_Eb_3625"
     },
     {
@@ -825,7 +825,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_B_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_B_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_B_1564"
     },
     {
@@ -834,7 +834,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_C#_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_C#_1564.mp3",
       "soundName": "SunriseChords_110BPM_C#_1564"
     },
     {
@@ -843,7 +843,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_C_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_C_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_C_1564"
     },
     {
@@ -852,7 +852,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_B_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_B_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_B_3625"
     },
     {
@@ -861,7 +861,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_C_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_C_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_C_3625"
     },
     {
@@ -870,7 +870,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_Bb_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_Bb_1564.mp3",
       "soundName": "SunriseChords_100BPM_Bb_1564"
     },
     {
@@ -879,7 +879,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_Eb_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_Eb_1564.mp3",
       "soundName": "Saxophone_80BPM_Eb_1564"
     },
     {
@@ -888,7 +888,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_G_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_G_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_G_3625"
     },
     {
@@ -897,7 +897,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_F_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_F_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_F_3625"
     },
     {
@@ -906,7 +906,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_Bb_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_Bb_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_Bb_3625"
     },
     {
@@ -915,7 +915,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_F_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_F_1564.mp3",
       "soundName": "BoardingArea_80BPM_F_1564"
     },
     {
@@ -924,7 +924,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_G_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_G_1564.mp3",
       "soundName": "BoardingArea_80BPM_G_1564"
     },
     {
@@ -933,7 +933,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_G_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_G_1564.mp3",
       "soundName": "SunriseChords_100BPM_G_1564"
     },
     {
@@ -942,7 +942,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_F_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_F_1564.mp3",
       "soundName": "SunriseChords_100BPM_F_1564"
     },
     {
@@ -951,7 +951,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_C#_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_C#_1564.mp3",
       "soundName": "Saxophone_80BPM_C#_1564"
     },
     {
@@ -960,7 +960,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_C_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_C_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_C_1564"
     },
     {
@@ -969,7 +969,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_B_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_B_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_B_1564"
     },
     {
@@ -978,7 +978,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_F#_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_F#_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_F#_1564"
     },
     {
@@ -987,7 +987,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_A_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_A_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_A_3625"
     },
     {
@@ -996,7 +996,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_C#_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_C#_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_C#_3625"
     },
     {
@@ -1005,7 +1005,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_Eb_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_Eb_1564.mp3",
       "soundName": "SunriseChords_110BPM_Eb_1564"
     },
     {
@@ -1014,7 +1014,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_C#_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_C#_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_C#_1564"
     },
     {
@@ -1023,7 +1023,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_Bb_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_Bb_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_Bb_3625"
     },
     {
@@ -1032,7 +1032,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_Eb_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_Eb_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_Eb_3625"
     },
     {},
@@ -1042,7 +1042,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_G_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_G_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_G_1564"
     },
     {
@@ -1051,7 +1051,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_F_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_F_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_F_1564"
     },
     {
@@ -1060,7 +1060,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_Bb_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_Bb_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_Bb_1564"
     },
     {
@@ -1069,7 +1069,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_C#_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_C#_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_C#_3625"
     },
     {
@@ -1078,7 +1078,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_A_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_A_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_A_1564"
     },
     {
@@ -1087,7 +1087,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_B_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_B_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_B_1564"
     },
     {
@@ -1096,7 +1096,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_C_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_C_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_C_1564"
     },
     {
@@ -1105,7 +1105,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_Ab_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_Ab_1564.mp3",
       "soundName": "BoardingArea_70BPM_Ab_1564"
     },
     {
@@ -1114,7 +1114,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_Eb_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_Eb_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_Eb_3625"
     },
     {
@@ -1123,7 +1123,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_Bb_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_Bb_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_Bb_1564"
     },
     {
@@ -1132,7 +1132,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_Bb_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_Bb_1564.mp3",
       "soundName": "80sWaveBells_80BPM_Bb_1564"
     },
     {
@@ -1141,7 +1141,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_Eb_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_Eb_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_Eb_1564"
     },
     {
@@ -1150,7 +1150,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_C#_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_C#_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_C#_3625"
     },
     {
@@ -1159,7 +1159,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_Ab_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_Ab_1564.mp3",
       "soundName": "BoardingArea_80BPM_Ab_1564"
     },
     {
@@ -1168,7 +1168,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_C_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_C_1564.mp3",
       "soundName": "SunriseChords_110BPM_C_1564"
     },
     {
@@ -1177,7 +1177,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_B_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_B_1564.mp3",
       "soundName": "SunriseChords_110BPM_B_1564"
     },
     {
@@ -1186,7 +1186,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_F#_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_F#_1564.mp3",
       "soundName": "SunriseChords_110BPM_F#_1564"
     },
     {
@@ -1195,7 +1195,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_E_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_E_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_E_3625"
     },
     {
@@ -1204,7 +1204,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_D_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_D_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_D_3625"
     },
     {
@@ -1213,7 +1213,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_Eb_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_Eb_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_Eb_1564"
     },
     {
@@ -1222,7 +1222,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_F#_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_F#_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_F#_3625"
     },
     {
@@ -1231,7 +1231,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_C#_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_C#_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_C#_1564"
     },
     {
@@ -1240,7 +1240,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_F_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_F_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_F_3625"
     },
     {
@@ -1249,7 +1249,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_G_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_G_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_G_3625"
     },
     {
@@ -1258,7 +1258,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_F#_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_F#_1564.mp3",
       "soundName": "Saxophone_80BPM_F#_1564"
     },
     {
@@ -1267,7 +1267,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_Bb_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_Bb_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_Bb_1564"
     },
     {
@@ -1276,7 +1276,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_D_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_D_1564.mp3",
       "soundName": "80sWaveBells_80BPM_D_1564"
     },
     {
@@ -1285,7 +1285,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_E_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_E_1564.mp3",
       "soundName": "80sWaveBells_80BPM_E_1564"
     },
     {
@@ -1294,7 +1294,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_F_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_F_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_F_1564"
     },
     {
@@ -1303,7 +1303,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_G_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_G_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_G_1564"
     },
     {
@@ -1312,7 +1312,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_Ab_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_Ab_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_Ab_3625"
     },
     {
@@ -1321,7 +1321,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_C_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_C_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_C_3625"
     },
     {
@@ -1330,7 +1330,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_B_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_B_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_B_3625"
     },
     {
@@ -1339,7 +1339,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_C#_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_C#_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_C#_1564"
     },
     {
@@ -1348,7 +1348,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_F_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_F_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_F_3625"
     },
     {
@@ -1357,7 +1357,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_G_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_G_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_G_3625"
     },
     {
@@ -1366,7 +1366,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_G_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_G_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_G_1564"
     },
     {
@@ -1375,7 +1375,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_F_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_F_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_F_1564"
     },
     {
@@ -1384,7 +1384,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_C_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_C_1564.mp3",
       "soundName": "SunriseChords_100BPM_C_1564"
     },
     {
@@ -1393,7 +1393,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_Eb_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_Eb_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_Eb_1564"
     },
     {
@@ -1402,7 +1402,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_B_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_B_1564.mp3",
       "soundName": "SunriseChords_100BPM_B_1564"
     },
     {
@@ -1411,7 +1411,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_B_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_B_1564.mp3",
       "soundName": "BoardingArea_80BPM_B_1564"
     },
     {
@@ -1420,7 +1420,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_C_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_C_1564.mp3",
       "soundName": "BoardingArea_80BPM_C_1564"
     },
     {
@@ -1429,7 +1429,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_Ab_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_Ab_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_Ab_1564"
     },
     {
@@ -1438,7 +1438,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_E_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_E_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_E_3625"
     },
     {
@@ -1447,7 +1447,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_D_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_D_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_D_3625"
     },
     {
@@ -1456,7 +1456,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_A_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_A_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_A_1564"
     },
     {
@@ -1465,7 +1465,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_E_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_E_1564.mp3",
       "soundName": "Saxophone_80BPM_E_1564"
     },
     {
@@ -1474,7 +1474,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_D_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_D_1564.mp3",
       "soundName": "Saxophone_80BPM_D_1564"
     },
     {
@@ -1483,7 +1483,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_Ab_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_Ab_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_Ab_3625"
     },
     {
@@ -1492,7 +1492,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_C_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_C_1564.mp3",
       "soundName": "BoardingArea_70BPM_C_1564"
     },
     {
@@ -1501,7 +1501,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_B_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_B_1564.mp3",
       "soundName": "BoardingArea_70BPM_B_1564"
     },
     {
@@ -1510,7 +1510,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_Ab_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_Ab_1564.mp3",
       "soundName": "SunriseChords_100BPM_Ab_1564"
     },
     {
@@ -1519,7 +1519,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_D_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_D_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_D_1564"
     },
     {
@@ -1528,7 +1528,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_E_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_E_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_E_1564"
     },
     {
@@ -1537,7 +1537,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_A_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_A_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_A_3625"
     },
     {
@@ -1546,7 +1546,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_A_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_A_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_A_1564"
     },
     {
@@ -1555,7 +1555,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_F#_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_F#_1564.mp3",
       "soundName": "BoardingArea_70BPM_F#_1564"
     },
     {
@@ -1564,7 +1564,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_A_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_A_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_A_3625"
     },
     {
@@ -1573,7 +1573,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_D_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_D_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_D_3625"
     },
     {
@@ -1582,7 +1582,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_E_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_E_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_E_3625"
     },
     {
@@ -1591,7 +1591,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_Bb_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_Bb_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_Bb_1564"
     },
     {
@@ -1600,7 +1600,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_E_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_E_1564.mp3",
       "soundName": "BoardingArea_80BPM_E_1564"
     },
     {
@@ -1609,7 +1609,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_D_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_D_1564.mp3",
       "soundName": "BoardingArea_80BPM_D_1564"
     },
     {
@@ -1618,7 +1618,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "FutureFeelsBrass",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/FutureFeelsBrass_70BPM_A_1564.mp3",
+      "Path": "./Synth/FutureFeelsBrass_70BPM_A_1564.mp3",
       "soundName": "FutureFeelsBrass_70BPM_A_1564"
     },
     {
@@ -1627,7 +1627,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_D_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_D_1564.mp3",
       "soundName": "SunriseChords_100BPM_D_1564"
     },
     {
@@ -1636,7 +1636,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_E_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_E_1564.mp3",
       "soundName": "SunriseChords_100BPM_E_1564"
     },
     {
@@ -1645,7 +1645,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_B_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_B_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_B_3625"
     },
     {
@@ -1654,7 +1654,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_C_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_C_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_C_3625"
     },
     {
@@ -1663,7 +1663,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_G_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_G_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_G_1564"
     },
     {
@@ -1672,7 +1672,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_F_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_F_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_F_1564"
     },
     {
@@ -1681,7 +1681,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_B_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_B_1564.mp3",
       "soundName": "Saxophone_80BPM_B_1564"
     },
     {
@@ -1690,7 +1690,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_C_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_C_1564.mp3",
       "soundName": "Saxophone_80BPM_C_1564"
     },
     {
@@ -1699,7 +1699,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_Ab_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_Ab_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_Ab_3625"
     },
     {
@@ -1708,7 +1708,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "Saxophone",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/Saxophone_80BPM_Ab_1564.mp3",
+      "Path": "./Synth/Saxophone_80BPM_Ab_1564.mp3",
       "soundName": "Saxophone_80BPM_Ab_1564"
     },
     {
@@ -1717,7 +1717,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_D_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_D_1564.mp3",
       "soundName": "BoardingArea_70BPM_D_1564"
     },
     {
@@ -1726,7 +1726,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/BoardingArea_70BPM_E_1564.mp3",
+      "Path": "./Synth/BoardingArea_70BPM_E_1564.mp3",
       "soundName": "BoardingArea_70BPM_E_1564"
     },
     {
@@ -1735,7 +1735,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_C_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_C_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_C_1564"
     },
     {
@@ -1744,7 +1744,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BoardingArea",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/BoardingArea_80BPM_F#_1564.mp3",
+      "Path": "./Synth/BoardingArea_80BPM_F#_1564.mp3",
       "soundName": "BoardingArea_80BPM_F#_1564"
     },
     {
@@ -1753,7 +1753,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_B_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_B_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_B_1564"
     },
     {
@@ -1762,7 +1762,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_Ab_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_Ab_1564.mp3",
       "soundName": "SunriseChords_110BPM_Ab_1564"
     },
     {
@@ -1771,7 +1771,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_G_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_G_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_G_3625"
     },
     {
@@ -1780,7 +1780,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_F_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_F_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_F_3625"
     },
     {
@@ -1789,7 +1789,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_Eb_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_Eb_1564.mp3",
       "soundName": "80sWaveBells_80BPM_Eb_1564"
     },
     {
@@ -1798,7 +1798,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_Bb_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_Bb_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_Bb_1564"
     },
     {
@@ -1807,7 +1807,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_C#_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_C#_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_C#_3625"
     },
     {
@@ -1816,7 +1816,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_A_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_A_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_A_1564"
     },
     {
@@ -1825,7 +1825,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "BrightDigitalChords",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/BrightDigitalChords_90BPM_F#_1564.mp3",
+      "Path": "./Synth/BrightDigitalChords_90BPM_F#_1564.mp3",
       "soundName": "BrightDigitalChords_90BPM_F#_1564"
     },
     {
@@ -1834,7 +1834,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_C#_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_C#_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_C#_1564"
     },
     {
@@ -1843,7 +1843,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_100BPM_Bb_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_100BPM_Bb_3625.mp3",
       "soundName": "DreamSinesPad_100BPM_Bb_3625"
     },
     {
@@ -1852,7 +1852,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_Eb_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_Eb_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_Eb_1564"
     },
     {
@@ -1861,7 +1861,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_E_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_E_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_E_1564"
     },
     {
@@ -1870,7 +1870,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "CloudyPluckedSynth",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/CloudyPluckedSynth_90BPM_D_1564.mp3",
+      "Path": "./Synth/CloudyPluckedSynth_90BPM_D_1564.mp3",
       "soundName": "CloudyPluckedSynth_90BPM_D_1564"
     },
     {
@@ -1879,7 +1879,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DriftingPulsations",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/DriftingPulsations_80BPM_Eb_1564.mp3",
+      "Path": "./Synth/DriftingPulsations_80BPM_Eb_1564.mp3",
       "soundName": "DriftingPulsations_80BPM_Eb_1564"
     },
     {
@@ -1888,7 +1888,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "AcousticGuitar",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/AcousticGuitar_90BPM_C#_1564.mp3",
+      "Path": "./Synth/AcousticGuitar_90BPM_C#_1564.mp3",
       "soundName": "AcousticGuitar_90BPM_C#_1564"
     },
     {
@@ -1897,7 +1897,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_90BPM_F#_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_90BPM_F#_3625.mp3",
       "soundName": "PulsatingWaves_90BPM_F#_3625"
     },
     {
@@ -1906,7 +1906,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "G",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_G_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_G_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_G_1564"
     },
     {
@@ -1915,7 +1915,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "F",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_F_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_F_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_F_1564"
     },
     {
@@ -1924,7 +1924,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_90BPM_Bb_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_90BPM_Bb_3625.mp3",
       "soundName": "DreamSinesPad_90BPM_Bb_3625"
     },
     {
@@ -1933,7 +1933,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_C#_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_C#_1564.mp3",
       "soundName": "80sWaveBells_80BPM_C#_1564"
     },
     {
@@ -1942,7 +1942,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_Eb_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_Eb_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_Eb_3625"
     },
     {
@@ -1951,7 +1951,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "D",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_D_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_D_1564.mp3",
       "soundName": "SunriseChords_110BPM_D_1564"
     },
     {
@@ -1960,7 +1960,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "E",
-      "Path": "./SoundLibrary/Synth/SunriseChords_110BPM_E_1564.mp3",
+      "Path": "./Synth/SunriseChords_110BPM_E_1564.mp3",
       "soundName": "SunriseChords_110BPM_E_1564"
     },
     {
@@ -1969,7 +1969,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "SunriseChords",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/SunriseChords_100BPM_F#_1564.mp3",
+      "Path": "./Synth/SunriseChords_100BPM_F#_1564.mp3",
       "soundName": "SunriseChords_100BPM_F#_1564"
     },
     {
@@ -1978,7 +1978,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_Eb_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_Eb_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_Eb_1564"
     },
     {
@@ -1987,7 +1987,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_B_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_B_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_B_3625"
     },
     {
@@ -1996,7 +1996,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "DreamSinesPad",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/DreamSinesPad_110BPM_C_3625.mp3",
+      "Path": "./Synth/DreamSinesPad_110BPM_C_3625.mp3",
       "soundName": "DreamSinesPad_110BPM_C_3625"
     },
     {
@@ -2005,7 +2005,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_110BPM_Bb_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_110BPM_Bb_1564.mp3",
       "soundName": "GhostlyReversedOrgan_110BPM_Bb_1564"
     },
     {
@@ -2014,7 +2014,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "C",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_C_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_C_1564.mp3",
       "soundName": "80sWaveBells_80BPM_C_1564"
     },
     {
@@ -2023,7 +2023,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "80sWaveBells",
       "Key": "B",
-      "Path": "./SoundLibrary/Synth/80sWaveBells_80BPM_B_1564.mp3",
+      "Path": "./Synth/80sWaveBells_80BPM_B_1564.mp3",
       "soundName": "80sWaveBells_80BPM_B_1564"
     },
     {
@@ -2032,7 +2032,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "F#",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_110BPM_F#_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_110BPM_F#_3625.mp3",
       "soundName": "PulsatingWaves_110BPM_F#_3625"
     },
     {
@@ -2041,7 +2041,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "PulsatingWaves",
       "Key": "A",
-      "Path": "./SoundLibrary/Synth/PulsatingWaves_100BPM_A_3625.mp3",
+      "Path": "./Synth/PulsatingWaves_100BPM_A_3625.mp3",
       "soundName": "PulsatingWaves_100BPM_A_3625"
     },
     {
@@ -2050,7 +2050,7 @@
       "Instrument": "SYNTH",
       "InstrumentName": "GhostlyReversedOrgan",
       "Key": "C#",
-      "Path": "./SoundLibrary/Synth/GhostlyReversedOrgan_100BPM_C#_1564.mp3",
+      "Path": "./Synth/GhostlyReversedOrgan_100BPM_C#_1564.mp3",
       "soundName": "GhostlyReversedOrgan_100BPM_C#_1564"
     },
     {
@@ -2059,7 +2059,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_G_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_G_1251.mp3",
       "soundName": "JazzOrgan_80BPM_G_1251"
     },
     {
@@ -2068,7 +2068,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_F_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_F_1251.mp3",
       "soundName": "JazzOrgan_80BPM_F_1251"
     },
     {
@@ -2077,7 +2077,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_Ab_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_Ab_1251.mp3",
       "soundName": "JazzOrgan_80BPM_Ab_1251"
     },
     {
@@ -2086,7 +2086,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_Ab_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_Ab_1251.mp3",
       "soundName": "Steinway_70BPM_Ab_1251"
     },
     {
@@ -2095,7 +2095,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_A_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_A_1251.mp3",
       "soundName": "JazzOrgan_110BPM_A_1251"
     },
     {
@@ -2104,7 +2104,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_C#_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_C#_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_C#_3625"
     },
     {
@@ -2113,7 +2113,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_Eb_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_Eb_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_Eb_3625"
     },
     {
@@ -2122,7 +2122,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_B_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_B_1251.mp3",
       "soundName": "Steinway_80BPM_B_1251"
     },
     {
@@ -2131,7 +2131,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_C_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_C_1251.mp3",
       "soundName": "Steinway_80BPM_C_1251"
     },
     {
@@ -2140,7 +2140,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_F_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_F_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_F_1564"
     },
     {
@@ -2149,7 +2149,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_G_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_G_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_G_1564"
     },
     {
@@ -2158,7 +2158,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_B_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_B_1251.mp3",
       "soundName": "ToyPiano_90BPM_B_1251"
     },
     {
@@ -2167,7 +2167,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_C_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_C_1251.mp3",
       "soundName": "ToyPiano_90BPM_C_1251"
     },
     {
@@ -2176,7 +2176,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_Ab_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_Ab_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_Ab_3625"
     },
     {
@@ -2185,7 +2185,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_F_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_F_1251.mp3",
       "soundName": "ToyPiano_100BPM_F_1251"
     },
     {
@@ -2194,7 +2194,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_G_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_G_1251.mp3",
       "soundName": "ToyPiano_100BPM_G_1251"
     },
     {
@@ -2203,7 +2203,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_F#_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_F#_1251.mp3",
       "soundName": "ToyPiano_110BPM_F#_1251"
     },
     {
@@ -2212,7 +2212,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_C_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_C_1251.mp3",
       "soundName": "Steinway_70BPM_C_1251"
     },
     {
@@ -2221,7 +2221,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_C_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_C_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_C_1564"
     },
     {
@@ -2230,7 +2230,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_B_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_B_1251.mp3",
       "soundName": "Steinway_70BPM_B_1251"
     },
     {
@@ -2239,7 +2239,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_B_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_B_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_B_1564"
     },
     {
@@ -2248,7 +2248,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_Ab_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_Ab_1251.mp3",
       "soundName": "Steinway_100BPM_Ab_1251"
     },
     {
@@ -2257,7 +2257,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_A_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_A_1564.mp3",
       "soundName": "FadedKeys_90BPM_A_1564"
     },
     {
@@ -2266,7 +2266,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_Ab_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_Ab_1251.mp3",
       "soundName": "Steinway_80BPM_Ab_1251"
     },
     {
@@ -2275,7 +2275,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_Ab_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_Ab_1564.mp3",
       "soundName": "FadedKeys_90BPM_Ab_1564"
     },
     {
@@ -2284,7 +2284,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_Ab_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_Ab_1564.mp3",
       "soundName": "ChilledClav_90BPM_Ab_1564"
     },
     {
@@ -2293,7 +2293,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_A_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_A_1251.mp3",
       "soundName": "Steinway_110BPM_A_1251"
     },
     {
@@ -2302,7 +2302,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_F#_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_F#_1251.mp3",
       "soundName": "ToyPiano_80BPM_F#_1251"
     },
     {
@@ -2311,7 +2311,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_D_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_D_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_D_3625"
     },
     {
@@ -2320,7 +2320,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_E_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_E_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_E_3625"
     },
     {
@@ -2329,7 +2329,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_E_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_E_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_E_3625"
     },
     {
@@ -2338,7 +2338,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_D_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_D_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_D_3625"
     },
     {
@@ -2347,7 +2347,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_A_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_A_1251.mp3",
       "soundName": "Steinway_100BPM_A_1251"
     },
     {
@@ -2356,7 +2356,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_F#_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_F#_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_F#_3625"
     },
     {
@@ -2365,7 +2365,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_Bb_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_Bb_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_Bb_1564"
     },
     {
@@ -2374,7 +2374,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_E_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_E_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_E_3625"
     },
     {
@@ -2383,7 +2383,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_D_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_D_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_D_3625"
     },
     {
@@ -2392,7 +2392,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_C#_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_C#_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_C#_1564"
     },
     {
@@ -2401,7 +2401,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_Eb_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_Eb_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_Eb_1564"
     },
     {
@@ -2410,7 +2410,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_F#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_F#_1251.mp3",
       "soundName": "JazzOrgan_90BPM_F#_1251"
     },
     {
@@ -2419,7 +2419,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_Ab_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_Ab_1251.mp3",
       "soundName": "ToyPiano_90BPM_Ab_1251"
     },
     {
@@ -2428,7 +2428,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_F_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_F_1564.mp3",
       "soundName": "ChilledClav_90BPM_F_1564"
     },
     {
@@ -2437,7 +2437,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_G_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_G_1564.mp3",
       "soundName": "ChilledClav_90BPM_G_1564"
     },
     {
@@ -2446,7 +2446,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_Bb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_Bb_1251.mp3",
       "soundName": "JazzOrgan_100BPM_Bb_1251"
     },
     {
@@ -2455,7 +2455,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_B_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_B_1251.mp3",
       "soundName": "Steinway_90BPM_B_1251"
     },
     {
@@ -2464,7 +2464,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_C_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_C_1251.mp3",
       "soundName": "Steinway_90BPM_C_1251"
     },
     {
@@ -2473,7 +2473,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_F_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_F_1251.mp3",
       "soundName": "ToyPiano_110BPM_F_1251"
     },
     {
@@ -2482,7 +2482,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_G_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_G_1251.mp3",
       "soundName": "ToyPiano_110BPM_G_1251"
     },
     {
@@ -2491,7 +2491,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_F#_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_F#_1251.mp3",
       "soundName": "Steinway_90BPM_F#_1251"
     },
     {
@@ -2500,7 +2500,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_B_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_B_1251.mp3",
       "soundName": "ToyPiano_80BPM_B_1251"
     },
     {
@@ -2509,7 +2509,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_C_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_C_1251.mp3",
       "soundName": "ToyPiano_80BPM_C_1251"
     },
     {
@@ -2518,7 +2518,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_C#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_C#_1251.mp3",
       "soundName": "JazzOrgan_110BPM_C#_1251"
     },
     {
@@ -2527,7 +2527,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_F_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_F_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_F_1564"
     },
     {
@@ -2536,7 +2536,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_G_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_G_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_G_1564"
     },
     {
@@ -2545,7 +2545,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_A_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_A_1251.mp3",
       "soundName": "JazzOrgan_100BPM_A_1251"
     },
     {
@@ -2554,7 +2554,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_G_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_G_1251.mp3",
       "soundName": "JazzOrgan_90BPM_G_1251"
     },
     {
@@ -2563,7 +2563,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_F_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_F_1251.mp3",
       "soundName": "JazzOrgan_90BPM_F_1251"
     },
     {
@@ -2572,7 +2572,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_F#_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_F#_1251.mp3",
       "soundName": "Steinway_110BPM_F#_1251"
     },
     {
@@ -2581,7 +2581,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_Eb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_Eb_1251.mp3",
       "soundName": "JazzOrgan_110BPM_Eb_1251"
     },
     {
@@ -2590,7 +2590,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_Ab_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_Ab_1251.mp3",
       "soundName": "ToyPiano_100BPM_Ab_1251"
     },
     {
@@ -2599,7 +2599,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_Ab_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_Ab_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_Ab_1564"
     },
     {
@@ -2608,7 +2608,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_C#_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_C#_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_C#_1564"
     },
     {
@@ -2617,7 +2617,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_G_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_G_1251.mp3",
       "soundName": "Steinway_100BPM_G_1251"
     },
     {
@@ -2626,7 +2626,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_F_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_F_1251.mp3",
       "soundName": "Steinway_100BPM_F_1251"
     },
     {
@@ -2635,7 +2635,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_F#_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_F#_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_F#_3625"
     },
     {
@@ -2644,7 +2644,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_B_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_B_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_B_3625"
     },
     {
@@ -2653,7 +2653,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_C_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_C_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_C_3625"
     },
     {
@@ -2662,7 +2662,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_Bb_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_Bb_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_Bb_1564"
     },
     {
@@ -2671,7 +2671,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_F#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_F#_1251.mp3",
       "soundName": "JazzOrgan_80BPM_F#_1251"
     },
     {
@@ -2680,7 +2680,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_F#_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_F#_1251.mp3",
       "soundName": "Steinway_70BPM_F#_1251"
     },
     {
@@ -2689,7 +2689,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_Eb_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_Eb_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_Eb_1564"
     },
     {
@@ -2698,7 +2698,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_F#_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_F#_1564.mp3",
       "soundName": "FadedKeys_90BPM_F#_1564"
     },
     {
@@ -2707,7 +2707,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_E_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_E_1251.mp3",
       "soundName": "Steinway_90BPM_E_1251"
     },
     {
@@ -2716,7 +2716,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_D_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_D_1251.mp3",
       "soundName": "Steinway_90BPM_D_1251"
     },
     {
@@ -2725,7 +2725,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_F#_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_F#_1251.mp3",
       "soundName": "Steinway_80BPM_F#_1251"
     },
     {
@@ -2734,7 +2734,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_A_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_A_1564.mp3",
       "soundName": "ChilledClav_90BPM_A_1564"
     },
     {
@@ -2743,7 +2743,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_C#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_C#_1251.mp3",
       "soundName": "JazzOrgan_100BPM_C#_1251"
     },
     {
@@ -2752,7 +2752,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_F#_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_F#_1564.mp3",
       "soundName": "ChilledClav_90BPM_F#_1564"
     },
     {
@@ -2761,7 +2761,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_Ab_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_Ab_1251.mp3",
       "soundName": "ToyPiano_80BPM_Ab_1251"
     },
     {
@@ -2770,7 +2770,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_E_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_E_1251.mp3",
       "soundName": "ToyPiano_80BPM_E_1251"
     },
     {
@@ -2779,7 +2779,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_D_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_D_1251.mp3",
       "soundName": "ToyPiano_80BPM_D_1251"
     },
     {
@@ -2788,7 +2788,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_A_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_A_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_A_1564"
     },
     {
@@ -2797,7 +2797,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_Bb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_Bb_1251.mp3",
       "soundName": "JazzOrgan_110BPM_Bb_1251"
     },
     {
@@ -2806,7 +2806,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_A_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_A_1251.mp3",
       "soundName": "ToyPiano_110BPM_A_1251"
     },
     {
@@ -2815,7 +2815,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_Ab_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_Ab_1251.mp3",
       "soundName": "ToyPiano_110BPM_Ab_1251"
     },
     {
@@ -2824,7 +2824,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_A_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_A_1251.mp3",
       "soundName": "JazzOrgan_90BPM_A_1251"
     },
     {
@@ -2833,7 +2833,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_G_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_G_1251.mp3",
       "soundName": "JazzOrgan_100BPM_G_1251"
     },
     {
@@ -2842,7 +2842,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_F_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_F_1251.mp3",
       "soundName": "JazzOrgan_100BPM_F_1251"
     },
     {
@@ -2851,7 +2851,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_Eb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_Eb_1251.mp3",
       "soundName": "JazzOrgan_100BPM_Eb_1251"
     },
     {
@@ -2860,7 +2860,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_F#_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_F#_1251.mp3",
       "soundName": "Steinway_100BPM_F#_1251"
     },
     {
@@ -2869,7 +2869,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_G_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_G_1251.mp3",
       "soundName": "JazzOrgan_110BPM_G_1251"
     },
     {
@@ -2878,7 +2878,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_F_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_F_1251.mp3",
       "soundName": "JazzOrgan_110BPM_F_1251"
     },
     {
@@ -2887,7 +2887,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_A_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_A_1251.mp3",
       "soundName": "JazzOrgan_80BPM_A_1251"
     },
     {
@@ -2896,7 +2896,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_Ab_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_Ab_1251.mp3",
       "soundName": "JazzOrgan_90BPM_Ab_1251"
     },
     {
@@ -2905,7 +2905,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_Bb_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_Bb_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_Bb_3625"
     },
     {
@@ -2914,7 +2914,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_E_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_E_1251.mp3",
       "soundName": "Steinway_80BPM_E_1251"
     },
     {
@@ -2923,7 +2923,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_Ab_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_Ab_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_Ab_3625"
     },
     {
@@ -2932,7 +2932,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_D_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_D_1251.mp3",
       "soundName": "Steinway_80BPM_D_1251"
     },
     {
@@ -2941,7 +2941,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_A_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_A_1251.mp3",
       "soundName": "ToyPiano_100BPM_A_1251"
     },
     {
@@ -2950,7 +2950,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_A_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_A_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_A_1564"
     },
     {
@@ -2959,7 +2959,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_E_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_E_1251.mp3",
       "soundName": "ToyPiano_90BPM_E_1251"
     },
     {
@@ -2968,7 +2968,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_D_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_D_1251.mp3",
       "soundName": "ToyPiano_90BPM_D_1251"
     },
     {
@@ -2977,7 +2977,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_Ab_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_Ab_1251.mp3",
       "soundName": "Steinway_110BPM_Ab_1251"
     },
     {
@@ -2986,7 +2986,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_F#_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_F#_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_F#_1564"
     },
     {
@@ -2995,7 +2995,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_F#_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_F#_1251.mp3",
       "soundName": "ToyPiano_100BPM_F#_1251"
     },
     {
@@ -3004,7 +3004,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_D_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_D_1251.mp3",
       "soundName": "Steinway_70BPM_D_1251"
     },
     {
@@ -3013,7 +3013,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_D_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_D_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_D_1564"
     },
     {
@@ -3022,7 +3022,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_E_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_E_1251.mp3",
       "soundName": "Steinway_70BPM_E_1251"
     },
     {
@@ -3031,7 +3031,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_E_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_E_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_E_1564"
     },
     {
@@ -3040,7 +3040,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_F#_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_F#_1251.mp3",
       "soundName": "ToyPiano_90BPM_F#_1251"
     },
     {
@@ -3049,7 +3049,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_G_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_G_1251.mp3",
       "soundName": "Steinway_110BPM_G_1251"
     },
     {
@@ -3058,7 +3058,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_F_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_F_1251.mp3",
       "soundName": "Steinway_110BPM_F_1251"
     },
     {
@@ -3067,7 +3067,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_F_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_F_1564.mp3",
       "soundName": "FadedKeys_90BPM_F_1564"
     },
     {
@@ -3076,7 +3076,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_G_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_G_1564.mp3",
       "soundName": "FadedKeys_90BPM_G_1564"
     },
     {
@@ -3085,7 +3085,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_B_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_B_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_B_3625"
     },
     {
@@ -3094,7 +3094,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_C_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_C_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_C_3625"
     },
     {
@@ -3103,7 +3103,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_Ab_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_Ab_1251.mp3",
       "soundName": "Steinway_90BPM_Ab_1251"
     },
     {
@@ -3112,7 +3112,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_C_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_C_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_C_3625"
     },
     {
@@ -3121,7 +3121,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_B_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_B_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_B_3625"
     },
     {
@@ -3130,7 +3130,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_E_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_E_1564.mp3",
       "soundName": "ChilledClav_90BPM_E_1564"
     },
     {
@@ -3139,7 +3139,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_D_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_D_1564.mp3",
       "soundName": "ChilledClav_90BPM_D_1564"
     },
     {
@@ -3148,7 +3148,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_A_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_A_1251.mp3",
       "soundName": "Steinway_90BPM_A_1251"
     },
     {
@@ -3157,7 +3157,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_E_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_E_1251.mp3",
       "soundName": "ToyPiano_110BPM_E_1251"
     },
     {
@@ -3166,7 +3166,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_D_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_D_1251.mp3",
       "soundName": "ToyPiano_110BPM_D_1251"
     },
     {
@@ -3175,7 +3175,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_A_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_A_1251.mp3",
       "soundName": "ToyPiano_80BPM_A_1251"
     },
     {
@@ -3184,7 +3184,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_E_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_E_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_E_1564"
     },
     {
@@ -3193,7 +3193,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_D_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_D_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_D_1564"
     },
     {
@@ -3202,7 +3202,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_C_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_C_1251.mp3",
       "soundName": "JazzOrgan_100BPM_C_1251"
     },
     {
@@ -3211,7 +3211,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_B_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_B_1251.mp3",
       "soundName": "JazzOrgan_100BPM_B_1251"
     },
     {
@@ -3220,7 +3220,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_D_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_D_1251.mp3",
       "soundName": "JazzOrgan_90BPM_D_1251"
     },
     {
@@ -3229,7 +3229,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_E_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_E_1251.mp3",
       "soundName": "JazzOrgan_90BPM_E_1251"
     },
     {
@@ -3238,7 +3238,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_Ab_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_Ab_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_Ab_1564"
     },
     {
@@ -3247,7 +3247,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_C_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_C_1251.mp3",
       "soundName": "Steinway_100BPM_C_1251"
     },
     {
@@ -3256,7 +3256,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_B_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_B_1251.mp3",
       "soundName": "Steinway_100BPM_B_1251"
     },
     {
@@ -3265,7 +3265,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_Eb_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_Eb_1251.mp3",
       "soundName": "ToyPiano_90BPM_Eb_1251"
     },
     {
@@ -3274,7 +3274,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_C#_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_C#_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_C#_1564"
     },
     {
@@ -3283,7 +3283,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_C#_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_C#_1251.mp3",
       "soundName": "ToyPiano_100BPM_C#_1251"
     },
     {
@@ -3292,7 +3292,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_F_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_F_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_F_3625"
     },
     {
@@ -3301,7 +3301,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_G_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_G_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_G_3625"
     },
     {
@@ -3310,7 +3310,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_Bb_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_Bb_1251.mp3",
       "soundName": "ToyPiano_110BPM_Bb_1251"
     },
     {
@@ -3319,7 +3319,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_Ab_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_Ab_1251.mp3",
       "soundName": "JazzOrgan_110BPM_Ab_1251"
     },
     {
@@ -3328,7 +3328,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_Bb_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_Bb_1251.mp3",
       "soundName": "ToyPiano_80BPM_Bb_1251"
     },
     {
@@ -3337,7 +3337,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_C#_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_C#_1251.mp3",
       "soundName": "ToyPiano_90BPM_C#_1251"
     },
     {
@@ -3346,7 +3346,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_Eb_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_Eb_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_Eb_1564"
     },
     {
@@ -3355,7 +3355,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_Eb_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_Eb_1251.mp3",
       "soundName": "ToyPiano_100BPM_Eb_1251"
     },
     {
@@ -3364,7 +3364,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_Eb_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_Eb_1251.mp3",
       "soundName": "Steinway_70BPM_Eb_1251"
     },
     {
@@ -3373,7 +3373,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_C#_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_C#_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_C#_3625"
     },
     {
@@ -3382,7 +3382,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_Eb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_Eb_1251.mp3",
       "soundName": "JazzOrgan_80BPM_Eb_1251"
     },
     {
@@ -3391,7 +3391,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_A_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_A_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_A_1564"
     },
     {
@@ -3400,7 +3400,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_A_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_A_1251.mp3",
       "soundName": "Steinway_70BPM_A_1251"
     },
     {
@@ -3409,7 +3409,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_F#_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_F#_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_F#_1564"
     },
     {
@@ -3418,7 +3418,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_Bb_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_Bb_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_Bb_3625"
     },
     {
@@ -3427,7 +3427,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_B_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_B_1564.mp3",
       "soundName": "FadedKeys_90BPM_B_1564"
     },
     {
@@ -3436,7 +3436,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_C_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_C_1564.mp3",
       "soundName": "FadedKeys_90BPM_C_1564"
     },
     {
@@ -3445,7 +3445,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_Bb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_Bb_1251.mp3",
       "soundName": "JazzOrgan_90BPM_Bb_1251"
     },
     {
@@ -3454,7 +3454,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_C_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_C_1251.mp3",
       "soundName": "Steinway_110BPM_C_1251"
     },
     {
@@ -3463,7 +3463,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_B_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_B_1251.mp3",
       "soundName": "Steinway_110BPM_B_1251"
     },
     {
@@ -3472,7 +3472,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_Ab_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_Ab_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_Ab_3625"
     },
     {
@@ -3481,7 +3481,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_G_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_G_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_G_3625"
     },
     {
@@ -3490,7 +3490,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_F_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_F_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_F_3625"
     },
     {
@@ -3499,7 +3499,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_C#_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_C#_1251.mp3",
       "soundName": "Steinway_70BPM_C#_1251"
     },
     {
@@ -3508,7 +3508,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_Eb_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_Eb_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_Eb_3625"
     },
     {
@@ -3517,7 +3517,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_C#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_C#_1251.mp3",
       "soundName": "JazzOrgan_80BPM_C#_1251"
     },
     {
@@ -3526,7 +3526,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_F_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_F_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_F_3625"
     },
     {
@@ -3535,7 +3535,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_G_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_G_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_G_3625"
     },
     {
@@ -3544,7 +3544,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_Bb_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_Bb_1251.mp3",
       "soundName": "Steinway_90BPM_Bb_1251"
     },
     {
@@ -3553,7 +3553,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_D_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_D_1251.mp3",
       "soundName": "JazzOrgan_80BPM_D_1251"
     },
     {
@@ -3562,7 +3562,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_E_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_E_1251.mp3",
       "soundName": "JazzOrgan_80BPM_E_1251"
     },
     {
@@ -3571,7 +3571,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_C_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_C_1251.mp3",
       "soundName": "JazzOrgan_110BPM_C_1251"
     },
     {
@@ -3580,7 +3580,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_B_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_B_1251.mp3",
       "soundName": "JazzOrgan_110BPM_B_1251"
     },
     {
@@ -3589,7 +3589,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_F#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_F#_1251.mp3",
       "soundName": "JazzOrgan_100BPM_F#_1251"
     },
     {
@@ -3598,7 +3598,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_C#_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_C#_1564.mp3",
       "soundName": "ChilledClav_90BPM_C#_1564"
     },
     {
@@ -3607,7 +3607,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_Eb_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_Eb_1251.mp3",
       "soundName": "Steinway_100BPM_Eb_1251"
     },
     {
@@ -3616,7 +3616,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_C#_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_C#_1564.mp3",
       "soundName": "FadedKeys_90BPM_C#_1564"
     },
     {
@@ -3625,7 +3625,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_C#_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_C#_1251.mp3",
       "soundName": "Steinway_80BPM_C#_1251"
     },
     {
@@ -3634,7 +3634,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_Eb_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_Eb_1564.mp3",
       "soundName": "ChilledClav_90BPM_Eb_1564"
     },
     {
@@ -3643,7 +3643,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_C#_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_C#_1251.mp3",
       "soundName": "Steinway_100BPM_C#_1251"
     },
     {
@@ -3652,7 +3652,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_A_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_A_1251.mp3",
       "soundName": "Steinway_80BPM_A_1251"
     },
     {
@@ -3661,7 +3661,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_Eb_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_Eb_1564.mp3",
       "soundName": "FadedKeys_90BPM_Eb_1564"
     },
     {
@@ -3670,7 +3670,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_Eb_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_Eb_1251.mp3",
       "soundName": "Steinway_80BPM_Eb_1251"
     },
     {
@@ -3679,7 +3679,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_E_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_E_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_E_1564"
     },
     {
@@ -3688,7 +3688,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_D_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_D_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_D_1564"
     },
     {
@@ -3697,7 +3697,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_A_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_A_1251.mp3",
       "soundName": "ToyPiano_90BPM_A_1251"
     },
     {
@@ -3706,7 +3706,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_E_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_E_1251.mp3",
       "soundName": "ToyPiano_100BPM_E_1251"
     },
     {
@@ -3715,7 +3715,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_D_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_D_1251.mp3",
       "soundName": "ToyPiano_100BPM_D_1251"
     },
     {
@@ -3724,7 +3724,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_Bb_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_Bb_1251.mp3",
       "soundName": "Steinway_110BPM_Bb_1251"
     },
     {
@@ -3733,7 +3733,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_F#_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_F#_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_F#_1564"
     },
     {
@@ -3742,7 +3742,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_Bb_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_Bb_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_Bb_3625"
     },
     {
@@ -3751,7 +3751,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_C#_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_C#_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_C#_3625"
     },
     {
@@ -3760,7 +3760,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_Eb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_Eb_1251.mp3",
       "soundName": "JazzOrgan_90BPM_Eb_1251"
     },
     {
@@ -3769,7 +3769,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_G_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_G_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_G_1564"
     },
     {
@@ -3778,7 +3778,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_G_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_G_1251.mp3",
       "soundName": "Steinway_70BPM_G_1251"
     },
     {
@@ -3787,7 +3787,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_F_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_F_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_F_1564"
     },
     {
@@ -3796,7 +3796,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_F_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_F_1251.mp3",
       "soundName": "Steinway_70BPM_F_1251"
     },
     {
@@ -3805,7 +3805,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_D_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_D_1251.mp3",
       "soundName": "Steinway_110BPM_D_1251"
     },
     {
@@ -3814,7 +3814,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_E_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_E_1251.mp3",
       "soundName": "Steinway_110BPM_E_1251"
     },
     {
@@ -3823,7 +3823,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_Eb_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_Eb_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_Eb_3625"
     },
     {
@@ -3832,7 +3832,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_E_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_E_1564.mp3",
       "soundName": "FadedKeys_90BPM_E_1564"
     },
     {
@@ -3841,7 +3841,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_D_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_D_1564.mp3",
       "soundName": "FadedKeys_90BPM_D_1564"
     },
     {
@@ -3850,7 +3850,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_C#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_C#_1251.mp3",
       "soundName": "JazzOrgan_90BPM_C#_1251"
     },
     {},
@@ -3860,7 +3860,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_Bb_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_Bb_1251.mp3",
       "soundName": "JazzOrgan_80BPM_Bb_1251"
     },
     {
@@ -3869,7 +3869,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_110BPM_A_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_110BPM_A_3625.mp3",
       "soundName": "ClassicElectricPiano_110BPM_A_3625"
     },
     {
@@ -3878,7 +3878,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_A_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_A_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_A_3625"
     },
     {
@@ -3887,7 +3887,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/Steinway_70BPM_Bb_1251.mp3",
+      "Path": "./Piano/Steinway_70BPM_Bb_1251.mp3",
       "soundName": "Steinway_70BPM_Bb_1251"
     },
     {
@@ -3896,7 +3896,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_Eb_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_Eb_1251.mp3",
       "soundName": "Steinway_110BPM_Eb_1251"
     },
     {
@@ -3905,7 +3905,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_F#_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_F#_1251.mp3",
       "soundName": "JazzOrgan_110BPM_F#_1251"
     },
     {
@@ -3914,7 +3914,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_D_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_D_1251.mp3",
       "soundName": "JazzOrgan_110BPM_D_1251"
     },
     {
@@ -3923,7 +3923,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_110BPM_E_1251.mp3",
+      "Path": "./Piano/JazzOrgan_110BPM_E_1251.mp3",
       "soundName": "JazzOrgan_110BPM_E_1251"
     },
     {
@@ -3932,7 +3932,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_C#_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_C#_1251.mp3",
       "soundName": "Steinway_90BPM_C#_1251"
     },
     {
@@ -3941,7 +3941,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_C_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_C_1251.mp3",
       "soundName": "JazzOrgan_80BPM_C_1251"
     },
     {
@@ -3950,7 +3950,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_80BPM_B_1251.mp3",
+      "Path": "./Piano/JazzOrgan_80BPM_B_1251.mp3",
       "soundName": "JazzOrgan_80BPM_B_1251"
     },
     {
@@ -3959,7 +3959,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "FadedKeys",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/FadedKeys_90BPM_Bb_1564.mp3",
+      "Path": "./Piano/FadedKeys_90BPM_Bb_1564.mp3",
       "soundName": "FadedKeys_90BPM_Bb_1564"
     },
     {
@@ -3968,7 +3968,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_Bb_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_Bb_1251.mp3",
       "soundName": "Steinway_80BPM_Bb_1251"
     },
     {
@@ -3977,7 +3977,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_Bb_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_Bb_1564.mp3",
       "soundName": "ChilledClav_90BPM_Bb_1564"
     },
     {
@@ -3986,7 +3986,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_Bb_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_Bb_1251.mp3",
       "soundName": "Steinway_100BPM_Bb_1251"
     },
     {
@@ -3995,7 +3995,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_F_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_F_1251.mp3",
       "soundName": "Steinway_80BPM_F_1251"
     },
     {
@@ -4004,7 +4004,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/Steinway_80BPM_G_1251.mp3",
+      "Path": "./Piano/Steinway_80BPM_G_1251.mp3",
       "soundName": "Steinway_80BPM_G_1251"
     },
     {
@@ -4013,7 +4013,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_B_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_B_1251.mp3",
       "soundName": "ToyPiano_100BPM_B_1251"
     },
     {
@@ -4022,7 +4022,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_C_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_C_1251.mp3",
       "soundName": "ToyPiano_100BPM_C_1251"
     },
     {
@@ -4031,7 +4031,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/Steinway_110BPM_C#_1251.mp3",
+      "Path": "./Piano/Steinway_110BPM_C#_1251.mp3",
       "soundName": "Steinway_110BPM_C#_1251"
     },
     {
@@ -4040,7 +4040,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_Eb_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_Eb_1251.mp3",
       "soundName": "Steinway_90BPM_Eb_1251"
     },
     {
@@ -4049,7 +4049,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_B_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_B_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_B_1564"
     },
     {
@@ -4058,7 +4058,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_C_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_C_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_C_1564"
     },
     {
@@ -4067,7 +4067,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_F_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_F_1251.mp3",
       "soundName": "ToyPiano_90BPM_F_1251"
     },
     {
@@ -4076,7 +4076,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_G_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_G_1251.mp3",
       "soundName": "ToyPiano_90BPM_G_1251"
     },
     {
@@ -4085,7 +4085,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_F_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_F_1251.mp3",
       "soundName": "Steinway_90BPM_F_1251"
     },
     {
@@ -4094,7 +4094,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/Steinway_90BPM_G_1251.mp3",
+      "Path": "./Piano/Steinway_90BPM_G_1251.mp3",
       "soundName": "Steinway_90BPM_G_1251"
     },
     {
@@ -4103,7 +4103,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "F#",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_90BPM_F#_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_90BPM_F#_3625.mp3",
       "soundName": "ClassicElectricPiano_90BPM_F#_3625"
     },
     {
@@ -4112,7 +4112,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_B_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_B_1564.mp3",
       "soundName": "ChilledClav_90BPM_B_1564"
     },
     {
@@ -4121,7 +4121,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ChilledClav",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ChilledClav_90BPM_C_1564.mp3",
+      "Path": "./Piano/ChilledClav_90BPM_C_1564.mp3",
       "soundName": "ChilledClav_90BPM_C_1564"
     },
     {
@@ -4130,7 +4130,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "F",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_F_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_F_1251.mp3",
       "soundName": "ToyPiano_80BPM_F_1251"
     },
     {
@@ -4139,7 +4139,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "G",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_G_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_G_1251.mp3",
       "soundName": "ToyPiano_80BPM_G_1251"
     },
     {
@@ -4148,7 +4148,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_B_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_B_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_B_1564"
     },
     {
@@ -4157,7 +4157,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_110BPM_C_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_110BPM_C_1564.mp3",
       "soundName": "ClassicSuitcasePiano_110BPM_C_1564"
     },
     {
@@ -4166,7 +4166,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_B_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_B_1251.mp3",
       "soundName": "ToyPiano_110BPM_B_1251"
     },
     {
@@ -4175,7 +4175,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_C_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_C_1251.mp3",
       "soundName": "ToyPiano_110BPM_C_1251"
     },
     {
@@ -4184,7 +4184,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "C",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_C_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_C_1251.mp3",
       "soundName": "JazzOrgan_90BPM_C_1251"
     },
     {
@@ -4193,7 +4193,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "B",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_90BPM_B_1251.mp3",
+      "Path": "./Piano/JazzOrgan_90BPM_B_1251.mp3",
       "soundName": "JazzOrgan_90BPM_B_1251"
     },
     {
@@ -4202,7 +4202,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_D_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_D_1251.mp3",
       "soundName": "JazzOrgan_100BPM_D_1251"
     },
     {
@@ -4211,7 +4211,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_E_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_E_1251.mp3",
       "soundName": "JazzOrgan_100BPM_E_1251"
     },
     {
@@ -4220,7 +4220,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcasePiano",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcasePiano_100BPM_Ab_1564.mp3",
+      "Path": "./Piano/ClassicSuitcasePiano_100BPM_Ab_1564.mp3",
       "soundName": "ClassicSuitcasePiano_100BPM_Ab_1564"
     },
     {
@@ -4229,7 +4229,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicSuitcase",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ClassicSuitcase_70BPM_Bb_1564.mp3",
+      "Path": "./Piano/ClassicSuitcase_70BPM_Bb_1564.mp3",
       "soundName": "ClassicSuitcase_70BPM_Bb_1564"
     },
     {
@@ -4238,7 +4238,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_100BPM_Bb_1251.mp3",
+      "Path": "./Piano/ToyPiano_100BPM_Bb_1251.mp3",
       "soundName": "ToyPiano_100BPM_Bb_1251"
     },
     {
@@ -4247,7 +4247,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "D",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_D_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_D_1251.mp3",
       "soundName": "Steinway_100BPM_D_1251"
     },
     {
@@ -4256,7 +4256,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "Steinway",
       "Key": "E",
-      "Path": "./SoundLibrary/Piano/Steinway_100BPM_E_1251.mp3",
+      "Path": "./Piano/Steinway_100BPM_E_1251.mp3",
       "soundName": "Steinway_100BPM_E_1251"
     },
     {
@@ -4265,7 +4265,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ClassicElectricPiano",
       "Key": "A",
-      "Path": "./SoundLibrary/Piano/ClassicElectricPiano_100BPM_A_3625.mp3",
+      "Path": "./Piano/ClassicElectricPiano_100BPM_A_3625.mp3",
       "soundName": "ClassicElectricPiano_100BPM_A_3625"
     },
     {
@@ -4274,7 +4274,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_C#_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_C#_1251.mp3",
       "soundName": "ToyPiano_110BPM_C#_1251"
     },
     {
@@ -4283,7 +4283,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_Eb_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_Eb_1251.mp3",
       "soundName": "ToyPiano_80BPM_Eb_1251"
     },
     {
@@ -4292,7 +4292,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_110BPM_Eb_1251.mp3",
+      "Path": "./Piano/ToyPiano_110BPM_Eb_1251.mp3",
       "soundName": "ToyPiano_110BPM_Eb_1251"
     },
     {
@@ -4301,7 +4301,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "C#",
-      "Path": "./SoundLibrary/Piano/ToyPiano_80BPM_C#_1251.mp3",
+      "Path": "./Piano/ToyPiano_80BPM_C#_1251.mp3",
       "soundName": "ToyPiano_80BPM_C#_1251"
     },
     {
@@ -4310,7 +4310,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "JazzOrgan",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Piano/JazzOrgan_100BPM_Ab_1251.mp3",
+      "Path": "./Piano/JazzOrgan_100BPM_Ab_1251.mp3",
       "soundName": "JazzOrgan_100BPM_Ab_1251"
     },
     {
@@ -4319,7 +4319,7 @@
       "Instrument": "PIANO",
       "InstrumentName": "ToyPiano",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Piano/ToyPiano_90BPM_Bb_1251.mp3",
+      "Path": "./Piano/ToyPiano_90BPM_Bb_1251.mp3",
       "soundName": "ToyPiano_90BPM_Bb_1251"
     },
     {
@@ -4328,7 +4328,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_C#_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_C#_1251.mp3",
       "soundName": "Liverpool_80BPM_C#_1251"
     },
     {
@@ -4337,7 +4337,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_Bb_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_Bb_1251.mp3",
       "soundName": "Liverpool_90BPM_Bb_1251"
     },
     {
@@ -4346,7 +4346,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_Eb_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_Eb_1251.mp3",
       "soundName": "Liverpool_80BPM_Eb_1251"
     },
     {
@@ -4355,7 +4355,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_D_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_D_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_D_1564"
     },
     {
@@ -4364,7 +4364,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_E_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_E_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_E_1564"
     },
     {
@@ -4373,7 +4373,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_F#_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_F#_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_F#_1564"
     },
     {
@@ -4382,7 +4382,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_Bb_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_Bb_1251.mp3",
       "soundName": "Liverpool_110BPM_Bb_1251"
     },
     {
@@ -4391,7 +4391,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_F#_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_F#_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_F#_3625"
     },
     {
@@ -4400,7 +4400,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_G_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_G_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_G_1564"
     },
     {
@@ -4409,7 +4409,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_F_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_F_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_F_1564"
     },
     {
@@ -4418,7 +4418,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_C#_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_C#_1251.mp3",
       "soundName": "Liverpool_100BPM_C#_1251"
     },
     {
@@ -4427,7 +4427,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_A_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_A_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_A_3625"
     },
     {
@@ -4436,7 +4436,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_F_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_F_1251.mp3",
       "soundName": "Liverpool_90BPM_F_1251"
     },
     {
@@ -4445,7 +4445,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_G_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_G_1251.mp3",
       "soundName": "Liverpool_90BPM_G_1251"
     },
     {
@@ -4454,7 +4454,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_Eb_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_Eb_1251.mp3",
       "soundName": "Liverpool_100BPM_Eb_1251"
     },
     {
@@ -4463,7 +4463,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_F#_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_F#_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_F#_1564"
     },
     {
@@ -4472,7 +4472,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_B_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_B_1251.mp3",
       "soundName": "Liverpool_110BPM_B_1251"
     },
     {
@@ -4481,7 +4481,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_C_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_C_1251.mp3",
       "soundName": "Liverpool_110BPM_C_1251"
     },
     {
@@ -4490,7 +4490,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_F#_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_F#_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_F#_1564"
     },
     {
@@ -4499,7 +4499,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_B_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_B_1251.mp3",
       "soundName": "Liverpool_100BPM_B_1251"
     },
     {
@@ -4508,7 +4508,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_C_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_C_1251.mp3",
       "soundName": "Liverpool_100BPM_C_1251"
     },
     {
@@ -4517,7 +4517,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_G_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_G_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_G_1564"
     },
     {
@@ -4526,7 +4526,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_F_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_F_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_F_1564"
     },
     {
@@ -4535,7 +4535,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_D_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_D_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_D_1564"
     },
     {
@@ -4544,7 +4544,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_E_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_E_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_E_1564"
     },
     {
@@ -4553,7 +4553,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_F_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_F_1251.mp3",
       "soundName": "Liverpool_80BPM_F_1251"
     },
     {
@@ -4562,7 +4562,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_G_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_G_1251.mp3",
       "soundName": "Liverpool_80BPM_G_1251"
     },
     {
@@ -4571,7 +4571,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_A_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_A_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_A_3625"
     },
     {
@@ -4580,7 +4580,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_Ab_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_Ab_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_Ab_1564"
     },
     {
@@ -4589,7 +4589,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_Bb_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_Bb_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_Bb_1564"
     },
     {
@@ -4598,7 +4598,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_D_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_D_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_D_1564"
     },
     {
@@ -4607,7 +4607,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_D_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_D_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_D_1564"
     },
     {
@@ -4616,7 +4616,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_E_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_E_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_E_1564"
     },
     {
@@ -4625,7 +4625,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_E_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_E_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_E_3625"
     },
     {
@@ -4634,7 +4634,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_D_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_D_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_D_3625"
     },
     {
@@ -4643,7 +4643,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_F#_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_F#_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_F#_3625"
     },
     {
@@ -4652,7 +4652,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_Ab_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_Ab_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_Ab_1564"
     },
     {
@@ -4661,7 +4661,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_Ab_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_Ab_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_Ab_3625"
     },
     {
@@ -4670,7 +4670,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_E_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_E_1251.mp3",
       "soundName": "Liverpool_100BPM_E_1251"
     },
     {
@@ -4679,7 +4679,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_D_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_D_1251.mp3",
       "soundName": "Liverpool_100BPM_D_1251"
     },
     {
@@ -4688,7 +4688,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_C_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_C_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_C_1564"
     },
     {
@@ -4697,7 +4697,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_B_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_B_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_B_1564"
     },
     {
@@ -4706,7 +4706,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_A_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_A_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_A_1564"
     },
     {
@@ -4715,7 +4715,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_A_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_A_1251.mp3",
       "soundName": "Liverpool_80BPM_A_1251"
     },
     {
@@ -4724,7 +4724,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_G_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_G_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_G_3625"
     },
     {
@@ -4733,7 +4733,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_F_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_F_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_F_3625"
     },
     {
@@ -4742,7 +4742,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_C_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_C_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_C_1564"
     },
     {
@@ -4751,7 +4751,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_B_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_B_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_B_1564"
     },
     {
@@ -4760,7 +4760,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_Ab_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_Ab_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_Ab_1564"
     },
     {
@@ -4769,7 +4769,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_C#_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_C#_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_C#_1564"
     },
     {
@@ -4778,7 +4778,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_B_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_B_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_B_1564"
     },
     {
@@ -4787,7 +4787,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_C_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_C_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_C_1564"
     },
     {
@@ -4796,7 +4796,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_Ab_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_Ab_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_Ab_3625"
     },
     {
@@ -4805,7 +4805,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_Eb_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_Eb_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_Eb_1564"
     },
     {
@@ -4814,7 +4814,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_Ab_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_Ab_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_Ab_1564"
     },
     {
@@ -4823,7 +4823,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_B_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_B_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_B_3625"
     },
     {
@@ -4832,7 +4832,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_C_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_C_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_C_3625"
     },
     {
@@ -4841,7 +4841,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_Bb_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_Bb_1251.mp3",
       "soundName": "Liverpool_80BPM_Bb_1251"
     },
     {
@@ -4850,7 +4850,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_C#_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_C#_1251.mp3",
       "soundName": "Liverpool_90BPM_C#_1251"
     },
     {
@@ -4859,7 +4859,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_Ab_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_Ab_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_Ab_1564"
     },
     {
@@ -4868,7 +4868,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_Eb_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_Eb_1251.mp3",
       "soundName": "Liverpool_90BPM_Eb_1251"
     },
     {
@@ -4877,7 +4877,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_C#_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_C#_1251.mp3",
       "soundName": "Liverpool_110BPM_C#_1251"
     },
     {
@@ -4886,7 +4886,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_A_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_A_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_A_1564"
     },
     {
@@ -4895,7 +4895,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_C_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_C_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_C_1564"
     },
     {
@@ -4904,7 +4904,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_B_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_B_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_B_1564"
     },
     {
@@ -4913,7 +4913,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_Ab_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_Ab_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_Ab_3625"
     },
     {
@@ -4922,7 +4922,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_F#_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_F#_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_F#_3625"
     },
     {
@@ -4931,7 +4931,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_Bb_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_Bb_1251.mp3",
       "soundName": "Liverpool_100BPM_Bb_1251"
     },
     {
@@ -4940,7 +4940,7 @@
       "InstrumentName": "FingestyleBass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/FingestyleBass_70BPM_E_1564.mp3",
+      "Path": "./Bass/FingestyleBass_70BPM_E_1564.mp3",
       "soundName": "FingestyleBass_70BPM_E_1564"
     },
     {
@@ -4949,7 +4949,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_F#_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_F#_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_F#_1564"
     },
     {
@@ -4958,7 +4958,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_G_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_G_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_G_3625"
     },
     {
@@ -4967,7 +4967,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_F_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_F_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_F_3625"
     },
     {
@@ -4976,7 +4976,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_A_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_A_1251.mp3",
       "soundName": "Liverpool_90BPM_A_1251"
     },
     {
@@ -4985,7 +4985,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_F#_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_F#_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_F#_1564"
     },
     {
@@ -4994,7 +4994,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_E_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_E_1251.mp3",
       "soundName": "Liverpool_110BPM_E_1251"
     },
     {
@@ -5003,7 +5003,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_D_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_D_1251.mp3",
       "soundName": "Liverpool_110BPM_D_1251"
     },
     {
@@ -5012,7 +5012,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_Eb_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_Eb_1251.mp3",
       "soundName": "Liverpool_110BPM_Eb_1251"
     },
     {
@@ -5021,7 +5021,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_F#_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_F#_1251.mp3",
       "soundName": "Liverpool_90BPM_F#_1251"
     },
     {
@@ -5030,7 +5030,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_F_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_F_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_F_1564"
     },
     {
@@ -5039,7 +5039,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_G_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_G_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_G_1564"
     },
     {
@@ -5048,7 +5048,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_G_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_G_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_G_1564"
     },
     {
@@ -5057,7 +5057,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_F_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_F_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_F_1564"
     },
     {
@@ -5066,7 +5066,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_F_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_F_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_F_3625"
     },
     {
@@ -5075,7 +5075,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_G_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_G_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_G_3625"
     },
     {
@@ -5084,7 +5084,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_C#_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_C#_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_C#_3625"
     },
     {
@@ -5093,7 +5093,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_C#_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_C#_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_C#_1564"
     },
     {
@@ -5102,7 +5102,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_Eb_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_Eb_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_Eb_1564"
     },
     {
@@ -5111,7 +5111,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_A_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_A_1251.mp3",
       "soundName": "Liverpool_100BPM_A_1251"
     },
     {
@@ -5120,7 +5120,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_Bb_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_Bb_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_Bb_1564"
     },
     {
@@ -5129,7 +5129,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_F#_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_F#_1251.mp3",
       "soundName": "Liverpool_110BPM_F#_1251"
     },
     {
@@ -5138,7 +5138,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_Bb_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_Bb_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_Bb_3625"
     },
     {
@@ -5147,7 +5147,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_D_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_D_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_D_1564"
     },
     {
@@ -5156,7 +5156,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_Bb_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_Bb_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_Bb_1564"
     },
     {
@@ -5165,7 +5165,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_E_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_E_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_E_1564"
     },
     {
@@ -5174,7 +5174,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_G_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_G_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_G_1564"
     },
     {
@@ -5183,7 +5183,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_F_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_F_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_F_1564"
     },
     {
@@ -5192,7 +5192,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_Eb_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_Eb_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_Eb_3625"
     },
     {
@@ -5201,7 +5201,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_Eb_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_Eb_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_Eb_1564"
     },
     {
@@ -5210,7 +5210,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_E_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_E_1251.mp3",
       "soundName": "Liverpool_80BPM_E_1251"
     },
     {
@@ -5219,7 +5219,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_C#_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_C#_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_C#_1564"
     },
     {
@@ -5228,7 +5228,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_D_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_D_1251.mp3",
       "soundName": "Liverpool_80BPM_D_1251"
     },
     {
@@ -5237,7 +5237,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_C_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_C_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_C_3625"
     },
     {
@@ -5246,7 +5246,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_B_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_B_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_B_3625"
     },
     {
@@ -5255,7 +5255,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_G_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_G_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_G_1564"
     },
     {
@@ -5264,7 +5264,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_F_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_F_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_F_1564"
     },
     {
@@ -5273,7 +5273,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_D_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_D_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_D_1564"
     },
     {
@@ -5282,7 +5282,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_E_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_E_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_E_1564"
     },
     {
@@ -5291,7 +5291,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_C_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_C_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_C_3625"
     },
     {
@@ -5300,7 +5300,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_B_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_B_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_B_3625"
     },
     {
@@ -5309,7 +5309,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_E_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_E_1251.mp3",
       "soundName": "Liverpool_90BPM_E_1251"
     },
     {
@@ -5318,7 +5318,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_D_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_D_1251.mp3",
       "soundName": "Liverpool_90BPM_D_1251"
     },
     {
@@ -5327,7 +5327,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_Bb_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_Bb_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_Bb_1564"
     },
     {
@@ -5336,7 +5336,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_Ab_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_Ab_1251.mp3",
       "soundName": "Liverpool_80BPM_Ab_1251"
     },
     {
@@ -5345,7 +5345,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_A_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_A_1251.mp3",
       "soundName": "Liverpool_110BPM_A_1251"
     },
     {
@@ -5354,7 +5354,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_F#_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_F#_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_F#_1564"
     },
     {
@@ -5363,7 +5363,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_Ab_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_Ab_1251.mp3",
       "soundName": "Liverpool_100BPM_Ab_1251"
     },
     {
@@ -5372,7 +5372,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_Bb_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_Bb_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_Bb_3625"
     },
     {
@@ -5381,7 +5381,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_C_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_C_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_C_1564"
     },
     {
@@ -5390,7 +5390,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_B_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_B_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_B_1564"
     },
     {
@@ -5399,7 +5399,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_A_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_A_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_A_1564"
     },
     {
@@ -5408,7 +5408,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_D_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_D_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_D_3625"
     },
     {
@@ -5417,7 +5417,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_E_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_E_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_E_3625"
     },
     {
@@ -5426,7 +5426,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_B_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_B_1251.mp3",
       "soundName": "Liverpool_90BPM_B_1251"
     },
     {
@@ -5435,7 +5435,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_C_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_C_1251.mp3",
       "soundName": "Liverpool_90BPM_C_1251"
     },
     {
@@ -5444,7 +5444,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_C#_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_C#_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_C#_1564"
     },
     {
@@ -5453,7 +5453,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/Liverpool_90BPM_Ab_1251.mp3",
+      "Path": "./Bass/Liverpool_90BPM_Ab_1251.mp3",
       "soundName": "Liverpool_90BPM_Ab_1251"
     },
     {
@@ -5462,7 +5462,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_Eb_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_Eb_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_Eb_1564"
     },
     {
@@ -5471,7 +5471,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_F_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_F_1251.mp3",
       "soundName": "Liverpool_110BPM_F_1251"
     },
     {
@@ -5480,7 +5480,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_G_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_G_1251.mp3",
       "soundName": "Liverpool_110BPM_G_1251"
     },
     {
@@ -5489,7 +5489,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_Eb_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_Eb_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_Eb_3625"
     },
     {},
@@ -5499,7 +5499,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_C#_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_C#_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_C#_3625"
     },
     {
@@ -5508,7 +5508,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/Liverpool_110BPM_Ab_1251.mp3",
+      "Path": "./Bass/Liverpool_110BPM_Ab_1251.mp3",
       "soundName": "Liverpool_110BPM_Ab_1251"
     },
     {
@@ -5517,7 +5517,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_F#_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_F#_1251.mp3",
       "soundName": "Liverpool_80BPM_F#_1251"
     },
     {
@@ -5526,7 +5526,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_A_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_A_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_A_1564"
     },
     {
@@ -5535,7 +5535,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_70BPM_A_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_70BPM_A_1564.mp3",
       "soundName": "FingerstyleBass_70BPM_A_1564"
     },
     {
@@ -5544,7 +5544,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_90BPM_A_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_A_3625.mp3",
       "soundName": "SolidSoulElectricBass_90BPM_A_3625"
     },
     {
@@ -5553,7 +5553,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_110BPM_Bb_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_Bb_3625.mp3",
       "soundName": "SolidSoulElectricBass_110BPM_Bb_3625"
     },
     {
@@ -5562,7 +5562,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F#",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_F#_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_F#_1251.mp3",
       "soundName": "Liverpool_100BPM_F#_1251"
     },
     {
@@ -5571,7 +5571,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_110BPM_Bb_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_110BPM_Bb_1564.mp3",
       "soundName": "FingerstyleBass_110BPM_Bb_1564"
     },
     {
@@ -5580,7 +5580,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_C#_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_C#_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_C#_1564"
     },
     {
@@ -5589,7 +5589,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_C#_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_C#_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_C#_3625"
     },
     {
@@ -5598,7 +5598,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "F",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_F_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_F_1251.mp3",
       "soundName": "Liverpool_100BPM_F_1251"
     },
     {
@@ -5607,7 +5607,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "G",
-      "Path": "./SoundLibrary/Bass/Liverpool_100BPM_G_1251.mp3",
+      "Path": "./Bass/Liverpool_100BPM_G_1251.mp3",
       "soundName": "Liverpool_100BPM_G_1251"
     },
     {
@@ -5616,7 +5616,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_Eb_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_Eb_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_Eb_1564"
     },
     {
@@ -5625,7 +5625,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "A",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_A_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_A_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_A_1564"
     },
     {
@@ -5634,7 +5634,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_Eb_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_Eb_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_Eb_1564"
     },
     {
@@ -5643,7 +5643,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "Eb",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_Eb_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_Eb_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_Eb_3625"
     },
     {
@@ -5652,7 +5652,7 @@
       "InstrumentName": "90sSolidSynthBass",
       "InstrumentType": "BASS",
       "Key": "Ab",
-      "Path": "./SoundLibrary/Bass/90sSolidSynthBass_90BPM_Ab_1564.mp3",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_Ab_1564.mp3",
       "soundName": "90sSolidSynthBass_90BPM_Ab_1564"
     },
     {
@@ -5661,7 +5661,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_C_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_C_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_C_1564"
     },
     {
@@ -5670,7 +5670,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "C#",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_80BPM_C#_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_80BPM_C#_1564.mp3",
       "soundName": "BrightSynthBrass_80BPM_C#_1564"
     },
     {
@@ -5679,7 +5679,7 @@
       "InstrumentName": "FingerstyleBass",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/FingerstyleBass_100BPM_B_1564.mp3",
+      "Path": "./Bass/FingerstyleBass_100BPM_B_1564.mp3",
       "soundName": "FingerstyleBass_100BPM_B_1564"
     },
     {
@@ -5688,7 +5688,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "B",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_B_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_B_1251.mp3",
       "soundName": "Liverpool_80BPM_B_1251"
     },
     {
@@ -5697,7 +5697,7 @@
       "InstrumentName": "Liverpool",
       "InstrumentType": "BASS",
       "Key": "C",
-      "Path": "./SoundLibrary/Bass/Liverpool_80BPM_C_1251.mp3",
+      "Path": "./Bass/Liverpool_80BPM_C_1251.mp3",
       "soundName": "Liverpool_80BPM_C_1251"
     },
     {
@@ -5706,7 +5706,7 @@
       "InstrumentName": "BrightSynthBrass",
       "InstrumentType": "BASS",
       "Key": "Bb",
-      "Path": "./SoundLibrary/Bass/BrightSynthBrass_90BPM_Bb_1564.mp3",
+      "Path": "./Bass/BrightSynthBrass_90BPM_Bb_1564.mp3",
       "soundName": "BrightSynthBrass_90BPM_Bb_1564"
     },
     {
@@ -5715,7 +5715,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "D",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_D_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_D_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_D_3625"
     },
     {
@@ -5724,7 +5724,7 @@
       "InstrumentName": "SolidSoulElectricBass",
       "InstrumentType": "BASS",
       "Key": "E",
-      "Path": "./SoundLibrary/Bass/SolidSoulElectricBass_100BPM_E_3625.mp3",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_E_3625.mp3",
       "soundName": "SolidSoulElectricBass_100BPM_E_3625"
     }
   ]

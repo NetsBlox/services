@@ -1,0 +1,1409 @@
+{
+  "netsbloxSoundLibrary": [
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/Liverpool_80BPM_C#_1251.mp3",
+      "soundName": "Liverpool_80BPM_C#_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/Liverpool_90BPM_Bb_1251.mp3",
+      "soundName": "Liverpool_90BPM_Bb_1251"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/Liverpool_80BPM_Eb_1251.mp3",
+      "soundName": "Liverpool_80BPM_Eb_1251"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/BrightSynthBrass_80BPM_D_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_D_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/BrightSynthBrass_80BPM_E_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_E_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/FingerstyleBass_100BPM_F#_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_F#_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/Liverpool_110BPM_Bb_1251.mp3",
+      "soundName": "Liverpool_110BPM_Bb_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_F#_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_F#_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/FingerstyleBass_110BPM_G_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_G_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/FingerstyleBass_110BPM_F_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_F_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/Liverpool_100BPM_C#_1251.mp3",
+      "soundName": "Liverpool_100BPM_C#_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_A_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_A_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/Liverpool_90BPM_F_1251.mp3",
+      "soundName": "Liverpool_90BPM_F_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/Liverpool_90BPM_G_1251.mp3",
+      "soundName": "Liverpool_90BPM_G_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/Liverpool_100BPM_Eb_1251.mp3",
+      "soundName": "Liverpool_100BPM_Eb_1251"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/BrightSynthBrass_80BPM_F#_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_F#_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/Liverpool_110BPM_B_1251.mp3",
+      "soundName": "Liverpool_110BPM_B_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/Liverpool_110BPM_C_1251.mp3",
+      "soundName": "Liverpool_110BPM_C_1251"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/FingerstyleBass_70BPM_F#_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_F#_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/Liverpool_100BPM_B_1251.mp3",
+      "soundName": "Liverpool_100BPM_B_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/Liverpool_100BPM_C_1251.mp3",
+      "soundName": "Liverpool_100BPM_C_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/FingerstyleBass_100BPM_G_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_G_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/FingerstyleBass_100BPM_F_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_F_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/BrightSynthBrass_90BPM_D_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_D_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/BrightSynthBrass_90BPM_E_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_E_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/Liverpool_80BPM_F_1251.mp3",
+      "soundName": "Liverpool_80BPM_F_1251"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/Liverpool_80BPM_G_1251.mp3",
+      "soundName": "Liverpool_80BPM_G_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_A_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_A_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/BrightSynthBrass_90BPM_Ab_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_Ab_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_Bb_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_Bb_1564"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/FingerstyleBass_70BPM_D_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_D_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_D_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_D_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_E_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_E_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_E_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_E_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_D_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_D_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_F#_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_F#_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/FingerstyleBass_110BPM_Ab_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_Ab_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_Ab_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_Ab_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/Liverpool_100BPM_E_1251.mp3",
+      "soundName": "Liverpool_100BPM_E_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/Liverpool_100BPM_D_1251.mp3",
+      "soundName": "Liverpool_100BPM_D_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/BrightSynthBrass_90BPM_C_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_C_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/BrightSynthBrass_90BPM_B_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_B_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/FingerstyleBass_100BPM_A_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_A_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/Liverpool_80BPM_A_1251.mp3",
+      "soundName": "Liverpool_80BPM_A_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_G_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_G_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_F_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_F_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_C_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_C_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_B_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_B_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/BrightSynthBrass_80BPM_Ab_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_Ab_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_C#_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_C#_1564"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/FingerstyleBass_70BPM_B_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_B_1564"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/FingerstyleBass_70BPM_C_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_C_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_Ab_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_Ab_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_Eb_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_Eb_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/FingerstyleBass_100BPM_Ab_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_Ab_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_B_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_B_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_C_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_C_3625"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/Liverpool_80BPM_Bb_1251.mp3",
+      "soundName": "Liverpool_80BPM_Bb_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/Liverpool_90BPM_C#_1251.mp3",
+      "soundName": "Liverpool_90BPM_C#_1251"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/FingerstyleBass_70BPM_Ab_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_Ab_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/Liverpool_90BPM_Eb_1251.mp3",
+      "soundName": "Liverpool_90BPM_Eb_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/Liverpool_110BPM_C#_1251.mp3",
+      "soundName": "Liverpool_110BPM_C#_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/FingerstyleBass_110BPM_A_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_A_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/BrightSynthBrass_80BPM_C_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_C_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/BrightSynthBrass_80BPM_B_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_B_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_Ab_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_Ab_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_F#_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_F#_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/Liverpool_100BPM_Bb_1251.mp3",
+      "soundName": "Liverpool_100BPM_Bb_1251"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingestyleBass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/FingestyleBass_70BPM_E_1564.mp3",
+      "soundName": "FingestyleBass_70BPM_E_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/FingerstyleBass_110BPM_F#_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_F#_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_G_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_G_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_F_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_F_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/Liverpool_90BPM_A_1251.mp3",
+      "soundName": "Liverpool_90BPM_A_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/BrightSynthBrass_90BPM_F#_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_F#_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/Liverpool_110BPM_E_1251.mp3",
+      "soundName": "Liverpool_110BPM_E_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/Liverpool_110BPM_D_1251.mp3",
+      "soundName": "Liverpool_110BPM_D_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/Liverpool_110BPM_Eb_1251.mp3",
+      "soundName": "Liverpool_110BPM_Eb_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/Liverpool_90BPM_F#_1251.mp3",
+      "soundName": "Liverpool_90BPM_F#_1251"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/FingerstyleBass_70BPM_F_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_F_1564"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/FingerstyleBass_70BPM_G_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_G_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_G_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_G_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_F_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_F_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_F_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_F_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_G_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_G_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_C#_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_C#_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/FingerstyleBass_110BPM_C#_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_C#_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/BrightSynthBrass_90BPM_Eb_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_Eb_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/Liverpool_100BPM_A_1251.mp3",
+      "soundName": "Liverpool_100BPM_A_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/FingerstyleBass_100BPM_Bb_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_Bb_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/Liverpool_110BPM_F#_1251.mp3",
+      "soundName": "Liverpool_110BPM_F#_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_Bb_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_Bb_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/FingerstyleBass_100BPM_D_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_D_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/BrightSynthBrass_80BPM_Bb_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_Bb_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/FingerstyleBass_100BPM_E_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_E_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/BrightSynthBrass_90BPM_G_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_G_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/BrightSynthBrass_90BPM_F_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_F_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_Eb_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_Eb_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/FingerstyleBass_110BPM_Eb_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_Eb_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/Liverpool_80BPM_E_1251.mp3",
+      "soundName": "Liverpool_80BPM_E_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/BrightSynthBrass_90BPM_C#_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_C#_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/Liverpool_80BPM_D_1251.mp3",
+      "soundName": "Liverpool_80BPM_D_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_C_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_C_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_B_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_B_3625"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/BrightSynthBrass_80BPM_G_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_G_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/BrightSynthBrass_80BPM_F_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_F_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/FingerstyleBass_110BPM_D_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_D_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/FingerstyleBass_110BPM_E_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_E_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_C_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_C_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_B_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_B_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/Liverpool_90BPM_E_1251.mp3",
+      "soundName": "Liverpool_90BPM_E_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/Liverpool_90BPM_D_1251.mp3",
+      "soundName": "Liverpool_90BPM_D_1251"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/FingerstyleBass_70BPM_Bb_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_Bb_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/Liverpool_80BPM_Ab_1251.mp3",
+      "soundName": "Liverpool_80BPM_Ab_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/Liverpool_110BPM_A_1251.mp3",
+      "soundName": "Liverpool_110BPM_A_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_F#_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_F#_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/Liverpool_100BPM_Ab_1251.mp3",
+      "soundName": "Liverpool_100BPM_Ab_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_Bb_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_Bb_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/FingerstyleBass_110BPM_C_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_C_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/FingerstyleBass_110BPM_B_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_B_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/BrightSynthBrass_80BPM_A_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_A_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_D_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_D_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_E_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_E_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/Liverpool_90BPM_B_1251.mp3",
+      "soundName": "Liverpool_90BPM_B_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/Liverpool_90BPM_C_1251.mp3",
+      "soundName": "Liverpool_90BPM_C_1251"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/FingerstyleBass_70BPM_C#_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_C#_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/Liverpool_90BPM_Ab_1251.mp3",
+      "soundName": "Liverpool_90BPM_Ab_1251"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/FingerstyleBass_70BPM_Eb_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_Eb_1564"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/Liverpool_110BPM_F_1251.mp3",
+      "soundName": "Liverpool_110BPM_F_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/Liverpool_110BPM_G_1251.mp3",
+      "soundName": "Liverpool_110BPM_G_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_Eb_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_Eb_3625"
+    },
+    {},
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_C#_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_C#_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/Liverpool_110BPM_Ab_1251.mp3",
+      "soundName": "Liverpool_110BPM_Ab_1251"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/Liverpool_80BPM_F#_1251.mp3",
+      "soundName": "Liverpool_80BPM_F#_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_A_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_A_1564"
+    },
+    {
+      "BPM": "70BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/FingerstyleBass_70BPM_A_1564.mp3",
+      "soundName": "FingerstyleBass_70BPM_A_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/SolidSoulElectricBass_90BPM_A_3625.mp3",
+      "soundName": "SolidSoulElectricBass_90BPM_A_3625"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/SolidSoulElectricBass_110BPM_Bb_3625.mp3",
+      "soundName": "SolidSoulElectricBass_110BPM_Bb_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F#",
+      "Path": "./Bass/Liverpool_100BPM_F#_1251.mp3",
+      "soundName": "Liverpool_100BPM_F#_1251"
+    },
+    {
+      "BPM": "110BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/FingerstyleBass_110BPM_Bb_1564.mp3",
+      "soundName": "FingerstyleBass_110BPM_Bb_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/FingerstyleBass_100BPM_C#_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_C#_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_C#_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_C#_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "F",
+      "Path": "./Bass/Liverpool_100BPM_F_1251.mp3",
+      "soundName": "Liverpool_100BPM_F_1251"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "G",
+      "Path": "./Bass/Liverpool_100BPM_G_1251.mp3",
+      "soundName": "Liverpool_100BPM_G_1251"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/BrightSynthBrass_80BPM_Eb_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_Eb_1564"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "A",
+      "Path": "./Bass/BrightSynthBrass_90BPM_A_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_A_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/FingerstyleBass_100BPM_Eb_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_Eb_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "Eb",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_Eb_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_Eb_3625"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "90sSolidSynthBass",
+      "InstrumentType": "BASS",
+      "Key": "Ab",
+      "Path": "./Bass/90sSolidSynthBass_90BPM_Ab_1564.mp3",
+      "soundName": "90sSolidSynthBass_90BPM_Ab_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/FingerstyleBass_100BPM_C_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_C_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "C#",
+      "Path": "./Bass/BrightSynthBrass_80BPM_C#_1564.mp3",
+      "soundName": "BrightSynthBrass_80BPM_C#_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "FingerstyleBass",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/FingerstyleBass_100BPM_B_1564.mp3",
+      "soundName": "FingerstyleBass_100BPM_B_1564"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "B",
+      "Path": "./Bass/Liverpool_80BPM_B_1251.mp3",
+      "soundName": "Liverpool_80BPM_B_1251"
+    },
+    {
+      "BPM": "80BPM",
+      "ChordProgression": "1251",
+      "InstrumentName": "Liverpool",
+      "InstrumentType": "BASS",
+      "Key": "C",
+      "Path": "./Bass/Liverpool_80BPM_C_1251.mp3",
+      "soundName": "Liverpool_80BPM_C_1251"
+    },
+    {
+      "BPM": "90BPM",
+      "ChordProgression": "1564",
+      "InstrumentName": "BrightSynthBrass",
+      "InstrumentType": "BASS",
+      "Key": "Bb",
+      "Path": "./Bass/BrightSynthBrass_90BPM_Bb_1564.mp3",
+      "soundName": "BrightSynthBrass_90BPM_Bb_1564"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "D",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_D_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_D_3625"
+    },
+    {
+      "BPM": "100BPM",
+      "ChordProgression": "3625",
+      "InstrumentName": "SolidSoulElectricBass",
+      "InstrumentType": "BASS",
+      "Key": "E",
+      "Path": "./Bass/SolidSoulElectricBass_100BPM_E_3625.mp3",
+      "soundName": "SolidSoulElectricBass_100BPM_E_3625"
+    }
+  ]
+}
