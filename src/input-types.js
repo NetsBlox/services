@@ -236,7 +236,10 @@ defineType({
   name: "String",
   description: "Any piece of text.",
   baseType: "Any",
-  parser: (input) => input.toString(),
+  parser: (input) => {
+    if (typeof input === "object") throw new InputTypeError();
+    return input.toString();
+  },
 });
 
 defineType({
@@ -526,6 +529,14 @@ defineType({
     }
     return input;
   },
+});
+
+defineType({
+  name: "YearSince",
+  description:
+    "A year starting at some point and ranging up to the current year",
+  baseType: "BoundedInteger",
+  baseParams: (p) => [p[0], new Date().getFullYear()],
 });
 
 defineType({

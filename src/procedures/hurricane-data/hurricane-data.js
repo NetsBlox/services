@@ -135,7 +135,7 @@ async function getData() {
  * Get hurricane data including location, maximum winds, and central pressure.
  *
  * @param {String} name - name of the hurricane
- * @param {BoundedNumber<1850,2020>} year - year that the hurricane occurred in
+ * @param {YearSince<1850>} year - year that the hurricane occurred in
  * @returns {Array<Object>} - All recorded data for the given hurricane
  */
 HurricaneData.getHurricaneData = async function (name, year) {
@@ -149,10 +149,9 @@ HurricaneData.getHurricaneData = async function (name, year) {
 /**
  * Get the names of all hurricanes occurring in the given year.
  *
- * @param {BoundedNumber<1850,2020>} year
+ * @param {YearSince<1850>} year
  * @returns {Array<String>} names
  */
-
 HurricaneData.getHurricanesInYear = async function (year) {
   const names = (await getData())
     .filter((data) => data.year == year)
@@ -165,7 +164,7 @@ HurricaneData.getHurricanesInYear = async function (year) {
  * Get the years in which a hurricane with the given name occurred.
  *
  * @param {String} name - name of the hurricane to find the year(s) of
- * @returns {Array<Number>} years - list with all of the years that a particular name has been used for a hurricane
+ * @returns {Array<Integer>} years - list with all of the years that a particular name has been used for a hurricane
  */
 HurricaneData.getYearsWithHurricaneNamed = async function (name) {
   name = name.toUpperCase();

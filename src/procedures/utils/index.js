@@ -1,6 +1,7 @@
 // a set of utilities to be used by rpcs
 const { defer } = require("../../utils");
 const cloud = require("../../cloud-client");
+const config = require("../../config");
 
 // sets up the headers and send an image
 const sendImageBuffer = (response, imageBuffer, logger) => {
@@ -25,19 +26,19 @@ const sendAudioBuffer = (response, audioBuffer, logger) => {
 };
 
 const collectStream = (stream, logger) => {
-  let deferred = Q.defer();
-  var imageBuffer = new Buffer(0);
-  stream.on("data", function (data) {
-    imageBuffer = Buffer.concat([imageBuffer, data]);
+  return new Promise((resolve, reject) => {
+    var imageBuffer = new Buffer(0);
+    stream.on("data", function (data) {
+      imageBuffer = Buffer.concat([imageBuffer, data]);
+    });
+    stream.on("end", function () {
+      resolve(imageBuffer);
+    });
+    stream.on("error", (err) => {
+      reject(err);
+      if (logger) logger.error("errored", err);
+    });
   });
-  stream.on("end", function () {
-    deferred.resolve(imageBuffer);
-  });
-  stream.on("error", (err) => {
-    deferred.reject(err);
-    if (logger) logger.error("errored", err);
-  });
-  return deferred.promise;
 };
 
 // creates snap friendly structure out of an array ofsimple keyValue json object or just single on of them.
@@ -130,6 +131,27 @@ class RPCError extends Error {
   }
 }
 
+/**
+ * Get the public address of the cloud server.
+ */
+function getCloudURL() {
+  return config.NetsBloxCloud;
+}
+
+/**
+ * Get the public address of the services server.
+ */
+function getServicesURL() {
+  return config.ServerURL;
+}
+
+/**
+ * Get the public address of the NetsBlox editor.
+ */
+function getEditorURL() {
+  return config.EditorURL;
+}
+
 module.exports = {
   getRoleNames,
   getRoleIds,
@@ -143,4 +165,8 @@ module.exports = {
   setRequiredApiKey,
   RPCError,
   defer,
+
+  getCloudURL,
+  getServicesURL,
+  getEditorURL,
 };

@@ -126,6 +126,20 @@ types.defineType({
   baseParams: ["0", "100"],
 });
 types.defineType({
+  name: "VibrationDuration",
+  description:
+    "The amount of time (in seconds) used by the :doc:`/services/PhoneIoT/index` vibration utilities.",
+  baseType: "BoundedNumber",
+  baseParams: ["0.1", "10"],
+});
+types.defineType({
+  name: "VibrationStrength",
+  description:
+    "The strength of a vibration produced by the :doc:`/services/PhoneIoT/index` vibration utilities.",
+  baseType: "BoundedNumber",
+  baseParams: ["0", "100"],
+});
+types.defineType({
   name: "Device",
   description:
     "A :doc:`/services/PhoneIoT/index` device ID. The device must be connected to be valid.",
@@ -270,6 +284,7 @@ PhoneIoT.prototype.getColor = function (red, green, blue, alpha = 255) {
  * Given a list of numbers representing a vector, this RPC returns the magnitude (length) of the vector.
  * This can be used to get the total acceleration from the accelerometer (which gives a vector).
  *
+ * @deprecated
  * @category Utility
  * @param {Array<Number>} vec the vector value
  * @returns {Number} magnitude of the vector (a non-negative number)
@@ -281,6 +296,7 @@ PhoneIoT.prototype.magnitude = function (vec) {
  * Given a list of numbers representing a vector, returns the normalized vector (same direction but with a magnitude of ``1.0``).
  * This is identical to dividing each component by the magnitude.
  *
+ * @deprecated
  * @category Utility
  * @param {Array<Number>} vec the vector value
  * @returns {Array<Number>} the normalized vector
@@ -690,7 +706,7 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    * @param {Object=} options Additional options
    * @param {String=} options.group The name of the group to associate this radio button with. You do not need this value to access the control later. If not specified, defaults to ``main``.
    * @param {String=} options.id The id to use for the control. If not specified, a new one will be automatically generated.
-   * @param {String=} options.event The name of an event to send every time the user clicks the radio button. Note that clicking a radio button always checks it, unlike toggles. You must call :func:`PhoneIoT.listenToGUI` to actually receive these messages. If not specified, no event is sent. Message fields: ``device``, ``id``, ``state``.
+   * @param {String=} options.event The name of an event to send every time the user clicks the radio button. Note that clicking a radio button always checks it, unlike toggles. You must call :func:`PhoneIoT.listenToGUI` to actually receive these messages. If not specified, no event is sent. Message fields: ``device``, ``id``.
    * @param {Boolean=} options.checked Defaults to ``false``. If set to ``true``, the radio button will be initially checked. Note that, while the user cannot check multiple radio buttons, you are free to do so programmatically.
    * @param {Color=} options.color The color of the radio button itself.
    * @param {Color=} options.textColor The text color of the radio button.
@@ -1148,7 +1164,7 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
   };
 
   /**
-   * Gets the current output of the gyroscope sensor, which measures rotational acceleration (in degrees/s²) along the three axes of the device.
+   * Gets the current output of the gyroscope sensor, which measures angular velocity (in degrees/s) along the three axes of the device.
    *
    * Sensor name: ``gyroscope``
    *
@@ -1408,6 +1424,24 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    */
   PhoneIoT.prototype.setImage = function (device, id, img) {
     return this._passToDevice("setImage", arguments);
+  };
+  /**
+   * Causes the phone to vibrate with a specified duration (in seconds) and strength.
+   * ``durations`` can either be a single number representing a continuous vibration for that amount of time (in seconds), or it can be a list of durations.
+   * For instance, ``[1, 0.5, 2]`` would mean: vibrate for 1 second, stop for 0.5 seconds, then vibrate for 2 seconds.
+   *
+   * Some older devices lack support for customizable vibration patterns/durations,
+   * in which case PhoneIoT may have to resort to an approximation of the desired pattern using longer vibrations.
+   *
+   * @category Utility
+   * @param {Device} device id of the device
+   * @param {Union<Array<VibrationDuration>, VibrationDuration>} durations the duration of a vibration or a pattern of on/off times
+   * @param {VibrationStrength=} strength the strength of vibration (default 100)
+   */
+  PhoneIoT.prototype.vibrate = function (device, durations, strength = 100) {
+    arguments[1] = Array.isArray(durations) ? durations : [durations];
+    arguments[2] = strength;
+    return this._passToDevice("vibrate", arguments);
   };
 
   // /**
