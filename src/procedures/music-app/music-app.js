@@ -7,29 +7,18 @@
 
 "use strict";
 
-const fs = require("fs");
+const fsp = require("fs/promises");
 const { registerTypes } = require("./types");
 const path = require("path");
 const utils = require("../utils/index");
 const MusicApp = {};
+const soundLibrary = require("./soundLibrary.json");
+
 registerTypes();
 
-const soundLibrary = JSON.parse(
-  fs.readFileSync("src/procedures/music-app/soundLibrary.json", "utf8"),
-);
-
-MusicApp._filetoBuffer = function (audio_path) {
-  let r = this.response;
-  return new Promise((resolve, reject) => {
-    fs.readFile(audio_path, (err, data) => {
-      // error handle
-      if (err) {
-        throw err;
-      }
-      utils.sendAudioBuffer(this.response, data);
-      resolve();
-    });
-  });
+MusicApp._filetoBuffer = async function (audio_path) {
+  const data = fsp.readFile(audio_path);
+  utils.sendAudioBuffer(this.response, data);
 };
 
 /**
@@ -54,7 +43,7 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
 };
 
 /**
- * Get Sounds based on query.
+ * Get sounds based on query.
  * @param {InstrumentNames=} InstrumentName
  * @param {BPM=} BPM
  * @param {Keys=} Key
@@ -91,27 +80,28 @@ MusicApp.getSoundNames = async function (
 };
 
 /**
- * Get Sound based on name.
+ * Get sound by name.
  * @param {String=} nameOfSound
  */
 MusicApp.nameToSound = async function (nameOfSound = "") {
-  const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter((obj) =>
-    obj.soundName === nameOfSound
-  );
-  var audio_path = path.join(__dirname, queriedJSON[0].Path);
-  return this._filetoBuffer(audio_path);
+  const metadata = soundLibrary.netsbloxSoundLibrary
+    .find((obj) => obj.soundName === nameOfSound);
+
+  if (metadata) {
+    const audio_path = path.join(__dirname, metadata.Path);
+    return this._filetoBuffer(audio_path);
+  }
 };
 
 /**
- * Get Sound Metadata based on name.
+ * Get sound metadata by name.
  * @param {String=} nameOfSound
  * @returns {Array}
  */
 MusicApp._getMetaDataByName = async function (nameOfSound = "") {
-  const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter((obj) =>
-    obj.soundName === nameOfSound
-  );
-  return queriedJSON[0];
+  const metadata = soundLibrary.netsbloxSoundLibrary
+    .find((obj) => obj.soundName === nameOfSound);
+  return metadata;
 };
 
 module.exports = MusicApp;
