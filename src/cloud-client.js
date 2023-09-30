@@ -35,7 +35,6 @@ class NetsBloxCloud {
 
   async sendMessage(message) {
     const url = `/network/messages/`;
-    console.log("sending", message);
     const response = await this.post(url, message);
     return response.status > 199 && response.status < 400;
   }

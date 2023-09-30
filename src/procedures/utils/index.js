@@ -1,6 +1,7 @@
 // a set of utilities to be used by rpcs
 const { defer } = require("../../utils");
 const cloud = require("../../cloud-client");
+const config = require("../../config");
 
 // sets up the headers and send an image
 const sendImageBuffer = (response, imageBuffer, logger) => {
@@ -11,6 +12,17 @@ const sendImageBuffer = (response, imageBuffer, logger) => {
   response.set("connection", "close");
   response.status(200).send(imageBuffer);
   if (logger) logger.trace("sent the image");
+};
+
+// sets up the headers and send an audio
+const sendAudioBuffer = (response, audioBuffer, logger) => {
+  if (audioBuffer.length < 1) throw "empty audio buffer";
+  response.set("cache-control", "private, no-store, max-age=0");
+  response.set("content-type", "audio/mpeg");
+  response.set("content-length", audioBuffer.length);
+  response.set("connection", "close");
+  response.status(200).send(audioBuffer);
+  if (logger) logger.trace("sent the audio");
 };
 
 const collectStream = (stream, logger) => {
@@ -119,10 +131,32 @@ class RPCError extends Error {
   }
 }
 
+/**
+ * Get the public address of the cloud server.
+ */
+function getCloudURL() {
+  return config.NetsBloxCloud;
+}
+
+/**
+ * Get the public address of the services server.
+ */
+function getServicesURL() {
+  return config.ServerURL;
+}
+
+/**
+ * Get the public address of the NetsBlox editor.
+ */
+function getEditorURL() {
+  return config.EditorURL;
+}
+
 module.exports = {
   getRoleNames,
   getRoleIds,
   getRoleName,
+  sendAudioBuffer,
   sendImageBuffer,
   encodeQueryData,
   collectStream,
@@ -131,4 +165,8 @@ module.exports = {
   setRequiredApiKey,
   RPCError,
   defer,
+
+  getCloudURL,
+  getServicesURL,
+  getEditorURL,
 };

@@ -7,7 +7,6 @@ var assert = require("assert"),
   logger = new Logger("netsblox:api:utils"),
   version = require("../package.json").version;
 
-const { setTimeout } = require("./timers");
 const Filter = require("bad-words");
 const profaneChecker = new Filter();
 

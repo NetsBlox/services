@@ -5,4 +5,5 @@ config.NetsBloxCloudSecret = process.env.NETSBLOX_CLOUD_SECRET;
 config.LoginURL = process.env.LOGIN_URL;
 config.Port = process.env.PORT || 8080;
 config.ServerURL = process.env.SERVER_URL || `http://localhost:${config.Port}`;
+config.EditorURL = process.env.EDITOR_URL;
 module.exports = config;

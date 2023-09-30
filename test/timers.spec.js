@@ -12,11 +12,26 @@ describe(testUtils.suiteName(__filename), function () {
   beforeEach(() => timers = newScope());
   afterEach(() => timers.stopTimers());
   describe("setTimeout", function () {
-    it("should setTimeout w/ duration", function (done) {
+    it("should support duration", function (done) {
       timers.setTimeout(done, 10);
     });
 
-    it("should setTimeout w/o duration", function (done) {
+    it("should support variadic arguments", function (done) {
+      timers.setTimeout(
+        (arg1, arg2, arg3) => {
+          assert.equal(arg1, 1);
+          assert.equal(arg2, 2);
+          assert.equal(arg3, 3);
+          done();
+        },
+        10,
+        1,
+        2,
+        3,
+      );
+    });
+
+    it("should be callable w/o duration", function (done) {
       timers.setTimeout(done);
     });
   });
@@ -45,6 +60,24 @@ describe(testUtils.suiteName(__filename), function () {
       timer.pause();
       await sleep(10);
       assert.equal(called, 0);
+    });
+
+    it("should support variadic arguments", async function () {
+      let called = 0;
+      timers.setInterval(
+        (arg1, arg2, arg3) => {
+          assert.equal(arg1, 1);
+          assert.equal(arg2, 2);
+          assert.equal(arg3, 3);
+          called++;
+        },
+        1,
+        1,
+        2,
+        3,
+      );
+      await sleep(10);
+      assert(called > 0);
     });
   });
 
