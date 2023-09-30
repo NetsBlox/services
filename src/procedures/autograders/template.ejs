@@ -255,7 +255,10 @@
                 body: JSON.stringify(body),
             });
             if (response.status < 400) {
-                this.ide.showMessage(`Successfully submitted ${assignment.name}!`);
+                this.ide.inform(
+                    'Submission',
+                    `Successfully submitted ${assignment.name}!`,
+                );
             } else {
                 this.ide.inform('Submission Failed', await response.text());
             }
@@ -289,10 +292,13 @@
             });
 
             if (response.status < 400) {
-                this.ide.showMessage(`Successfully submitted ${assignment.name}!`);
+                this.ide.inform(
+                    'Submission',
+                    `Successfully submitted ${assignment.name}!`,
+                );
             } else {
                 this.ide.inform(
-                    'Submission Failed',
+                    'Submission',
                     'An internal error occurred. Please try again later.'
                 );
             }

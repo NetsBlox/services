@@ -5,3 +5,7 @@
 [submodule "src/server/services/procedures/roboscape/speckjs"]
 	path = src/server/services/procedures/roboscape/speckjs
 	url = https://github.com/NetsBlox/speckjs.git
+
+[submodule "src/procedures/music-app/SoundLibrary"]
+	path = src/procedures/music-app/SoundLibrary
+	url = https://github.com/NetsBlox/SoundLibrary.git
