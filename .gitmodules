@@ -8,4 +8,4 @@
 
 [submodule "src/procedures/music-app/SoundLibrary"]
 	path = src/procedures/music-app/SoundLibrary
-	url = https://github.com/NetsBlox/SoundLibrary
+	url = https://github.com/NetsBlox/SoundLibrary.git
