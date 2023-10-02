@@ -16,11 +16,6 @@ const soundLibrary = require("./soundLibrary.json");
 
 registerTypes();
 
-MusicApp._filetoBuffer = async function (audio_path) {
-  const data = fsp.readFile(audio_path);
-  utils.sendAudioBuffer(this.response, data);
-};
-
 /**
  * Get Sounds based on query.
  * @param {String=} soundType
@@ -88,8 +83,9 @@ MusicApp.nameToSound = async function (nameOfSound = "") {
     .find((obj) => obj.soundName === nameOfSound);
 
   if (metadata) {
-    const audio_path = path.join(__dirname, metadata.Path);
-    return this._filetoBuffer(audio_path);
+    const audioPath = path.join(__dirname, metadata.Path);
+    const data = await fsp.readFile(audioPath);
+    return utils.sendAudioBuffer(this.response, data);
   }
 };
 
