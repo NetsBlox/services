@@ -181,10 +181,14 @@ IoTScapeServices.listen = function (service, client, id) {
   }
 
   // Prevent listen if this client is already listening
-  if (IoTScapeServices._listeningClients[service][id].some((c) => c.clientId === client.clientId)) {
+  if (
+    IoTScapeServices._listeningClients[service][id].some((c) =>
+      c.clientId === client.clientId
+    )
+  ) {
     return;
   }
-  
+
   IoTScapeServices._listeningClients[service][id].push(client);
 };
 
