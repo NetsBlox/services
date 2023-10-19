@@ -17,10 +17,15 @@ RUN cd /tmp && \
 RUN apt-get install -y libstdc++-11-dev gnuplot \
   libsdl-pango-dev libgif-dev  # Required for canvas (chart service)
 
+WORKDIR /netsblox
+
 # Clean up and install NetsBlox dependencies
 RUN apt-get clean && \
 	rm -rf /tmp/* && \
 	cd /netsblox && npm install  # Install netsblox dependencies
-WORKDIR /netsblox
+
+# Build the service docs for the publicly deployed services
+RUN apt-get install -y python3-sphinx python3-sphinx-rtd-theme && \
+ node utils/build-docs.js
 
 CMD ["npm", "start"]
