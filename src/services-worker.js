@@ -466,7 +466,7 @@ class ServicesWorker {
 
   getApiKey(serviceName) {
     const service = this.getServiceInstance(serviceName);
-    return service.apiKey;
+    return service?.apiKey;
   }
 
   checkStaleServices() {
