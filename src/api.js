@@ -170,35 +170,20 @@ class ServicesAPI {
   }
 
   async invokeRPC(serviceName, rpcName, req, res) {
-    const { clientId } = req.query;
+    const caller = RpcCaller.from(req);
     this.logger.info(
-      `Received request to ${serviceName} for ${rpcName} (from ${clientId})`,
+      `Received request to ${serviceName} for ${rpcName} (from ${caller.clientId})`,
     );
 
-    const ctx = {};
+    const ctx = { caller };
     ctx.response = res;
     ctx.request = req;
     // FIXME: don't eager load these
-    if (!req.clientState) {
-      const { username, state } = await cloud.getClientInfo(clientId);
-      req.clientState = state;
-      req.username = username;
-    }
     const state = req.clientState;
     const username = req.username;
     const projectId = state?.browser?.projectId;
     const roleId = state?.browser?.roleId;
 
-    // TODO: refactor this so it lazily fetches the context
-    // await caller.getClientState()
-    // await caller.getUsername()
-    // caller.clientId
-    ctx.caller = {
-      username,
-      projectId,
-      roleId,
-      clientId,
-    };
     const apiKey = this.services.getApiKey(serviceName);
     const isLoggedIn = !!username;
     if (apiKey && isLoggedIn) {
