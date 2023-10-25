@@ -1,4 +1,4 @@
-FROM node:lts-bookworm
+FROM node:18-bookworm
 MAINTAINER Brian Broll <brian.broll@vanderbilt.edu>
 
 ADD . /netsblox
