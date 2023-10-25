@@ -28,17 +28,17 @@ async function tryLogin(req, res, next) {
   // How should we choose which to login with? Maybe use 2 methods?
   // TODO: add client secret, too
   const { clientId } = req.query;
-  if (cookie) {
-    return setUsernameFromCookie(req, res, next);
-  } else if (clientId) {
+  if (clientId) {
     const { username, state } = await cloud.getClientInfo(clientId);
     req.username = username;
     req.clientState = state;
+  } else if (cookie) {
+    return setUsernameFromCookie(req, res, next);
   }
   next();
 }
 
-async function setUsernameFromCookie(req, res, next) {
+async function setUsernameFromCookie(req, _res, next) {
   const cookie = req.cookies.netsblox;
   const username = await cloud.whoami(cookie);
   req.username = username;

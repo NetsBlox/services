@@ -66,7 +66,7 @@ class NetsBloxCloud {
   }
 
   // Service Settings
-  async getServiceSettings(username) {
+  async getServiceSettings(username) { // TODO: memoize this
     const url = `/services/settings/user/${username}/${this.id}/all`;
     const settings = await this.get(url);
     // settings fields are strings which we happen to use to store JSON

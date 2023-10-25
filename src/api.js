@@ -85,7 +85,7 @@ class ServicesAPI {
 
     this.addServiceRoutes(router);
 
-    router.route("/").get((req, res) => {
+    router.route("/").get((_req, res) => {
       const metadata = Object.entries(this.services.metadata)
         .filter((nameAndMetadata) => this.isServiceLoaded(nameAndMetadata[0]))
         .map((pair) => {
@@ -178,11 +178,21 @@ class ServicesAPI {
     const ctx = {};
     ctx.response = res;
     ctx.request = req;
-    const { username, state } = await NetsBloxCloud.getClientInfo(clientId);
-    // TODO: add support for external states, too?
+    // FIXME: don't eager load these
+    if (!req.clientState) {
+      const { username, state } = await cloud.getClientInfo(clientId);
+      req.clientState = state;
+      req.username = username;
+    }
+    const state = req.clientState;
+    const username = req.username;
     const projectId = state?.browser?.projectId;
     const roleId = state?.browser?.roleId;
 
+    // TODO: refactor this so it lazily fetches the context
+    // await caller.getClientState()
+    // await caller.getUsername()
+    // caller.clientId
     ctx.caller = {
       username,
       projectId,
