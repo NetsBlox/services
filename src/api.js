@@ -9,6 +9,7 @@ const path = require("path");
 const routeUtils = require("./procedures/utils/router-utils");
 const NetsBloxCloud = require("./cloud-client");
 const { UserError } = require("./error");
+const RpcCaller = require("./rpc-caller");
 
 class ServicesAPI {
   constructor() {
@@ -169,30 +170,23 @@ class ServicesAPI {
     return false;
   }
 
-  async invokeRPC(serviceName, rpcName, req, res) {
-    const caller = RpcCaller.from(req);
+  async invokeRPC(serviceName, rpcName, request, response) {
+    const caller = RpcCaller.from(request);
     this.logger.info(
       `Received request to ${serviceName} for ${rpcName} (from ${caller.clientId})`,
     );
 
-    const ctx = { caller };
-    ctx.response = res;
-    ctx.request = req;
-    // FIXME: don't eager load these
-    const state = req.clientState;
-    const username = req.username;
-    const projectId = state?.browser?.projectId;
-    const roleId = state?.browser?.roleId;
+    const ctx = { caller, request, response };
 
     const apiKey = this.services.getApiKey(serviceName);
-    const isLoggedIn = !!username;
-    if (apiKey && isLoggedIn) {
+    if (apiKey && caller.isLoggedIn()) {
       // TODO: handle invalid settings (parse error)
       const apiKeyValue = await this.keys.get(username, apiKey); // TODO: double check this
       if (apiKeyValue) {
         ctx.apiKey = apiKeyValue;
       }
     }
+    // TODO: move the socket over?
     ctx.socket = new RemoteClient(projectId, roleId, clientId);
 
     const args = this.getArguments(serviceName, rpcName, req);

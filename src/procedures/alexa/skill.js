@@ -22,6 +22,7 @@ class AlexaSkill {
     if (username) {
       context.username = username;
     }
+    // TODO: update this
     const socket = new RemoteClient(
       context.projectId,
       context.roleId,
