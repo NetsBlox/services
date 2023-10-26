@@ -4,6 +4,43 @@ describe(utils.suiteName(__filename), function () {
   const assert = require("assert");
   const lib = utils.reqSrc("utils");
 
+  describe("ninvoke", () => {
+    const thing = {
+      errorWithArgs(msg, callback) {
+        callback(new Error(msg));
+      },
+      error(callback) {
+        callback(new Error("error!"));
+      },
+      doSomethingWithArgs(arg1, arg2, callback) {
+        callback(null, arg1 + arg2);
+      },
+      doSomething(callback) {
+        callback(null);
+      },
+    };
+
+    it("should resolve on success", async () => {
+      await lib.ninvoke(thing, "doSomething");
+    });
+
+    it("should resolve w/ result", async () => {
+      const result = await lib.ninvoke(thing, "doSomethingWithArgs", 1, 5);
+      assert.equal(result, 6);
+    });
+
+    it("should reject on error", async () => {
+      await assert.rejects(lib.ninvoke(thing, "error"));
+    });
+
+    it("should reject on error w/ args", async () => {
+      await assert.rejects(
+        lib.ninvoke(thing, "errorWithArgs", "someError"),
+        /someError/,
+      );
+    });
+  });
+
   describe("ident checker", () => {
     it("should accept C identifiers", () => {
       assert(lib.isValidIdent("foo"));
