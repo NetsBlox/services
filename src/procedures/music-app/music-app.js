@@ -44,10 +44,10 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
 
 /**
  * Get sounds based on query.
- * @param {InstrumentNames=} InstrumentName
- * @param {BPM=} BPM
- * @param {Keys=} Key
  * @param {ChordProgressions=} Chords
+ * @param {Keys=} Key
+ * @param {BPM=} BPM
+ * @param {InstrumentNames=} InstrumentName
  * @returns {Array}
  */
 MusicApp.getSoundNames = async function (
