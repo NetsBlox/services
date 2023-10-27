@@ -357,16 +357,16 @@ IoTScapeServices.start = function (socket) {
     }
 
     return true;
-  };
+  }
 
   setInterval(async () => {
     for (const service of IoTScapeServices.getServices()) {
       IoTScapeServices.getDevices(service).forEach(async (device) => {
-        if(!(await heartbeat(service, device))){
+        if (!(await heartbeat(service, device))) {
           // Send second heartbeat request, will timeout if device does not respond
-          if(!(await heartbeat(service, device))){
+          if (!(await heartbeat(service, device))) {
             logger.log(
-              `${service}:${device} did not respond to heartbeat, removing from active devices`
+              `${service}:${device} did not respond to heartbeat, removing from active devices`,
             );
             IoTScapeServices.removeDevice(service, device);
           }
