@@ -257,7 +257,25 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
       }, 3000);
     }),
   ]).then((result) => result).catch(() => {
-    throw new Error("Response timed out.");
+    // Make second attempt
+    return Promise.race([
+      new Promise((resolve) => {
+        IoTScapeServices._awaitingRequests[reqid] = {
+          service: service,
+          function: func,
+          resolve,
+        };
+      }),
+      new Promise((_, reject) => {
+        // Time out eventually
+        setTimeout(() => {
+          delete IoTScapeServices._awaitingRequests[reqid];
+          reject();
+        }, 3000);
+      }),
+    ]).then((result) => result).catch(() => {
+      throw new Error("Response timed out.");
+    });
   });
 };
 
