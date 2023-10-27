@@ -287,7 +287,7 @@ class ServicesWorker {
   invoke(context, serviceName, rpcName, args) {
     const rpc = this.getServiceInstance(serviceName, context.caller.projectId);
 
-    if(rpc) {
+    if (rpc) {
       const ctx = Object.create(rpc);
       Object.assign(ctx, context);
       return this.callRPC(rpcName, ctx, args);
