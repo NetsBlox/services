@@ -258,6 +258,13 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     }),
   ]).then((result) => result).catch(() => {
     // Make second attempt
+    const rinfo = IoTScapeServices.getInfo(service, id);
+    IoTScapeServices.socket.send(
+      JSON.stringify(request),
+      rinfo.port,
+      rinfo.address,
+    );
+    
     return Promise.race([
       new Promise((resolve) => {
         IoTScapeServices._awaitingRequests[reqid] = {
