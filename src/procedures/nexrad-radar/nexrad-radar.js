@@ -477,4 +477,6 @@ NexradRadar.plotRadarImages = async function (
   } else await this._draw(radarPlot, this.response);
 };
 
+NexradRadar.isSupported = () => false; // disable for now
+
 module.exports = NexradRadar;
