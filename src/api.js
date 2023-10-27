@@ -150,7 +150,7 @@ class ServicesAPI {
 
   getArgumentNames(serviceName, rpcName) {
     const service = this.services.metadata[serviceName];
-    return service.rpcs[rpcName].args.map((arg) => arg.name);
+    return service?.rpcs[rpcName].args.map((arg) => arg.name) ?? [];
   }
 
   validateRPCRequest(serviceName, req, res) {
