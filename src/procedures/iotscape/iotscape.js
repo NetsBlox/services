@@ -168,13 +168,19 @@ IoTScape._createService = async function (definition, remote) {
   };
 
   // Handle merge for existing service
-  [service, methodsChanged] = await _mergeWithExistingService(name, service, methods);
+  [service, methodsChanged] = await _mergeWithExistingService(
+    name,
+    service,
+    methods,
+  );
 
   // Send to database
-  if(methodsChanged){
+  if (methodsChanged) {
     const query = { $set: service };
     try {
-      await IoTScape._getDatabase().updateOne({ name }, query, { upsert: true });
+      await IoTScape._getDatabase().updateOne({ name }, query, {
+        upsert: true,
+      });
       ServiceEvents.emit(ServiceEvents.UPDATE, name);
     } catch (err) {
       if (err.message === MONGODB_DOC_TOO_LARGE) {
