@@ -264,7 +264,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
       rinfo.port,
       rinfo.address,
     );
-    
+
     return Promise.race([
       new Promise((resolve) => {
         IoTScapeServices._awaitingRequests[reqid] = {
