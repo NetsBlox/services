@@ -51,10 +51,10 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
  * @returns {Array}
  */
 MusicApp.getSoundNames = async function (
-  InstrumentName = "",
-  BPM = "",
-  Key = "",
   Chords = "",
+  Key = "",
+  BPM = "",
+  InstrumentName = "",
 ) {
   var names = [];
   let queriedJSON = "";
