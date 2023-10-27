@@ -327,24 +327,32 @@ IoTScapeServices.start = function (socket) {
   });
 
   // Request heartbeats on interval
+  async function heartbeat(service, device) {
+    logger.log(`heartbeat ${service}:${device}`);
+
+    try {
+      // Send heartbeat request, will timeout if device does not respond
+      await IoTScapeServices.call(service, "heartbeat", device);
+    } catch (e) {
+      // Remove device if it didn't respond
+      return false;
+    }
+
+    return true;
+  };
+
   setInterval(async () => {
     for (const service of IoTScapeServices.getServices()) {
       IoTScapeServices.getDevices(service).forEach(async (device) => {
-        logger.log(`heartbeat ${service}:${device}`);
-
-        try {
-          // Send heartbeat request, will timeout if device does not respond
-          await IoTScapeServices.call(service, "heartbeat", device);
-        } catch (e) {
-          // Remove device if it didn't respond
+        if(!(await heartbeat(service, device))){
           logger.log(
-            `${service}:${device} did not respond to heartbeat, removing from active devices`,
+            `${service}:${device} did not respond to heartbeat, removing from active devices`
           );
           IoTScapeServices.removeDevice(service, device);
         }
       });
     }
-  }, 60 * 1000);
+  }, 2 * 60 * 1000);
 };
 
 module.exports = IoTScapeServices;
