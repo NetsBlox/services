@@ -18,9 +18,16 @@ class NetsBloxCloud {
     return await this.get(url);
   }
 
+  clientCache = new Map();
+
   async getClientInfo(clientId) {
     const url = `/network/${clientId}/state`;
-    return await this.get(url);
+    
+    if(!this.clientCache.has(clientId) || Date.now() - this.clientCache.get(clientId)[1] > 60 * 1000) {
+      this.clientCache.set(clientId,[await this.get(url), Date.now()]);
+    }
+
+    return this.clientCache.get(clientId)[0];
   }
 
   async userExists(username) {
