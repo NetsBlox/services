@@ -219,7 +219,6 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     params: [...args],
   };
 
-
   // Determine response type
   const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
   const responseType = methodInfo.returns.type;
@@ -264,7 +263,9 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
   ]).then((result) => result).catch(() => {
     // Make second attempt
     logger.log("IoTScape request timed out, trying again");
-    return Promise.race([new Promise(attempt), new Promise(timeout)]).then((result) => result).catch(() => {
+    return Promise.race([new Promise(attempt), new Promise(timeout)]).then((
+      result,
+    ) => result).catch(() => {
       logger.log("IoTScape request timed out again, giving up");
       throw new Error("Response timed out.");
     });
