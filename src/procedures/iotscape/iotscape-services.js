@@ -219,12 +219,6 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     params: [...args],
   };
 
-  const rinfo = IoTScapeServices.getInfo(service, id);
-  IoTScapeServices.socket.send(
-    JSON.stringify(request),
-    rinfo.port,
-    rinfo.address,
-  );
 
   // Determine response type
   const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
@@ -241,24 +235,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
   }
 
   // Expects a value response
-  return Promise.race([
-    new Promise((resolve) => {
-      IoTScapeServices._awaitingRequests[reqid] = {
-        service: service,
-        function: func,
-        resolve,
-      };
-    }),
-    new Promise((_, reject) => {
-      // Time out eventually
-      setTimeout(() => {
-        delete IoTScapeServices._awaitingRequests[reqid];
-        reject();
-      }, 3000);
-    }),
-  ]).then((result) => result).catch(() => {
-    // Make second attempt
-    logger.log("IoTScape request timed out, trying again");
+  let attempt = (resolve) => {
     const rinfo = IoTScapeServices.getInfo(service, id);
     IoTScapeServices.socket.send(
       JSON.stringify(request),
@@ -266,22 +243,28 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
       rinfo.address,
     );
 
-    return Promise.race([
-      new Promise((resolve) => {
-        IoTScapeServices._awaitingRequests[reqid] = {
-          service: service,
-          function: func,
-          resolve,
-        };
-      }),
-      new Promise((_, reject) => {
-        // Time out eventually
-        setTimeout(() => {
-          delete IoTScapeServices._awaitingRequests[reqid];
-          reject();
-        }, 3000);
-      }),
-    ]).then((result) => result).catch(() => {
+    IoTScapeServices._awaitingRequests[reqid] = {
+      service: service,
+      function: func,
+      resolve,
+    };
+  };
+
+  let timeout = (_, reject) => {
+    // Time out eventually
+    setTimeout(() => {
+      delete IoTScapeServices._awaitingRequests[reqid];
+      reject();
+    }, 3000);
+  };
+
+  return Promise.race([
+    new Promise(attempt),
+    new Promise(timeout),
+  ]).then((result) => result).catch(() => {
+    // Make second attempt
+    logger.log("IoTScape request timed out, trying again");
+    return Promise.race([new Promise(attempt), new Promise(timeout)]).then((result) => result).catch(() => {
       logger.log("IoTScape request timed out again, giving up");
       throw new Error("Response timed out.");
     });
