@@ -60,7 +60,7 @@ MusicApp.getSoundNames = async function (
   let queriedJSON = "";
 
   //Ensure at least one field is selected
-  if (InstrumentName !== "" || BPM !== "" || Key !== "" || Chords !== "") {
+  if (Chords !== "" || Key !== "" || BPM !== "" || InstrumentName !== "") {
     queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
       return (InstrumentName === "" || obj.InstrumentName === InstrumentName) &&
         (BPM === "" || obj.BPM === BPM) &&
