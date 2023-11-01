@@ -47,7 +47,7 @@ dev.sendMessage = function (address, messageType, contents) {
  * @param{Object} contents
  */
 dev.sendMessageToRole = async function (role, messageType, contents) {
-  const room = await NetsBloxCloud.getRoomState(this.caller.projectId);
+  const room = await this.caller.getRoomState();
   const roleEntry = Object.entries(room.roles).find(([id, roleData]) =>
     roleData.name === role
   );
@@ -127,8 +127,12 @@ dev.detectAbort = function () {
 /**
  * Return the caller info as detected by the server.
  */
-dev.callerInfo = function () {
-  return _.omit(this.caller, ["response", "request", "socket", "apiKey"]);
+dev.callerInfo = async function () {
+  const callerInfo = {
+    state: await this.caller.getClientState(),
+    username: await this.caller.getUsername(),
+  };
+  return callerInfo;
 };
 
 /**

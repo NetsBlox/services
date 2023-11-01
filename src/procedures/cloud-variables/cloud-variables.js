@@ -71,12 +71,6 @@ const ensureAuthorized = function (variable, password) {
   }
 };
 
-const ensureLoggedIn = function (caller) {
-  if (!caller.username) {
-    throw new Error("Login required.");
-  }
-};
-
 const validateVariableName = function (name) {
   if (!/^[\w _()-]+$/.test(name)) {
     throw new Error("Invalid variable name.");
@@ -105,7 +99,7 @@ CloudVariables._setMaxLockAge = function (age) { // for testing
  */
 CloudVariables.getVariable = async function (name, password) {
   const { sharedVars } = getCollections();
-  const username = this.caller.username;
+  const username = await this.caller.getUsername();
   const variable = await sharedVars.findOne({ name: name });
 
   ensureVariableExists(variable);
@@ -146,7 +140,7 @@ CloudVariables.setVariable = async function (name, value, password) {
   validateContentSize(value);
 
   const { sharedVars } = getCollections();
-  const username = this.caller.username;
+  const username = await this.caller.getUsername();
   const variable = await sharedVars.findOne({ name: name });
 
   ensureAuthorized(variable, password);
@@ -200,7 +194,7 @@ CloudVariables.lockVariable = async function (name, password) {
   validateVariableName(name);
 
   const { sharedVars } = getCollections();
-  const username = this.caller.username;
+  const username = await this.caller.getUsername();
   const clientId = this.caller.clientId;
   const variable = await sharedVars.findOne({ name: name });
 
@@ -222,6 +216,7 @@ CloudVariables.lockVariable = async function (name, password) {
 
 CloudVariables._queueLockFor = async function (variable) {
   // Return a promise which will resolve when the lock is applied
+  const username = await this.caller.getUsername();
   const deferred = utils.defer();
   const id = variable._id;
   const { password } = variable;
@@ -234,7 +229,7 @@ CloudVariables._queueLockFor = async function (variable) {
     id: id,
     password: password,
     clientId: this.caller.clientId,
-    username: this.caller.username,
+    username: username,
     promise: deferred,
   };
 
@@ -369,9 +364,7 @@ CloudVariables._onUnlockVariable = async function (id) {
  */
 CloudVariables.getUserVariable = async function (name) {
   const { userVars } = getCollections();
-  const username = this.caller.username;
-
-  ensureLoggedIn(this.caller);
+  const username = await this.caller.getUsername();
   const variable = await userVars.findOne({ name: name, owner: username });
 
   if (!variable) {
@@ -393,12 +386,11 @@ CloudVariables.getUserVariable = async function (name) {
  * @param {Any} value Value to store in variable
  */
 CloudVariables.setUserVariable = async function (name, value) {
-  ensureLoggedIn(this.caller);
+  const username = await this.caller.getUsername();
   validateVariableName(name);
   validateContentSize(value);
 
   const { userVars } = getCollections();
-  const username = this.caller.username;
   const query = {
     $set: {
       value,
@@ -415,9 +407,7 @@ CloudVariables.setUserVariable = async function (name, value) {
  */
 CloudVariables.deleteUserVariable = async function (name) {
   const { userVars } = getCollections();
-  const username = this.caller.username;
-
-  ensureLoggedIn(this.caller);
+  const username = await this.caller.getUsername();
   await userVars.deleteOne({ name: name, owner: username });
   delete (userListeners[username] || {})[name];
 };
@@ -427,8 +417,8 @@ CloudVariables._getListenBucket = function (name) {
   if (!bucket) bucket = globalListeners[name] = {};
   return bucket;
 };
-CloudVariables._getUserListenBucket = function (name) {
-  const user = this.caller.username;
+CloudVariables._getUserListenBucket = async function (name) {
+  const user = await this.caller.getUsername();
   let userBucket = userListeners[user];
   if (!userBucket) userBucket = userListeners[user] = {};
 
@@ -479,7 +469,7 @@ CloudVariables.listenToUserVariable = async function (
   duration = 60 * 60 * 1000,
 ) {
   await this.getUserVariable(name); // ensure we can get the value
-  const bucket = this._getUserListenBucket(name);
+  const bucket = await this._getUserListenBucket(name);
   bucket[this.socket.clientId] = [this.socket, msgType, +new Date() + duration];
 };
 

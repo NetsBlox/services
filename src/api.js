@@ -179,7 +179,7 @@ class ServicesAPI {
     const ctx = { caller, request, response };
 
     const apiKey = this.services.getApiKey(serviceName);
-    if (apiKey && caller.isLoggedIn()) {
+    if (apiKey && await caller.isLoggedIn()) {
       // TODO: handle invalid settings (parse error)
       const apiKeyValue = await this.keys.get(username, apiKey); // TODO: double check this
       if (apiKeyValue) {

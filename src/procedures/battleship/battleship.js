@@ -106,8 +106,8 @@ Battleship.prototype.start = function () {
  * @param {String} facing Direction to face
  * @returns {Boolean} If piece was placed
  */
-Battleship.prototype.placeShip = function (ship, row, column, facing) {
-  var role = this.caller.roleId,
+Battleship.prototype.placeShip = async function (ship, row, column, facing) {
+  var role = await this.caller.getRoleId(),
     len = SHIPS[ship];
 
   row--;
@@ -158,8 +158,8 @@ Battleship.prototype.placeShip = function (ship, row, column, facing) {
  * @param {BoundedNumber<1,100>} column Column to fire at
  * @returns {Boolean} If ship was hit
  */
-Battleship.prototype.fire = function (row, column) {
-  const role = this.caller.roleId;
+Battleship.prototype.fire = async function (row, column) {
+  const role = await this.caller.getRoleId();
 
   row = row - 1;
   column = column - 1;
@@ -199,22 +199,23 @@ Battleship.prototype.fire = function (row, column) {
   const result = this._state._boards[target].fire(row, column);
 
   if (result) {
-    return Utils.getRoleName(this.caller.projectId, target)
-      .then((targetName) => {
-        const msgType = result.HIT
-          ? BattleshipConstants.HIT
-          : BattleshipConstants.MISS;
-        const data = {
-          role: targetName,
-          row: row + 1,
-          column: column + 1,
-          ship: result.SHIP,
-          sunk: result.SUNK,
-        };
-        this.socket.sendMessageToRoom(msgType, data);
-        this.response.send(!!result);
-        return !!result;
-      });
+    const targetName = await Utils.getRoleName(
+      await this.caller.getRoomState(),
+      target,
+    );
+
+    const msgType = result.HIT
+      ? BattleshipConstants.HIT
+      : BattleshipConstants.MISS;
+
+    const data = {
+      role: targetName,
+      row: row + 1,
+      column: column + 1,
+      ship: result.SHIP,
+      sunk: result.SUNK,
+    };
+    this.socket.sendMessageToRoom(msgType, data);
   }
 
   this.response.send(!!result);
@@ -227,21 +228,16 @@ Battleship.prototype.fire = function (row, column) {
  * @returns {Integer} Number of remaining ships
  */
 Battleship.prototype.remainingShips = async function (roleName) {
+  let role;
+
   if (roleName) { // resolve the provided role name to a role ID
-    const metadata = await NetsBloxCloud.getRoomState(this.caller.projectId);
-    const role = Object.keys(metadata.roles).find((id) => {
+    const metadata = await this.caller.getRoomState();
+    role = Object.keys(metadata.roles).find((id) => {
       return metadata.roles[id].name === roleName;
     });
-
-    if (!this._state._boards[role]) {
-      logger.error(`board doesn't exist for "${role}"`);
-      this._state._boards[role] = new Board(BOARD_SIZE);
-    }
-
-    return this._state._boards[role].remaining();
+  } else {
+    role = await this.caller.getRoleId();
   }
-
-  const role = this.caller.roleId;
 
   if (!this._state._boards[role]) {
     logger.error(`board doesn't exist for "${role}"`);

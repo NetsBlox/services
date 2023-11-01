@@ -60,14 +60,9 @@ RoboScape.serviceName = "RoboScape";
 // keeps a dictionary of robot objects keyed by mac_addr
 RoboScape.prototype._robots = {};
 
-RoboScape.prototype._ensureLoggedIn = function () {
-  if (this.caller.username !== undefined) {
-    throw new Error("Login required.");
-  }
-};
-
 RoboScape.prototype._ensureAuthorized = async function (robotId) {
-  await acl.ensureAuthorized(this.caller.username, robotId);
+  const username = await this.caller.getUsername();
+  await acl.ensureAuthorized(username, robotId);
 };
 
 // fetch the robot and updates its address. creates one if necessary
@@ -188,7 +183,7 @@ RoboScape.prototype.listen = async function (robots) {
 RoboScape.prototype.getRobots = async function () {
   const availableRobots = Object.keys(this._robots);
   let robots = await acl.authorizedRobots(
-    this.caller.username,
+    await this.caller.getUsername(),
     availableRobots,
   );
   return robots;

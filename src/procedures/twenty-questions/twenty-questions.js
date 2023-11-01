@@ -25,14 +25,14 @@ TwentyQuestions.prototype._ensureGameStarted = function (started = true) {
 };
 
 TwentyQuestions.prototype._ensureCallerIsAnswerer = function () {
-  if (this.caller.roleId !== this._state.answerer) {
+  if (this.caller.clientId !== this._state.answerer) {
     const msg = "You're not the answerer!";
     throw new Error(msg);
   }
 };
 
 TwentyQuestions.prototype._ensureCallerIsGuesser = function () {
-  if (this.caller.roleId === this._state.answerer) {
+  if (this.caller.clientId === this._state.answerer) {
     const msg = "You're not the guesser!";
     throw new Error(msg);
   }
@@ -51,7 +51,7 @@ TwentyQuestions.prototype.start = function (answer) {
   this._state.started = true;
   this._state.guessCount = 0;
   this._state.correctAnswer = answer.toLowerCase();
-  this._state.answerer = this.caller.roleId;
+  this._state.answerer = this.caller.clientId;
   this.socket.sendMessageToRoom("start");
   return true;
 };

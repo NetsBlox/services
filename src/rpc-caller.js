@@ -3,21 +3,96 @@
  * such as project ID, role ID, username, etc.
  */
 
-class RpcCaller {
-  constructor(clientId, username) {
+class ExternalCallerNotAllowed extends Error {
+  constructor(appId) {
+    super(`RPC must be called from NetsBlox (not ${appId})`);
+  }
+}
+
+class LoginRequired extends Error {
+  constructor() {
+    super("Login Required.");
+  }
+}
+
+class Unimplemented extends Error {
+  constructor() {
+    super("Unimplemented!");
+  }
+}
+
+class RpcCallerBase {
+  constructor(clientId) {
     this.clientId = clientId;
-    this.username = username;
-    // TODO: merge with the socket
-    // TODO: fetch API key from this?
   }
 
-  isLoggedIn() {
-    return !!this.username;
+  /**
+   * Get the username of the caller.
+   *
+   * Throws/rejects if unauthenticated and guest usage is not allowed.
+   * @param {boolean=} allowGuest
+   */
+  async getUsername(allowGuest = false) {
+    const { username } = await this.getClientInfo();
+    if (!username && !allowGuest) {
+      throw new LoginRequired();
+    }
+    return username;
+  }
+
+  async isLoggedIn() {
+    const username = await this.getUsername();
+    return !!username;
+  }
+
+  async ensureLoggedIn() {
+    if (!await this.isLoggedIn()) {
+      throw new LoginRequired();
+    }
+  }
+
+  /**
+   * Get the role ID of the caller.
+   *
+   * Throws/rejects if caller is using an external client such as PyBlox.
+   */
+  async getRoleId() {
+    return (await this._getBrowserState()).roleId;
+  }
+
+  /**
+   * Get the project ID of the caller.
+   *
+   * Throws/rejects if caller is using an external client such as PyBlox.
+   */
+  async getProjectId() {
+    return (await this._getBrowserState()).projectId;
+  }
+
+  async getClientState() {
+    const { state } = await this.getClientInfo();
+    return state;
+  }
+
+  // private methods
+  async _getBrowserState() {
+    const state = await this.getClientState();
+    const browserState = state?.browser;
+
+    if (!browserState) { // TODO: test this error message
+      if (state?.external) {
+        throw new ExternalCallerNotAllowed(state.external.appId);
+      } else {
+        // FIXME: "state not found" type of error
+        throw new ExternalCallerNotAllowed(state.external.appId);
+      }
+    }
+    return browserState;
   }
 
   async getClientInfo() {
     if (!this.clientInfo) {
-      this.clientInfo = Object.freeze(await cloud.getClientInfo(this.clientId));
+      this.clientInfo = Object.freeze(await this._getClientInfo());
     }
 
     return this.clientInfo;
@@ -28,11 +103,12 @@ class RpcCaller {
     const projectId = state?.browser?.projectId;
 
     if (!this.roomState && projectId) {
-      this.roomState = Object.freeze(await cloud.getRoomState(projectId));
+      this.roomState = Object.freeze(await this._getRoomState(projectId));
     }
 
     return this.roomState;
   }
+
   async getAddress() {
     const { state } = await this.getClientInfo();
     if (!state) {
@@ -53,49 +129,85 @@ class RpcCaller {
     }
   }
 
-  // TODO: refactor this so it lazily fetches the context
-  // await caller.getClientState()
-  // await caller.getUsername()
-  // caller.clientId
+  async toSnapshot() {
+    const clientInfo = await this.getClientInfo();
+    const roomState = await this.getRoomState();
+    return new SnapshotCaller(this.clientId, clientInfo, roomState);
+  }
+
+  // the following are abstract methods
+  async _getClientInfo() {
+    throw new Unimplemented();
+  }
+
+  async _getRoomState(projectId) {
+    throw new Unimplemented();
+  }
+}
+
+class RpcCaller {
+  async _getClientInfo() {
+    return await cloud.getClientInfo(this.clientId);
+  }
+
+  async _getRoomState(projectId) {
+    return await cloud.getRoomState(projectId);
+  }
+
   static from(req) {
     const { clientId } = req.query;
-    if (!req.clientState) {
-      // TODO: lazily request these
-      //const { username, state } = await cloud.getClientInfo(clientId);
-      req.clientState = state;
-      req.username = username;
-    }
-    const projectId = state?.browser?.projectId;
-    const roleId = state?.browser?.roleId;
-    //{
-    // username,
-    // projectId,
-    // roleId,
-    // clientId,
-    //};
+    return new RpcCaller(clientId);
   }
 }
 
-class BrowserState {
-  constructor(projectId, roleId) {
-    this.projectId = projectId;
-    this.roleId = roleId;
+/**
+ * A snapshot of an RPC caller with all the fields set (but exposes the same interface)
+ */
+class CallerSnapshot {
+  constructor(clientId, clientInfo, roomState) {
+    super(clientId);
+    this.clientInfo = clientInfo;
+    this.roomState = roomState;
   }
 
-  toString() {
-    return `${this.address}#${this.appId}`;
+  async _getClientInfo() {
+    return this.clientInfo;
+  }
+
+  async _getRoomState(projectId) {
+    return this.roomState;
+  }
+
+  setUsername(username) { // TODO: add test
+    this.clientInfo.username = username;
+  }
+
+  load(data) {
+    return new CallerSnapshot(data.clientId, data.clientInfo, data.roomState);
   }
 }
 
-class ExternalState {
-  constructor(address, appId) {
-    this.address = address;
-    this.appId = appId;
-  }
+// class BrowserState {
+//   constructor(projectId, roleId) {
+//     this.projectId = projectId;
+//     this.roleId = roleId;
+//   }
 
-  toString() {
-    return `${this.address}#${this.appId}`;
-  }
-}
+//   toString() {
+//     return `${this.address}#${this.appId}`;
+//   }
+// }
+
+// class ExternalState {
+//   constructor(address, appId) {
+//     this.address = address;
+//     this.appId = appId;
+//   }
+
+//   toString() {
+//     return `${this.address}#${this.appId}`;
+//   }
+// }
 
 module.exports = RpcCaller;
+module.exports.CallerSnapshot = CallerSnapshot;

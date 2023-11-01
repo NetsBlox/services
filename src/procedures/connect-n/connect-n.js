@@ -43,7 +43,7 @@ ConnectN.prototype.newGame = function (row, column, numDotsToConnect) {
   );
 
   logger.info(
-    this.caller.roleId +
+    this.caller.clientId +
       " is clearing board and creating a new one with size: ",
     this._state.numRow,
     ", ",
@@ -70,11 +70,11 @@ ConnectN.prototype.newGame = function (row, column, numDotsToConnect) {
  * @param {Integer} column The given column at which to move
  */
 ConnectN.prototype.play = async function (row, column) {
-  const { projectId, roleId } = this.caller;
   if (this._state._winner) {
     throw new Error("The game is over!");
   }
 
+  const roleId = await this.caller.getRoleId();
   if (this._state.lastMove === roleId) {
     throw new Error("Trying to play twice in a row!");
   }
@@ -106,7 +106,10 @@ ConnectN.prototype.play = async function (row, column) {
   );
   this._state._winner = winnerId;
 
-  const roleNames = await Utils.getRoleNames(projectId, [roleId, winnerId]);
+  const roleNames = await Utils.getRoleNames(
+    await this.caller.getRoomState(),
+    [roleId, winnerId],
+  );
   // Send the play message to everyone!
   const [roleName, winnerRoleName] = roleNames;
   const msgContents = {

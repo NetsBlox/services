@@ -85,13 +85,8 @@ const encodeQueryData = (query, encode = true) => {
   return ret.join("&");
 };
 
-const getRoleNames = async (projectId, roleIds) => {
+const getRoleNames = (metadata, roleIds) => {
   roleIds = roleIds.filter((id) => !!id);
-  const metadata = await cloud.getRoomState(projectId);
-  if (!metadata) {
-    throw new Error("Project not found");
-  }
-
   try {
     return roleIds.map((id) => metadata.roles[id].name);
   } catch (err) {
@@ -99,13 +94,12 @@ const getRoleNames = async (projectId, roleIds) => {
   }
 };
 
-const getRoleName = async (projectId, roleId) => {
-  const [name] = await getRoleNames(projectId, [roleId]);
+const getRoleName = (metadata, roleId) => {
+  const [name] = getRoleNames(projectId, [roleId]);
   return name;
 };
 
-const getRoleIds = async (projectId) => {
-  const metadata = await cloud.getRoomState(projectId);
+const getRoleIds = async (metadata) => {
   return Object.keys(metadata.roles);
 };
 

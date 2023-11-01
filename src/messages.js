@@ -19,13 +19,7 @@ class SendMessage extends Message {
 }
 
 class SendMessageToClient extends Message {
-  constructor(projectId, roleId, clientId, type, contents) {
-    const state = {
-      browser: {
-        projectId,
-        roleId,
-      },
-    };
+  constructor(state, clientId, type, contents) {
     const target = { client: { state, clientId } };
     super(target, type, contents);
   }

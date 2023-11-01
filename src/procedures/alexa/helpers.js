@@ -31,16 +31,10 @@ function clarifyError(error) {
   return error;
 }
 
-const ensureLoggedIn = function (caller) {
-  if (!caller.username) {
-    throw new Error("Login required.");
-  }
-};
-
 const getAPIClient = async function (caller) {
-  ensureLoggedIn(caller);
+  const username = await caller.getUsername();
   const collection = GetStorage().tokens;
-  const tokens = await collection.findOne({ username: caller.username });
+  const tokens = await collection.findOne({ username });
   if (!tokens) {
     throw new Error("Amazon Login required. Please login.");
   }

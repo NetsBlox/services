@@ -18,16 +18,13 @@ class AlexaSkill {
       .find((intentConfig) => intentConfig.name === name);
 
     const handlerXML = intentConfig.handler;
-    const context = this.skillData.context;
+    const context = CallerSnapshot.from(this.skillData.context);
     if (username) {
-      context.username = username;
+      context.setUsername(username);
     }
-    // TODO: update this
+
     const socket = new RemoteClient(
-      context.projectId,
-      context.roleId,
-      null,
-      username,
+      context,
     );
 
     const handler = await InputTypes.parse.Function(handlerXML, null, {

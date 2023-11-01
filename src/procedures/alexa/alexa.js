@@ -46,7 +46,8 @@ Alexa.createSkill = async function (configuration) {
 
   const vendorId = await h.getVendorID(smapiClient);
 
-  const manifest = schemas.manifest(this.caller.username, configuration);
+  const username = await this.caller.getUsername();
+  const manifest = schemas.manifest(username, configuration);
   const interactionModel = schemas.interactionModel(configuration);
   const accountLinkingRequest = schemas.accountLinking();
 
@@ -77,8 +78,8 @@ Alexa.createSkill = async function (configuration) {
   await skills.updateOne({ _id: skillId }, {
     $set: {
       config: configuration,
-      context: this.caller,
-      author: this.caller.username,
+      context: await this.caller.toSnapshot(),
+      author: await this.caller.getUsername(),
       createdAt: new Date(),
     },
   }, { upsert: true });
@@ -128,7 +129,7 @@ Alexa.invokeSkill = async function (id, utterance) {
 Alexa.deleteSkill = async function (id) {
   const { skills } = GetStorage();
   const skillData = await h.getSkillData(id);
-  if (skillData.author !== this.caller.username) {
+  if (skillData.author !== await this.caller.getUsername()) {
     throw new Error("Unauthorized: Skills can only be deleted by the author.");
   }
 
@@ -152,7 +153,9 @@ Alexa.deleteSkill = async function (id) {
  */
 Alexa.listSkills = async function () {
   const { skills } = GetStorage();
-  const skillConfigs = await skills.find({ author: this.caller.username })
+  const skillConfigs = await skills.find({
+    author: await this.caller.getUsername(),
+  })
     .toArray();
   return skillConfigs.map((skill) => skill._id);
 };
@@ -202,8 +205,8 @@ Alexa.updateSkill = async function (id, configuration) {
   await skills.updateOne({ _id: id }, {
     $set: {
       config: configuration,
-      context: this.caller,
-      author: this.caller.username,
+      context: await this.caller.toSnapshot(),
+      author: await this.caller.getUsername(),
       updatedAt: new Date(),
     },
   }, { upsert: true });

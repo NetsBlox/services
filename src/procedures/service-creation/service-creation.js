@@ -35,14 +35,8 @@ const toUpperCamelCase = (name) => {
     .map((word) => word[0].toUpperCase() + word.slice(1)).join("");
 };
 
-const ensureLoggedIn = function (caller) {
-  if (!caller.username) {
-    throw new Error("Login required.");
-  }
-};
-
-const isAuthorized = (caller, service) => {
-  return !service || caller.username === service.author;
+const isAuthorized = async (username, service) => {
+  return !service || username === service.author;
 };
 
 const fs = require("fs");
@@ -130,11 +124,11 @@ ServiceCreation._cleanDataset = (data) => {
  *
  * @param {Array} data 2D list of data
  */
-ServiceCreation.getCreateFromTableOptions = function (data) {
-  ensureLoggedIn(this.caller);
+ServiceCreation.getCreateFromTableOptions = async function (data) {
   data = this._cleanDataset(data);
   validateDataset(data);
 
+  const username = await this.caller.getUsername();
   const fields = data[0];
   const indexField = fields[0];
   const dataVariable = getVariableNameForData(fields);
@@ -214,7 +208,7 @@ ServiceCreation.getCreateFromTableOptions = function (data) {
   }
 
   return {
-    help: `Dataset uploaded by ${this.caller.username}`,
+    help: `Dataset uploaded by ${username}`,
     RPCs: rpcOptions,
   };
 };
@@ -273,12 +267,12 @@ const getBlockArgs = (blockXml) => {
  * @param {Object=} options Options (for details, check out :func:`ServiceCreation.getCreateFromTableOptions`)
  */
 ServiceCreation.createServiceFromTable = async function (name, data, options) {
-  ensureLoggedIn(this.caller);
   const defaultOptions = this.getCreateFromTableOptions(data);
   options = resolveOptions(options, defaultOptions);
 
   assertValidIdent(name);
 
+  const username = await this.caller.getUsername();
   const methods = options.RPCs.map((rpc) => {
     const { name, help = "", code, query, transform, combine, initialValue } =
       rpc;
@@ -320,7 +314,7 @@ ServiceCreation.createServiceFromTable = async function (name, data, options) {
     name,
     type: "DataService",
     help: options.help,
-    author: this.caller.username,
+    author: username,
     createdAt: new Date(),
     data,
     methods,
@@ -329,7 +323,7 @@ ServiceCreation.createServiceFromTable = async function (name, data, options) {
   const storage = getDatabase();
   const existingService = await storage.findOne({ name });
   if (
-    !isAuthorized(this.caller, existingService) || !isValidServiceName(name)
+    !isAuthorized(username, existingService) || !isValidServiceName(name)
   ) {
     throw new Error(
       `Service with name "${name}" already exists. Please choose a different name.`,
@@ -356,15 +350,15 @@ ServiceCreation.createServiceFromTable = async function (name, data, options) {
  * @param {String} name Service name
  */
 ServiceCreation.deleteService = async function (name) {
-  ensureLoggedIn(this.caller);
+  const username = await this.caller.getUsername();
   const storage = getDatabase();
   const existingService = await storage.findOne({ name });
-  if (!isAuthorized(this.caller, existingService)) {
+  if (!isAuthorized(username, existingService)) {
     throw new Error(
       `Not allowed to delete ${name}. Only the author can do that!`,
     );
   }
-  await storage.deleteOne({ name, author: this.caller.username });
+  await storage.deleteOne({ name, author: username });
   return ServiceEvents.emit(ServiceEvents.DELETE, name).shift();
 };
 

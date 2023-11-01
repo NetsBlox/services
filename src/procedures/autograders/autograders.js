@@ -93,11 +93,6 @@ const validateTest = (testConfig) => {
   }
 };
 
-const ensureLoggedIn = function (caller) {
-  if (!caller.username) {
-    throw new Error("Login required.");
-  }
-};
 const Autograders = {};
 
 /**
@@ -106,10 +101,9 @@ const Autograders = {};
  * @param {Object} configuration
  */
 Autograders.createAutograder = async function (config) {
-  ensureLoggedIn(this.caller);
   config = preprocessConfig(config);
   const { autograders } = getDatabase();
-  const author = this.caller.username;
+  const author = await this.caller.getUsername();
   const extension = {
     type: "Autograder",
     name: config.name,
@@ -143,9 +137,8 @@ Autograders.createAutograder = async function (config) {
  * @param {String} consumer - name of the consumer to add (eg, Coursera)
  */
 Autograders.addLTIConsumer = async function (autograder, consumer) {
-  ensureLoggedIn(this.caller);
   const { autograders } = getDatabase();
-  const author = this.caller.username;
+  const author = await this.caller.getUsername();
   try {
     const secret = uuid.v4();
     const consumerData = {
@@ -209,9 +202,8 @@ Autograders.addLTIConsumer = async function (autograder, consumer) {
  * @param {String} autograder - name of the autograder to update
  */
 Autograders.getLTIConsumers = async function (autograder) {
-  ensureLoggedIn(this.caller);
   const { autograders } = getDatabase();
-  const author = this.caller.username;
+  const author = await this.caller.getUsername();
   const grader = await autograders.findOne(
     { author, name: autograder },
   );
@@ -232,9 +224,8 @@ Autograders.getLTIConsumers = async function (autograder) {
  * @param {String} consumer - name of the consumer to add (eg, Coursera)
  */
 Autograders.removeLTIConsumer = async function (autograder, consumer) {
-  ensureLoggedIn(this.caller);
   const { autograders } = getDatabase();
-  const author = this.caller.username;
+  const author = await this.caller.getUsername();
   const grader = await autograders.findOne(
     { author, name: autograder },
   );
@@ -259,8 +250,7 @@ Autograders.removeLTIConsumer = async function (autograder, consumer) {
  * List the autograders for the given user.
  */
 Autograders.getAutograders = async function () {
-  ensureLoggedIn(this.caller);
-  const author = this.caller.username;
+  const author = await this.caller.getUsername();
   const { autograders } = getDatabase();
   const options = {
     projection: { name: 1 },
@@ -275,8 +265,7 @@ Autograders.getAutograders = async function () {
  * @param {String} name
  */
 Autograders.getAutograderConfig = async function (name) {
-  ensureLoggedIn(this.caller);
-  const author = this.caller.username;
+  const author = await this.caller.getUsername();
   const { autograders } = getDatabase();
   const autograder = await autograders.findOne({ author, name });
   if (!autograder) {

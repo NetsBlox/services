@@ -138,7 +138,8 @@ DailyWordGuess._getTodaysDate = function () {
 DailyWordGuess._getUserState = async function (caller) {
   const { games } = GetStorage();
   const date = DailyWordGuess._getTodaysDate();
-  const query = { date, caller: caller.username || caller.clientId };
+  const callerId = (await caller.getUsername(true)) || caller.clientId;
+  const query = { date, caller: callerId };
   const initialState = Object.assign({ tries: 6 }, query);
   const update = { "$setOnInsert": initialState };
   const options = { upsert: true };
@@ -156,7 +157,8 @@ DailyWordGuess._setUserState = async function (caller, newState) {
   const { games } = GetStorage();
 
   const date = DailyWordGuess._getTodaysDate();
-  const query = { date, caller: caller.username || caller.clientId };
+  const callerId = (await caller.getUsername(true)) || caller.clientId;
+  const query = { date, caller: callerId };
   const update = { "$set": newState, "$setOnInsert": query };
   const options = { upsert: true };
   await games.updateOne(query, update, options);
