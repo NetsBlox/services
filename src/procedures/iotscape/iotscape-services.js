@@ -223,16 +223,6 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
   const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
   const responseType = methodInfo.returns.type;
 
-  // No response required
-  if (responseType.length < 1 || responseType[0] == "void") {
-    return;
-  }
-
-  // Event response type
-  if (responseType[0].startsWith("event")) {
-    return;
-  }
-
   // Expects a value response
   let attempt = (resolve) => {
     const rinfo = IoTScapeServices.getInfo(service, id);
@@ -257,7 +247,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     }, 3000);
   };
 
-  return Promise.race([
+  let promise = Promise.race([
     new Promise(attempt),
     new Promise(timeout),
   ]).then((result) => result).catch(() => {
@@ -270,6 +260,18 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
       throw new Error("Response timed out.");
     });
   });
+  
+  // No response required
+  if (responseType.length < 1 || responseType[0] == "void") {
+    return;
+  }
+
+  // Event response type
+  if (responseType[0].startsWith("event")) {
+    return;
+  }
+
+  return promise;
 };
 
 IoTScapeServices.start = function (socket) {
