@@ -260,7 +260,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
       throw new Error("Response timed out.");
     });
   });
-  
+
   // No response required
   if (responseType.length < 1 || responseType[0] == "void") {
     return;
