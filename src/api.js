@@ -171,7 +171,8 @@ class ServicesAPI {
   }
 
   async invokeRPC(serviceName, rpcName, request, response) {
-    const caller = RpcCaller.from(request);
+    const { clientId } = req.query;
+    const caller = new RpcCaller(NetsBloxCloud, clientId);
     this.logger.info(
       `Received request to ${serviceName} for ${rpcName} (from ${caller.clientId})`,
     );

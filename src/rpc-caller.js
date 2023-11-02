@@ -154,17 +154,17 @@ class RpcCallerBase {
 }
 
 class RpcCaller extends RpcCallerBase {
+  constructor(cloud, clientId) {
+    super(clientId);
+    this.cloud = cloud;
+  }
+
   async _getClientInfo() {
-    return await cloud.getClientInfo(this.clientId);
+    return await this.cloud.getClientInfo(this.clientId);
   }
 
   async _getRoomState(projectId) {
-    return await cloud.getRoomState(projectId);
-  }
-
-  static from(req) {
-    const { clientId } = req.query;
-    return new RpcCaller(clientId);
+    return await this.cloud.getRoomState(projectId);
   }
 }
 
