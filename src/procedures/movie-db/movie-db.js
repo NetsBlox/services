@@ -22,8 +22,8 @@ ApiConsumer.setRequiredApiKey(MovieDB, TheMovieDBKey);
 MovieDB._callApiMethod = async function (method, query) {
   const client = new MovieDBClient(this.apiKey.value);
   try {
-    const results = await ninvoke(client, method, query);
-    return results[0];
+    const response = await ninvoke(client, method, query);
+    return response;
   } catch (err) {
     if (err.message.includes("Unauthorized")) {
       throw new InvalidKeyError(this.apiKey);

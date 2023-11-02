@@ -254,6 +254,19 @@ function isProfane(text) {
     );
 }
 
+async function ninvoke(obj, method, ...args) {
+  return new Promise((resolve, reject) => {
+    const callback = (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    };
+    args.push(callback);
+    obj[method](...args);
+  });
+}
+
 module.exports = {
   serialize,
   serializeArray,
@@ -279,4 +292,5 @@ module.exports = {
   isValidIdent,
   profaneChecker,
   isProfane,
+  ninvoke,
 };
