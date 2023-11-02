@@ -99,7 +99,7 @@ CloudVariables._setMaxLockAge = function (age) { // for testing
  */
 CloudVariables.getVariable = async function (name, password) {
   const { sharedVars } = getCollections();
-  const username = await this.caller.getUsername();
+  const username = await this.caller.getUsernameOrClientId();
   const variable = await sharedVars.findOne({ name: name });
 
   ensureVariableExists(variable);
@@ -140,7 +140,7 @@ CloudVariables.setVariable = async function (name, value, password) {
   validateContentSize(value);
 
   const { sharedVars } = getCollections();
-  const username = await this.caller.getUsername();
+  const username = await this.caller.getUsernameOrClientId();
   const variable = await sharedVars.findOne({ name: name });
 
   ensureAuthorized(variable, password);
@@ -194,7 +194,7 @@ CloudVariables.lockVariable = async function (name, password) {
   validateVariableName(name);
 
   const { sharedVars } = getCollections();
-  const username = await this.caller.getUsername();
+  const username = await this.caller.getUsernameOrClientId();
   const clientId = this.caller.clientId;
   const variable = await sharedVars.findOne({ name: name });
 
@@ -216,7 +216,7 @@ CloudVariables.lockVariable = async function (name, password) {
 
 CloudVariables._queueLockFor = async function (variable) {
   // Return a promise which will resolve when the lock is applied
-  const username = await this.caller.getUsername();
+  const username = await this.caller.getUsernameOrClientId();
   const deferred = utils.defer();
   const id = variable._id;
   const { password } = variable;

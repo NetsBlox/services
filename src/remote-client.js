@@ -7,7 +7,6 @@ const {
 const NetsBloxCloud = require("./cloud-client");
 
 class RemoteClient {
-  // FIXME: should I pass the caller here??
   constructor(caller) {
     this.context = caller;
   }
@@ -16,7 +15,6 @@ class RemoteClient {
    * Send a message to the RPC caller.
    */
   async sendMessage(type, contents = {}) {
-    // TODO: how can I support external clients here, too?
     const state = await this.context.getClientState();
     return NetsBloxCloud.sendMessage(
       new SendMessageToClient(

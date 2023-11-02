@@ -267,7 +267,7 @@ const getBlockArgs = (blockXml) => {
  * @param {Object=} options Options (for details, check out :func:`ServiceCreation.getCreateFromTableOptions`)
  */
 ServiceCreation.createServiceFromTable = async function (name, data, options) {
-  const defaultOptions = this.getCreateFromTableOptions(data);
+  const defaultOptions = await this.getCreateFromTableOptions(data);
   options = resolveOptions(options, defaultOptions);
 
   assertValidIdent(name);

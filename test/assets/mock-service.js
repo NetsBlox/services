@@ -8,6 +8,7 @@ const utils = require("./utils");
 const Logger = utils.reqSrc("logger");
 const getArgsFor = utils.reqSrc("utils").getArgumentsFor;
 const Constants = utils.reqSrc("constants");
+const { CallerSnapshot } = utils.reqSrc("rpc-caller");
 let logger;
 
 class MockService {
@@ -71,12 +72,17 @@ class MockService {
       ctx.socket = this.socket;
       ctx.response = this.response;
       ctx.request = this.request;
-      ctx.caller = {
-        roleId: this.socket.roleId,
-        clientId: this.socket.uuid,
+
+      const clientInfo = {
         username: this.socket.username,
-        projectId: this.socket.projectId || "testProject",
+        state: {
+          browser: {
+            roleId: this.socket.roleId,
+            projectId: this.socket.projectId || "testProject",
+          },
+        },
       };
+      ctx.caller = new CallerSnapshot(this.socket.uuid, clientInfo, {});
       ctx.apiKey = this.apiKey;
       const args = JSON.stringify(Array.prototype.slice.call(arguments));
       const id = ctx.caller.clientId || "new client";
@@ -124,9 +130,8 @@ class MockRemoteClient {
   }
 }
 
-MockRemoteClient.prototype.sendMessage =
-  MockRemoteClient.prototype.sendMessageToRoom =
-    function () {
-    };
+MockRemoteClient.prototype.sendMessage = MockRemoteClient.prototype
+  .sendMessageToRoom = function () {
+  };
 
 module.exports = MockService;

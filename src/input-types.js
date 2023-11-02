@@ -452,7 +452,8 @@ defineType({
     let factory = blocks2js.compile(blockXml);
     let env = blocks2js.newContext();
     env.__start = function (project) {
-      project.ctx = ctx;
+      const defaultCtx = { caller: {} };
+      project.ctx = ctx || defaultCtx;
 
       // ctx.caller is expected to provide sync access to things like projectId, roleId, username
       // polyfill it for now

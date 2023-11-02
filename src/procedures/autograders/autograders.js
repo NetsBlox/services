@@ -101,9 +101,9 @@ const Autograders = {};
  * @param {Object} configuration
  */
 Autograders.createAutograder = async function (config) {
+  const author = await this.caller.getUsername();
   config = preprocessConfig(config);
   const { autograders } = getDatabase();
-  const author = await this.caller.getUsername();
   const extension = {
     type: "Autograder",
     name: config.name,

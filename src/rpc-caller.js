@@ -40,6 +40,14 @@ class RpcCallerBase {
     return username;
   }
 
+  /**
+   * Get the username of the caller. If not logged in, return the client ID.
+   */
+  async getUsernameOrClientId() {
+    const { username } = await this.getClientInfo();
+    return username || this.clientId;
+  }
+
   async isLoggedIn() {
     const username = await this.getUsername();
     return !!username;
@@ -145,7 +153,7 @@ class RpcCallerBase {
   }
 }
 
-class RpcCaller {
+class RpcCaller extends RpcCallerBase {
   async _getClientInfo() {
     return await cloud.getClientInfo(this.clientId);
   }
@@ -163,7 +171,7 @@ class RpcCaller {
 /**
  * A snapshot of an RPC caller with all the fields set (but exposes the same interface)
  */
-class CallerSnapshot {
+class CallerSnapshot extends RpcCallerBase {
   constructor(clientId, clientInfo, roomState) {
     super(clientId);
     this.clientInfo = clientInfo;
@@ -178,36 +186,14 @@ class CallerSnapshot {
     return this.roomState;
   }
 
-  setUsername(username) { // TODO: add test
+  setUsername(username) {
     this.clientInfo.username = username;
   }
 
-  load(data) {
+  static load(data) {
     return new CallerSnapshot(data.clientId, data.clientInfo, data.roomState);
   }
 }
-
-// class BrowserState {
-//   constructor(projectId, roleId) {
-//     this.projectId = projectId;
-//     this.roleId = roleId;
-//   }
-
-//   toString() {
-//     return `${this.address}#${this.appId}`;
-//   }
-// }
-
-// class ExternalState {
-//   constructor(address, appId) {
-//     this.address = address;
-//     this.appId = appId;
-//   }
-
-//   toString() {
-//     return `${this.address}#${this.appId}`;
-//   }
-// }
 
 module.exports = RpcCaller;
 module.exports.CallerSnapshot = CallerSnapshot;
