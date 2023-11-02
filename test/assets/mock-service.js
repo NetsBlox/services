@@ -130,8 +130,10 @@ class MockRemoteClient {
   }
 }
 
-MockRemoteClient.prototype.sendMessage = MockRemoteClient.prototype
-  .sendMessageToRoom = function () {
-  };
+MockRemoteClient.prototype.sendMessage =
+  MockRemoteClient.prototype
+    .sendMessageToRoom =
+    function () {
+    };
 
 module.exports = MockService;
