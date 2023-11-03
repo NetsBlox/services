@@ -3000,6 +3000,18 @@
       "Path": "./SoundLibrary/Drums/Claps/DSSxDP_Control_DX_Clap.mp3",
       "packName": "DSSxDP",
       "soundName": "DSSxDP_Control_DX_Clap"
+    },
+    {
+      "Instrument": "HI-HAT",
+      "Path": "./SoundLibrary/Drums/Hats/50s_Hats_Tight_Condenser_3.mp3",
+      "packName": "DSSxDP",
+      "soundName": "50s_Hats_Tight_Condenser_3"
+    },
+    {
+      "Instrument": "HI-HAT",
+      "Path": "./SoundLibrary/Drums/Hats/DISTORT_Grampian_808_Hat_1.mp3",
+      "packName": "DSSxDP",
+      "soundName": "DISTORT_Grampian_808_Hat_1"
     }
   ]
 }

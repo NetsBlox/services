@@ -13,6 +13,7 @@ const path = require("path");
 const utils = require("../utils/index");
 const MusicApp = {};
 const soundLibrary = require("./soundLibrary.json");
+const drumLibrary = require("./drumSoundLibrary.json");
 
 registerTypes();
 
@@ -40,6 +41,39 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
   }
 
   return names;
+};
+
+
+/**
+ * Get sounds based on query.
+ * @param {DrumPackName=} PackName
+ * @param {DrumOneShotTypes=} DrumType
+ * @returns {String}
+ */
+MusicApp.getDrumOneShotNames = async function (
+  PackName = "",
+  DrumType = "",
+) {
+  var names = [];
+  let queriedJSON = "";
+
+  return "GOT HERE";
+
+  // //Ensure at least one field is selected
+  // if (PackName !== "" || DrumType !== "") {
+  //   queriedJSON = drumLibrary.drumSoundLibrarySoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
+  //     return (PackName === "" || obj.packName === PackName) &&
+  //       (DrumType === "" || obj.Instrument === DrumType);
+  //   });
+  // } else {
+  //   throw Error("At least one field must be selected");
+  // }
+
+  // //Convert JSON to array of String names
+  // for (let i = 0; i < queriedJSON.length; i++) {
+  //   names.push(queriedJSON[i].soundName);
+  // }
+  // return names;
 };
 
 /**
