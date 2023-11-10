@@ -14,11 +14,15 @@ const utils = require("../utils/index");
 const MusicApp = {};
 const soundLibrary = require("./soundLibrary.json");
 const drumLibrary = require("./drumSoundLibrary.json");
+const masterSoundLibrary = [
+  ...soundLibrary.netsbloxSoundLibrary,
+  ...drumLibrary.drumSoundLibrary,
+];
 
 registerTypes();
 
 MusicApp._filetoBuffer = async function (audio_path) {
-  const data = fsp.readFile(audio_path);
+  const data = await fsp.readFile(audio_path);
   utils.sendAudioBuffer(this.response, data);
 };
 
@@ -57,23 +61,21 @@ MusicApp.getDrumOneShotNames = async function (
   var names = [];
   let queriedJSON = "";
 
-  return "GOT HERE";
+  //Ensure at least one field is selected
+  if (PackName !== "" || DrumType !== "") {
+    queriedJSON = drumLibrary.drumSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
+      return (PackName === "" || obj.packName === PackName) &&
+        (DrumType === "" || obj.Instrument === DrumType);
+    });
+  } else {
+    throw Error("At least one field must be selected");
+  }
 
-  // //Ensure at least one field is selected
-  // if (PackName !== "" || DrumType !== "") {
-  //   queriedJSON = drumLibrary.drumSoundLibrarySoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-  //     return (PackName === "" || obj.packName === PackName) &&
-  //       (DrumType === "" || obj.Instrument === DrumType);
-  //   });
-  // } else {
-  //   throw Error("At least one field must be selected");
-  // }
-
-  // //Convert JSON to array of String names
-  // for (let i = 0; i < queriedJSON.length; i++) {
-  //   names.push(queriedJSON[i].soundName);
-  // }
-  // return names;
+  //Convert JSON to array of String names
+  for (let i = 0; i < queriedJSON.length; i++) {
+    names.push(queriedJSON[i].soundName);
+  }
+  return names;
 };
 
 /**
@@ -118,11 +120,12 @@ MusicApp.getSoundNames = async function (
  * @param {String=} nameOfSound
  */
 MusicApp.nameToSound = async function (nameOfSound = "") {
-  const metadata = soundLibrary.netsbloxSoundLibrary
+  const metadata = masterSoundLibrary
     .find((obj) => obj.soundName === nameOfSound);
 
   if (metadata) {
     const audio_path = path.join(__dirname, metadata.Path);
+    console.log(audio_path);
     return this._filetoBuffer(audio_path);
   }
 };
