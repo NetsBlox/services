@@ -257,7 +257,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
       result,
     ) => result).catch(() => {
       logger.log("IoTScape request timed out again, giving up");
-      throw new Error("Response timed out.");
+      return "Response timed out.";
     });
   });
 
