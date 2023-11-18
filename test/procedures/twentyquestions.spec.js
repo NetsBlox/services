@@ -81,9 +81,9 @@ describe(utils.suiteName(__filename), function () {
 
       describe("for guesser", function () {
         beforeEach(function () {
-          twentyquestions.socket.roleId = "answerer";
+          twentyquestions.socket.uuid = "answerer";
           twentyquestions.start("books");
-          twentyquestions.socket.roleId = "guesser";
+          twentyquestions.socket.uuid = "guesser";
         });
 
         it("should return an error when invalid answer", function () {
@@ -101,15 +101,15 @@ describe(utils.suiteName(__filename), function () {
 
     describe("game started", function () {
       function switchRole() {
-        if (twentyquestions.socket.roleId === "guesser") {
-          twentyquestions.socket.roleId = "answerer";
+        if (twentyquestions.socket.uuid === "guesser") {
+          twentyquestions.socket.uuid = "answerer";
         } else {
-          twentyquestions.socket.roleId = "guesser";
+          twentyquestions.socket.uuid = "guesser";
         }
       }
       beforeEach(function () {
         twentyquestions.restart();
-        twentyquestions.socket.roleId = "answerer";
+        twentyquestions.socket.uuid = "answerer";
         twentyquestions.start("book shelf");
       });
 

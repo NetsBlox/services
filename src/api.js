@@ -9,6 +9,7 @@ const path = require("path");
 const routeUtils = require("./procedures/utils/router-utils");
 const NetsBloxCloud = require("./cloud-client");
 const { UserError } = require("./error");
+const RpcCaller = require("./rpc-caller");
 
 class ServicesAPI {
   constructor() {
@@ -85,7 +86,7 @@ class ServicesAPI {
 
     this.addServiceRoutes(router);
 
-    router.route("/").get((req, res) => {
+    router.route("/").get((_req, res) => {
       const metadata = Object.entries(this.services.metadata)
         .filter((nameAndMetadata) => this.isServiceLoaded(nameAndMetadata[0]))
         .map((pair) => {
@@ -169,35 +170,24 @@ class ServicesAPI {
     return false;
   }
 
-  async invokeRPC(serviceName, rpcName, req, res) {
+  async invokeRPC(serviceName, rpcName, request, response) {
     const { clientId } = req.query;
+    const caller = new RpcCaller(NetsBloxCloud, clientId);
     this.logger.info(
-      `Received request to ${serviceName} for ${rpcName} (from ${clientId})`,
+      `Received request to ${serviceName} for ${rpcName} (from ${caller.clientId})`,
     );
 
-    const ctx = {};
-    ctx.response = res;
-    ctx.request = req;
-    const { username, state } = await NetsBloxCloud.getClientInfo(clientId);
-    // TODO: add support for external states, too?
-    const projectId = state?.browser?.projectId;
-    const roleId = state?.browser?.roleId;
+    const ctx = { caller, request, response };
 
-    ctx.caller = {
-      username,
-      projectId,
-      roleId,
-      clientId,
-    };
     const apiKey = this.services.getApiKey(serviceName);
-    const isLoggedIn = !!username;
-    if (apiKey && isLoggedIn) {
+    if (apiKey && await caller.isLoggedIn()) {
       // TODO: handle invalid settings (parse error)
       const apiKeyValue = await this.keys.get(username, apiKey); // TODO: double check this
       if (apiKeyValue) {
         ctx.apiKey = apiKeyValue;
       }
     }
+    // TODO: move the socket over?
     ctx.socket = new RemoteClient(projectId, roleId, clientId);
 
     const args = this.getArguments(serviceName, rpcName, req);

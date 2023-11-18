@@ -153,22 +153,22 @@ describe(utils.suiteName(__filename), function () {
   describe("getCreateFromTableOptions", function () {
     before(() => service.setRequester("client_1", "brian"));
 
-    it("should support # symbol", function () {
+    it("should support # symbol", async function () {
       const data = toStringEntries([
         ["id", "# counted"],
         [1, 20],
       ]);
-      const options = service.getCreateFromTableOptions(data);
+      const options = await service.getCreateFromTableOptions(data);
       const rpcNames = options.RPCs.map((rpc) => rpc.name);
       assert(rpcNames.includes("get#CountedColumn"));
     });
 
-    it("should support $ symbol", function () {
+    it("should support $ symbol", async function () {
       const data = toStringEntries([
         ["id", "$ spent"],
         [1, 20],
       ]);
-      const options = service.getCreateFromTableOptions(data);
+      const options = await service.getCreateFromTableOptions(data);
       const rpcNames = options.RPCs.map((rpc) => rpc.name);
       assert(
         rpcNames.includes("get$SpentColumn"),
@@ -176,12 +176,12 @@ describe(utils.suiteName(__filename), function () {
       );
     });
 
-    it("should support % symbol", function () {
+    it("should support % symbol", async function () {
       const data = toStringEntries([
         ["id", "% of total"],
         [1, 20],
       ]);
-      const options = service.getCreateFromTableOptions(data);
+      const options = await service.getCreateFromTableOptions(data);
       const rpcNames = options.RPCs.map((rpc) => rpc.name);
       assert(
         rpcNames.includes("get%OfTotalColumn"),
@@ -189,12 +189,12 @@ describe(utils.suiteName(__filename), function () {
       );
     });
 
-    it("should support accented characters", function () {
+    it("should support accented characters", async function () {
       const data = toStringEntries([
         ["id", "érdös number"],
         [1, 20],
       ]);
-      const options = service.getCreateFromTableOptions(data);
+      const options = await service.getCreateFromTableOptions(data);
       const rpcNames = options.RPCs.map((rpc) => rpc.name);
       assert(
         rpcNames.includes("getÉrdösNumberColumn"),

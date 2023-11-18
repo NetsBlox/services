@@ -40,7 +40,7 @@ describe(utils.suiteName(__filename), function () {
       service.socket.username = null;
       await assert.rejects(
         () => service.createAutograder({}),
-        /Login required./,
+        /Login Required./,
       );
     });
 

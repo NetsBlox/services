@@ -159,7 +159,7 @@ types.defineType({
     }
 
     if (!device) throw Error("Device not found.");
-    await acl.ensureAuthorized(ctx.caller.username, deviceId);
+    await acl.ensureAuthorized(await ctx.caller.getUsername(), deviceId);
     return device;
   },
 });
@@ -179,12 +179,6 @@ const PhoneIoT = function () {
 PhoneIoT.serviceName = "PhoneIoT";
 // keeps a dictionary of device objects keyed by mac_addr
 PhoneIoT.prototype._devices = {};
-
-PhoneIoT.prototype._ensureLoggedIn = function () {
-  if (this.caller.username !== undefined) {
-    throw new Error("Login required.");
-  }
-};
 
 // fetch the device and updates its address. creates one if necessary
 PhoneIoT.prototype._getOrCreateDevice = function (
@@ -239,7 +233,7 @@ PhoneIoT.prototype._getRegistered = function () {
 PhoneIoT.prototype._getDevices = async function () {
   const availableDevices = Object.keys(this._devices);
   let devices = await acl.authorizedRobots(
-    this.caller.username,
+    await this.caller.getUsername(),
     availableDevices,
   );
   return devices;

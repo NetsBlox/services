@@ -44,29 +44,29 @@ describe(utils.suiteName(__filename), function () {
     });
 
     describe("errors", function () {
-      it("should return false for invalid/missing dir", function () {
-        var result = battleship.placeShip();
+      it("should return false for invalid/missing dir", async function () {
+        var result = await battleship.placeShip();
         assert.notEqual(result.indexOf("Invalid direction"), -1, result);
       });
 
-      it("should return false for invalid ship names", function () {
+      it("should return false for invalid ship names", async function () {
         var result;
 
-        result = battleship.placeShip("asdf", 2, 2, "north");
+        result = await battleship.placeShip("asdf", 2, 2, "north");
         assert.notEqual(result.indexOf("Invalid ship"), -1, result);
       });
 
-      it("should error for bad row/col", function () {
+      it("should error for bad row/col", async function () {
         var result;
 
-        result = battleship.placeShip("ashd", 2, 2, "north");
+        result = await battleship.placeShip("ashd", 2, 2, "north");
         assert.notEqual(result.indexOf("Invalid ship"), -1, result);
       });
 
-      it("should be 1 indexed", function () {
+      it("should be 1 indexed", async function () {
         var result;
 
-        result = battleship.placeShip("destroyer", 0, 2, "north");
+        result = await battleship.placeShip("destroyer", 0, 2, "north");
         assert.notEqual(result.indexOf("Invalid position"), -1, result);
       });
     });
@@ -76,9 +76,9 @@ describe(utils.suiteName(__filename), function () {
         row = 1,
         col = 2;
 
-      beforeEach(function () {
+      beforeEach(async function () {
         battleship.socket.roleId = "test";
-        battleship.placeShip("destroyer", row, col, "north");
+        await battleship.placeShip("destroyer", row, col, "north");
         // Check the spots!
         board = battleship.unwrap()._state._boards.test;
       });
@@ -95,17 +95,22 @@ describe(utils.suiteName(__filename), function () {
         assert.equal(occupied, 3);
       });
 
-      it("should fail if overlapping boats", function () {
+      it("should fail if overlapping boats", async function () {
         var result;
 
-        result = battleship.placeShip("battleship", row + 1, col, "north");
+        result = await battleship.placeShip(
+          "battleship",
+          row + 1,
+          col,
+          "north",
+        );
         assert.notEqual(result.indexOf("colliding with another"), -1);
       });
 
-      it("should move boat if placing same boat twice", function () {
+      it("should move boat if placing same boat twice", async function () {
         var oldPosition;
 
-        battleship.placeShip("destroyer", row, col + 1, "west");
+        await battleship.placeShip("destroyer", row, col + 1, "west");
         oldPosition = board._state._ships[row - 1][col - 1]; // correcting for 1 indexing
         assert.notEqual(oldPosition, "destroyer");
       });

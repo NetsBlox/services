@@ -433,20 +433,34 @@ defineType({
   parser: async (blockXml, _params, ctx) => {
     let roleName = "";
     let roleNames = [""];
+    let username = null;
+    let projectId = null;
+    let roleId = null;
 
     if (ctx) {
-      const room = await Cloud.getRoomState(ctx.caller.projectId);
+      const room = await ctx.caller.getRoomState();
+      roleId = await ctx.caller.getRoleId();
+      projectId = await ctx.caller.getProjectId();
+      username = await ctx.caller.getUsername();
       if (room) {
         roleNames = Object.values(room.roles)
           .map((role) => role.name);
-        roleName = room.roles[ctx.caller.roleId].name;
+        roleName = room.roles[roleId].name;
       }
     }
 
     let factory = blocks2js.compile(blockXml);
     let env = blocks2js.newContext();
     env.__start = function (project) {
-      project.ctx = ctx;
+      const defaultCtx = { caller: {} };
+      project.ctx = ctx || defaultCtx;
+
+      // ctx.caller is expected to provide sync access to things like projectId, roleId, username
+      // polyfill it for now
+      project.ctx.caller.roleId = roleId;
+      project.ctx.caller.projectId = projectId;
+      project.ctx.caller.username = username;
+
       project.roleName = roleName;
       project.roleNames = roleNames;
     };

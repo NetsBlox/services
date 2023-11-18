@@ -8,8 +8,6 @@
  */
 "use strict";
 
-const logger = require("../utils/logger")("public-roles");
-const NetsBloxCloud = require("../../cloud-client");
 const PublicRoles = {};
 
 /**
@@ -18,16 +16,7 @@ const PublicRoles = {};
  * @returns {String} the public role ID
  */
 PublicRoles.getPublicRoleId = async function () {
-  const { projectId, roleId, clientId } = this.caller;
-  if (!projectId) { // TODO: extend the API to record if it is browser or external
-    throw new Error("Only supported from the NetsBlox browser.");
-  }
-  const state = await NetsBloxCloud.getRoomState(projectId); // TODO: update this API?
-  const roleName = state.roles[roleId]?.name;
-  if (!roleName) {
-    throw new Error("Could not find role");
-  }
-  return `${roleName}@${state.name}@${state.owner}`;
+  return await this.caller.getAddress();
 };
 
 /**

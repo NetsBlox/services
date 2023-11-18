@@ -78,11 +78,13 @@ describe(utils.suiteName(__filename), function () {
         .catch((err) => assert(err.message.includes("password")));
     });
 
-    it("should not set variables w/ bad password", function () {
+    it("should not set variables w/ bad password", async function () {
       const name = newVar();
-      return cloudvariables.setVariable(name, "world", "password")
-        .then(() => cloudvariables.setVariable(name, "asdf"))
-        .catch((err) => assert(err.message.includes("password")));
+      await cloudvariables.setVariable(name, "world", "password");
+      await assert.rejects(
+        cloudvariables.setVariable(name, "asdf"),
+        /password/,
+      );
     });
 
     it("should not delete variables w/ bad password", function () {

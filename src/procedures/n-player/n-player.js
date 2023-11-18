@@ -33,7 +33,9 @@ const NPlayer = function () {
  * @returns {Boolean} ``true`` on successful start
  */
 NPlayer.prototype.start = async function () {
-  this._state.players = await Utils.getRoleIds(this.caller.projectId);
+  this._state.players = Utils.getRoleIds(
+    await this.caller.getRoomState(),
+  );
   this._state.active = this._state.players
     .findIndex((roleId) => roleId === this.socket.roleId);
 
@@ -84,13 +86,13 @@ NPlayer.prototype.getPrevious = function () {
  * Get the player who will be active next.
  * @returns {String} role id of the next player, or empty string if there are no players
  */
-NPlayer.prototype.getNext = function () {
+NPlayer.prototype.getNext = async function () {
   if (this._state.players.length == 0) {
     return "";
   } else {
     const index = (this._state.active + 1) % this._state.players.length;
     const nextId = this._state.players[index];
-    return Utils.getRoleName(this.caller.projectId, nextId);
+    return Utils.getRoleName(await this.caller.getRoomState(), nextId);
   }
 };
 

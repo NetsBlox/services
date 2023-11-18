@@ -36,9 +36,7 @@ class User {
 }
 
 async function getUser(caller) {
-  const username = caller?.username;
-  if (!username) throw Error("You must be logged in to use this feature");
-
+  const username = await caller.getUsername();
   const info = await getUsersDB().findOne({ username });
   const lastEdit = info?.lastEdit || 0;
   const numEdits = info?.numEdits || 0;
