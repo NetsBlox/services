@@ -1,5 +1,11 @@
 const _ = require("lodash");
 const fetch = require("node-fetch");
+const CacheManager = require("cache-manager");
+const cache = CacheManager.caching({
+  store: "memory",
+  max: 1000,
+  ttl: 3, // secs
+});
 
 // Client for NetsBlox Cloud
 class NetsBloxCloud {
@@ -35,7 +41,6 @@ class NetsBloxCloud {
 
   async sendMessage(message) {
     const url = `/network/messages/`;
-    console.log("sending", message);
     const response = await this.post(url, message);
     return response.status > 199 && response.status < 400;
   }
@@ -47,8 +52,10 @@ class NetsBloxCloud {
   }
 
   async get(urlPath) {
-    const response = await this.fetch(urlPath);
-    return await response.json();
+    return await cache.wrap(urlPath, async () => {
+      const response = await this.fetch(urlPath);
+      return await response.json();
+    });
   }
 
   async fetch(urlPath, options = {}) {

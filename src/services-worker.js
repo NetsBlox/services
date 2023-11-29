@@ -286,9 +286,12 @@ class ServicesWorker {
 
   invoke(context, serviceName, rpcName, args) {
     const rpc = this.getServiceInstance(serviceName, context.caller.projectId);
-    const ctx = Object.create(rpc);
-    Object.assign(ctx, context);
-    return this.callRPC(rpcName, ctx, args);
+
+    if (rpc) {
+      const ctx = Object.create(rpc);
+      Object.assign(ctx, context);
+      return this.callRPC(rpcName, ctx, args);
+    }
   }
 
   getServiceInstance(name, projectId) {
@@ -466,7 +469,7 @@ class ServicesWorker {
 
   getApiKey(serviceName) {
     const service = this.getServiceInstance(serviceName);
-    return service.apiKey;
+    return service?.apiKey;
   }
 
   checkStaleServices() {

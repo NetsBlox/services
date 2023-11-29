@@ -180,9 +180,16 @@ IoTScapeServices.listen = function (service, client, id) {
     IoTScapeServices._listeningClients[service][id] = [];
   }
 
-  if (!IoTScapeServices._listeningClients[service][id].includes(client)) {
-    IoTScapeServices._listeningClients[service][id].push(client);
+  // Prevent listen if this client is already listening
+  if (
+    IoTScapeServices._listeningClients[service][id].some((c) =>
+      c.clientId === client.clientId
+    )
+  ) {
+    return;
   }
+
+  IoTScapeServices._listeningClients[service][id].push(client);
 };
 
 /**
@@ -212,16 +219,47 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     params: [...args],
   };
 
-  const rinfo = IoTScapeServices.getInfo(service, id);
-  IoTScapeServices.socket.send(
-    JSON.stringify(request),
-    rinfo.port,
-    rinfo.address,
-  );
-
   // Determine response type
   const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
   const responseType = methodInfo.returns.type;
+
+  // Expects a value response
+  let attempt = (resolve) => {
+    const rinfo = IoTScapeServices.getInfo(service, id);
+    IoTScapeServices.socket.send(
+      JSON.stringify(request),
+      rinfo.port,
+      rinfo.address,
+    );
+
+    IoTScapeServices._awaitingRequests[reqid] = {
+      service: service,
+      function: func,
+      resolve,
+    };
+  };
+
+  let timeout = (_, reject) => {
+    // Time out eventually
+    setTimeout(() => {
+      delete IoTScapeServices._awaitingRequests[reqid];
+      reject();
+    }, 3000);
+  };
+
+  let promise = Promise.race([
+    new Promise(attempt),
+    new Promise(timeout),
+  ]).then((result) => result).catch(() => {
+    // Make second attempt
+    logger.log("IoTScape request timed out, trying again");
+    return Promise.race([new Promise(attempt), new Promise(timeout)]).then((
+      result,
+    ) => result).catch(() => {
+      logger.log("IoTScape request timed out again, giving up");
+      return "Response timed out.";
+    });
+  });
 
   // No response required
   if (responseType.length < 1 || responseType[0] == "void") {
@@ -233,25 +271,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     return;
   }
 
-  // Expects a value response
-  return Promise.race([
-    new Promise((resolve) => {
-      IoTScapeServices._awaitingRequests[reqid] = {
-        service: service,
-        function: func,
-        resolve,
-      };
-    }),
-    new Promise((_, reject) => {
-      // Time out eventually
-      setTimeout(() => {
-        delete IoTScapeServices._awaitingRequests[reqid];
-        reject();
-      }, 3000);
-    }),
-  ]).then((result) => result).catch(() => {
-    throw new Error("Response timed out.");
-  });
+  return promise;
 };
 
 IoTScapeServices.start = function (socket) {
@@ -320,24 +340,35 @@ IoTScapeServices.start = function (socket) {
   });
 
   // Request heartbeats on interval
+  async function heartbeat(service, device) {
+    logger.log(`heartbeat ${service}:${device}`);
+
+    try {
+      // Send heartbeat request, will timeout if device does not respond
+      await IoTScapeServices.call(service, "heartbeat", device);
+    } catch (e) {
+      // Remove device if it didn't respond
+      return false;
+    }
+
+    return true;
+  }
+
   setInterval(async () => {
     for (const service of IoTScapeServices.getServices()) {
       IoTScapeServices.getDevices(service).forEach(async (device) => {
-        logger.log(`heartbeat ${service}:${device}`);
-
-        try {
-          // Send heartbeat request, will timeout if device does not respond
-          await IoTScapeServices.call(service, "heartbeat", device);
-        } catch (e) {
-          // Remove device if it didn't respond
-          logger.log(
-            `${service}:${device} did not respond to heartbeat, removing from active devices`,
-          );
-          IoTScapeServices.removeDevice(service, device);
+        if (!(await heartbeat(service, device))) {
+          // Send second heartbeat request, will timeout if device does not respond
+          if (!(await heartbeat(service, device))) {
+            logger.log(
+              `${service}:${device} did not respond to heartbeat, removing from active devices`,
+            );
+            IoTScapeServices.removeDevice(service, device);
+          }
         }
       });
     }
-  }, 60 * 1000);
+  }, 2 * 60 * 1000);
 };
 
 module.exports = IoTScapeServices;

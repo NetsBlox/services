@@ -124,9 +124,9 @@ MusicApp.nameToSound = async function (nameOfSound = "") {
     .find((obj) => obj.soundName === nameOfSound);
 
   if (metadata) {
-    const audio_path = path.join(__dirname, metadata.Path);
-    console.log(audio_path);
-    return this._filetoBuffer(audio_path);
+    const audioPath = path.join(__dirname, metadata.Path);
+    const data = await fsp.readFile(audioPath);
+    return utils.sendAudioBuffer(this.response, data);
   }
 };
 
