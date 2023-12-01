@@ -16,7 +16,8 @@ const ServiceEvents = require("./procedures/utils/service-events");
 const Storage = require("./storage");
 const CommunityService = require("./community");
 const DEFAULT_COMPATIBILITY = { arguments: {} };
-const DEPLOYMENT_ENV = (process.env.ENV || "").toLowerCase();
+const DEPLOYMENT_ENV = ["production", "dev"]
+  .find((validEnv) => validEnv === (process.env.ENV || "").toLowerCase());
 
 class ServicesWorker {
   constructor(logger) {
