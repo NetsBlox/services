@@ -267,6 +267,27 @@ async function ninvoke(obj, method, ...args) {
   });
 }
 
+function filterMap(list, fn) {
+  return list.reduce((keep, item) => {
+    const mapped = fn(item);
+    if (mapped !== undefined) {
+      keep.push(mapped);
+    }
+    return keep;
+  }, []);
+}
+
+async function filterAsync(list, fn) {
+  const indices = await Promise.all(list.map(async (item, index) => {
+    if (await fn(item)) {
+      return index;
+    } else {
+      return -1;
+    }
+  }));
+  return filterMap(indices, (idx) => list[idx]);
+}
+
 module.exports = {
   serialize,
   serializeArray,
@@ -293,4 +314,7 @@ module.exports = {
   profaneChecker,
   isProfane,
   ninvoke,
+
+  filterAsync,
+  filterMap,
 };
