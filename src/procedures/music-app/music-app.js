@@ -47,7 +47,6 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
   return names;
 };
 
-
 /**
  * Get sounds based on query.
  * @param {DrumPackName=} PackName

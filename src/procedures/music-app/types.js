@@ -121,10 +121,10 @@ function registerTypes() {
     baseType: "Enum",
     baseParams: DRUMONESHOTTYPES,
   });
-  
+
   types.defineType({
     name: "DrumPackName",
-    description:"List of available Drum Packs",
+    description: "List of available Drum Packs",
     baseType: "Enum",
     baseParams: DRUMPACKS,
   });
