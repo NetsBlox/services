@@ -98,4 +98,24 @@ describe(utils.suiteName(__filename), function () {
       assert(lib.isValidIdent("foo2"));
     });
   });
+
+  describe("filterMap", function () {
+    it("should omit undefined return values", function () {
+      const list = [1, 2, 3, 4, 5];
+      const doubledOdds = lib.filterMap(list, (num) => {
+        if (num % 2 === 1) {
+          return 2 * num;
+        }
+      });
+      assert.deepEqual(doubledOdds, [2, 6, 10]);
+    });
+  });
+
+  describe("filterAsync", function () {
+    it("should keep truthy promise results", async function () {
+      const list = [1, 2, 3, 4, 5];
+      const odds = await lib.filterAsync(list, async (num) => num % 2 === 1);
+      assert.deepEqual(odds, [1, 3, 5]);
+    });
+  });
 });
