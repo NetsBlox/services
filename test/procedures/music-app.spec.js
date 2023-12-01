@@ -9,9 +9,9 @@ describe(utils.suiteName(__filename), function () {
   let service, testSuite;
 
   utils.verifyRPCInterfaces("MusicApp", [
-    ["getSoundNames", ["Chords","Key","BPM","InstrumentName"]],
+    ["getSoundNames", ["Chords", "Key", "BPM", "InstrumentName"]],
     ["nameToSound", ["nameOfSound"]],
-    ["getDrumOneShotNames",["PackName","DrumType"]],
+    ["getDrumOneShotNames", ["PackName", "DrumType"]],
   ]);
 
   before(async () => {
