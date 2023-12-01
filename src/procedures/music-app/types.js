@@ -102,7 +102,7 @@ function registerTypes() {
   });
 
   types.defineType({
-    name: "ChordProgressions",
+    name: "Chords",
     description: "List of available ChordProgressions",
     baseType: "Enum",
     baseParams: CHORDS,

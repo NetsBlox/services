@@ -79,7 +79,7 @@ MusicApp.getDrumOneShotNames = async function (
 
 /**
  * Get sounds based on query.
- * @param {ChordProgressions=} Chords
+ * @param {Chords=} Chords
  * @param {Keys=} Key
  * @param {BPM=} BPM
  * @param {InstrumentNames=} InstrumentName
