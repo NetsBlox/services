@@ -7,10 +7,17 @@
  * @alpha
  */
 
-const ApiConsumer = require("../utils/api-consumer");
+const axios = require("axios");
 
 const { MATLAB_KEY, MATLAB_URL = "" } = process.env;
-const MATLAB = new ApiConsumer("MATLAB", MATLAB_URL);
+const request = axios.create({
+  headers: {
+    "X-NetsBlox-Auth-Token": MATLAB_KEY,
+  },
+});
+
+const MATLAB = {};
+MATLAB.serviceName = "MATLAB";
 
 /**
  * Evaluate a MATLAB function with the given arguments and number of return
@@ -26,11 +33,8 @@ MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
     arguments: this._parseArguments(args),
     nargout: numReturnValues,
   }];
-  const headers = {
-    "X-NetsBlox-Auth-Token": MATLAB_KEY,
-  };
-  const resp = await this._requestData({ method: "POST", body, headers });
-  const results = resp.messages.FEvalResponse;
+  const resp = await request.post(MATLAB_URL, body);
+  const results = resp.data.messages.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
 };
