@@ -30,29 +30,44 @@ MATLAB.serviceName = "MATLAB";
 MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
   const body = [{
     function: fn,
-    arguments: this._parseArguments(args),
+    arguments: args.map((a) => this._parseArgument(a)),
     nargout: numReturnValues,
   }];
-  const resp = await request.post(MATLAB_URL, body);
+  const resp = await request.post(MATLAB_URL, body, { timeout: 2000 });
   const results = resp.data.messages.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
 };
 
 /**
- * Try to coerce arguments to numbers if they appear numeric...
+ * Convert a NetsBlox argument to the expected format. The MATLAB service expects
+ * arguments to be in the following format:
+ *
+ * {
+ *   "mwdata": "<flattened matrix>",
+ *   "mwsize": "<actual shape of matrix>",
+ *   "mwtype": "double|single|etc",
+ * }
  */
-MATLAB._parseArguments = function (args) {
-  // TODO: get the shape
-  // TODO: flatten
-  // TODO: coerce types
-  return args.map((arg) => {
-    const number = parseFloat(arg);
-    if (isNaN(number)) {
-      return arg;
-    }
-    return number;
-  });
+MATLAB._parseArgument = function (arg) {
+  // get the shape, flatten, and coerce types
+  const shape = MATLAB._shape(arg);
+  const flatNumbers = MATLAB._flatten(arg)
+    .map((v) => {
+      if (typeof v !== "string") return v;
+
+      const number = parseFloat(v);
+      if (isNaN(number)) {
+        return v;
+      }
+      return number;
+    });
+
+  return {
+    mwdata: flatNumbers,
+    mwsize: shape,
+    mwtype: "double",
+  };
 };
 
 MATLAB._parseResult = (result) => {
@@ -92,9 +107,20 @@ MATLAB._shape = (data) => {
   let item = data;
   while (Array.isArray(item)) {
     shape.unshift(item.length);
+    item = item[0];
   }
 
   return shape;
+};
+
+MATLAB._flatten = (data) => {
+  return data.flatMap((item) => {
+    if (Array.isArray(item)) {
+      return MATLAB._flatten(item);
+    } else {
+      return item;
+    }
+  });
 };
 
 MATLAB.isSupported = () => {

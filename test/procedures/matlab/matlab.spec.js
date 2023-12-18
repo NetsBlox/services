@@ -98,13 +98,39 @@ describe.only(utils.suiteName(__filename), function () {
     });
   });
 
-  describe("_shape", function () {
-    it("should detect shape in [2,3,4] tensor", function () {
-      // TODO
+  describe("_flatten", function () {
+    it("should flatten recursively", function () {
+      const tensor = [
+        [[1, 2]],
+        [[3, 4]],
+        [[5, 6]],
+        [[7, 8]],
+      ];
+      const flat = MATLAB._flatten(tensor);
+      assert.deepEqual(flat, range(8));
     });
   });
 
-  describe.only("_reshape", function () {
+  describe("_shape", function () {
+    it("should detect shape in [2,1,4] tensor", function () {
+      const tensor = [
+        [[1, 2]],
+        [[1, 2]],
+        [[1, 2]],
+        [[1, 2]],
+      ];
+      const actual = MATLAB._shape(tensor);
+      assert.deepEqual(actual, [2, 1, 4]);
+    });
+
+    it("should detect shape in [2] tensor", function () {
+      const tensor = [1, 2];
+      const actual = MATLAB._shape(tensor);
+      assert.deepEqual(actual, [2]);
+    });
+  });
+
+  describe("_reshape", function () {
     it("should reconstruct a 2x2 matrix", function () {
       const example = [1, 2, 3, 4];
       const actual = MATLAB._reshape(example, [2, 2]);
@@ -127,6 +153,16 @@ describe.only(utils.suiteName(__filename), function () {
         [[7, 8, 9], [10, 11, 12]],
       ];
       assert.deepEqual(actual, expected);
+    });
+
+    it("should invert flatten (with shape)", function () {
+      const input = [
+        [[1, 2, 3], [4, 5, 6]],
+        [[7, 8, 9], [10, 11, 12]],
+      ];
+      const shape = MATLAB._shape(input);
+      const reconstructed = MATLAB._reshape(MATLAB._flatten(input), shape);
+      assert.deepEqual(input, reconstructed);
     });
   });
 
