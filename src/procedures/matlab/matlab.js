@@ -43,11 +43,10 @@ MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
  * Try to coerce arguments to numbers if they appear numeric...
  */
 MATLAB._parseArguments = function (args) {
+  // TODO: get the shape
+  // TODO: flatten
+  // TODO: coerce types
   return args.map((arg) => {
-    if (Array.isArray(arg)) {
-      return this._parseArguments(arg);
-    }
-
     const number = parseFloat(arg);
     if (isNaN(number)) {
       return arg;
@@ -64,7 +63,38 @@ MATLAB._parseResult = (result) => {
     throw new Error(message);
   }
 
-  return result.results[0]; // TODO: Check this with multiple return values
+  // reshape the data
+  return MATLAB._reshape(result.results[0].mwdata, result.results[0].mwsize); // TODO: Check this with multiple return values
+};
+
+MATLAB._take = function* (iter, num) {
+  let chunk = [];
+  for (const v of iter) {
+    chunk.push(v);
+    if (chunk.length === num) {
+      yield chunk;
+      chunk = [];
+    }
+  }
+  if (chunk.length) {
+    return chunk;
+  }
+};
+
+MATLAB._reshape = (data, shape) => {
+  return [
+    ...shape.reduce((iterable, num) => MATLAB._take(iterable, num), data),
+  ].pop();
+};
+
+MATLAB._shape = (data) => {
+  const shape = [];
+  let item = data;
+  while (Array.isArray(item)) {
+    shape.unshift(item.length);
+  }
+
+  return shape;
 };
 
 MATLAB.isSupported = () => {

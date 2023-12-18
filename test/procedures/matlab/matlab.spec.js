@@ -97,4 +97,40 @@ describe.only(utils.suiteName(__filename), function () {
       assert.deepEqual(actual, expected);
     });
   });
+
+  describe("_shape", function () {
+    it("should detect shape in [2,3,4] tensor", function () {
+      // TODO
+    });
+  });
+
+  describe.only("_reshape", function () {
+    it("should reconstruct a 2x2 matrix", function () {
+      const example = [1, 2, 3, 4];
+      const actual = MATLAB._reshape(example, [2, 2]);
+      const expected = [[1, 2], [3, 4]];
+      assert.deepEqual(actual, expected);
+    });
+
+    it("should reconstruct a 3x2 matrix", function () {
+      const example = [1, 2, 3, 4, 5, 6];
+      const actual = MATLAB._reshape(example, [3, 2]);
+      const expected = [[1, 2, 3], [4, 5, 6]];
+      assert.deepEqual(actual, expected);
+    });
+
+    it("should reconstruct a 3x2x2 tensor", function () {
+      const example = range(12);
+      const actual = MATLAB._reshape(example, [3, 2, 2]);
+      const expected = [
+        [[1, 2, 3], [4, 5, 6]],
+        [[7, 8, 9], [10, 11, 12]],
+      ];
+      assert.deepEqual(actual, expected);
+    });
+  });
+
+  function range(end) {
+    return [...new Array(end)].map((_, i) => i + 1);
+  }
 });
