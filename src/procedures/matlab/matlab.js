@@ -33,7 +33,7 @@ MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
     arguments: args.map((a) => this._parseArgument(a)),
     nargout: numReturnValues,
   }];
-  const resp = await request.post(MATLAB_URL, body, { timeout: 2000 });
+  const resp = await request.post(MATLAB_URL, body, { timeout: 5000 });
   const results = resp.data.messages.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
@@ -83,7 +83,13 @@ MATLAB._parseResult = (result) => {
   }
 
   // reshape the data
-  return MATLAB._reshape(result.results[0].mwdata, result.results[0].mwsize); // TODO: Check this with multiple return values
+  let data = result.results[0].mwdata;
+  if (!Array.isArray(data)) {
+    data = [data];
+  }
+  return MATLAB._squeeze(
+    MATLAB._reshape(data, result.results[0].mwsize),
+  ); // TODO: Check this with multiple return values
 };
 
 MATLAB._take = function* (iter, num) {
@@ -98,6 +104,13 @@ MATLAB._take = function* (iter, num) {
   if (chunk.length) {
     return chunk;
   }
+};
+
+MATLAB._squeeze = (data) => {
+  while (Array.isArray(data) && data.length === 1) {
+    data = data[0];
+  }
+  return data;
 };
 
 MATLAB._reshape = (data, shape) => {
