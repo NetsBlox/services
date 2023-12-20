@@ -1,6 +1,6 @@
 const utils = require("../../assets/utils");
 
-describe.only(utils.suiteName(__filename), function () {
+describe(utils.suiteName(__filename), function () {
   const MATLAB = utils.reqSrc(
     "procedures/matlab/matlab",
   );
@@ -43,11 +43,11 @@ describe.only(utils.suiteName(__filename), function () {
       const result = MATLAB._parseResult(
         exampleResponse.messages.FEvalResponse[0],
       );
-      const expected = [[
+      const expected = [
         0.60964185602745879,
         0.535534059872629,
         0.75432599544689793,
-      ]];
+      ];
       assert.deepEqual(result, expected);
     });
 
