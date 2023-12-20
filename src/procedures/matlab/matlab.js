@@ -51,6 +51,10 @@ MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
  */
 MATLAB._parseArgument = function (arg) {
   // get the shape, flatten, and coerce types
+  if (!Array.isArray(arg)) {
+    arg = [arg];
+  }
+
   const shape = MATLAB._shape(arg);
   const flatNumbers = MATLAB._flatten(arg)
     .map((v) => {
@@ -98,7 +102,10 @@ MATLAB._take = function* (iter, num) {
 
 MATLAB._reshape = (data, shape) => {
   return [
-    ...shape.reduce((iterable, num) => MATLAB._take(iterable, num), data),
+    ...shape.reverse().reduce(
+      (iterable, num) => MATLAB._take(iterable, num),
+      data,
+    ),
   ].pop();
 };
 
@@ -106,8 +113,12 @@ MATLAB._shape = (data) => {
   const shape = [];
   let item = data;
   while (Array.isArray(item)) {
-    shape.unshift(item.length);
+    shape.push(item.length);
     item = item[0];
+  }
+
+  while (shape.length < 2) {
+    shape.unshift(1);
   }
 
   return shape;

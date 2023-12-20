@@ -24,11 +24,15 @@ describe.only(utils.suiteName(__filename), function () {
         "uuid": "UNSPECIFIED",
         "messages": {
           "FEvalResponse": [{
-            "results": [[
-              0.60964185602745879,
-              0.535534059872629,
-              0.75432599544689793,
-            ]],
+            "results": [{
+              mwdata: [
+                0.60964185602745879,
+                0.535534059872629,
+                0.75432599544689793,
+              ],
+              mwsize: [1, 3],
+              mwtype: "double",
+            }],
             "isError": false,
             "uuid": "",
             "apiVersion": "1.6",
@@ -39,11 +43,11 @@ describe.only(utils.suiteName(__filename), function () {
       const result = MATLAB._parseResult(
         exampleResponse.messages.FEvalResponse[0],
       );
-      const expected = [
+      const expected = [[
         0.60964185602745879,
         0.535534059872629,
         0.75432599544689793,
-      ];
+      ]];
       assert.deepEqual(result, expected);
     });
 
@@ -69,32 +73,40 @@ describe.only(utils.suiteName(__filename), function () {
     });
   });
 
-  describe("_parseArguments", function () {
+  describe("_parseArgument", function () {
     it("should coerce number-strings into numbers", function () {
       const example = ["5", "6"];
-      const actual = MATLAB._parseArguments(example);
+      const actual = MATLAB._parseArgument(example);
       const expected = [5, 6];
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(actual.mwdata, expected);
     });
 
     it("should preserve numbers", function () {
       const expected = [5, 6];
-      const actual = MATLAB._parseArguments(expected);
-      assert.deepEqual(actual, expected);
+      const actual = MATLAB._parseArgument(expected);
+      assert.deepEqual(actual.mwdata, expected);
     });
 
     it("should coerce nested lists", function () {
       const example = [["5", "6"], "7"];
-      const actual = MATLAB._parseArguments(example);
-      const expected = [[5, 6], 7];
-      assert.deepEqual(actual, expected);
+      const actual = MATLAB._parseArgument(example);
+      const expected = [5, 6, 7];
+      assert.deepEqual(actual.mwdata, expected);
     });
 
     it("should ignore non-numbers", function () {
       const example = ["5", "cat"];
-      const actual = MATLAB._parseArguments(example);
+      const actual = MATLAB._parseArgument(example);
       const expected = [5, "cat"];
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(actual.mwdata, expected);
+    });
+
+    it("should handle scalars", function () {
+      const example = 5;
+      const actual = MATLAB._parseArgument(example);
+      const expected = [5];
+      assert.deepEqual(actual.mwdata, expected);
+      assert.deepEqual(actual.mwsize, [1, 1]);
     });
   });
 
@@ -112,7 +124,7 @@ describe.only(utils.suiteName(__filename), function () {
   });
 
   describe("_shape", function () {
-    it("should detect shape in [2,1,4] tensor", function () {
+    it("should detect shape in [4,1,2] tensor", function () {
       const tensor = [
         [[1, 2]],
         [[1, 2]],
@@ -120,13 +132,23 @@ describe.only(utils.suiteName(__filename), function () {
         [[1, 2]],
       ];
       const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [2, 1, 4]);
+      assert.deepEqual(actual, [4, 1, 2]);
     });
 
-    it("should detect shape in [2] tensor", function () {
+    it("should detect shape in [1 2] tensor", function () {
       const tensor = [1, 2];
       const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [2]);
+      assert.deepEqual(actual, [1, 2]);
+    });
+
+    it("should detect shape in [3, 4] tensor", function () {
+      const tensor = [
+        [1, 2, 3, 4],
+        [1, 2, 3, 4],
+        [1, 2, 3, 4],
+      ];
+      const actual = MATLAB._shape(tensor);
+      assert.deepEqual(actual, [3, 4]);
     });
   });
 
@@ -139,9 +161,9 @@ describe.only(utils.suiteName(__filename), function () {
     });
 
     it("should reconstruct a 3x2 matrix", function () {
-      const example = [1, 2, 3, 4, 5, 6];
+      const example = range(6);
       const actual = MATLAB._reshape(example, [3, 2]);
-      const expected = [[1, 2, 3], [4, 5, 6]];
+      const expected = [[1, 2], [3, 4], [5, 6]];
       assert.deepEqual(actual, expected);
     });
 
@@ -149,8 +171,9 @@ describe.only(utils.suiteName(__filename), function () {
       const example = range(12);
       const actual = MATLAB._reshape(example, [3, 2, 2]);
       const expected = [
-        [[1, 2, 3], [4, 5, 6]],
-        [[7, 8, 9], [10, 11, 12]],
+        [[1, 2], [3, 4]],
+        [[5, 6], [7, 8]],
+        [[9, 10], [11, 12]],
       ];
       assert.deepEqual(actual, expected);
     });
