@@ -123,6 +123,13 @@ describe(utils.suiteName(__filename), function () {
       assert.deepEqual(actual.mwdata, expected);
     });
 
+    it("should coerce booleans to 1/0", function () {
+      const expected = [true, false];
+      const actual = MATLAB._parseArgument(example);
+      const expected = [1, 0];
+      assert.deepEqual(actual.mwdata, expected);
+    });
+
     it("should preserve numbers", function () {
       const expected = [5, 6];
       const actual = MATLAB._parseArgument(expected);

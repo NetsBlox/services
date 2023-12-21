@@ -58,6 +58,7 @@ MATLAB._parseArgument = function (arg) {
   const shape = MATLAB._shape(arg);
   const flatNumbers = MATLAB._flatten(arg)
     .map((v) => {
+      if (typeof v === "boolean") return v ? 1 : 0;
       if (typeof v !== "string") return v;
 
       const number = parseFloat(v);
