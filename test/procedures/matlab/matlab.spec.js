@@ -15,7 +15,7 @@ describe(utils.suiteName(__filename), function () {
   });
 
   utils.verifyRPCInterfaces("MATLAB", [
-    ["feval", ["fn", "args", "numReturnValues"]],
+    ["function", ["fn", "args", "numReturnValues"]],
   ]);
 
   describe("_parseResult", function () {
