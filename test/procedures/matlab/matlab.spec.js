@@ -51,6 +51,48 @@ describe(utils.suiteName(__filename), function () {
       assert.deepEqual(result, expected);
     });
 
+    it("should extract multiple results", function () {
+      const exampleResponse = {
+        "uuid": "UNSPECIFIED",
+        "messages": {
+          "FEvalResponse": [{
+            "results": [
+              {
+                mwdata: [
+                  0.60964185602745879,
+                  0.535534059872629,
+                  0.75432599544689793,
+                ],
+                mwsize: [1, 3],
+                mwtype: "double",
+              },
+              {
+                mwdata: [3],
+                mwsize: [1, 1],
+                mwtype: "double",
+              },
+            ],
+            "isError": false,
+            "uuid": "",
+            "apiVersion": "1.6",
+            "messageFaults": [],
+          }],
+        },
+      };
+      const result = MATLAB._parseResult(
+        exampleResponse.messages.FEvalResponse[0],
+      );
+      const expected = [
+        [
+          0.60964185602745879,
+          0.535534059872629,
+          0.75432599544689793,
+        ],
+        3,
+      ];
+      assert.deepEqual(result, expected);
+    });
+
     it("should throw errors", function () {
       const example = {
         "results": [],

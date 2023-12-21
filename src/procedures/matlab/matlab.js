@@ -82,14 +82,23 @@ MATLAB._parseResult = (result) => {
     throw new Error(message);
   }
 
+  let numReturnValues = result.results.length;
+  if (numReturnValues === 1) {
+    return MATLAB._parseResultData(result.results[0]);
+  } else {
+    return result.results.map((retVal) => MATLAB._parseResultData(retVal));
+  }
+};
+
+MATLAB._parseResultData = (result) => {
   // reshape the data
-  let data = result.results[0].mwdata;
+  let data = result.mwdata;
   if (!Array.isArray(data)) {
     data = [data];
   }
   return MATLAB._squeeze(
-    MATLAB._reshape(data, result.results[0].mwsize),
-  ); // TODO: Check this with multiple return values
+    MATLAB._reshape(data, result.mwsize),
+  );
 };
 
 MATLAB._take = function* (iter, num) {
