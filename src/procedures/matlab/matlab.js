@@ -27,7 +27,7 @@ MATLAB.serviceName = "MATLAB";
  * @param{Array<Any>=} args arguments to pass to the function
  * @param{BoundedInteger<1>=} numReturnValues Number of return values expected.
  */
-MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
+MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   const body = [{
     function: fn,
     arguments: args.map((a) => this._parseArgument(a)),
