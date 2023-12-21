@@ -30,30 +30,48 @@ MATLAB.serviceName = "MATLAB";
 MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
   const body = [{
     function: fn,
-    arguments: this._parseArguments(args),
+    arguments: args.map((a) => this._parseArgument(a)),
     nargout: numReturnValues,
   }];
-  const resp = await request.post(MATLAB_URL, body);
+  const resp = await request.post(MATLAB_URL, body, { timeout: 5000 });
   const results = resp.data.messages.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
 };
 
 /**
- * Try to coerce arguments to numbers if they appear numeric...
+ * Convert a NetsBlox argument to the expected format. The MATLAB service expects
+ * arguments to be in the following format:
+ *
+ * {
+ *   "mwdata": "<flattened matrix>",
+ *   "mwsize": "<actual shape of matrix>",
+ *   "mwtype": "double|single|etc",
+ * }
  */
-MATLAB._parseArguments = function (args) {
-  return args.map((arg) => {
-    if (Array.isArray(arg)) {
-      return this._parseArguments(arg);
-    }
+MATLAB._parseArgument = function (arg) {
+  // get the shape, flatten, and coerce types
+  if (!Array.isArray(arg)) {
+    arg = [arg];
+  }
 
-    const number = parseFloat(arg);
-    if (isNaN(number)) {
-      return arg;
-    }
-    return number;
-  });
+  const shape = MATLAB._shape(arg);
+  const flatNumbers = MATLAB._flatten(arg)
+    .map((v) => {
+      if (typeof v !== "string") return v;
+
+      const number = parseFloat(v);
+      if (isNaN(number)) {
+        return v;
+      }
+      return number;
+    });
+
+  return {
+    mwdata: flatNumbers,
+    mwsize: shape,
+    mwtype: "double",
+  };
 };
 
 MATLAB._parseResult = (result) => {
@@ -64,7 +82,69 @@ MATLAB._parseResult = (result) => {
     throw new Error(message);
   }
 
-  return result.results[0]; // TODO: Check this with multiple return values
+  // reshape the data
+  let data = result.results[0].mwdata;
+  if (!Array.isArray(data)) {
+    data = [data];
+  }
+  return MATLAB._squeeze(
+    MATLAB._reshape(data, result.results[0].mwsize),
+  ); // TODO: Check this with multiple return values
+};
+
+MATLAB._take = function* (iter, num) {
+  let chunk = [];
+  for (const v of iter) {
+    chunk.push(v);
+    if (chunk.length === num) {
+      yield chunk;
+      chunk = [];
+    }
+  }
+  if (chunk.length) {
+    return chunk;
+  }
+};
+
+MATLAB._squeeze = (data) => {
+  while (Array.isArray(data) && data.length === 1) {
+    data = data[0];
+  }
+  return data;
+};
+
+MATLAB._reshape = (data, shape) => {
+  return [
+    ...shape.reverse().reduce(
+      (iterable, num) => MATLAB._take(iterable, num),
+      data,
+    ),
+  ].pop();
+};
+
+MATLAB._shape = (data) => {
+  const shape = [];
+  let item = data;
+  while (Array.isArray(item)) {
+    shape.push(item.length);
+    item = item[0];
+  }
+
+  while (shape.length < 2) {
+    shape.unshift(1);
+  }
+
+  return shape;
+};
+
+MATLAB._flatten = (data) => {
+  return data.flatMap((item) => {
+    if (Array.isArray(item)) {
+      return MATLAB._flatten(item);
+    } else {
+      return item;
+    }
+  });
 };
 
 MATLAB.isSupported = () => {
