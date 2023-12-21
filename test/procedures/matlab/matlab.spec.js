@@ -124,7 +124,7 @@ describe(utils.suiteName(__filename), function () {
     });
 
     it("should coerce booleans to 1/0", function () {
-      const expected = [true, false];
+      const example = [true, false];
       const actual = MATLAB._parseArgument(example);
       const expected = [1, 0];
       assert.deepEqual(actual.mwdata, expected);
