@@ -159,6 +159,23 @@ describe(utils.suiteName(__filename), function () {
     });
   });
 
+  describe("_getMwType", function () {
+    it("should return string if has any strings", function () {
+      const mwtype = MATLAB._getMwType([1, 2, 3, "cat"]);
+      assert.equal(mwtype, "string");
+    });
+
+    it("should return logical if all bools", function () {
+      const mwtype = MATLAB._getMwType([true, false, true]);
+      assert.equal(mwtype, "logical");
+    });
+
+    it("should default to double", function () {
+      const mwtype = MATLAB._getMwType([]);
+      assert.equal(mwtype, "double");
+    });
+  });
+
   describe("_flatten", function () {
     it("should flatten recursively", function () {
       const tensor = [

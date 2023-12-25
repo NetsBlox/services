@@ -46,7 +46,7 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
  * {
  *   "mwdata": "<flattened matrix>",
  *   "mwsize": "<actual shape of matrix>",
- *   "mwtype": "double|single|etc",
+ *   "mwtype": "logical|double|single|string",
  * }
  */
 MATLAB._parseArgument = function (arg) {
@@ -56,23 +56,38 @@ MATLAB._parseArgument = function (arg) {
   }
 
   const shape = MATLAB._shape(arg);
-  const flatNumbers = MATLAB._flatten(arg)
+  const flatValues = MATLAB._flatten(arg);
+  const mwtype = MATLAB._getMwType(flatValues);
+  const mwdata = flatValues
     .map((v) => {
-      if (typeof v === "boolean") return v ? 1 : 0;
-      if (typeof v !== "string") return v;
-
-      const number = parseFloat(v);
-      if (isNaN(number)) {
+      if (mwtype === "logical") {
+        return v ? 1 : 0;
+      } else if (mwtype === "string") {
+        return v.toString();
+      } else { // number
+        if (typeof v === "string") {
+          return parseFloat(v);
+        } else if (typeof v === "boolean") {
+          return v ? 1 : 0;
+        }
         return v;
       }
-      return number;
     });
 
   return {
-    mwdata: flatNumbers,
+    mwdata,
     mwsize: shape,
-    mwtype: "double",
+    mwtype,
   };
+};
+
+MATLAB._getMwType = function (values) {
+  if (values.find((v) => typeof v === "string" && isNaN(parseFloat(v)))) {
+    return "string";
+  } else if (values.every((v) => typeof v === "boolean")) {
+    return "logical";
+  }
+  return "double";
 };
 
 MATLAB._parseResult = (result) => {
