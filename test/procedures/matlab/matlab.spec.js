@@ -171,7 +171,7 @@ describe(utils.suiteName(__filename), function () {
     });
 
     it("should default to double", function () {
-      const mwtype = MATLAB._getMwType([]);
+      const mwtype = MATLAB._getMwType([1.]);
       assert.equal(mwtype, "double");
     });
   });
