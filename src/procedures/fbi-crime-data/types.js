@@ -197,10 +197,9 @@ const AGE_RANGE = [
 ];
 
 const OFFENSE_Data_Variable_OPTIONS = {
-  "count": "COUNT",
-  "weapons": "WEAPONS",
-  "linked offense": "LINKEDOFFENSE",
-  "suspect using": "SUSPECTUSING",
+  "count": "count",
+  "weapons": "weapons",
+  "linked offense": "linkedoffense",
   "criminal activity": "CRIMINAL_ACTIVITY",
   "property recovered": "PROPERTY_RECOVERED",
   "property stolen": "PROPERTY_STOLEN",

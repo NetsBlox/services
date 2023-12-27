@@ -15,7 +15,7 @@ const ApiConsumer = require("../utils/api-consumer");
 const { DataDotGovKey } = require("../utils/api-key");
 const Crime = new ApiConsumer(
   "FBICrimeData",
-  "https://api.usa.gov/crime/fbi/sapi/",
+  "https://api.usa.gov/crime/fbi/cde/",
   { cache: { ttl: 24 * 60 * 60 } },
 );
 const _ = require("lodash");
@@ -75,13 +75,13 @@ function createCategoryDict(data) {
  * Get the number of offenses for a specific instance
  * @category National
  *
- * @param {OffenseData} offense the type of breach of a law or rule
+ * @param {OffenseVictim} offense the type of breach of a law or rule
  * @param {OffenseDataOpt} category variable affecting crimes including examples: count, weapons, etc.
  * @returns {Object} data related to national offense count
  */
 Crime.nationalOffenseCount = async function (offense, category) {
   const raw = await this._requestData({
-    path: `api/data/nibrs/${offense}/offense/national/${category}`,
+    path: `nibrs/national/${offense}/offense/${category}`,
     queryString: `api_key=${this.apiKey.value}`,
   });
   // raw also has pagination info, but as near as i can tell their api doesn't actually use it
@@ -126,7 +126,7 @@ Crime.stateOffenseCount = async function (state, offense, category) {
 };
 
 /**
- * Get the number of supplemental offenses nationwise
+ * Get the number of supplemental offenses nation-wise
  * @category National
  *
  * @param {OffenseSupplemental} offense the type of breach of a law or rule
@@ -276,7 +276,7 @@ Crime.nationalVictimCount = async function (offense, category) {
     path: `api/nibrs/${offense}/victim/national/${category}`,
     queryString: `api_key=${this.apiKey.value}`,
   });
-  return res.data; // data is the only interestng field
+  return res.data; // data is the only interesting field
 };
 
 /**
