@@ -52,12 +52,16 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
 MATLAB._parseArgument = function (arg) {
   // get the shape, flatten, and coerce types
   if (!Array.isArray(arg)) {
+    arg = [[arg]];
+  }
+  if (!Array.isArray(arg[0])) {
     arg = [arg];
   }
 
   const shape = MATLAB._shape(arg);
   const flatValues = MATLAB._flatten(arg);
   const mwtype = MATLAB._getMwType(flatValues);
+  console.log({ shape, flatValues, mwtype, arg });
   const mwdata = flatValues
     .map((v) => {
       if (mwtype === "logical") {
@@ -118,16 +122,14 @@ MATLAB._parseResultData = (result) => {
 };
 
 MATLAB._take = function* (iter, num) {
-  let chunk = [];
+  let count = 0;
   for (const v of iter) {
-    chunk.push(v);
-    if (chunk.length === num) {
-      yield chunk;
-      chunk = [];
+    if (count === num) {
+      return v;
+    } else {
+      yield v;
     }
-  }
-  if (chunk.length) {
-    return chunk;
+    count++;
   }
 };
 
@@ -138,13 +140,20 @@ MATLAB._squeeze = (data) => {
   return data;
 };
 
+// TODO: make a method for getting the reshape indices
 MATLAB._reshape = (data, shape) => {
-  return [
-    ...shape.reverse().reduce(
-      (iterable, num) => MATLAB._take(iterable, num),
-      data,
-    ),
-  ].pop();
+  const idx = MATLAB._reshapeIdx(shape);
+  const result = [];
+  idx.forEach((idx, index) => {
+    const element = data[index];
+    console.log("setting", idx, "to", element);
+    MATLAB._set(result, idx, element);
+  });
+  return result;
+};
+
+MATLAB._range = (end) => {
+  return [...new Array(end)].map((_, i) => i);
 };
 
 MATLAB._shape = (data) => {
@@ -155,20 +164,46 @@ MATLAB._shape = (data) => {
     item = item[0];
   }
 
-  while (shape.length < 2) {
-    shape.unshift(1);
-  }
-
   return shape;
 };
 
+MATLAB._get = (data, ...idx) => {
+  return idx.reduce((d, i) => d[i], data);
+};
+
+MATLAB._set = (data, idx, value) => {
+  const nestedKeys = idx.slice(0, idx.length - 1);
+  const nestedValue = nestedKeys.reduce((d, i) => d[i] = d[i] || [], data);
+  const last = idx[idx.length - 1];
+  nestedValue[last] = value;
+};
+
 MATLAB._flatten = (data) => {
-  return data.flatMap((item) => {
-    if (Array.isArray(item)) {
-      return MATLAB._flatten(item);
-    } else {
-      return item;
-    }
+  const shape = MATLAB._shape(data);
+  console.log(MATLAB._reshapeIdx(shape), data);
+  return MATLAB._reshapeIdx(shape)
+    .map((idx) => MATLAB._get(data, ...idx));
+};
+
+MATLAB._reshapeIdx = function (shape) {
+  const places = shape.reduce((places, place) => {
+    places.push(places[places.length - 1] * place);
+    return places;
+  }, [1]).reverse();
+  places.shift(); // don't need the biggest place
+
+  const size = shape.reduce((a, b) => a * b, 1);
+  console.log({ size, places, shape });
+  return MATLAB._range(size)
+    .map((num) => MATLAB._toMixedBase(num, places).reverse());
+};
+
+MATLAB._toMixedBase = function (num, places) {
+  let remainder = num;
+  return places.map((place) => {
+    let value = Math.floor(remainder / place);
+    remainder -= value * place;
+    return value;
   });
 };
 
