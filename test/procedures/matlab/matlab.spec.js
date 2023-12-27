@@ -179,13 +179,30 @@ describe(utils.suiteName(__filename), function () {
   describe("_flatten", function () {
     it("should flatten recursively", function () {
       const tensor = [
-        [[1, 2]],
-        [[3, 4]],
-        [[5, 6]],
-        [[7, 8]],
+        [
+          [1, 5],
+        ],
+        [
+          [2, 6],
+        ],
+        [
+          [3, 7],
+        ],
+        [
+          [4, 8],
+        ],
       ];
       const flat = MATLAB._flatten(tensor);
       assert.deepEqual(flat, range(8));
+    });
+
+    it("should flatten cols then rows", function () {
+      const mat = [
+        [1, 3],
+        [2, 4],
+      ];
+      const flat = MATLAB._flatten(mat);
+      assert.deepEqual(flat, range(4));
     });
   });
 
@@ -222,36 +239,80 @@ describe(utils.suiteName(__filename), function () {
     it("should reconstruct a 2x2 matrix", function () {
       const example = [1, 2, 3, 4];
       const actual = MATLAB._reshape(example, [2, 2]);
-      const expected = [[1, 2], [3, 4]];
+      const expected = [[1, 3], [2, 4]];
       assert.deepEqual(actual, expected);
     });
 
     it("should reconstruct a 3x2 matrix", function () {
       const example = range(6);
       const actual = MATLAB._reshape(example, [3, 2]);
-      const expected = [[1, 2], [3, 4], [5, 6]];
+      const expected = [[1, 4], [2, 5], [3, 6]];
       assert.deepEqual(actual, expected);
     });
 
-    it("should reconstruct a 3x2x2 tensor", function () {
-      const example = range(12);
-      const actual = MATLAB._reshape(example, [3, 2, 2]);
+    it("should reconstruct a 2x3x4 tensor", function () {
+      const example = range(24);
+      const actual = MATLAB._reshape(example, [2, 3, 4]);
       const expected = [
-        [[1, 2], [3, 4]],
-        [[5, 6], [7, 8]],
-        [[9, 10], [11, 12]],
+        [
+          [1, 3, 5],
+          [2, 4, 6],
+        ],
+        [
+          [7, 9, 11],
+          [8, 10, 12],
+        ],
+        [
+          [13, 15, 17],
+          [14, 16, 18],
+        ],
+        [
+          [19, 21, 23],
+          [20, 22, 24],
+        ],
       ];
       assert.deepEqual(actual, expected);
     });
 
     it("should invert flatten (with shape)", function () {
       const input = [
-        [[1, 2, 3], [4, 5, 6]],
-        [[7, 8, 9], [10, 11, 12]],
+        [
+          [1, 2, 3],
+          [4, 5, 6],
+        ],
+        [
+          [7, 8, 9],
+          [10, 11, 12],
+        ],
       ];
       const shape = MATLAB._shape(input);
       const reconstructed = MATLAB._reshape(MATLAB._flatten(input), shape);
       assert.deepEqual(input, reconstructed);
+    });
+  });
+
+  // TODO: get the indices for reshaping
+  describe("_reshapeIdx", function () {
+    it("should get columns first", function () {
+      const idx = MATLAB._reshapeIdx([3, 2]);
+      console.log({ idx });
+      // TODO
+    });
+
+    it("should return indices for every value", function () {
+      // TODO
+    });
+
+    it("should get pages", function () {
+      // TODO: count and map counts to indices (a weird, reversed, mixed-base thing)
+      // TODO
+    });
+  });
+
+  describe("_toMixedBase", function () {
+    it("should represent 10 in [6s, 3s, 1s]", function () {
+      const actual = MATLAB._toMixedBase(10, [6, 3, 1]);
+      assert.deepEqual(actual, [1, 1, 1]);
     });
   });
 
