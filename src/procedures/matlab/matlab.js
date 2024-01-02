@@ -7,10 +7,17 @@
  * @alpha
  */
 
-const ApiConsumer = require("../utils/api-consumer");
+const axios = require("axios");
 
 const { MATLAB_KEY, MATLAB_URL = "" } = process.env;
-const MATLAB = new ApiConsumer("MATLAB", MATLAB_URL);
+const request = axios.create({
+  headers: {
+    "X-NetsBlox-Auth-Token": MATLAB_KEY,
+  },
+});
+
+const MATLAB = {};
+MATLAB.serviceName = "MATLAB";
 
 /**
  * Evaluate a MATLAB function with the given arguments and number of return
@@ -20,36 +27,67 @@ const MATLAB = new ApiConsumer("MATLAB", MATLAB_URL);
  * @param{Array<Any>=} args arguments to pass to the function
  * @param{BoundedInteger<1>=} numReturnValues Number of return values expected.
  */
-MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
+MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   const body = [{
     function: fn,
-    arguments: this._parseArguments(args),
+    arguments: args.map((a) => this._parseArgument(a)),
     nargout: numReturnValues,
   }];
-  const headers = {
-    "X-NetsBlox-Auth-Token": MATLAB_KEY,
-  };
-  const resp = await this._requestData({ method: "POST", body, headers });
-  const results = resp.messages.FEvalResponse;
+  const resp = await request.post(MATLAB_URL, body, { timeout: 5000 });
+  const results = resp.data.messages.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
 };
 
 /**
- * Try to coerce arguments to numbers if they appear numeric...
+ * Convert a NetsBlox argument to the expected format. The MATLAB service expects
+ * arguments to be in the following format:
+ *
+ * {
+ *   "mwdata": "<flattened matrix>",
+ *   "mwsize": "<actual shape of matrix>",
+ *   "mwtype": "logical|double|single|string",
+ * }
  */
-MATLAB._parseArguments = function (args) {
-  return args.map((arg) => {
-    if (Array.isArray(arg)) {
-      return this._parseArguments(arg);
-    }
+MATLAB._parseArgument = function (arg) {
+  // get the shape, flatten, and coerce types
+  if (!Array.isArray(arg)) {
+    arg = [arg];
+  }
 
-    const number = parseFloat(arg);
-    if (isNaN(number)) {
-      return arg;
-    }
-    return number;
-  });
+  const shape = MATLAB._shape(arg);
+  const flatValues = MATLAB._flatten(arg);
+  const mwtype = MATLAB._getMwType(flatValues);
+  const mwdata = flatValues
+    .map((v) => {
+      if (mwtype === "logical") {
+        return v ? 1 : 0;
+      } else if (mwtype === "string") {
+        return v.toString();
+      } else { // number
+        if (typeof v === "string") {
+          return parseFloat(v);
+        } else if (typeof v === "boolean") {
+          return v ? 1 : 0;
+        }
+        return v;
+      }
+    });
+
+  return {
+    mwdata,
+    mwsize: shape,
+    mwtype,
+  };
+};
+
+MATLAB._getMwType = function (values) {
+  if (values.find((v) => typeof v === "string" && isNaN(parseFloat(v)))) {
+    return "string";
+  } else if (values.every((v) => typeof v === "boolean")) {
+    return "logical";
+  }
+  return "double";
 };
 
 MATLAB._parseResult = (result) => {
@@ -60,7 +98,78 @@ MATLAB._parseResult = (result) => {
     throw new Error(message);
   }
 
-  return result.results[0]; // TODO: Check this with multiple return values
+  let numReturnValues = result.results.length;
+  if (numReturnValues === 1) {
+    return MATLAB._parseResultData(result.results[0]);
+  } else {
+    return result.results.map((retVal) => MATLAB._parseResultData(retVal));
+  }
+};
+
+MATLAB._parseResultData = (result) => {
+  // reshape the data
+  let data = result.mwdata;
+  if (!Array.isArray(data)) {
+    data = [data];
+  }
+  return MATLAB._squeeze(
+    MATLAB._reshape(data, result.mwsize),
+  );
+};
+
+MATLAB._take = function* (iter, num) {
+  let chunk = [];
+  for (const v of iter) {
+    chunk.push(v);
+    if (chunk.length === num) {
+      yield chunk;
+      chunk = [];
+    }
+  }
+  if (chunk.length) {
+    return chunk;
+  }
+};
+
+MATLAB._squeeze = (data) => {
+  while (Array.isArray(data) && data.length === 1) {
+    data = data[0];
+  }
+  return data;
+};
+
+MATLAB._reshape = (data, shape) => {
+  return [
+    ...shape.reverse().reduce(
+      (iterable, num) => MATLAB._take(iterable, num),
+      data,
+    ),
+  ].pop();
+};
+
+MATLAB._shape = (data) => {
+  const shape = [];
+  let item = data;
+  while (Array.isArray(item)) {
+    shape.push(item.length);
+    item = item[0];
+  }
+
+  while (shape.length < 2) {
+    shape.unshift(1);
+  }
+
+  return shape;
+};
+
+MATLAB._flatten = (data) => {
+  return data.flatMap((item) => {
+    if (Array.isArray(item)) {
+      return MATLAB._flatten(item);
+    } else {
+      return item;
+    }
+  });
 };
 
 MATLAB.isSupported = () => {
