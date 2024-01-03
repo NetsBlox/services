@@ -69,6 +69,14 @@ async function fetchLicensed(settings, licenseHash = null) {
     });
 }
 
+async function tryOrElse(ok, err) {
+    try {
+        return await ok();
+    } catch (e) {
+        return await err();
+    }
+}
+
 let SENSOR_TYPES_META = [];
 types.defineType({
     name: "MovebankSensor",
@@ -139,15 +147,19 @@ Movebank.getStudiesNear = async function (latitude, longitude, distance) {
 /**
  * Get a list of all the animals that participated in a specific study.
  * 
- * @param {Union<Object,Integer>} study A study object returned by :func:`Movebank.getStudies`
+ * @param {Object} study A study object returned by :func:`Movebank.getStudies`
  * @returns {Array<Object>} A list of animals
  */
 Movebank.getAnimals = async function (study) {
     study = parseInt(study.id);
-    if (isNaN(study)) throw Error("invalid study");
+    if (isNaN(study)) throw Error("unknown study");
 
-    const data = await parseCSV(await fetchLicensed({
-        queryString: `entity_type=individual&study_id=${study}&api-token=${Movebank.apiKey.value}`,
+    const data = await parseCSV(await tryOrElse(async () => {
+        return await fetchLicensed({
+            queryString: `entity_type=individual&study_id=${study}&api-token=${Movebank.apiKey.value}`,
+        });
+    }, () => {
+        return "";
     }));
 
     const res = []
@@ -175,20 +187,24 @@ Movebank.getAnimals = async function (study) {
 /**
  * Get a chronological list of all the migration events for an animal in a specific study.
  * 
- * @param {Union<Object>} study A study object returned by :func:`Movebank.getStudies`
- * @param {Union<Object>} animal An animal object returned by :func:`Movebank.getAnimals`. The animal should be part of the same study.
+ * @param {Object} study A study object returned by :func:`Movebank.getStudies`
+ * @param {Object} animal An animal object returned by :func:`Movebank.getAnimals`. The animal should be part of the same study.
  * @param {BoundedNumber<0>=} minDistance The minimum distance (in meters) between consecutive returned events (default 0, which gives all available data).
  * @returns {Array<Object>} A list of chronological migration events for the animal
  */
 Movebank.getEvents = async function (study, animal, minDistance = 0) {
     study = parseInt(study.id);
-    if (isNaN(study)) throw Error("invalid study");
+    if (isNaN(study)) throw Error("unknown study");
 
     animal = animal.id.toString();
-    if (!animal) throw Error("invalid animal");
+    if (!animal) throw Error("unknown animal");
 
-    const data = await parseCSV(await fetchLicensed({
-        queryString: `entity_type=event&study_id=${study}&individual_local_identifier=${animal}&attributes=visible,timestamp,location_lat,location_long&api-token=${Movebank.apiKey.value}`,
+    const data = await parseCSV(await tryOrElse(async () => {
+        return await fetchLicensed({
+            queryString: `entity_type=event&study_id=${study}&individual_local_identifier=${animal}&attributes=visible,timestamp,location_lat,location_long&api-token=${Movebank.apiKey.value}`,
+        });
+    }, () => {
+        return "";
     }));
 
     const res = [];
