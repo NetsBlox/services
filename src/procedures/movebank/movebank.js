@@ -123,11 +123,11 @@ Movebank.getStudies = async function () {
 /**
  * Get a list of all the animals that participated in a specific study.
  * 
- * @param {Union<Object,Integer>} study A study object or study id returned by :func:`Movebank.getStudies`
+ * @param {Union<Object,Integer>} study A study object returned by :func:`Movebank.getStudies`
  * @returns {Array<Object>} A list of animals
  */
-Movebank.getAnimalsInStudy = async function (study) {
-    if (typeof(study) === "object") study = parseInt(study.id);
+Movebank.getAnimals = async function (study) {
+    study = parseInt(study.id);
     if (isNaN(study)) throw Error("invalid study");
 
     const data = await parseCSV(await fetchLicensed({
@@ -136,10 +136,10 @@ Movebank.getAnimalsInStudy = async function (study) {
 
     const res = []
     for (const raw of data) {
-        if (raw.id && raw.sex && raw.taxon_canonical_name) {
+        if (raw.local_identifier && raw.taxon_canonical_name) {
             res.push({
-                id: parseInt(raw.id),
-                sex: raw.sex === 'm' ? 'male' : raw.sex === 'f' ? 'female' : raw.sex,
+                id: raw.local_identifier,
+                sex: raw.sex === 'm' ? 'male' : raw.sex === 'f' ? 'female' : 'unknown',
                 species: raw.taxon_canonical_name,
                 sensors: raw.sensor_type_ids.split(',').map((x) => {
                     x = x.trim();
@@ -150,6 +150,37 @@ Movebank.getAnimalsInStudy = async function (study) {
                     }
                     return x;
                 }),
+            });
+        }
+    }
+    return res;
+};
+
+/**
+ * Get a list of all the events for an animal in a specific study.
+ * 
+ * @param {Union<Object>} study A study object returned by :func:`Movebank.getStudies`
+ * @param {Union<Object>} animal An animal object returned by :func:`Movebank.getAnimals`. The animal should be part of the same study.
+ * @returns {Array<Object>} A list of events for the animal
+ */
+Movebank.getEvents = async function (study, animal) {
+    study = parseInt(study.id);
+    if (isNaN(study)) throw Error("invalid study");
+
+    animal = animal.id.toString();
+    if (!animal) throw Error("invalid animal");
+
+    const data = await parseCSV(await fetchLicensed({
+        queryString: `entity_type=event&study_id=${study}&individual_local_identifier=${animal}&attributes=visible,timestamp,location_lat,location_long&api-token=${Movebank.apiKey.value}`,
+    }));
+
+    const res = [];
+    for (const raw of data) {
+        if (raw.visible === 'true' && raw.timestamp && raw.location_lat && raw.location_long) {
+            res.push({
+                timestamp: new Date(raw.timestamp),
+                latitude: parseFloat(raw.location_lat),
+                longitude: parseFloat(raw.location_long),
             });
         }
     }
