@@ -30,18 +30,22 @@ Next, use the `NetsBlox CLI <https://github.com/NetsBlox/cloud/releases>`_ to re
 
 	netsblox service-hosts register http://localhost:8080 LocalServices
 
+The above command will register the local server with the production cloud for your account. The "call <RPC>" block will now show the local services under a "LocalServices" submenu.
+
 When you are done working on the services server, unregister the services host with:
 
 .. code-block:: sh
 
 	netsblox service-hosts unregister http://localhost:8080
 
+If the local services server is stopped (but not unregistered) there will be a warning displayed when https://editor.netsblox.org is loaded stating that the services host is not available.
+
 Cloud
 -----
 
 First, follow the quick start in `readme from the GitHub repository <https://github.com/netsblox/cloud>`_. This will require a local instance of MongoDB and S3 provider (like Minio).
 
-Next, the production deployment of the NetsBlox IDE can be configured to use this local cloud using the following link: `https://editor.netsblox.org <https://editor.netsblox.org>`_
+Next, the production deployment of the NetsBlox IDE can be configured to use this local cloud using the following link: `https://editor.netsblox.org?cloud=http://localhost:7777 <https://editor.netsblox.org?cloud=http://localhost:7777>`_
 
 Login Server
 ------------
