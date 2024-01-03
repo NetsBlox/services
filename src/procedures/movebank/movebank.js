@@ -173,13 +173,14 @@ Movebank.getAnimals = async function (study) {
 };
 
 /**
- * Get a list of all the events for an animal in a specific study.
+ * Get a chronological list of all the migration events for an animal in a specific study.
  * 
  * @param {Union<Object>} study A study object returned by :func:`Movebank.getStudies`
  * @param {Union<Object>} animal An animal object returned by :func:`Movebank.getAnimals`. The animal should be part of the same study.
- * @returns {Array<Object>} A list of events for the animal
+ * @param {BoundedNumber<0>=} minDistance The minimum distance (in meters) between consecutive returned events (default 0, which gives all available data).
+ * @returns {Array<Object>} A list of chronological migration events for the animal
  */
-Movebank.getEvents = async function (study, animal) {
+Movebank.getEvents = async function (study, animal, minDistance = 0) {
     study = parseInt(study.id);
     if (isNaN(study)) throw Error("invalid study");
 
@@ -191,13 +192,24 @@ Movebank.getEvents = async function (study, animal) {
     }));
 
     const res = [];
+    let prevPos = null;
     for (const raw of data) {
         if (raw.visible === 'true' && raw.timestamp && raw.location_lat && raw.location_long) {
-            res.push({
+            const entry = {
                 timestamp: new Date(raw.timestamp),
                 latitude: parseFloat(raw.location_lat),
                 longitude: parseFloat(raw.location_long),
-            });
+            };
+
+            if (minDistance > 0) {
+                const pos = { latitude: entry.latitude, longitude: entry.longitude };
+                if (!prevPos || geolib.getDistance(prevPos, pos) >= minDistance) {
+                    prevPos = pos;
+                    res.push(entry);
+                }
+            } else {
+                res.push(entry);
+            }
         }
     }
     return res;
