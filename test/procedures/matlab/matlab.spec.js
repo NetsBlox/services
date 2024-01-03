@@ -15,7 +15,7 @@ describe(utils.suiteName(__filename), function () {
   });
 
   utils.verifyRPCInterfaces("MATLAB", [
-    ["feval", ["fn", "args", "numReturnValues"]],
+    ["function", ["fn", "args", "numReturnValues"]],
   ]);
 
   describe("_parseResult", function () {
@@ -51,6 +51,48 @@ describe(utils.suiteName(__filename), function () {
       assert.deepEqual(result, expected);
     });
 
+    it("should extract multiple results", function () {
+      const exampleResponse = {
+        "uuid": "UNSPECIFIED",
+        "messages": {
+          "FEvalResponse": [{
+            "results": [
+              {
+                mwdata: [
+                  0.60964185602745879,
+                  0.535534059872629,
+                  0.75432599544689793,
+                ],
+                mwsize: [1, 3],
+                mwtype: "double",
+              },
+              {
+                mwdata: [3],
+                mwsize: [1, 1],
+                mwtype: "double",
+              },
+            ],
+            "isError": false,
+            "uuid": "",
+            "apiVersion": "1.6",
+            "messageFaults": [],
+          }],
+        },
+      };
+      const result = MATLAB._parseResult(
+        exampleResponse.messages.FEvalResponse[0],
+      );
+      const expected = [
+        [
+          0.60964185602745879,
+          0.535534059872629,
+          0.75432599544689793,
+        ],
+        3,
+      ];
+      assert.deepEqual(result, expected);
+    });
+
     it("should throw errors", function () {
       const example = {
         "results": [],
@@ -81,6 +123,13 @@ describe(utils.suiteName(__filename), function () {
       assert.deepEqual(actual.mwdata, expected);
     });
 
+    it("should coerce booleans to 1/0", function () {
+      const example = [true, false];
+      const actual = MATLAB._parseArgument(example);
+      const expected = [1, 0];
+      assert.deepEqual(actual.mwdata, expected);
+    });
+
     it("should preserve numbers", function () {
       const expected = [5, 6];
       const actual = MATLAB._parseArgument(expected);
@@ -107,6 +156,23 @@ describe(utils.suiteName(__filename), function () {
       const expected = [5];
       assert.deepEqual(actual.mwdata, expected);
       assert.deepEqual(actual.mwsize, [1, 1]);
+    });
+  });
+
+  describe("_getMwType", function () {
+    it("should return string if has any strings", function () {
+      const mwtype = MATLAB._getMwType([1, 2, 3, "cat"]);
+      assert.equal(mwtype, "string");
+    });
+
+    it("should return logical if all bools", function () {
+      const mwtype = MATLAB._getMwType([true, false, true]);
+      assert.equal(mwtype, "logical");
+    });
+
+    it("should default to double", function () {
+      const mwtype = MATLAB._getMwType([1.]);
+      assert.equal(mwtype, "double");
     });
   });
 

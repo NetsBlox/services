@@ -27,7 +27,7 @@ MATLAB.serviceName = "MATLAB";
  * @param{Array<Any>=} args arguments to pass to the function
  * @param{BoundedInteger<1>=} numReturnValues Number of return values expected.
  */
-MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
+MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   const body = [{
     function: fn,
     arguments: args.map((a) => this._parseArgument(a)),
@@ -46,7 +46,7 @@ MATLAB.feval = async function (fn, args = [], numReturnValues = 1) {
  * {
  *   "mwdata": "<flattened matrix>",
  *   "mwsize": "<actual shape of matrix>",
- *   "mwtype": "double|single|etc",
+ *   "mwtype": "logical|double|single|string",
  * }
  */
 MATLAB._parseArgument = function (arg) {
@@ -56,22 +56,38 @@ MATLAB._parseArgument = function (arg) {
   }
 
   const shape = MATLAB._shape(arg);
-  const flatNumbers = MATLAB._flatten(arg)
+  const flatValues = MATLAB._flatten(arg);
+  const mwtype = MATLAB._getMwType(flatValues);
+  const mwdata = flatValues
     .map((v) => {
-      if (typeof v !== "string") return v;
-
-      const number = parseFloat(v);
-      if (isNaN(number)) {
+      if (mwtype === "logical") {
+        return v ? 1 : 0;
+      } else if (mwtype === "string") {
+        return v.toString();
+      } else { // number
+        if (typeof v === "string") {
+          return parseFloat(v);
+        } else if (typeof v === "boolean") {
+          return v ? 1 : 0;
+        }
         return v;
       }
-      return number;
     });
 
   return {
-    mwdata: flatNumbers,
+    mwdata,
     mwsize: shape,
-    mwtype: "double",
+    mwtype,
   };
+};
+
+MATLAB._getMwType = function (values) {
+  if (values.find((v) => typeof v === "string" && isNaN(parseFloat(v)))) {
+    return "string";
+  } else if (values.every((v) => typeof v === "boolean")) {
+    return "logical";
+  }
+  return "double";
 };
 
 MATLAB._parseResult = (result) => {
@@ -82,14 +98,23 @@ MATLAB._parseResult = (result) => {
     throw new Error(message);
   }
 
+  let numReturnValues = result.results.length;
+  if (numReturnValues === 1) {
+    return MATLAB._parseResultData(result.results[0]);
+  } else {
+    return result.results.map((retVal) => MATLAB._parseResultData(retVal));
+  }
+};
+
+MATLAB._parseResultData = (result) => {
   // reshape the data
-  let data = result.results[0].mwdata;
+  let data = result.mwdata;
   if (!Array.isArray(data)) {
     data = [data];
   }
   return MATLAB._squeeze(
-    MATLAB._reshape(data, result.results[0].mwsize),
-  ); // TODO: Check this with multiple return values
+    MATLAB._reshape(data, result.mwsize),
+  );
 };
 
 MATLAB._take = function* (iter, num) {
