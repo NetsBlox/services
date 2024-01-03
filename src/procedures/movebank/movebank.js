@@ -49,20 +49,22 @@ async function fetchLicensed(settings, licenseHash = null) {
     const url = `${Movebank._baseUrl}?${settings.queryString}${licenseSuffix}`;
     logger.info(`fetching possibly licensed content: ${url}`);
 
-    const res = await axios({ url, method: "GET" });
-    if (!licenseHash && res.headers['accept-license'] === 'true') {
-        logger.info('> failed with license request');
-        for (const ty in ALLOWED_LICENSE_TYPES) {
-            if (res.data.includes(`<span style="font-weight:bold;font-style:italic;">License Type: </span>${ALLOWED_LICENSE_TYPES[ty]}`)) {
-                logger.info(`> accepting license of type ${ty} and retrying...`);
-                return await fetchLicensed(settings, md5(res.data));
+    return await Movebank._cache.wrap(`<licensed>::<${licenseHash}>::<${url}>`, async () => {
+        logger.info('> request is not cached - calling external endpoint');
+        const res = await axios({ url, method: "GET" });
+        if (!licenseHash && res.headers['accept-license'] === 'true') {
+            logger.info('> failed with license request');
+            for (const ty in ALLOWED_LICENSE_TYPES) {
+                if (res.data.includes(`<span style="font-weight:bold;font-style:italic;">License Type: </span>${ALLOWED_LICENSE_TYPES[ty]}`)) {
+                    logger.info(`> accepting license of type ${ty} and retrying...`);
+                    return await fetchLicensed(settings, md5(res.data));
+                }
             }
+            logger.info(`> unknown license type`, res.data);
+            throw Error('failed to download licensed material');
         }
-        logger.info(`> unknown license type`, res.data);
-        throw Error('failed to download licensed material');
-    }
-    logger.info('> success!');
-    return res.data;
+        return res.data;
+    });
 }
 
 let SENSOR_TYPES_META = [];
@@ -131,8 +133,6 @@ Movebank.getAnimalsInStudy = async function (study) {
     const data = await parseCSV(await fetchLicensed({
         queryString: `entity_type=individual&study_id=${study}&api-token=${Movebank.apiKey.value}`,
     }));
-
-    console.log(SENSOR_TYPES_META);
 
     const res = []
     for (const raw of data) {
