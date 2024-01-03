@@ -8,11 +8,13 @@
 
 const logger = require("../utils/logger")("movebank");
 const ApiConsumer = require("../utils/api-consumer");
-const types = require("../../input-types");
-const csv = require("fast-csv");
-const md5 = require('md5');
-const axios = require("axios");
 const { MovebankKey } = require("../utils/api-key");
+const types = require("../../input-types");
+const geolib = require("geolib");
+const csv = require("fast-csv");
+const axios = require("axios");
+const md5 = require('md5');
+
 const Movebank = new ApiConsumer(
     "Movebank",
     "https://www.movebank.org/movebank/service/direct-read/",
@@ -118,6 +120,20 @@ Movebank.getStudies = async function () {
         }
     }
     return res;
+};
+
+/**
+ * Get a list of all the studies available for (public) viewing within a certain max distance of a point of interest.
+ * Note that some of the animals involved in these studies may travel outside of this distance.
+ * 
+ * @param {Latitude} latitude Latitude of the point of interest
+ * @param {Longitude} longitude Longitude of the point of interest
+ * @param {BoundedNumber<0>} distance Max distance from the point of interest (in meters)
+ * @returns {Array<Object>} A list of available studies near the point of interest
+ */
+Movebank.getStudiesNear = async function (latitude, longitude, distance) {
+    const p = { latitude, longitude };
+    return (await Movebank.getStudies()).filter((x) => geolib.getDistance(p, { latitude: x.latitude, longitude: x.longitude }) <= distance);
 };
 
 /**
