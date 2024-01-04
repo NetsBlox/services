@@ -1,6 +1,6 @@
 const logger = require("../utils/logger")("iotscape-services");
 const { setTimeout, setInterval } = require("../../timers");
-const IoTScapeDevices = require('./iotscape-devices');
+const IoTScapeDevices = require("./iotscape-devices");
 
 /**
  * Stores information about registered services, with a list of IDs and their respective hosts
@@ -56,7 +56,7 @@ IoTScapeServices.getMessageTypes = function (service) {
   // Parse events into NetsBlox-friendlier format
   let eventsInfo = IoTScapeServices._serviceDefinitions[service].events || {};
   eventsInfo = Object.keys(eventsInfo).map(
-    (event) => [event, ['id', ...eventsInfo[event].params]],
+    (event) => [event, ["id", ...eventsInfo[event].params]],
   );
   return eventsInfo;
 };
@@ -71,38 +71,38 @@ IoTScapeServices.serviceExists = function (service) {
 };
 
 IoTScapeServices._specialMethods = {
-  'heartbeat': {
-      returns: {
-          type:['boolean']
-      }
+  "heartbeat": {
+    returns: {
+      type: ["boolean"],
+    },
   },
-  'setKey': {
-      params: [{
-          'name': 'key',
-          'documentation': 'Key to set',
-          'type': 'number',
-          'optional': false
-      }],
-      returns: {
-          type: ['void']
-      }
+  "setKey": {
+    params: [{
+      "name": "key",
+      "documentation": "Key to set",
+      "type": "number",
+      "optional": false,
+    }],
+    returns: {
+      type: ["void"],
+    },
   },
-  'setCipher': {
-      params: [{
-          'name': 'cipher',
-          'documentation': 'Cipher to use',
-          'type': 'string',
-          'optional': false
-      }],
-      returns: {
-          type:['void']
-      }
+  "setCipher": {
+    params: [{
+      "name": "cipher",
+      "documentation": "Cipher to use",
+      "type": "string",
+      "optional": false,
+    }],
+    returns: {
+      type: ["void"],
+    },
   },
-  '_requestedKey': {
-      returns: {
-          type: ['void']
-      }
-  }
+  "_requestedKey": {
+    returns: {
+      type: ["void"],
+    },
+  },
 };
 
 /**
@@ -116,8 +116,8 @@ IoTScapeServices.functionExists = function (service, func) {
     return false;
   }
 
-  return Object.keys(IoTScapeServices._specialMethods).includes(func) 
-    || IoTScapeServices.getFunctionInfo(service, func) !== undefined;
+  return Object.keys(IoTScapeServices._specialMethods).includes(func) ||
+    IoTScapeServices.getFunctionInfo(service, func) !== undefined;
 };
 
 /**
@@ -126,7 +126,7 @@ IoTScapeServices.functionExists = function (service, func) {
  * @param {String} func Name of function
  */
 IoTScapeServices.getFunctionInfo = function (service, func) {
-  if(Object.keys(IoTScapeServices._specialMethods).includes(func)){
+  if (Object.keys(IoTScapeServices._specialMethods).includes(func)) {
     return IoTScapeServices._specialMethods[func];
   }
 
@@ -168,10 +168,13 @@ IoTScapeServices.listen = function (service, client, id) {
   }
 
   // Prevent listen if this client/role/project combination is already listening
-  if (!IoTScapeServices._listeningClients[service][id].some((existingClient) =>
-      existingClient.clientId === client.clientId && existingClient.roleId == client.roleId && existingClient.projectId == client.projectId
+  if (
+    !IoTScapeServices._listeningClients[service][id].some((existingClient) =>
+      existingClient.clientId === client.clientId &&
+      existingClient.roleId == client.roleId &&
+      existingClient.projectId == client.projectId
     )
-  ) {  
+  ) {
     IoTScapeServices._listeningClients[service][id].push(client);
   }
 };
@@ -195,32 +198,47 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
   }
 
   // Don't send out serverside commands
-  if(func !== 'setKey' && func !== 'setCipher') {
+  if (func !== "setKey" && func !== "setCipher") {
     // Create and send request
     let request = {
-        id: reqid,
-        service: service,
-        device: id,
-        function: func, 
-        params: [...args],
+      id: reqid,
+      service: service,
+      device: id,
+      function: func,
+      params: [...args],
     };
 
     const rinfo = IoTScapeDevices.getInfo(service, id);
-    IoTScapeServices.socket.send(JSON.stringify(request), rinfo.port, rinfo.address);
+    IoTScapeServices.socket.send(
+      JSON.stringify(request),
+      rinfo.port,
+      rinfo.address,
+    );
   }
 
   // Relay as message to listening clients
-  if(func !== 'heartbeat'){
-      IoTScapeServices.sendMessageToListeningClients(service, id, 'device command', {command: IoTScapeDevices.deviceEncrypt(service, id, [func, ...args].join(' '))});
+  if (func !== "heartbeat") {
+    IoTScapeServices.sendMessageToListeningClients(
+      service,
+      id,
+      "device command",
+      {
+        command: IoTScapeDevices.deviceEncrypt(
+          service,
+          id,
+          [func, ...args].join(" "),
+        ),
+      },
+    );
   }
 
   // Handle setKey/Cipher after relaying message to use old encryption
-  if(IoTScapeDevices.getEncryptionState(service, id).cipher != 'linked'){
-      if(func === 'setKey'){
-          IoTScapeDevices.updateEncryptionState(service, id, args, null);
-      } else if(func === 'setCipher'){
-          IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
-      }
+  if (IoTScapeDevices.getEncryptionState(service, id).cipher != "linked") {
+    if (func === "setKey") {
+      IoTScapeDevices.updateEncryptionState(service, id, args, null);
+    } else if (func === "setCipher") {
+      IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
+    }
   } else {
     // Not supported on linked device
     return false;
@@ -284,100 +302,135 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
  * Map of message types which should be handled on ther server to their handlers
  */
 IoTScapeServices._specialMessageTypes = {
-  '_reset': (parsed) => {
-  // Reset encryption on device
-      logger.log(`Resetting ${parsed.service}:${parsed.id}`);
-      IoTScapeDevices.clearEncryption(parsed.service, parsed.id);
-  }, 
-  '_requestKey': (parsed) => {
+  "_reset": (parsed) => {
+    // Reset encryption on device
+    logger.log(`Resetting ${parsed.service}:${parsed.id}`);
+    IoTScapeDevices.clearEncryption(parsed.service, parsed.id);
+  },
+  "_requestKey": (parsed) => {
+    if (
+      IoTScapeDevices.getEncryptionState(parsed.service, parsed.id).cipher ==
+        "linked"
+    ) {
+      logger.log(
+        `Refused to generate HW key for ${parsed.service}:${parsed.id} due to existing link`,
+      );
+      return;
+    }
+    // Generate hardware key
+    let key = [];
 
-      if(IoTScapeDevices.getEncryptionState(parsed.service, parsed.id).cipher == 'linked'){
-          logger.log(`Refused to generate HW key for ${parsed.service}:${parsed.id} due to existing link`);
-          return;
-      }
-      // Generate hardware key
-      let key = [];
+    for (let i = 0; i < 4; i++) {
+      key.push(Math.floor(Math.random() * 16));
+    }
 
-      for (let i = 0; i < 4; i++) {
-          key.push(Math.floor(Math.random() * 16));
-      }
+    IoTScapeDevices.updateEncryptionState(
+      parsed.service,
+      parsed.id,
+      key,
+      "caesar",
+    );
 
-      IoTScapeDevices.updateEncryptionState(parsed.service, parsed.id, key, 'caesar');
+    // Tell device what the new key is, so it can display it
+    IoTScapeServices.call(parsed.service, "_requestedKey", parsed.id, ...key);
+  },
+  "_link": (parsed) => {
+    const targetService = parsed.event.args.service;
+    const targetID = parsed.event.args.id;
 
-      // Tell device what the new key is, so it can display it
-      IoTScapeServices.call(parsed.service, '_requestedKey', parsed.id, ...key);
-  }, 
-  '_link': (parsed) => {
-      const targetService = parsed.event.args.service;
-      const targetID = parsed.event.args.id;
+    if (!IoTScapeDevices.deviceExists(targetService, targetID)) {
+      logger.log(
+        `Requested invalid link of ${parsed.service}:${parsed.id} to ${targetService}:${targetID}`,
+      );
+      return;
+    }
 
-      if(!IoTScapeDevices.deviceExists(targetService, targetID)){
-          logger.log(`Requested invalid link of ${parsed.service}:${parsed.id} to ${targetService}:${targetID}`);
-          return;
-      }
+    logger.log(
+      `Linking ${parsed.service}:${parsed.id} to ${targetService}:${targetID}`,
+    );
 
-      logger.log(`Linking ${parsed.service}:${parsed.id} to ${targetService}:${targetID}`);
-
-      IoTScapeDevices.link(parsed.service, parsed.id, targetService, targetID);
-  }
+    IoTScapeDevices.link(parsed.service, parsed.id, targetService, targetID);
+  },
 };
 
 const _handleMessage = function (message, remote) {
   let parsed = null;
 
   try {
-      parsed = JSON.parse(message);
-  } catch(err){
-      logger.log('Error parsing IoTScape message: ' + err);
-      return;
+    parsed = JSON.parse(message);
+  } catch (err) {
+    logger.log("Error parsing IoTScape message: " + err);
+    return;
   }
 
-  if(parsed == null){
-      logger.log('Invalid IoTScape message');
-      return;
+  if (parsed == null) {
+    logger.log("Invalid IoTScape message");
+    return;
   }
 
   // Ignore other messages
-  if(parsed.request){
-      _handleResponse(parsed);
+  if (parsed.request) {
+    _handleResponse(parsed);
   }
 
-  if(parsed.event && IoTScapeDevices.deviceExists(parsed.service, parsed.id)){
-      _handleEvent(parsed, remote);
+  if (parsed.event && IoTScapeDevices.deviceExists(parsed.service, parsed.id)) {
+    _handleEvent(parsed, remote);
   }
 };
 
-const _handleResponse = function(parsed){
-
+const _handleResponse = function (parsed) {
   const requestID = parsed.request;
 
-  if(Object.keys(IoTScapeServices._awaitingRequests).includes(requestID.toString())){
-      if(parsed.response){
-          // Return multiple results as a list, single result as a value
-          const methodInfo = IoTScapeServices.getFunctionInfo(IoTScapeServices._awaitingRequests[requestID].service, IoTScapeServices._awaitingRequests[requestID].function);
-          const responseType = methodInfo.returns.type;
+  if (
+    Object.keys(IoTScapeServices._awaitingRequests).includes(
+      requestID.toString(),
+    )
+  ) {
+    if (parsed.response) {
+      // Return multiple results as a list, single result as a value
+      const methodInfo = IoTScapeServices.getFunctionInfo(
+        IoTScapeServices._awaitingRequests[requestID].service,
+        IoTScapeServices._awaitingRequests[requestID].function,
+      );
+      const responseType = methodInfo.returns.type;
 
-          try {
-              if(responseType.length > 1) {
-                  IoTScapeServices._awaitingRequests[requestID].resolve(parsed.response);
-              } else {
-                  IoTScapeServices._awaitingRequests[requestID].resolve(...parsed.response);
-              }
-          } catch (error) {
-              logger.log('IoTScape response invalid: ' + error);
-          }
-
-          delete IoTScapeServices._awaitingRequests[requestID];
+      try {
+        if (responseType.length > 1) {
+          IoTScapeServices._awaitingRequests[requestID].resolve(
+            parsed.response,
+          );
+        } else {
+          IoTScapeServices._awaitingRequests[requestID].resolve(
+            ...parsed.response,
+          );
+        }
+      } catch (error) {
+        logger.log("IoTScape response invalid: " + error);
       }
+
+      delete IoTScapeServices._awaitingRequests[requestID];
+    }
   }
 };
 
-const _handleEvent = function(parsed, remote) {
+const _handleEvent = function (parsed, remote) {
   // Handle special message types, but only if they come from the device
-  if(Object.keys(IoTScapeServices._specialMessageTypes).includes(parsed.event.type) && IoTScapeDevices._services[parsed.service][parsed.id].address == remote.address && IoTScapeDevices._services[parsed.service][parsed.id].port == remote.port){
-      IoTScapeServices._specialMessageTypes[parsed.event.type](parsed);
+  if (
+    Object.keys(IoTScapeServices._specialMessageTypes).includes(
+      parsed.event.type,
+    ) &&
+    IoTScapeDevices._services[parsed.service][parsed.id].address ==
+      remote.address &&
+    IoTScapeDevices._services[parsed.service][parsed.id].port == remote.port
+  ) {
+    IoTScapeServices._specialMessageTypes[parsed.event.type](parsed);
   } else {
-      IoTScapeServices.sendMessageToListeningClients(parsed.service, parsed.id.toString(), parsed.event.type, {...parsed.event.args});
+    IoTScapeServices.sendMessageToListeningClients(
+      parsed.service,
+      parsed.id.toString(),
+      parsed.event.type,
+      { ...parsed.event.args },
+    );
   }
 };
 
@@ -388,22 +441,34 @@ const _handleEvent = function(parsed, remote) {
  * @param {String} type Message type
  * @param {Object} content Contents of message
  */
-IoTScapeServices.sendMessageToListeningClients = function(service, id, type, content){
-  // Find listening clients 
+IoTScapeServices.sendMessageToListeningClients = function (
+  service,
+  id,
+  type,
+  content,
+) {
+  // Find listening clients
   const clientsByID = IoTScapeServices._listeningClients[service] || {};
   const clients = clientsByID[id] || [];
 
-  if(IoTScapeDevices.getEncryptionState(service, id).cipher == 'plain'){
-      // Send basic mode responses
-      clients.forEach((client) => {
-          client.sendMessage(type, {id, ...content});
-      });
-  } 
+  if (IoTScapeDevices.getEncryptionState(service, id).cipher == "plain") {
+    // Send basic mode responses
+    clients.forEach((client) => {
+      client.sendMessage(type, { id, ...content });
+    });
+  }
 
-  if(type !== 'device command') {
-      clients.forEach((client) => {
-          client.sendMessage('device message', {id, message: IoTScapeDevices.deviceEncrypt(service, id, [type, ...Object.values(content)].join(' '))});
+  if (type !== "device command") {
+    clients.forEach((client) => {
+      client.sendMessage("device message", {
+        id,
+        message: IoTScapeDevices.deviceEncrypt(
+          service,
+          id,
+          [type, ...Object.values(content)].join(" "),
+        ),
       });
+    });
   }
 };
 
