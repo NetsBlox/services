@@ -12,8 +12,8 @@ const { registerTypes } = require("./types");
 const path = require("path");
 const utils = require("../utils/index");
 const MusicApp = {};
-const soundLibrary = require("./soundLibrary.json");
-const drumLibrary = require("./drumSoundLibrary.json");
+const soundLibrary = require("./SoundLibrary/soundLibrary.json");
+const drumLibrary = require("./SoundLibrary/drumSoundLibrary.json");
 const masterSoundLibrary = [
   ...soundLibrary.netsbloxSoundLibrary,
   ...drumLibrary.drumSoundLibrary,
