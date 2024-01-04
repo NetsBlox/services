@@ -106,6 +106,21 @@ IoTScapeServices._specialMethods = {
 };
 
 /**
+ * List methods associated with a service
+ * @param {string} service Name of service
+ */
+IoTScapeServices.getMethods = function(service) {
+  if(!IoTScapeServices.serviceExists(service)){
+      return {};
+  }
+
+  // Parse methods into NetsBlox-friendlier format
+  let methodsInfo = IoTScapeServices._serviceDefinitions[service].methods;
+  methodsInfo = Object.keys(methodsInfo).map(method => [method, methodsInfo[method].params.map(param => param.name)]);
+  return methodsInfo;
+};
+
+/**
  * Determine if a service has a given function
  * @param {String} service Name of service
  * @param {String} func Name of function
@@ -196,6 +211,8 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
   ) {
     return false;
   }
+  
+  const reqid = IoTScapeServices._generateRequestID();
 
   // Don't send out serverside commands
   if (func !== "setKey" && func !== "setCipher") {
@@ -495,14 +512,14 @@ IoTScapeServices.start = function (socket) {
 
   setInterval(async () => {
     for (const service of IoTScapeServices.getServices()) {
-      IoTScapeServices.getDevices(service).forEach(async (device) => {
+      IoTScapeDevices.getDevices(service).forEach(async (device) => {
         if (!(await heartbeat(service, device))) {
           // Send second heartbeat request, will timeout if device does not respond
           if (!(await heartbeat(service, device))) {
             logger.log(
               `${service}:${device} did not respond to heartbeat, removing from active devices`,
             );
-            IoTScapeServices.removeDevice(service, device);
+            IoTScapeDevices.removeDevice(service, device);
           }
         }
       });
