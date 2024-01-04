@@ -109,14 +109,16 @@ IoTScapeServices._specialMethods = {
  * List methods associated with a service
  * @param {string} service Name of service
  */
-IoTScapeServices.getMethods = function(service) {
-  if(!IoTScapeServices.serviceExists(service)){
-      return {};
+IoTScapeServices.getMethods = function (service) {
+  if (!IoTScapeServices.serviceExists(service)) {
+    return {};
   }
 
   // Parse methods into NetsBlox-friendlier format
   let methodsInfo = IoTScapeServices._serviceDefinitions[service].methods;
-  methodsInfo = Object.keys(methodsInfo).map(method => [method, methodsInfo[method].params.map(param => param.name)]);
+  methodsInfo = Object.keys(methodsInfo).map(
+    (method) => [method, methodsInfo[method].params.map((param) => param.name)],
+  );
   return methodsInfo;
 };
 
@@ -211,7 +213,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
   ) {
     return false;
   }
-  
+
   const reqid = IoTScapeServices._generateRequestID();
 
   // Don't send out serverside commands
