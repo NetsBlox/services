@@ -109,16 +109,14 @@ IoTScapeServices._specialMethods = {
  * List methods associated with a service
  * @param {string} service Name of service
  */
-IoTScapeServices.getMethods = function (service) {
-  if (!IoTScapeServices.serviceExists(service)) {
-    return {};
+IoTScapeServices.getMethods = function(service) {
+  if(!IoTScapeServices.serviceExists(service)){
+      return {};
   }
 
   // Parse methods into NetsBlox-friendlier format
   let methodsInfo = IoTScapeServices._serviceDefinitions[service].methods;
-  methodsInfo = Object.keys(methodsInfo).map(
-    (method) => [method, methodsInfo[method].params.map((param) => param.name)],
-  );
+  methodsInfo = Object.keys(methodsInfo).map(method => [method, methodsInfo[method].params.map(param => param.name)]);
   return methodsInfo;
 };
 
@@ -213,7 +211,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
   ) {
     return false;
   }
-
+  
   const reqid = IoTScapeServices._generateRequestID();
 
   // Don't send out serverside commands
@@ -227,94 +225,87 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
       params: [...args],
     };
 
-    const rinfo = IoTScapeDevices.getInfo(service, id);
-    IoTScapeServices.socket.send(
-      JSON.stringify(request),
-      rinfo.port,
-      rinfo.address,
-    );
-  }
-
-  // Relay as message to listening clients
-  if (func !== "heartbeat") {
-    IoTScapeServices.sendMessageToListeningClients(
-      service,
-      id,
-      "device command",
-      {
-        command: IoTScapeDevices.deviceEncrypt(
-          service,
-          id,
-          [func, ...args].join(" "),
-        ),
-      },
-    );
-  }
-
-  // Handle setKey/Cipher after relaying message to use old encryption
-  if (IoTScapeDevices.getEncryptionState(service, id).cipher != "linked") {
-    if (func === "setKey") {
-      IoTScapeDevices.updateEncryptionState(service, id, args, null);
-    } else if (func === "setCipher") {
-      IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
+    // Relay as message to listening clients
+    if (func !== "heartbeat") {
+      IoTScapeServices.sendMessageToListeningClients(
+        service,
+        id,
+        "device command",
+        {
+          command: IoTScapeDevices.deviceEncrypt(
+            service,
+            id,
+            [func, ...args].join(" "),
+          ),
+        },
+      );
     }
-  } else {
-    // Not supported on linked device
-    return false;
-  }
-  // Determine response type
-  const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
-  const responseType = methodInfo.returns.type;
 
-  // Expects a value response
-  let attempt = (resolve) => {
-    const rinfo = IoTScapeServices.getInfo(service, id);
-    IoTScapeServices.socket.send(
-      JSON.stringify(request),
-      rinfo.port,
-      rinfo.address,
-    );
+    // Handle setKey/Cipher after relaying message to use old encryption
+    if (IoTScapeDevices.getEncryptionState(service, id).cipher != "linked") {
+      if (func === "setKey") {
+        IoTScapeDevices.updateEncryptionState(service, id, args, null);
+      } else if (func === "setCipher") {
+        IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
+      }
+    } else {
+      // Not supported on linked device
+      return false;
+    }
+    // Determine response type
+    const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
+    const responseType = methodInfo.returns.type;
 
-    IoTScapeServices._awaitingRequests[reqid] = {
-      service: service,
-      function: func,
-      resolve,
+    // Expects a value response
+    let attempt = (resolve) => {
+      const rinfo = IoTScapeDevices.getInfo(service, id);
+      IoTScapeServices.socket.send(
+        JSON.stringify(request),
+        rinfo.port,
+        rinfo.address,
+      );
+
+      IoTScapeServices._awaitingRequests[reqid] = {
+        service: service,
+        function: func,
+        resolve,
+      };
     };
-  };
 
-  let timeout = (_, reject) => {
-    // Time out eventually
-    setTimeout(() => {
-      delete IoTScapeServices._awaitingRequests[reqid];
-      reject();
-    }, 3000);
-  };
+    let timeout = (_, reject) => {
+      // Time out eventually
+      setTimeout(() => {
+        delete IoTScapeServices._awaitingRequests[reqid];
+        reject();
+      }, 3000);
+    };
 
-  let promise = Promise.race([
-    new Promise(attempt),
-    new Promise(timeout),
-  ]).then((result) => result).catch(() => {
-    // Make second attempt
-    logger.log("IoTScape request timed out, trying again");
-    return Promise.race([new Promise(attempt), new Promise(timeout)]).then((
-      result,
-    ) => result).catch(() => {
-      logger.log("IoTScape request timed out again, giving up");
-      return "Response timed out.";
+    let promise = Promise.race([
+      new Promise(attempt),
+      new Promise(timeout),
+    ]).then((result) => result).catch(() => {
+      // Make second attempt
+      logger.log("IoTScape request timed out, trying again");
+      return Promise.race([new Promise(attempt), new Promise(timeout)]).then((
+        result,
+      ) => result).catch(() => {
+        logger.log("IoTScape request timed out again, giving up");
+        return "Response timed out.";
+      });
     });
-  });
 
-  // No response required
-  if (responseType.length < 1 || responseType[0] == "void") {
-    return;
+    // No response required
+    if (responseType.length < 1 || responseType[0] == "void") {
+      return;
+    }
+
+    // Event response type
+    if (responseType[0].startsWith("event")) {
+      return;
+    }
+
+    return promise;
   }
-
-  // Event response type
-  if (responseType[0].startsWith("event")) {
-    return;
-  }
-
-  return promise;
 };
 
 /**
