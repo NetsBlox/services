@@ -299,7 +299,7 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
 };
 
 /**
- * Map of message types which should be handled on ther server to their handlers
+ * Map of message types which should be handled on the server to their handlers
  */
 IoTScapeServices._specialMessageTypes = {
   "_reset": (parsed) => {
