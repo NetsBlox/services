@@ -29,6 +29,7 @@ NetsBlox Documentation
     :maxdepth: 2
     :caption: Development
 
+    dev/dev-environment.rst
     dev/services-overview.rst
     dev/hello-custom-services.rst
     dev/service-annotations.rst
