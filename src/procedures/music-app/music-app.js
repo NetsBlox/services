@@ -49,22 +49,22 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
 
 /**
  * Get sounds based on query.
- * @param {DrumPackName=} PackName
- * @param {DrumOneShotTypes=} DrumType
+ * @param {DrumPackName=} packName
+ * @param {DrumOneShotTypes=} drumType
  * @returns {String}
  */
 MusicApp.getDrumOneShotNames = async function (
-  PackName = "",
-  DrumType = "",
+  packName = "",
+  drumType = "",
 ) {
   var names = [];
   let queriedJSON = "";
 
   //Ensure at least one field is selected
-  if (PackName !== "" || DrumType !== "") {
+  if (packName !== "" || drumType !== "") {
     queriedJSON = drumLibrary.drumSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (PackName === "" || obj.packName === PackName) &&
-        (DrumType === "" || obj.Instrument === DrumType);
+      return(packName === "" || obj.packName === packName) &&
+        (drumType === "" || obj.Instrument === drumType);
     });
   } else {
     throw Error("At least one field must be selected");
@@ -79,28 +79,28 @@ MusicApp.getDrumOneShotNames = async function (
 
 /**
  * Get sounds based on query.
- * @param {Chords=} Chords
- * @param {Keys=} Key
- * @param {BPM=} BPM
- * @param {InstrumentNames=} InstrumentName
+ * @param {Chords=} chords
+ * @param {Keys=} key
+ * @param {BPM=} bpm
+ * @param {InstrumentNames=} instrumentName
  * @returns {Array}
  */
 MusicApp.getSoundNames = async function (
-  Chords = "",
-  Key = "",
-  BPM = "",
-  InstrumentName = "",
+  chords = "",
+  key = "",
+  bpm = "",
+  instrumentName = "",
 ) {
   var names = [];
   let queriedJSON = "";
 
   //Ensure at least one field is selected
-  if (Chords !== "" || Key !== "" || BPM !== "" || InstrumentName !== "") {
+  if (chords !== "" || key !== "" || bpm !== "" || instrumentName !== "") {
     queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (InstrumentName === "" || obj.InstrumentName === InstrumentName) &&
-        (BPM === "" || obj.BPM === BPM) &&
-        (Key === "" || obj.Key === Key) &&
-        (Chords === "" || obj.ChordProgression === Chords);
+      return (instrumentName === "" || obj.InstrumentName === instrumentName) &&
+        (bpm === "" || obj.BPM === bpm) &&
+        (key === "" || obj.Key === key) &&
+        (chords === "" || obj.ChordProgression === chords);
     });
   } else {
     throw Error("At least one field must be selected");
