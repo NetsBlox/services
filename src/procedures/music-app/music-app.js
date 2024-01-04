@@ -63,7 +63,7 @@ MusicApp.getDrumOneShotNames = async function (
   //Ensure at least one field is selected
   if (packName !== "" || drumType !== "") {
     queriedJSON = drumLibrary.drumSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return(packName === "" || obj.packName === packName) &&
+      return (packName === "" || obj.packName === packName) &&
         (drumType === "" || obj.Instrument === drumType);
     });
   } else {
