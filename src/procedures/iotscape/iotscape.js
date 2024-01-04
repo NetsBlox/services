@@ -17,9 +17,9 @@ const logger = require("../utils/logger")("iotscape");
 const Storage = require("../../storage");
 const ServiceEvents = require("../utils/service-events");
 const IoTScapeServices = require("./iotscape-services");
-const IoTScapeDevices = require('./iotscape-devices');
-const Filter = require('bad-words'),
-    filter = new Filter();
+const IoTScapeDevices = require("./iotscape-devices");
+const Filter = require("bad-words"),
+  filter = new Filter();
 
 const normalizeServiceName = (name) =>
   name.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -81,9 +81,9 @@ IoTScape.getMessageTypes = function (service) {
  * List the methods associated with a service
  * @param {String} service Name of service to get methods for
  */
-IoTScape.getMethods = function(service){
-  if(!IoTScapeServices.serviceExists(service)){
-      throw new Error('Service not found');
+IoTScape.getMethods = function (service) {
+  if (!IoTScapeServices.serviceExists(service)) {
+    throw new Error("Service not found");
   }
 
   return IoTScapeServices.getMethods(service);
@@ -106,18 +106,22 @@ IoTScape.send = function (service, id, command) {
 
   let parts = IoTScapeDevices.deviceDecrypt(service, id, command).split(/\s+/g);
 
-
   // Require at least a function name
   if (parts.length < 1) {
     throw new Error("Command too short or invalid");
   }
 
   // Allow for RoboScape-esque "set"/"get" commands to be implemented simpler (e.g. "set speed" becomes "setSpeed" instead of a "set" method)
-  if(parts.length >= 2) {
+  if (parts.length >= 2) {
     // Don't modify if service actually has a method named "set" or "get"
-    if((parts[0].toLowerCase() == 'set' && !IoTScapeServices.functionExists(service, 'set')) || (parts[0].toLowerCase() == 'get' && !IoTScapeServices.functionExists(service, 'get'))) {
-        parts[0] += parts[1][0].toUpperCase() + parts[1].substr(1);
-        parts.splice(1,1);
+    if (
+      (parts[0].toLowerCase() == "set" &&
+        !IoTScapeServices.functionExists(service, "set")) ||
+      (parts[0].toLowerCase() == "get" &&
+        !IoTScapeServices.functionExists(service, "get"))
+    ) {
+      parts[0] += parts[1][0].toUpperCase() + parts[1].substr(1);
+      parts.splice(1, 1);
     }
   }
 
@@ -141,7 +145,7 @@ IoTScape._createService = async function (definition, remote) {
   }
 
   // Ignore empty and request messages sent to this method
-  if(parsed == null || parsed.request){
+  if (parsed == null || parsed.request) {
     return;
   }
 
@@ -149,7 +153,7 @@ IoTScape._createService = async function (definition, remote) {
   parsed = parsed[name];
 
   // Verify service definition is in message
-  if(typeof(parsed.service) == 'undefined'){
+  if (typeof (parsed.service) == "undefined") {
     return;
   }
 
@@ -181,7 +185,7 @@ IoTScape._createService = async function (definition, remote) {
     `Received definition for service ${name} v${version} from ID ${id}`,
   );
 
-  if(!IoTScape._validateServiceStrings(name, id, serviceInfo, methods)){
+  if (!IoTScape._validateServiceStrings(name, id, serviceInfo, methods)) {
     logger.log(`Service ${name} rejected due to invalid string`);
     return;
   }
@@ -229,22 +233,33 @@ IoTScape._createService = async function (definition, remote) {
  * Check that strings provided in a service definition are valid and free of profanity
  * @returns {boolean} Were the strings for this service considered valid
  */
-IoTScape._validateServiceStrings = function(name, id, serviceInfo, methods){
+IoTScape._validateServiceStrings = function (name, id, serviceInfo, methods) {
   // Validate service name
-  if(!isValidServiceName(name) || name.replace(/[^a-zA-Z0-9]/g, '') !== name || filter.isProfane(name.replace(/[A-Z]/g, ' $&'))){
-      logger.log(`Service name ${name} rejected`);
-      return false;
+  if (
+    !isValidServiceName(name) || name.replace(/[^a-zA-Z0-9]/g, "") !== name ||
+    filter.isProfane(name.replace(/[A-Z]/g, " $&"))
+  ) {
+    logger.log(`Service name ${name} rejected`);
+    return false;
   }
 
-  if(id == '' || filter.isProfane(id.replace(/[A-Z]/g, ' $&'))){
-      logger.log('ID invalid');
-      return false;
+  if (id == "" || filter.isProfane(id.replace(/[A-Z]/g, " $&"))) {
+    logger.log("ID invalid");
+    return false;
   }
 
   // Additional profanity checks
-  if(filter.isProfane(serviceInfo.description) || methods.map(method => method.name).some(name => !isValidRPCName(name) || filter.isProfane(name)) || methods.map(method => method.documentation).some(doc => filter.isProfane(doc))){
-      logger.log(`Definition for service ${name} rejected`);
-      return false;
+  if (
+    filter.isProfane(serviceInfo.description) ||
+    methods.map((method) => method.name).some((name) =>
+      !isValidRPCName(name) || filter.isProfane(name)
+    ) ||
+    methods.map((method) => method.documentation).some((doc) =>
+      filter.isProfane(doc)
+    )
+  ) {
+    logger.log(`Definition for service ${name} rejected`);
+    return false;
   }
 
   return true;
@@ -252,62 +267,57 @@ IoTScape._validateServiceStrings = function(name, id, serviceInfo, methods){
 
 // Methods used for all device services but not included in definitions
 const _defaultMethods = [{
-  name: 'getDevices',
-  documentation: 'Get a list of device IDs for this service',
+  name: "getDevices",
+  documentation: "Get a list of device IDs for this service",
   arguments: [],
   returns: {
-      documentation: '',
-      type: ['void']
-  }
-}, 
-{
-  name: 'listen',
-  documentation: 'Register for receiving messages from the given id',
-  arguments: [{
-      name: 'id',
-      optional: false,
-      documentation: 'ID of device to listen to messages from',
-  }],
-  returns: {
-      documentation: '',
-      type: ['void']
-  }
-},
-{
-  name: 'send',
-  documentation: 'Send a text-based message to the service',
-  arguments: [{
-      name: 'id',
-      optional: false,
-      documentation: 'ID of device to send request to',
+    documentation: "",
+    type: ["void"],
   },
-  {
-      name: 'command',
-      optional: false,
-      documentation: 'Request to send to device',
+}, {
+  name: "listen",
+  documentation: "Register for receiving messages from the given id",
+  arguments: [{
+    name: "id",
+    optional: false,
+    documentation: "ID of device to listen to messages from",
   }],
   returns: {
-      documentation: '',
-      type: ['any']
-  }
-},
-{
-  name: 'getMessageTypes',
-  documentation: 'Register for receiving messages from the given id',
+    documentation: "",
+    type: ["void"],
+  },
+}, {
+  name: "send",
+  documentation: "Send a text-based message to the service",
+  arguments: [{
+    name: "id",
+    optional: false,
+    documentation: "ID of device to send request to",
+  }, {
+    name: "command",
+    optional: false,
+    documentation: "Request to send to device",
+  }],
+  returns: {
+    documentation: "",
+    type: ["any"],
+  },
+}, {
+  name: "getMessageTypes",
+  documentation: "Register for receiving messages from the given id",
   arguments: [],
   returns: {
-      documentation: '',
-      type: ['array']
-  }
-},
-{
-  name: 'getMethods',
-  documentation: 'Get methods associated with this service',
+    documentation: "",
+    type: ["array"],
+  },
+}, {
+  name: "getMethods",
+  documentation: "Get methods associated with this service",
   arguments: [],
   returns: {
-      documentation: '',
-      type: ['array']
-  }
+    documentation: "",
+    type: ["array"],
+  },
 }];
 
 /**
@@ -315,44 +325,54 @@ const _defaultMethods = [{
  * @param {Object} methodsInfo Methods from parsed JSON data
  */
 function _generateMethods(methodsInfo) {
-  if(!methodsInfo){
-      logger.error("No methods definition for service");
-      return [];
+  if (!methodsInfo) {
+    logger.error("No methods definition for service");
+    return [];
   }
   try {
     // Add default methods first
-    let methods = [..._defaultMethods, ...Object.keys(methodsInfo).map(methodName => {
+    let methods = [
+      ..._defaultMethods,
+      ...Object.keys(methodsInfo).map((methodName) => {
         const methodInfo = methodsInfo[methodName];
 
-        if(!methodInfo){
-            throw new Error("Undefined method " + methodName);
+        if (!methodInfo) {
+          throw new Error("Undefined method " + methodName);
         }
 
-        const method = { name: methodName, documentation: methodInfo.documentation, categories: [['Basic']],  returns: methodInfo.returns };
+        const method = {
+          name: methodName,
+          documentation: methodInfo.documentation,
+          categories: [["Basic"]],
+          returns: methodInfo.returns,
+        };
 
-        method.arguments = methodInfo.params.map(param => {
-            let type = param.type === 'number' ? { name: 'Number', params: [] } : null;
-            return {
-                name: param.name,
-                optional: param.optional,
-                documentation: param.documentation,
-                type
-            };
+        method.arguments = methodInfo.params.map((param) => {
+          let type = param.type === "number"
+            ? { name: "Number", params: [] }
+            : null;
+          return {
+            name: param.name,
+            optional: param.optional,
+            documentation: param.documentation,
+            type,
+          };
         });
 
         // Add ID argument to all non-getDevices methods
         method.arguments = [{
-            name: 'id',
-            optional: false,
-            documentation: 'ID of device to send request to',
+          name: "id",
+          optional: false,
+          documentation: "ID of device to send request to",
         }, ...method.arguments];
 
         return method;
-    })];
-      return methods;
+      }),
+    ];
+    return methods;
   } catch (error) {
-      logger.err(error);
-      return [];
+    logger.err(error);
+    return [];
   }
 }
 
