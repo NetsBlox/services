@@ -9,9 +9,8 @@ describe(utils.suiteName(__filename), function () {
   let service, testSuite;
 
   utils.verifyRPCInterfaces("MusicApp", [
-    ["getSoundNames", ["chords", "key", "bpm", "instrumentName"]],
+    ["getSoundNames", ["InstrumentName", "BPM", "Key", "Chords"]],
     ["nameToSound", ["nameOfSound"]],
-    ["getDrumOneShotNames", ["packName", "drumType"]],
   ]);
 
   before(async () => {
@@ -23,7 +22,7 @@ describe(utils.suiteName(__filename), function () {
   });
 
   it("should return audio buffer in response", async function () {
-    const names = await service.getSoundNames("1564");
+    const names = await service.getSoundNames("AcousticGuitar");
     await service.nameToSound(names[0]);
     const response = service.response;
     assert.equal(response.code, 200);

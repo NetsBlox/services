@@ -12,19 +12,9 @@ const { registerTypes } = require("./types");
 const path = require("path");
 const utils = require("../utils/index");
 const MusicApp = {};
-const soundLibrary = require("./SoundLibrary/soundLibrary.json");
-const drumLibrary = require("./SoundLibrary/drumSoundLibrary.json");
-const masterSoundLibrary = [
-  ...soundLibrary.netsbloxSoundLibrary,
-  ...drumLibrary.drumSoundLibrary,
-];
+const soundLibrary = require("./soundLibrary.json");
 
 registerTypes();
-
-MusicApp._filetoBuffer = async function (audio_path) {
-  const data = await fsp.readFile(audio_path);
-  utils.sendAudioBuffer(this.response, data);
-};
 
 /**
  * Get Sounds based on query.
@@ -49,58 +39,28 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
 
 /**
  * Get sounds based on query.
- * @param {DrumPackName=} packName
- * @param {DrumOneShotTypes=} drumType
- * @returns {String}
- */
-MusicApp.getDrumOneShotNames = async function (
-  packName = "",
-  drumType = "",
-) {
-  var names = [];
-  let queriedJSON = "";
-
-  //Ensure at least one field is selected
-  if (packName !== "" || drumType !== "") {
-    queriedJSON = drumLibrary.drumSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (packName === "" || obj.packName === packName) &&
-        (drumType === "" || obj.Instrument === drumType);
-    });
-  } else {
-    throw Error("At least one field must be selected");
-  }
-
-  //Convert JSON to array of String names
-  for (let i = 0; i < queriedJSON.length; i++) {
-    names.push(queriedJSON[i].soundName);
-  }
-  return names;
-};
-
-/**
- * Get sounds based on query.
- * @param {Chords=} chords
- * @param {Keys=} key
- * @param {BPM=} bpm
- * @param {InstrumentNames=} instrumentName
+ * @param {InstrumentNames=} InstrumentName
+ * @param {BPM=} BPM
+ * @param {Keys=} Key
+ * @param {ChordProgressions=} Chords
  * @returns {Array}
  */
 MusicApp.getSoundNames = async function (
-  chords = "",
-  key = "",
-  bpm = "",
-  instrumentName = "",
+  InstrumentName = "",
+  BPM = "",
+  Key = "",
+  Chords = "",
 ) {
   var names = [];
   let queriedJSON = "";
 
   //Ensure at least one field is selected
-  if (chords !== "" || key !== "" || bpm !== "" || instrumentName !== "") {
+  if (InstrumentName !== "" || BPM !== "" || Key !== "" || Chords !== "") {
     queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (instrumentName === "" || obj.InstrumentName === instrumentName) &&
-        (bpm === "" || obj.BPM === bpm) &&
-        (key === "" || obj.Key === key) &&
-        (chords === "" || obj.ChordProgression === chords);
+      return (InstrumentName === "" || obj.InstrumentName === InstrumentName) &&
+        (BPM === "" || obj.BPM === BPM) &&
+        (Key === "" || obj.Key === Key) &&
+        (Chords === "" || obj.ChordProgression === Chords);
     });
   } else {
     throw Error("At least one field must be selected");
@@ -119,7 +79,7 @@ MusicApp.getSoundNames = async function (
  * @param {String=} nameOfSound
  */
 MusicApp.nameToSound = async function (nameOfSound = "") {
-  const metadata = masterSoundLibrary
+  const metadata = soundLibrary.netsbloxSoundLibrary
     .find((obj) => obj.soundName === nameOfSound);
 
   if (metadata) {

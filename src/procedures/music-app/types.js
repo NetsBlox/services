@@ -6,23 +6,6 @@ const INSTRUMENTS = {
   Bass: "BASS",
 };
 
-const DRUMONESHOTTYPES = {
-  Kick: "KICK",
-  Snare: "SNARE",
-  Toms: "TOMS",
-  HiHat: "HI-HAT",
-  Clap: "CLAP",
-  Cymbal: "CYMBAL",
-  Percussion: "PERCUSSION",
-  FX: "FX",
-};
-const DRUMPACKS = {
-  Peace: "PeaceTreaty",
-  UK: "UK",
-  US: "US",
-  DSS: "DSSxDP",
-};
-
 const NAMES = [
   "AcousticGuitar",
   "BoardingArea",
@@ -102,31 +85,16 @@ function registerTypes() {
   });
 
   types.defineType({
-    name: "Chords",
+    name: "ChordProgressions",
     description: "List of available ChordProgressions",
     baseType: "Enum",
     baseParams: CHORDS,
   });
-
   types.defineType({
     name: "InstrumentNames",
     description: "List of available Instruments",
     baseType: "Enum",
     baseParams: NAMES,
-  });
-
-  types.defineType({
-    name: "DrumOneShotTypes",
-    description: "List of available One-Shot Types",
-    baseType: "Enum",
-    baseParams: DRUMONESHOTTYPES,
-  });
-
-  types.defineType({
-    name: "DrumPackName",
-    description: "List of available Drum Packs",
-    baseType: "Enum",
-    baseParams: DRUMPACKS,
   });
 }
 
