@@ -18,6 +18,12 @@ NetsBlox Documentation
 
 .. toctree::
     :maxdepth: 2
+    :caption: Advanced
+
+    adv/url.rst
+
+.. toctree::
+    :maxdepth: 2
     :caption: Deployment
 
     deploy/installation.rst
