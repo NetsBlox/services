@@ -113,15 +113,21 @@ IoTScape.send = function (service, id, command) {
 
   // Allow for RoboScape-esque "set"/"get" commands to be implemented simpler (e.g. "set speed" becomes "setSpeed" instead of a "set" method)
   if (parts.length >= 2) {
-    // Don't modify if service actually has a method named "set" or "get"
-    if (
-      (parts[0].toLowerCase() == "set" &&
-        !IoTScapeServices.functionExists(service, "set")) ||
-      (parts[0].toLowerCase() == "get" &&
-        !IoTScapeServices.functionExists(service, "get"))
-    ) {
-      parts[0] += parts[1][0].toUpperCase() + parts[1].substr(1);
-      parts.splice(1, 1);
+    // Combine first word "set", "get", and "reset" with the next words if it's a valid method in the service
+    if (["set", "get", "reset"].includes(parts[0])) {
+      let methodName = parts[0] + parts[1][0].toUpperCase() + parts[1].slice(1);
+      if (IoTScapeServices.functionExists(service, methodName)) {
+        parts = [methodName, ...parts.slice(2)];
+      } else {
+        // Attempt with three words
+        if (parts.length >= 3) {
+          methodName = parts[0] + parts[1][0].toUpperCase() + parts[1].slice(1) +
+            parts[2][0].toUpperCase() + parts[2].slice(1);
+          if (IoTScapeServices.functionExists(service, methodName)) {
+            parts = [methodName, ...parts.slice(3)];
+          }
+        }
+      }
     }
   }
 
