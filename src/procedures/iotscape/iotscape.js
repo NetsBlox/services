@@ -121,7 +121,8 @@ IoTScape.send = function (service, id, command) {
       } else {
         // Attempt with three words
         if (parts.length >= 3) {
-          methodName = parts[0] + parts[1][0].toUpperCase() + parts[1].slice(1) +
+          methodName = parts[0] + parts[1][0].toUpperCase() +
+            parts[1].slice(1) +
             parts[2][0].toUpperCase() + parts[2].slice(1);
           if (IoTScapeServices.functionExists(service, methodName)) {
             parts = [methodName, ...parts.slice(3)];
