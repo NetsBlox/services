@@ -119,7 +119,7 @@ IoTScape.send = function (service, id, command) {
       if (IoTScapeServices.functionExists(service, methodName)) {
         parts = [methodName, ...parts.slice(2)];
       } else {
-        // Attempt with three words
+        // Attempt with three words (e.g. "set client rate" becomes "setClientRate" instead of a "set" method)
         if (parts.length >= 3) {
           methodName = parts[0] + parts[1][0].toUpperCase() +
             parts[1].slice(1) +
