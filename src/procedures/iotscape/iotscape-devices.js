@@ -66,6 +66,9 @@ IoTScapeDevices.getEncryptionState = function (service, id) {
     IoTScapeDevices._encryptionStates[service][id] = {
       key: [0],
       cipher: "plain",
+      seqNum: null,
+      clientRate: null,
+      totalRate: null,
     };
   }
 
