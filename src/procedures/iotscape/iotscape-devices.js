@@ -91,6 +91,7 @@ IoTScapeDevices.updateEncryptionState = function (
   key = null,
   cipher = null,
 ) {
+  logger.log(`Updating encryption state for ${service}:${id}`);
   if (!IoTScapeDevices.deviceExists(service, id)) {
     throw new Error("Device not found");
   }
@@ -110,10 +111,15 @@ IoTScapeDevices.updateEncryptionState = function (
   // Update key if requested
   if (key != null) {
     IoTScapeDevices._setKey(service, id, key, cipher);
+
+    if (key != [0] && IoTScapeDevices._encryptionStates[service][id].cipher == "plain") {
+      cipher = "caesar";
+    }
   }
 
   // Update cipher if requested
   cipher = (cipher || "").toLowerCase();
+
   if (["linked", ...Object.keys(ciphers)].includes(cipher)) {
     IoTScapeDevices._encryptionStates[service][id].cipher = cipher;
   } else if (cipher != "") {
