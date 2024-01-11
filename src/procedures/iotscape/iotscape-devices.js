@@ -115,7 +115,10 @@ IoTScapeDevices.updateEncryptionState = function (
   if (key != null) {
     IoTScapeDevices._setKey(service, id, key, cipher);
 
-    if (key != [0] && IoTScapeDevices._encryptionStates[service][id].cipher == "plain") {
+    if (
+      key != [0] &&
+      IoTScapeDevices._encryptionStates[service][id].cipher == "plain"
+    ) {
       cipher = "caesar";
     }
   }

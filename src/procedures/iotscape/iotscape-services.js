@@ -104,8 +104,7 @@ IoTScapeServices._specialMethods = {
       "documentation": "Maximum number of messages per second per client",
       "type": "number",
       "optional": false,
-    },
-    {
+    }, {
       "name": "penalty",
       "documentation": "Penalty for exceeding rate limit in seconds",
       "type": "number",
@@ -121,7 +120,7 @@ IoTScapeServices._specialMethods = {
       "documentation": "Maximum number of messages per second for all clients",
       "type": "number",
       "optional": false,
-    },],
+    }],
     returns: {
       type: ["void"],
     },
@@ -278,7 +277,10 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     );
 
     // Handle special functions
-    if (func == "setKey" || func == "setCipher" || func == "setClientRate" || func == "setTotalRate" || func == "resetRate" ) {
+    if (
+      func == "setKey" || func == "setCipher" || func == "setClientRate" ||
+      func == "setTotalRate" || func == "resetRate"
+    ) {
       // Handle setKey/Cipher after relaying message to use old encryption
       if (IoTScapeDevices.getEncryptionState(service, id).cipher != "linked") {
         if (func === "setKey") {
@@ -286,11 +288,8 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
         } else if (func === "setCipher") {
           IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
         } else if (func === "setClientRate") {
-
         } else if (func === "setTotalRate") {
-
         } else if (func === "resetRate") {
-
         }
       } else {
         // Not supported on linked device
