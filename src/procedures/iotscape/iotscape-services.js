@@ -214,10 +214,12 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     return false;
   }
 
+  logger.log(`Calling ${service}:${id}.${func}(${args.join(", ")})`);
+
   const reqid = IoTScapeServices._generateRequestID();
 
   // Don't send out serverside commands
-  if (func !== "setKey" && func !== "setCipher") {
+  if (func !== "heartbeat") {
     // Create and send request
     let request = {
       id: reqid,
@@ -228,32 +230,36 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     };
 
     // Relay as message to listening clients
-    if (func !== "heartbeat") {
-      IoTScapeServices.sendMessageToListeningClients(
-        service,
-        id,
-        "device command",
-        {
-          command: IoTScapeDevices.deviceEncrypt(
-            service,
-            id,
-            [func, ...args].join(" "),
-          ),
-        },
-      );
+    IoTScapeServices.sendMessageToListeningClients(
+      service,
+      id,
+      "device command",
+      {
+        command: IoTScapeDevices.deviceEncrypt(
+          service,
+          id,
+          [func, ...args].join(" "),
+        ),
+      },
+    );
+
+    // Handle special functions
+    if (func == "setKey" || func == "setCipher") {
+      // Handle setKey/Cipher after relaying message to use old encryption
+      if (IoTScapeDevices.getEncryptionState(service, id).cipher != "linked") {
+        if (func === "setKey") {
+          IoTScapeDevices.updateEncryptionState(service, id, args, null);
+        } else if (func === "setCipher") {
+          IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
+        }
+
+        return true;
+      } else {
+        // Not supported on linked device
+        return false;
+      }
     }
 
-    // Handle setKey/Cipher after relaying message to use old encryption
-    if (IoTScapeDevices.getEncryptionState(service, id).cipher != "linked") {
-      if (func === "setKey") {
-        IoTScapeDevices.updateEncryptionState(service, id, args, null);
-      } else if (func === "setCipher") {
-        IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
-      }
-    } else {
-      // Not supported on linked device
-      return false;
-    }
     // Determine response type
     const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
     const responseType = methodInfo.returns.type;
