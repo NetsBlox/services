@@ -96,6 +96,21 @@ IoTScape.getMethods = function (service) {
  * @param {String} command Input to RPC
  */
 IoTScape.send = function (service, id, command) {
+  return IoTScape._send(service, id, command, this.caller);
+}
+
+/**
+ * Internal method for sending a command to a device
+ * @param {String} service Name of service to make call to
+ * @param {String} id ID of device to make call to
+ * @param {String} command Input to RPC
+ * @param {Object} caller The caller object from the RPC
+ * @returns 
+ */
+IoTScape._send = function (service, id, command, caller) {
+  
+  const clientId = caller.clientId;
+
   if (!IoTScapeServices.serviceExists(service)) {
     throw new Error("Service not found");
   }
@@ -110,6 +125,14 @@ IoTScape.send = function (service, id, command) {
   if (parts.length < 1) {
     throw new Error("Command too short or invalid");
   }
+
+  // Check for sequence number
+  let seqNum = -1;
+  if (parts[0].match(/^[0-9]+$/)) {
+    seqNum = parseInt(parts[0]);
+    parts = parts.slice(1);
+  }
+  
 
   // Allow for RoboScape-esque "set"/"get" commands to be implemented simpler (e.g. "set speed" becomes "setSpeed" instead of a "set" method)
   if (parts.length >= 2) {
@@ -130,6 +153,12 @@ IoTScape.send = function (service, id, command) {
         }
       }
     }
+  }
+
+  // Check that call will be accepted
+  if (!IoTScapeDevices.accepts(service, id, clientId, seqNum)) {
+    logger.log('Call not accepted');
+    return false;
   }
 
   return IoTScapeServices.call(service, parts[0], id, ...parts.slice(1));
