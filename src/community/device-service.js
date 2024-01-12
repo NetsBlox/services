@@ -59,7 +59,7 @@ class DeviceService {
       };
     } else if (methodSpec.name === "send") {
       this[methodSpec.name] = async function () {
-        return IoTScape.send(this.serviceName, arguments[0], arguments[1]);
+        return IoTScape._send(this.serviceName, arguments[0], arguments[1], this.caller);
       };
     } else if (methodSpec.name === "getMessageTypes") {
       this[methodSpec.name] = async function () {
@@ -71,11 +71,11 @@ class DeviceService {
       };
     } else {
       this[methodSpec.name] = async function () {
-        console.dir(arguments);
-        return await IoTScape.send(
+        return await IoTScape._send(
           this.serviceName,
           arguments[0],
-          [methodSpec.name, ...Object.values(arguments).splice(1)].join(" "),
+          [methodSpec.name, ...Object.values(arguments).splice(1)].join(" "), 
+          this.caller
         );
       };
     }
