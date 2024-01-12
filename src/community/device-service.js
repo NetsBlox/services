@@ -59,7 +59,12 @@ class DeviceService {
       };
     } else if (methodSpec.name === "send") {
       this[methodSpec.name] = async function () {
-        return IoTScape._send(this.serviceName, arguments[0], arguments[1], this.caller);
+        return IoTScape._send(
+          this.serviceName,
+          arguments[0],
+          arguments[1],
+          this.caller,
+        );
       };
     } else if (methodSpec.name === "getMessageTypes") {
       this[methodSpec.name] = async function () {
@@ -74,8 +79,8 @@ class DeviceService {
         return await IoTScape._send(
           this.serviceName,
           arguments[0],
-          [methodSpec.name, ...Object.values(arguments).splice(1)].join(" "), 
-          this.caller
+          [methodSpec.name, ...Object.values(arguments).splice(1)].join(" "),
+          this.caller,
         );
       };
     }

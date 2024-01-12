@@ -70,7 +70,7 @@ IoTScapeDevices.getEncryptionState = function (service, id) {
       totalRate: 0, // in messages per second
       clientRate: 0, // in messages per second
       clientPenalty: 0, // in seconds
-      totalCount: 0, 
+      totalCount: 0,
       clientCounts: {},
     };
   }
@@ -93,45 +93,48 @@ IoTScapeDevices.getEncryptionState = function (service, id) {
  * @returns {Boolean} If message should be accepted
  */
 IoTScapeDevices.accepts = function (service, id, clientId, seqNum = -1) {
-    const state = IoTScapeDevices.getEncryptionState(service, id);
-    
-    // Check sequence number
-    if (state.lastSeqNum >= 0 && (seqNum <= state.lastSeqNum ||  seqNum > state.lastSeqNum + 100)) {
-        return false;
-    } else if (seqNum > -1) {
-        state.lastSeqNum = seqNum;
-    }
+  const state = IoTScapeDevices.getEncryptionState(service, id);
 
-    let client = state.clientCounts[clientId];
-    if (!client) {
-        client = {
-            count: 0,
-            penalty: 0,
-        };
-        state.clientCounts[clientId] = client;
-    }
+  // Check sequence number
+  if (
+    state.lastSeqNum >= 0 &&
+    (seqNum <= state.lastSeqNum || seqNum > state.lastSeqNum + 100)
+  ) {
+    return false;
+  } else if (seqNum > -1) {
+    state.lastSeqNum = seqNum;
+  }
 
-    if (client.penalty > 0) {
-        return false;
-    }
-
-    // Check rate limits
-    if (this.clientRate > 0 && client.count + 1 > this.clientRate) {
-        client.penalty = 1 + state.clientPenalty;
-        return false;
-    }
-
-    if (this.totalRate > 0 && state.totalCount + 1 > state.totalRate) {
-        return false;
-    }
-
-    state.totalCount += 1;
-    client.count += 1;
+  let client = state.clientCounts[clientId];
+  if (!client) {
+    client = {
+      count: 0,
+      penalty: 0,
+    };
     state.clientCounts[clientId] = client;
-    IoTScapeDevices._encryptionStates[service][id] = state;
+  }
 
-    logger.log(JSON.stringify(IoTScapeDevices._encryptionStates[service][id]));
-    return true;
+  if (client.penalty > 0) {
+    return false;
+  }
+
+  // Check rate limits
+  if (this.clientRate > 0 && client.count + 1 > this.clientRate) {
+    client.penalty = 1 + state.clientPenalty;
+    return false;
+  }
+
+  if (this.totalRate > 0 && state.totalCount + 1 > state.totalRate) {
+    return false;
+  }
+
+  state.totalCount += 1;
+  client.count += 1;
+  state.clientCounts[clientId] = client;
+  IoTScapeDevices._encryptionStates[service][id] = state;
+
+  logger.log(JSON.stringify(IoTScapeDevices._encryptionStates[service][id]));
+  return true;
 };
 
 /**
@@ -290,22 +293,22 @@ IoTScapeDevices.link = function (service, id, targetService, targetId) {
 
 // Clear rates every second
 setInterval(() => {
-    for (let service in IoTScapeDevices._encryptionStates) {
-        for (let id in IoTScapeDevices._encryptionStates[service]) {
-            let state = IoTScapeDevices._encryptionStates[service][id];
-            
-            state.totalCount = 0;
+  for (let service in IoTScapeDevices._encryptionStates) {
+    for (let id in IoTScapeDevices._encryptionStates[service]) {
+      let state = IoTScapeDevices._encryptionStates[service][id];
 
-            for (let clientId in state.clientCounts) {
-                let client = state.clientCounts[clientId];
-                client.count = 0;
-                client.penalty = Math.max(0, client.penalty - 1);
-                state.clientCounts[clientId] = client;
-            }
+      state.totalCount = 0;
 
-            IoTScapeDevices._encryptionStates[service][id] = state;
-        }
+      for (let clientId in state.clientCounts) {
+        let client = state.clientCounts[clientId];
+        client.count = 0;
+        client.penalty = Math.max(0, client.penalty - 1);
+        state.clientCounts[clientId] = client;
+      }
+
+      IoTScapeDevices._encryptionStates[service][id] = state;
     }
+  }
 }, 1000);
 
 module.exports = IoTScapeDevices;
