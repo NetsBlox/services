@@ -288,11 +288,34 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
         } else if (func === "setCipher") {
           IoTScapeDevices.updateEncryptionState(service, id, null, args[0]);
         } else if (func === "setClientRate") {
-          IoTScapeDevices.updateEncryptionState(service, id, null, null, args[0], args[1]);
+          IoTScapeDevices.updateEncryptionState(
+            service,
+            id,
+            null,
+            null,
+            args[0],
+            args[1],
+          );
         } else if (func === "setTotalRate") {
-          IoTScapeDevices.updateEncryptionState(service, id, null, null, null, null, args[0]);
+          IoTScapeDevices.updateEncryptionState(
+            service,
+            id,
+            null,
+            null,
+            null,
+            null,
+            args[0],
+          );
         } else if (func === "resetRate") {
-          IoTScapeDevices.updateEncryptionState(service, id, null, null, 0, 0, 0);
+          IoTScapeDevices.updateEncryptionState(
+            service,
+            id,
+            null,
+            null,
+            0,
+            0,
+            0,
+          );
         }
       } else {
         // Not supported on linked device

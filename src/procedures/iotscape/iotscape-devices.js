@@ -205,41 +205,41 @@ IoTScapeDevices.updateEncryptionState = function (
   if (clientRate != null) {
     // Parse client rate
     if (clientRate instanceof String || typeof clientRate === "string") {
-        clientRate = parseInt(clientRate);
+      clientRate = parseInt(clientRate);
     }
 
     if (clientRate >= 0) {
       IoTScapeDevices._encryptionStates[service][id].clientRate = clientRate;
     } else {
-        throw new Error("Invalid client rate");
+      throw new Error("Invalid client rate");
     }
   }
 
   if (penalty != null) {
     // Parse penalty
     if (penalty instanceof String || typeof penalty === "string") {
-        penalty = parseInt(penalty);
+      penalty = parseInt(penalty);
     }
 
     if (penalty >= 0) {
       IoTScapeDevices._encryptionStates[service][id].clientPenalty = penalty;
     } else {
-        throw new Error("Invalid penalty");
+      throw new Error("Invalid penalty");
     }
   }
 
   if (totalRate != null) {
     // Parse total rate
     if (totalRate instanceof String || typeof totalRate === "string") {
-        totalRate = parseInt(totalRate);
+      totalRate = parseInt(totalRate);
     }
 
     if (totalRate >= 0) {
       IoTScapeDevices._encryptionStates[service][id].totalRate = totalRate;
     } else {
-        throw new Error("Invalid total rate");
+      throw new Error("Invalid total rate");
     }
-  }  
+  }
 };
 
 IoTScapeDevices._setKey = function (service, id, key, cipher) {
