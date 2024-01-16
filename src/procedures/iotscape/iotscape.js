@@ -158,7 +158,7 @@ IoTScape._send = function (service, id, command, caller) {
     return false;
   }
 
-  return IoTScapeServices.call(service, parts[0], id, ...parts.slice(1));
+  return IoTScapeServices.call(service, parts[0], id, clientId, ...parts.slice(1));
 };
 
 /**
