@@ -422,7 +422,13 @@ IoTScapeServices._specialMessageTypes = {
     );
 
     // Tell device what the new key is, so it can display it
-    IoTScapeServices.call(parsed.service, "_requestedKey", parsed.id, null, ...key);
+    IoTScapeServices.call(
+      parsed.service,
+      "_requestedKey",
+      parsed.id,
+      null,
+      ...key,
+    );
   },
   "_link": (parsed) => {
     const targetService = parsed.event.args.service;
