@@ -7,7 +7,7 @@ This assumes you are using OSX or linux.
 Create the service
 ------------------
 
-First, set up a local development environment (see :doc:`/adv/installation`).
+First, set up a local development environment (see :doc:`/deploy/installation`).
 
 Creating the server support for a simple service can be done as follows (assuming ``*nix`` shell starting at the project root):
 
