@@ -155,7 +155,6 @@ IoTScape._send = function (service, id, command, caller) {
 
   // Check that call will be accepted
   if (!IoTScapeDevices.accepts(service, id, clientId, seqNum)) {
-    logger.log("Call not accepted");
     return false;
   }
 

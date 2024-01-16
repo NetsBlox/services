@@ -119,12 +119,12 @@ IoTScapeDevices.accepts = function (service, id, clientId, seqNum = -1) {
   }
 
   // Check rate limits
-  if (this.clientRate > 0 && client.count + 1 > this.clientRate) {
+  if (state.clientRate > 0 && client.count + 1 > state.clientRate) {
     client.penalty = 1 + state.clientPenalty;
     return false;
   }
 
-  if (this.totalRate > 0 && state.totalCount + 1 > state.totalRate) {
+  if (state.totalRate > 0 && state.totalCount + 1 > state.totalRate) {
     return false;
   }
 
@@ -143,12 +143,18 @@ IoTScapeDevices.accepts = function (service, id, clientId, seqNum = -1) {
  * @param {String} id ID of device to update encryption settings for
  * @param {String=} key Key to set
  * @param {String=} cipher Cipher to set
+ * @param {Number=} clientRate Maximum messages per second from a single client
+ * @param {Number=} penalty Penalty in seconds for exceeding clientRate
+ * @param {Number=} totalRate Maximum messages per second from all clients
  */
 IoTScapeDevices.updateEncryptionState = function (
   service,
   id,
   key = null,
   cipher = null,
+  clientRate = null,
+  penalty = null,
+  totalRate = null,
 ) {
   logger.log(`Updating encryption state for ${service}:${id}`);
   if (!IoTScapeDevices.deviceExists(service, id)) {
@@ -164,6 +170,12 @@ IoTScapeDevices.updateEncryptionState = function (
     IoTScapeDevices._encryptionStates[service][id] = {
       key: [0],
       cipher: "plain",
+      lastSeqNum: -1,
+      totalRate: 0, // in messages per second
+      clientRate: 0, // in messages per second
+      clientPenalty: 0, // in seconds
+      totalCount: 0,
+      clientCounts: {},
     };
   }
 
@@ -188,6 +200,46 @@ IoTScapeDevices.updateEncryptionState = function (
     // Prevent attempts to use ciphers with no implementation
     throw new Error("Invalid cipher");
   }
+
+  // Update rates if requested
+  if (clientRate != null) {
+    // Parse client rate
+    if (clientRate instanceof String || typeof clientRate === "string") {
+        clientRate = parseInt(clientRate);
+    }
+
+    if (clientRate >= 0) {
+      IoTScapeDevices._encryptionStates[service][id].clientRate = clientRate;
+    } else {
+        throw new Error("Invalid client rate");
+    }
+  }
+
+  if (penalty != null) {
+    // Parse penalty
+    if (penalty instanceof String || typeof penalty === "string") {
+        penalty = parseInt(penalty);
+    }
+
+    if (penalty >= 0) {
+      IoTScapeDevices._encryptionStates[service][id].clientPenalty = penalty;
+    } else {
+        throw new Error("Invalid penalty");
+    }
+  }
+
+  if (totalRate != null) {
+    // Parse total rate
+    if (totalRate instanceof String || typeof totalRate === "string") {
+        totalRate = parseInt(totalRate);
+    }
+
+    if (totalRate >= 0) {
+      IoTScapeDevices._encryptionStates[service][id].totalRate = totalRate;
+    } else {
+        throw new Error("Invalid total rate");
+    }
+  }  
 };
 
 IoTScapeDevices._setKey = function (service, id, key, cipher) {
