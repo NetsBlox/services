@@ -234,9 +234,10 @@ IoTScapeServices.listen = function (service, client, id) {
  * @param {String} service Name of service
  * @param {String} func RPC on device to call
  * @param {String} id ID of device
+ * @param {Object} clientId Client making the call
  * @param  {...any} args
  */
-IoTScapeServices.call = async function (service, func, id, ...args) {
+IoTScapeServices.call = async function (service, func, id, clientId, ...args) {
   id = id.toString();
 
   // Validate name, ID, and function
@@ -329,6 +330,12 @@ IoTScapeServices.call = async function (service, func, id, ...args) {
     const methodInfo = IoTScapeServices.getFunctionInfo(service, func);
     const responseType = methodInfo.returns.type;
 
+    // Add caller info to request
+    if (clientId) {
+      request.clientId = clientId;
+    } else {
+      request.clientId = "server";
+    }
     // Expects a value response
     let attempt = (resolve) => {
       const rinfo = IoTScapeDevices.getInfo(service, id);
@@ -415,7 +422,7 @@ IoTScapeServices._specialMessageTypes = {
     );
 
     // Tell device what the new key is, so it can display it
-    IoTScapeServices.call(parsed.service, "_requestedKey", parsed.id, ...key);
+    IoTScapeServices.call(parsed.service, "_requestedKey", parsed.id, null, ...key);
   },
   "_link": (parsed) => {
     const targetService = parsed.event.args.service;
@@ -567,7 +574,7 @@ IoTScapeServices.start = function (socket) {
 
     try {
       // Send heartbeat request, will timeout if device does not respond
-      await IoTScapeServices.call(service, "heartbeat", device);
+      await IoTScapeServices.call(service, "heartbeat", device, null);
     } catch (e) {
       // Remove device if it didn't respond
       return false;
