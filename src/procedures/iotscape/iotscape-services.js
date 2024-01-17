@@ -550,13 +550,14 @@ IoTScapeServices.sendMessageToListeningClients = function (
   if (IoTScapeDevices.getEncryptionState(service, id).cipher == "plain") {
     // Send basic mode responses
     clients.forEach((client) => {
-      client.sendMessage(type, { id, ...content });
+      client.sendMessage(type, { service, id, ...content });
     });
   }
 
   if (type !== "device command") {
     clients.forEach((client) => {
       client.sendMessage("device message", {
+        service,
         id,
         message: IoTScapeDevices.deviceEncrypt(
           service,
