@@ -2,10 +2,10 @@ Development Environment
 =======================
 
 NetsBlox is composed of a number of modular components providing different functionality. These include:
+
 - `cloud <https://github.com/netsblox/cloud>`_: management of user accounts, projects, libraries, authentication, etc. Persists project data in S3; everything else is in MongoDB
 - `browser <https://github.com/netsblox/Snap--Build-Your-Own-Blocks>`_: hosts the browser environment.
 - `services <https://github.com/netsblox/services>`_: provides services accessible via the "call <RPC>" block. Persists data, such as cloud variables, in MongoDB.
-
 - `login server <https://github.com/netsblox/login-server>`_: An optional server providing a login page complete with redirection (customizable via URL parameters)
 
 When developing a specific component, it can usually be run by itself and simply use the production deployment for the remaining functionality. Recommendations for development of specific components is given below.
