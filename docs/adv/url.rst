@@ -19,7 +19,7 @@ The most common use of custom URLs in NetsBlox is for sharing public projects or
 		- *data*: the project or block library to open. It can be specified as a URL or as a (URI encoded) XML string. **required**
 		- *editMode*: If set, the project will be open in a regular mode. Otherwise, it will be opened in "app mode" (see the **appMode** setting).
 		- *noRun*: This action will run the project on open (see the **run** setting). Adding this parameter to the URL will revert this behavior so the project will not run on start.
-**present**
+*present*
 	Open a copy of the given public project and run it.
 
 	- Parameters:
@@ -27,27 +27,27 @@ The most common use of custom URLs in NetsBlox is for sharing public projects or
 		- *ProjectName*: The name of the public project to open **required**
 		- *editMode*: If set, the project will be open in a regular mode. Otherwise, it will be opened in "app mode" (see the **appMode** setting).
 		- *noRun*: This action will run the project on open (see the **run** setting). Adding this parameter to the URL will revert this behavior so the project will not run on start.
-**example**
+*example*
 	Open a project from the list of official NetsBlox examples and run it.
 
 	- Parameters:
 		- *ProjectName*: The name of the example project to open **required**
 		- *editMode*: If set, the project will be open in a regular mode. Otherwise, it will be opened in "app mode" (see the **appMode** setting).
 		- *noRun*: This action will run the project on open (see the **run** setting). Adding this parameter to the URL will revert this behavior so the project will not run on start.
-**private**
+*private*
 	Open a project owned by the logged in user and run it.
 
 	- Parameters:
 		- *ProjectName*: The name of the example project to open **required**
 		- *editMode*: If set, the project will be open in a regular mode. Otherwise, it will be opened in "app mode" (see the **appMode** setting).
 		- *noRun*: This action will run the project on open (see the **run** setting). Adding this parameter to the URL will revert this behavior so the project will not run on start.
-**dl**
+*dl*
 	Download a public project.
 
 	- Parameters:
 		- *Username*: The owner of the public project to open **required**
 		- *ProjectName*: The name of the public project to open **required**
-**signup**
+*signup*
 	Open the signup dialog on start.
 
 Other Settings
