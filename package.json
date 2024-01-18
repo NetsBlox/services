@@ -1,6 +1,6 @@
 {
   "name": "netsblox-services",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Server hosting the official NetsBlox RPCs and Services. ",
   "main": "src/index.js",
   "scripts": {
