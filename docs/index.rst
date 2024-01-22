@@ -42,5 +42,4 @@ NetsBlox Documentation
     dev/best-practices.rst
     dev/using-extern-apis.rst
     dev/utilities.rst
-    dev/adding-example-proj.rst
     
