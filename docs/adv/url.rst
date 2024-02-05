@@ -61,3 +61,5 @@ The following settings are generally available, regardless of the action:
 - **noExitWarning**: Don't confirm that the user wants to leave the page on tab close.
 - **lang**: Set the language immediately. For example, "lang=hu" will set NetsBlox to Hungarian on start.
 - **setVariable**: Set a variable to the given value on start. The value is expected to be a URL-encoded pair so setting "hello" to "world" would be "hello%3Dworld".
+- **cloud**: Override the default cloud URL. This can be used to point the public deployment to your own local cloud (e.g, `cloud=http://localhost:7777`).
+- **extensions**: A list of extensions (by URL) to load on start.
