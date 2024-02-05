@@ -92,11 +92,15 @@ types.defineType({
   description: "A sensor type used by :doc:`/services/Movebank/index`.",
   baseType: "Enum",
   baseParams: (async () => {
-    SENSOR_TYPES_META = await parseCSV(
-      await Movebank._requestData({
-        queryString: `entity_type=tag_type&api-token=${Movebank.apiKey.value}`,
-      }),
-    );
+    try {
+      SENSOR_TYPES_META = await parseCSV(
+        await Movebank._requestData({
+          queryString: `entity_type=tag_type&api-token=${Movebank.apiKey.value}`,
+        }),
+      );
+    } catch (e) {
+      console.error('failed to load MoveBank sensor types', e);
+    }
 
     const res = {};
     for (const ty of SENSOR_TYPES_META) {
