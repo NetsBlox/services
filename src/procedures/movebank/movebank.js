@@ -95,11 +95,12 @@ types.defineType({
     try {
       SENSOR_TYPES_META = await parseCSV(
         await Movebank._requestData({
-          queryString: `entity_type=tag_type&api-token=${Movebank.apiKey.value}`,
+          queryString:
+            `entity_type=tag_type&api-token=${Movebank.apiKey.value}`,
         }),
       );
     } catch (e) {
-      console.error('failed to load MoveBank sensor types', e);
+      console.error("failed to load MoveBank sensor types", e);
     }
 
     const res = {};
