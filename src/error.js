@@ -27,17 +27,24 @@ class MissingFieldError extends RequestError {
 }
 
 function handleUserErrors(fn) {
-  return async function (req, res) {
+  return async function (_req, res) {
     try {
       await fn.call(this, ...arguments);
     } catch (err) {
       if (err instanceof RequestError) {
         res.status(err.status).send(err.message);
       } else {
-        res.status(500).send("Internal Error Occurred. Try again later!");
+        console.warn(err.stack);
+        res.status(500).send("Internal error occurred. Try again later!");
       }
     }
   };
+}
+
+class LoginRequired extends RequestError {
+  constructor() {
+    super(401, "Login Required.");
+  }
 }
 
 module.exports = {
@@ -45,6 +52,7 @@ module.exports = {
   NotAllowedError,
   InvalidKeyProviderError,
   MissingFieldError,
+  LoginRequired,
 
   handleUserErrors,
 };
