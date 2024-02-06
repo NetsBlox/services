@@ -15,8 +15,18 @@ class NetsBloxCloud {
     this.secret = secret;
   }
 
-  async whoami(cookie) {
-    // TODO: look up the username using the cookie
+  async whoami(cookieJar) {
+    const cookieStr = Object.entries(cookieJar)
+      .map(([name, value]) => `${name}=${value}`)
+      .join("; ");
+
+    const opts = {
+      headers: {
+        cookie: cookieStr,
+      },
+    };
+    console.log("whoami using cookies:", cookieStr);
+    return await this.get("/users/whoami", opts);
   }
 
   async getRoomState(projectId) {

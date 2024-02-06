@@ -34,7 +34,8 @@ function handleUserErrors(fn) {
       if (err instanceof RequestError) {
         res.status(err.status).send(err.message);
       } else {
-        res.status(500).send("Internal Error Occurred. Try again later!");
+        console.warn(err.stack);
+        res.status(500).send("Internal error occurred. Try again later!");
       }
     }
   };

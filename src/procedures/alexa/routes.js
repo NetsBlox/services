@@ -30,7 +30,7 @@ router.get(
   parseCookies,
   setUsernameFromCookie,
   handleUserErrors((req, res) => {
-    const username = req.session.username;
+    const username = req.username;
 
     const isLoggedIn = !!username;
     if (!isLoggedIn) {
@@ -60,7 +60,7 @@ router.put(
   parseCookies,
   setUsernameFromCookie,
   handleUserErrors(async (req, res) => {
-    const { username } = req.session;
+    const { username } = req;
     const isLoggedIn = !!username;
 
     if (!isLoggedIn) {
