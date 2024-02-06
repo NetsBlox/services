@@ -118,6 +118,10 @@ class NetsBloxCloud {
     return clients;
   }
 
+  async getOAuthToken(tokenId) {
+    return await this.get(`/oauth/token/${tokenId}`);
+  }
+
   isConfigured() {
     return this.cloudUrl && this.id && this.secret;
   }

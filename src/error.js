@@ -27,7 +27,7 @@ class MissingFieldError extends RequestError {
 }
 
 function handleUserErrors(fn) {
-  return async function (req, res) {
+  return async function (_req, res) {
     try {
       await fn.call(this, ...arguments);
     } catch (err) {
@@ -40,11 +40,18 @@ function handleUserErrors(fn) {
   };
 }
 
+class LoginRequired extends RequestError {
+  constructor() {
+    super(401, "Login Required.");
+  }
+}
+
 module.exports = {
   UserError,
   NotAllowedError,
   InvalidKeyProviderError,
   MissingFieldError,
+  LoginRequired,
 
   handleUserErrors,
 };
