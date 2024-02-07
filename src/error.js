@@ -53,6 +53,7 @@ module.exports = {
   InvalidKeyProviderError,
   MissingFieldError,
   LoginRequired,
+  RequestError,
 
   handleUserErrors,
 };

@@ -26,7 +26,8 @@ class NetsBloxCloud {
       },
     };
     console.log("whoami using cookies:", cookieStr);
-    return await this.get("/users/whoami", opts);
+    const response = await this.fetch("/users/whoami", opts);
+    return await response.text();
   }
 
   async getRoomState(projectId) {
