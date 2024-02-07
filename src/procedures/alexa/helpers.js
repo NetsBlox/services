@@ -2,9 +2,8 @@ const _ = require("lodash");
 const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
 const assert = require("assert");
-const { sleep } = require("../../utils");
+const { sleep } = require("../../timers");
 const { getCloudURL, getServicesURL } = require("../utils");
-// FIXME: is sleep defined?
 
 // login with alexa credentials
 const lwaClientID = process.env.LWA_CLIENT_ID;
