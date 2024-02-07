@@ -122,7 +122,7 @@ router.post(
   handleErrorsInAlexa(async (req, res) => {
     const reqData = req.body;
     const { accessToken } = reqData.session.user;
-    const token = await NetsBloxCloud.getToken(accessToken);
+    const token = await NetsBloxCloud.getOAuthToken(accessToken);
     const { username } = token;
 
     const skillId = reqData.session.application.applicationId;
