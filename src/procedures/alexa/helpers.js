@@ -3,6 +3,7 @@ const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
 const assert = require("assert");
 const { sleep } = require("../../timers");
+// FIXME: update these methods
 const { getCloudURL, getServicesURL } = require("../utils");
 
 // login with alexa credentials
