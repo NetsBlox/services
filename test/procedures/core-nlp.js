@@ -15,7 +15,8 @@ describe(utils.suiteName(__filename), function () {
   ]);
 
   describe("annotate", function () {
-    it("should detect cities", async function () {
+    // TODO: re-enable this when we host our own CoreNLP in GH actions
+    it.skip("should detect cities", async function () {
       this.retries(3);
       const text = "I went to Paris last year.";
       const { sentences } = await nlp.annotate(text, [
