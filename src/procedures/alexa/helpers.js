@@ -2,9 +2,22 @@ const _ = require("lodash");
 const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
 const assert = require("assert");
-const { sleep } = require("../../utils");
-const { getCloudURL, getServicesURL } = require("../utils");
-// FIXME: is sleep defined?
+const { sleep } = require("../../timers");
+const { NetsBloxCloud, ServerURL } = require("../../config");
+
+/**
+ * Get the URL of the cloud we are connected to.
+ */
+function getCloudURL() {
+  return NetsBloxCloud;
+}
+
+/**
+ * Get the URL of the services host (this instance).
+ */
+function getServicesURL() {
+  return ServerURL;
+}
 
 // login with alexa credentials
 const lwaClientID = process.env.LWA_CLIENT_ID;
