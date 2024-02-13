@@ -114,7 +114,7 @@ class Game {
                                 possibleMoves.push([0, row, col]);
                             } else {
                                 const theirValue = minimax(currentDepth + 1, currentPlayer % 2 + 1)[0];
-                                possibleMoves.push([-theirValue, row, col]);
+                                possibleMoves.push([theirValue / -2, row, col]);
                             }
                             break;
                         default:
