@@ -12,13 +12,14 @@ const NBService = require("../utils/service");
 const MAX_NODES = 1000000;
 
 class Game {
-    constructor(rows, cols, n) {
+    constructor(rows, cols, n, gravity) {
         if (rows < 1 || cols < 1) throw Error(`invalid board size ${rows}x${cols}`);
         if (n < 1) throw Error(`invalid connect size ${n}`);
 
         this.rows = rows;
         this.cols = cols;
         this.n = n;
+        this.gravity = gravity;
 
         this.clear();
     }
@@ -28,8 +29,15 @@ class Game {
         for (let i = this.rows * this.cols; i > 0; --i) {
             this.tiles.push(0);
         }
-        this.moves = 0;
+        this.occupied = 0;
         this.running = true;
+    }
+
+    isValidMove(row, col) {
+        if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) return false;
+        if (this.tiles[row * this.cols + col] !== 0) return false;
+        if (this.gravity && row > 0 && this.tiles[(row - 1) * this.cols + col] === 0) return false;
+        return true;
     }
 
     get(row, col) {
@@ -44,14 +52,17 @@ class Game {
             throw Error("the game is already over");
         }
         if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) {
-            throw Error(`position (${row},${col}) is out of bounds (${this.rows},${this.cols})`);
+            throw Error(`position is out of bounds`);
         }
         if (this.tiles[row * this.cols + col] !== 0) {
-            throw Error(`position (${row},${col}) was already taken`);
+            throw Error(`position was already taken`);
+        }
+        if (this.gravity && row > 0 && this.tiles[(row - 1) * this.cols + col] === 0) {
+            throw Error(`position is an invalid move`);
         }
 
         this.tiles[row * this.cols + col] = player;
-        this.moves++;
+        this.occupied++;
 
         const rayLength = (dr, dc) => {
             let i = 1;
@@ -64,7 +75,7 @@ class Game {
                 return 'win';
             }
         }
-        if (this.moves >= this.rows * this.cols) {
+        if (this.occupied >= this.rows * this.cols) {
             this.running = false;
             return 'tie';
         }
@@ -79,7 +90,7 @@ class Game {
             throw Error(`invalid player ${player}`);
         }
 
-        const depth = aiSettings.getDepth(this.rows, this.cols);
+        const depth = aiSettings.getDepth(this.rows, this.cols, this.gravity, this.occupied);
         const alpha = aiSettings.getAlpha();
         logger.log(`getting ai move: depth=${depth} alpha=${alpha}`);
 
@@ -89,7 +100,8 @@ class Game {
             const possibleMoves = [];
             for (let row = 0; row < this.rows; ++row) {
                 for (let col = 0; col < this.cols; ++col) {
-                    if (this.tiles[row * this.cols + col] !== 0) continue;
+                    if (!this.isValidMove(row, col)) continue;
+
                     switch (this.set(row, col, currentPlayer)) {
                         case "win":
                             possibleMoves.push([1, row, col]);
@@ -109,34 +121,41 @@ class Game {
                             throw Error('unreachable');
                     }
                     this.tiles[row * this.cols + col] = 0;
-                    this.moves--;
+                    this.occupied--;
                     this.running = true;
                 }
             }
             if (possibleMoves.length === 0) throw Error("usage error");
+            possibleMoves.sort((a, b) => Math.random() - 0.5);
             possibleMoves.sort((a, b) => b[0] - a[0]);
-            if (currentDepth === 0) {
-                console.log('available moves', possibleMoves, this);
-            }
 
             const i = Math.min(possibleMoves.length - 1, Math.max(0, Math.floor(Math.random() * possibleMoves.length * alpha)));
             return possibleMoves[i];
         };
         const res = minimax(0, player);
+        logger.log(`got ai move ${res}`);
         return [res[1], res[2]];
     }
 }
 
 class AISettings {
-    constructor(rows, cols) {
+    constructor() {
         this.iter = 1;
     }
-    advance() {
-        this.iter++;
-    }
-    getDepth(rows, cols) {
-        const max_depth = Math.floor(Math.log2(MAX_NODES) / Math.log2(rows * cols));
-        return Math.max(0, Math.min(max_depth, Math.floor(Math.log2(this.iter))));
+    getDepth(rows, cols, gravity, occupied) {
+        let maxDepth;
+        if (gravity) {
+            maxDepth = Math.floor(Math.log2(MAX_NODES) / Math.log2(cols));
+        } else {
+            maxDepth = 0;
+            let temp = 1;
+            const k = rows * cols - occupied;
+            if (k < 1) throw Error('usage error');
+            while (maxDepth < k && temp < MAX_NODES) temp *= k - maxDepth++;
+            if (temp > MAX_NODES) --maxDepth;
+        }
+
+        return Math.max(0, Math.min(maxDepth, Math.floor(Math.log2(this.iter))));
     }
     getAlpha() {
         return 1 / this.iter;
@@ -185,12 +204,13 @@ ConnectNAI.newSession = function () {
  * @param {BoundedInteger<3, 10>} rows The number of rows in the game
  * @param {BoundedInteger<3, 10>} cols The number of columns in the game
  * @param {BoundedInteger<3>} n The number of consecutive pieces needed to win
+ * @param {Boolean} gravity Whether or not to use gravity when placing pieces, which makes them fall down to the lowest unoccupied row in the column
  */
-ConnectNAI.newGame = function (rows, cols, n) {
+ConnectNAI.newGame = function (rows, cols, n, gravity) {
     if (n > rows && n > cols) throw Error("n is too high - impossible to win");
 
     const session = getSession(this.caller.clientId);
-    session.game = new Game(rows, cols, n);
+    session.game = new Game(rows, cols, n, gravity);
 };
 
 /**
@@ -198,19 +218,24 @@ ConnectNAI.newGame = function (rows, cols, n) {
  * @param {Integer} row The row to play at.
  * @param {Integer} col The column to play at.
  * @param {Enum<Player1,Player2>} player The player to make the move for.
- * @returns {Enum<ok,win,tie>} result of the move.
+ * @returns {Tuple<Integer, Integer, Enum<ok,win,tie>>} Location (row/column) and result of the move. The location may not be the same as the input if gravity is enabled (see newGame).
  */
 ConnectNAI.makeMove = function (row, col, player) {
     player = { 'Player1': 1, 'Player2': 2 }[player];
+    row -= 1;
+    col -= 1;
 
     const session = getSession(this.caller.clientId);
     const { game, aiSettings } = session;
     if (!game || !game.running) throw Error("no ongoing game - use newGame to start one");
+    if (game.gravity && game.get(row, col) === 0) {
+        while (row > 0 && game.get(row - 1, col) === 0) --row;
+    }
     const res = game.set(row, col, player);
     if (!game.running) {
-        aiSettings.advance();
+        aiSettings.iter++;
     }
-    return res;
+    return [row + 1, col + 1, res];
 };
 
 /**
@@ -224,7 +249,16 @@ ConnectNAI.getAIMove = function (player) {
     const session = getSession(this.caller.clientId);
     const { game, aiSettings } = session;
     if (!game || !game.running) throw Error("no ongoing game - use newGame to start one");
-    return game.getMove(aiSettings, player);
+    const [row, col] = game.getMove(aiSettings, player);
+    return [row + 1, col + 1];
+};
+
+/**
+ * Sets the current session's AI to the maximum difficulty.
+ */
+ConnectNAI.useMaxDifficulty = function () {
+    const session = getSession(this.caller.clientId);
+    session.aiSettings.iter = Infinity;
 };
 
 module.exports = ConnectNAI;
