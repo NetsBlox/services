@@ -91,8 +91,8 @@ class Game {
         }
 
         const depth = aiSettings.getDepth(this.rows, this.cols, this.gravity, this.occupied);
-        const alpha = aiSettings.getAlpha();
-        logger.log(`getting ai move: depth=${depth} alpha=${alpha}`);
+        const alpha = aiSettings.getAlpha(this.rows, this.cols, this.gravity, this.occupied);
+        logger.log(`getting ai move: ai-iter=${aiSettings.iter} depth=${depth} alpha=${alpha}`);
 
         const minimax = (currentDepth, currentPlayer) => {
             if (currentDepth > depth) throw Error("usage error");
@@ -157,8 +157,9 @@ class AISettings {
 
         return Math.max(0, Math.min(maxDepth, Math.floor(Math.log2(this.iter))));
     }
-    getAlpha() {
-        return 1 / this.iter;
+    getAlpha(rows, cols, gravity, occupied) {
+        const k = Math.max(1, gravity ? this.iter / rows : this.iter);
+        return 1 / (1 + 1.5 * Math.log2(k));
     }
 }
 
