@@ -9,7 +9,7 @@
 const logger = require("../utils/logger")("connect-n-ai");
 const NBService = require("../utils/service");
 
-const MAX_NODES = 1000000;
+const MAX_NODES = 500000;
 
 class Game {
     constructor(rows, cols, n, gravity) {
@@ -82,7 +82,7 @@ class Game {
         return 'ok';
     }
 
-    getMove(aiSettings, player) {
+    getMoves(aiSettings, player) {
         if (!this.running) {
             throw Error("the game is already over");
         }
@@ -92,7 +92,7 @@ class Game {
 
         const depth = aiSettings.getDepth(this.rows, this.cols, this.gravity, this.occupied);
         const alpha = aiSettings.getAlpha(this.rows, this.cols, this.gravity, this.occupied);
-        logger.log(`getting ai move: ai-iter=${aiSettings.iter} depth=${depth} alpha=${alpha}`);
+        logger.log(`getting ai moves: ai-iter=${aiSettings.iter} depth=${depth} alpha=${alpha}`);
 
         const minimax = (currentDepth, currentPlayer) => {
             if (currentDepth > depth) throw Error("usage error");
@@ -113,8 +113,8 @@ class Game {
                             if (currentDepth + 1 > depth) {
                                 possibleMoves.push([0, row, col]);
                             } else {
-                                const theirValue = minimax(currentDepth + 1, currentPlayer % 2 + 1)[0];
-                                possibleMoves.push([theirValue / -2, row, col]);
+                                const [theirMoves, theirChoice] = minimax(currentDepth + 1, currentPlayer % 2 + 1);
+                                possibleMoves.push([theirMoves[theirChoice][0] / -2, row, col]);
                             }
                             break;
                         default:
@@ -130,11 +130,11 @@ class Game {
             possibleMoves.sort((a, b) => b[0] - a[0]);
 
             const i = Math.min(possibleMoves.length - 1, Math.max(0, Math.floor(Math.random() * possibleMoves.length * alpha)));
-            return possibleMoves[i];
+            return [possibleMoves, i];
         };
-        const res = minimax(0, player);
-        logger.log(`got ai move ${res}`);
-        return [res[1], res[2]];
+        const [moves, _] = minimax(0, player);
+        logger.log("got ai moves", moves);
+        return moves;
     }
 }
 
@@ -242,16 +242,15 @@ ConnectNAI.makeMove = function (row, col, player) {
 /**
  * Gets the AI to suggest the next best move for the specified player.
  * @param {Enum<Player1,Player2>} player The player to make the recommendation for.
- * @returns {Tuple<Integer, Integer>} location (row/column) of the recommended move.
+ * @returns {Array<Tuple<Number, Integer, Integer>>} A list of recommended moves, each being ``[value, row, column]``. These are already sorted in descending value, so the recommended move is the first one.
  */
-ConnectNAI.getAIMove = function (player) {
+ConnectNAI.getAIMoves = function (player) {
     player = { 'Player1': 1, 'Player2': 2 }[player];
 
     const session = getSession(this.caller.clientId);
     const { game, aiSettings } = session;
     if (!game || !game.running) throw Error("no ongoing game - use newGame to start one");
-    const [row, col] = game.getMove(aiSettings, player);
-    return [row + 1, col + 1];
+    return game.getMoves(aiSettings, player).map((m) => [m[0], m[1] + 1, m[2] + 1]);
 };
 
 /**
