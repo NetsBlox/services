@@ -33,8 +33,12 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
     arguments: args.map((a) => this._parseArgument(a)),
     nargout: numReturnValues,
   }];
-  const resp = await request.post(MATLAB_URL, body, { timeout: 5000 });
-  const results = resp.data.messages.FEvalResponse;
+  // TODO: add timeout detection
+  // TODO: add retry
+  const resp = await request.post(`${MATLAB_URL}/feval-fast`, body, {
+    timeout: 5000,
+  });
+  const results = resp.data.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
 };
