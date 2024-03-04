@@ -65,7 +65,7 @@ MATLAB._parseArgument = function (arg) {
   const mwdata = flatValues
     .map((v) => {
       if (mwtype === "logical") {
-        return v ? 1 : 0;
+        return v ? true : false;
       } else if (mwtype === "string") {
         return v.toString();
       } else { // number
