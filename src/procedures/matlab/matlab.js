@@ -32,7 +32,7 @@ const warmer = new KeepWarm(async () => {
 async function requestWithRetry(url, body, numRetries = 0) {
   try {
     return await request.post(url, body, {
-      timeout: 5000,
+      timeout: 10000,
     });
   } catch (err) {
     if (err.code === "ECONNABORTED" && numRetries > 0) {
