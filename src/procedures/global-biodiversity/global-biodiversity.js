@@ -8,6 +8,7 @@
 "use strict";
 
 const ApiConsumer = require("../utils/api-consumer");
+const utils = require('../utils');
 const types = require('../../input-types');
 const _ = require('lodash');
 
@@ -28,6 +29,38 @@ const GBIF = new ApiConsumer(
   "http://api.gbif.org/v1/",
   { cache: { ttl: 24 * 60 * 60 } },
 );
+
+function cleanSpecies(r) {
+    const res = {
+        id: r['key'],
+    };
+
+    if (r['canonicalName'] !== undefined) {
+        res['canonicalName'] = r['canonicalName'];
+    }
+    if (r['vernacularNames'] !== undefined) {
+        res['vernacularNames'] = _.uniq(r['vernacularNames'].filter((x) => !x.language || x.language === 'eng').map((x) => x.vernacularName.toLowerCase())).sort()
+    }
+    if (r['extinct'] !== undefined) {
+        res['extinct'] = r['extinct'];
+    }
+    if (r['threatStatuses'] !== undefined) {
+        res['threatStatuses'] = _.uniq(r['threatStatuses'].map((x) => x.toLowerCase().replace('_', ' '))).sort();
+    }
+    if (r['habitats'] !== undefined) {
+        res['habitats'] = _.uniq(r['habitats'].map((x) => x.toLowerCase())).sort();
+    }
+    if (r['descriptions'] !== undefined) {
+        res['descriptions'] = r['descriptions'].filter((x) => !x.language || x.language === 'eng').map((x) => x.description);
+    }
+    for (const k of ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']) {
+        if (r[k] !== undefined) {
+            res[k] = r[k];
+        }
+    }
+
+    return res;
+}
 
 /**
  * Search the database for species of the given common or scientific name.
@@ -55,52 +88,95 @@ GBIF.searchSpecies = async function (nameType, name, page = 1) {
         queryString: `datasetKey=${BackBone}&status=ACCEPTED&rank=SPECIES&qField=${nameType}&q=${encodeURIComponent(name)}&limit=${limit}&offset=${offset}`,
     });
 
-    return res.results.map((r) => {
-        return {
-            id: r['key'],
-
-            scientificName: r['canonicalName'],
-            commonNames: _.uniq(r['vernacularNames'].filter((x) => !x.language || x.language === 'eng').map((x) => x.vernacularName.toLowerCase())).sort(),
-
-            extinct: r['extinct'],
-            threatStatuses: _.uniq(r['threatStatuses'].map((x) => x.toLowerCase().replace('_', ' '))).sort(),
-
-            habitats: _.uniq(r['habitats'].map((x) => x.toLowerCase())).sort(),
-            descriptions: r['descriptions'].filter((x) => !x.language || x.language === 'eng').map((x) => x.description),
-
-            kingdom: r['kingdom'],
-            phylum: r['phylum'],
-            class: r['class'],
-            order: r['order'],
-            family: r['family'],
-            genus: r['genus'],
-            species: r['species'],
-        };
-    });
+    return res.results.map((r) => cleanSpecies(r));
 };
 
 /**
- * Get the URL of any image(s) associated with a particular species returned by :func:`GlobalBiodiversity.searchSpecies`.
- * These URLs can then be passed to :func:`GlobalBiodiversity.getImage` to retrieve the image.
+ * Get the taxonomical parent of a node/entry in the tree of life.
  * 
- * Because there may be many associated images, only up to 20 URLs are returned per call to this RPC.
- * You can check if there are more images by increasing the ``page`` number of results to return.
- * When there are no more images, an empty list is returned.
- * 
- * @param {BoundedInteger<0>} speciesId the id of a species returned by :func:`GlobalBiodiversity.searchSpecies`
- * @param {BoundedInteger<1>=} page page number of results to return (default ``1``)
- * @returns {Array<String>} zero or more associated image URLs
+ * @param {BoundedInteger<0>} id id of the taxonomy entry to get the parent of
+ * @returns {Object} taxonomical parent of the entry
  */
-GBIF.getImageURLs = async function (speciesId, page = 1) {
+GBIF.getParent = async function (id) {
+    let res;
+    try {
+        res = await this._requestData({
+            path: `species/${id}/parents`,
+        });
+    } catch (e) {
+        throw Error(`unknown taxonomy node: ${id}`);
+    }
+
+    if (res.length === 0) {
+        throw Error(`taxonomy node ${id} has no parents`);
+    }
+
+    return cleanSpecies(res[res.length - 1]);
+};
+
+/**
+ * Get the taxonomical children of a node/entry in the tree of life.
+ * 
+ * Because a node may have many children, only up to 20 children are returned per call to this RPC.
+ * You can check if there are more children by increasing the ``page`` number of children to return.
+ * When there are no more children, an empty list is returned.
+ * 
+ * @param {BoundedInteger<0>} id id of the taxonomy entry to get the children of
+ * @param {BoundedInteger<1>=} page page number of results to return (default ``1``)
+ * @returns {Array<Object>} taxonomical children of the entry
+ */
+GBIF.getChildren = async function (id, page = 1) {
     const limit = 20;
     const offset = (page - 1) * limit;
 
-    const res = await this._requestData({
-        path: `species/${speciesId}/media`,
-        queryString: `limit=${limit}&offset=${offset}`,
-    });
+    // their api puts a hard cap at offset 100000 - just give empty results
+    if (offset > 100000) {
+        return [];
+    }
 
-    return res.results.map((r) => r.identifier);
+    let res;
+    try {
+        res = await this._requestData({
+            path: `species/${id}/children`,
+            queryString: `limit=${limit}&offset=${offset}`,
+        });
+    } catch (e) {
+        throw Error(`unknown taxonomy node: ${id}`);
+    }
+
+    return res.results.map((r) => cleanSpecies(r));
+};
+
+/**
+ * Get the URL of any media associated with a particular taxonomy node/entry in the tree of life.
+ * These URLs can then be passed to :func:`GlobalBiodiversity.getImage` or :func:`GlobalBiodiversity.getSound` to get the image/sound.
+ * 
+ * Because there may be many associated media entries, only up to 20 URLs are returned per call to this RPC.
+ * You can check if there are more URLs by increasing the ``page`` number of results to return.
+ * When there are no more URLs, an empty list is returned.
+ * 
+ * @param {Enum<image,sound>=} type the type of media to return
+ * @param {BoundedInteger<0>} id id of the taxonomy node to get media from
+ * @param {BoundedInteger<1>=} page page number of results to return (default ``1``)
+ * @returns {Array<String>} zero or more associated media URLs
+ */
+GBIF.getMediaURLs = async function (type, id, page = 1) {
+    type = { 'image': 'StillImage', 'sound': 'Sound' }[type];
+
+    const limit = 20;
+    const offset = (page - 1) * limit;
+
+    let res;
+    try {
+        res = await this._requestData({
+            path: `species/${id}/media`,
+            queryString: `limit=${limit}&offset=${offset}`,
+        });
+    } catch (e) {
+        throw Error(`unknown taxonomy node: ${id}`);
+    }
+
+    return res.results.filter((r) => r.type === type).map((r) => r.identifier);
 };
 
 /**
@@ -112,5 +188,13 @@ GBIF.getImageURLs = async function (speciesId, page = 1) {
 GBIF.getImage = async function (url) {
     return this._sendImage({ baseUrl: url });
 };
+
+/**
+ * Get a sound from a sound URL returned by :func:`GlobalBiodiversity.getMediaURLs`.
+ */
+GBIF.getSound = async function (url) {
+    const data = await this._requestData({ baseUrl: url });
+    return utils.sendAudioBuffer(this.response, data);
+}
 
 module.exports = GBIF;
