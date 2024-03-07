@@ -146,7 +146,7 @@ class ApiConsumer extends NBService {
     let requestImage = () => {
       logger.trace("requesting image from", fullUrl);
       const deferred = defer();
-      const imgResponse = request.get(fullUrl);
+      const imgResponse = request.get(fullUrl, (err) => deferred.reject(err));
       delete imgResponse.headers["cache-control"];
       imgResponse.on("response", (res) => {
         try {
@@ -240,11 +240,16 @@ class ApiConsumer extends NBService {
   }
 
   // sends an image to the user
-  _sendImage(queryOptions) {
-    return this._requestImage(queryOptions)
-      .then((imageBuffer) => {
-        this._sendImageBuffer(imageBuffer);
-      });
+  async _sendImage(queryOptions) {
+    let img;
+    try {
+      img = await this._requestImage(queryOptions);
+    } catch (e) {
+      this._logger.trace('failed to load image', e);
+      return 'failed to load image';
+    }
+
+    return this._sendImageBuffer(img);
   }
 
   // helper test the response
