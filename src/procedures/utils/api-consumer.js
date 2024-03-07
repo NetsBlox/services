@@ -245,8 +245,8 @@ class ApiConsumer extends NBService {
     try {
       img = await this._requestImage(queryOptions);
     } catch (e) {
-      this._logger.trace('failed to load image', e);
-      return 'failed to load image';
+      this._logger.trace("failed to load image", e);
+      return "failed to load image";
     }
 
     return this._sendImageBuffer(img);
