@@ -7,6 +7,7 @@
  * @alpha
  */
 
+const logger = require("../utils/logger")("matlab");
 const axios = require("axios");
 
 const { MATLAB_KEY, MATLAB_URL = "" } = process.env;
@@ -63,7 +64,14 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   //    - batch requests while starting
   //    - send requests on start
   //  - keepWarm
+  const startTime = Date.now();
   const resp = await requestWithRetry(`${MATLAB_URL}/feval-fast`, body, 5);
+  const duration = Date.now() - startTime;
+  logger.info(
+    `${duration} body: ${JSON.stringify(body)} response: ${
+      JSON.stringify(resp.data)
+    }`,
+  );
   warmer.keepWarm();
   const results = resp.data.FEvalResponse;
   // TODO: add batching queue
