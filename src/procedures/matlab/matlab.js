@@ -22,7 +22,7 @@ const MATLAB = {};
 MATLAB.serviceName = "MATLAB";
 
 const warmer = new KeepWarm(async () => {
-  logger.info('warming is disabled');
+  logger.info("warming is disabled");
   return;
 
   const body = [...new Array(10)].map(() => ({
