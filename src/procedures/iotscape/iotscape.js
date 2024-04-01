@@ -174,7 +174,13 @@ IoTScape._send = function (service, id, command, caller) {
  * @param {RemoteInfo} remote Remote host information
  */
 IoTScape._createService = async function (definition, remote = null) {
+  
   let parsed = null;
+  
+  // Handle buffer input
+  if (Buffer.isBuffer(definition)) {
+    definition = definition.toString();
+  }
 
   if (typeof definition === "string") {
     try {
@@ -194,9 +200,10 @@ IoTScape._createService = async function (definition, remote = null) {
 
   const name = Object.keys(parsed)[0];
   parsed = parsed[name];
-
+  
   // Verify service definition is in message
   if (typeof (parsed.service) == "undefined") {
+    logger.log("Service definition not found in message");
     return;
   }
 
@@ -269,7 +276,7 @@ IoTScape._createService = async function (definition, remote = null) {
   } else {
     logger.log(`Service ${name} already exists and is up to date`);
   }
-  IoTScapeServices.updateOrCreateServiceInfo(name, parsed, id, remote);
+  IoTScapeServices.updateOrCreateServiceInfo(name, service, id, remote);
 };
 
 /**

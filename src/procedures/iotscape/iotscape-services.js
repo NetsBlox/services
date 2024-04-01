@@ -24,7 +24,12 @@ IoTScapeServices.updateOrCreateServiceInfo = function (
   let service = IoTScapeDevices._services[name];
   IoTScapeServices._serviceDefinitions[name] = definition;
 
-  if(!rinfo) {
+  if (!service) {
+    // Service not added yet
+    service = IoTScapeDevices._services[name] = {};
+  }
+
+  if (!rinfo) {
     logger.log("Service " + name + " created without connection info");
     return;
   }
@@ -33,11 +38,6 @@ IoTScapeServices.updateOrCreateServiceInfo = function (
     "Discovering " + name + ":" + id + " at " + rinfo.address + ":" +
       rinfo.port,
   );
-
-  if (!service) {
-    // Service not added yet
-    service = IoTScapeDevices._services[name] = {};
-  }
 
   service[id] = rinfo;
 };
