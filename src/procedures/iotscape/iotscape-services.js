@@ -24,6 +24,11 @@ IoTScapeServices.updateOrCreateServiceInfo = function (
   let service = IoTScapeDevices._services[name];
   IoTScapeServices._serviceDefinitions[name] = definition;
 
+  if(!rinfo) {
+    logger.log("Service " + name + " created without connection info");
+    return;
+  }
+
   logger.log(
     "Discovering " + name + ":" + id + " at " + rinfo.address + ":" +
       rinfo.port,

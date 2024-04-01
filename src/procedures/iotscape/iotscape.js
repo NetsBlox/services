@@ -173,14 +173,18 @@ IoTScape._send = function (service, id, command, caller) {
  * @param {String} definition Service definition
  * @param {RemoteInfo} remote Remote host information
  */
-IoTScape._createService = async function (definition, remote) {
+IoTScape._createService = async function (definition, remote = null) {
   let parsed = null;
 
-  try {
-    parsed = JSON.parse(definition);
-  } catch (err) {
-    logger.log("Error parsing IoTScape service: " + err);
-    return;
+  if (typeof definition === "string") {
+    try {
+      parsed = JSON.parse(definition);
+    } catch (err) {
+      logger.log("Error parsing IoTScape service: " + err);
+      return;
+    }
+  } else {
+    parsed = definition;
   }
 
   // Ignore empty and request messages sent to this method
