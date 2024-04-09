@@ -211,7 +211,7 @@ GBIF.getImage = async function (url) {
 
 /**
  * Get a sound from a sound URL returned by :func:`GlobalBiodiversity.getMediaURLs`.
- * 
+ *
  * @param {String} url URL of the sound to load
  * @returns {Audio} the downloaded image
  */
