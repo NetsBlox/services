@@ -1,7 +1,6 @@
 /**
  * The GlobalBiodiversity service provides information on millions of species from around the globe.
  *
- * @alpha
  * @service
  * @category GeoData
  */
