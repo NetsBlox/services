@@ -7,9 +7,11 @@
  * @alpha
  */
 
+const logger = require("../utils/logger")("matlab");
 const axios = require("axios");
 
 const { MATLAB_KEY, MATLAB_URL = "" } = process.env;
+const KeepWarm = require("./keep-warm");
 const request = axios.create({
   headers: {
     "X-NetsBlox-Auth-Token": MATLAB_KEY,
@@ -18,6 +20,31 @@ const request = axios.create({
 
 const MATLAB = {};
 MATLAB.serviceName = "MATLAB";
+
+const warmer = new KeepWarm(async () => {
+  logger.info("warming is disabled");
+  return;
+
+  const body = [...new Array(10)].map(() => ({
+    function: "ver",
+    arguments: [],
+    nargout: 1,
+  }));
+  request.post(`${MATLAB_URL}/feval-fast`, body);
+});
+
+async function requestWithRetry(url, body, numRetries = 0) {
+  try {
+    return await request.post(url, body, {
+      timeout: 10000,
+    });
+  } catch (err) {
+    if (err.code === "ECONNABORTED" && numRetries > 0) {
+      return requestWithRetry(url, body, numRetries - 1);
+    }
+    throw err;
+  }
+}
 
 /**
  * Evaluate a MATLAB function with the given arguments and number of return
@@ -33,8 +60,23 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
     arguments: args.map((a) => this._parseArgument(a)),
     nargout: numReturnValues,
   }];
-  const resp = await request.post(MATLAB_URL, body, { timeout: 5000 });
-  const results = resp.data.messages.FEvalResponse;
+
+  // TODO: if this is the first call, start
+  // high-level alg:
+  //  - start
+  //    - batch requests while starting
+  //    - send requests on start
+  //  - keepWarm
+  const startTime = Date.now();
+  const resp = await requestWithRetry(`${MATLAB_URL}/feval-fast`, body, 5);
+  const duration = Date.now() - startTime;
+  logger.info(
+    `${duration} body: ${JSON.stringify(body)} response: ${
+      JSON.stringify(resp.data)
+    }`,
+  );
+  warmer.keepWarm();
+  const results = resp.data.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
 };
@@ -61,7 +103,7 @@ MATLAB._parseArgument = function (arg) {
   const mwdata = flatValues
     .map((v) => {
       if (mwtype === "logical") {
-        return v ? 1 : 0;
+        return v ? true : false;
       } else if (mwtype === "string") {
         return v.toString();
       } else { // number

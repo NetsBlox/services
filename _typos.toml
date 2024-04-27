@@ -19,6 +19,7 @@ extend-exclude = [
 
     # select submodule subdirectories
     "src/procedures/roboscape/speckjs/*",
+    "src/procedures/roboscape/firmware/*",
 
     # data files
     "src/procedures/common-words/words/*.txt",
