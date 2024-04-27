@@ -1,10 +1,17 @@
-let mongoCollection = null;
+let collections = null;
 const getDatabase = function () {
-  if (!mongoCollection) {
+  if (!collections) {
     const Storage = require("../../storage");
-    mongoCollection = Storage.createCollection("autograders");
+    collections = {
+      autograders: Storage.createCollection("autograders"),
+      tokens: Storage.createCollection("autograderTokens"),
+    };
+    const one_week = 7 * 24 * 60 * 60;
+    collections.tokens.createIndex({ createdAt: 1 }, {
+      expireAfterSeconds: one_week,
+    });
   }
-  return mongoCollection;
+  return collections;
 };
 
 module.exports = getDatabase;

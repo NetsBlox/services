@@ -3,12 +3,12 @@ function newScope() {
   const timers = [];
   let timersStopped = false;
 
-  function setTimeout(callback, delay = 0) {
+  function setTimeout(callback, delay = 0, ...params) {
     let timer;
     const cb = () => {
       const index = timers.findIndex((t) => t === timer);
       timers.splice(index, 1);
-      return callback();
+      return callback(...params);
     };
     timer = new Timer(cb, delay);
     timers.push(timer);
@@ -19,10 +19,10 @@ function newScope() {
     return timer;
   }
 
-  function setInterval(callback, delay = 0) {
+  function setInterval(callback, delay = 0, ...params) {
     let timer;
     let cb = () => {
-      callback();
+      callback(...params);
       // restart the timer
       timers.push(timer);
       timer.reset(delay);

@@ -16,6 +16,7 @@
  * @category ArtificialIntelligence
  * @category Devices
  */
+const logger = require("../utils/logger")("alexa");
 const Alexa = {};
 const AlexaSkill = require("./skill");
 const GetStorage = require("./storage");
@@ -56,6 +57,7 @@ Alexa.createSkill = async function (configuration) {
       { vendorId, manifest },
       vendorId,
     )).skillId;
+    logger.info(`Created skill with id: ${skillId}`);
     await h.retryWhile(
       () =>
         smapiClient.setInteractionModelV1(skillId, stage, "en-US", {
@@ -63,12 +65,23 @@ Alexa.createSkill = async function (configuration) {
         }),
       (err) => err.statusCode === 404,
     );
+    logger.info(`Set interaction model for ${skillId}`);
     await smapiClient.updateAccountLinkingInfoV1(skillId, stage, {
       accountLinkingRequest,
     });
+    logger.info(`Updated account linking info for ${skillId}`);
   } catch (err) {
     if (skillId) {
-      await smapiClient.deleteSkillV1(skillId);
+      logger.info(`Error occurred. Cleaning up ${skillId}`);
+      await smapiClient.deleteSkillV1(skillId)
+        .catch((err) => {
+          // the error is likely that the skill doesn't exist but logging just in case
+          logger.info(
+            `Error occurred during cleanup (${skillId}): ${
+              h.clarifyError(err)
+            }`,
+          );
+        });
     }
     throw h.clarifyError(err);
   }

@@ -2,8 +2,22 @@ const _ = require("lodash");
 const AlexaSMAPI = require("ask-smapi-sdk");
 const GetStorage = require("./storage");
 const assert = require("assert");
-const config = require("../../config");
-const { sleep } = require("../../utils");
+const { sleep } = require("../../timers");
+const { NetsBloxCloud, ServerURL } = require("../../config");
+
+/**
+ * Get the URL of the cloud we are connected to.
+ */
+function getCloudURL() {
+  return NetsBloxCloud;
+}
+
+/**
+ * Get the URL of the services host (this instance).
+ */
+function getServicesURL() {
+  return ServerURL;
+}
 
 // login with alexa credentials
 const lwaClientID = process.env.LWA_CLIENT_ID;
@@ -62,14 +76,6 @@ const getVendorID = async function (smapiClient) {
   assert(vendors.length, "Developer account required.");
   return vendors[0].id;
 };
-
-function getCloudURL() {
-  return config.NetsBloxCloud;
-}
-
-function getServicesURL() {
-  return config.ServerURL;
-}
 
 function getConfigWithDefaults(configuration) {
   const skillConfigDefaults = {
@@ -158,4 +164,6 @@ module.exports = {
   textBtwn,
   getVendorID,
   OAUTH_CLIENT_NAME,
+  getCloudURL,
+  getServicesURL,
 };

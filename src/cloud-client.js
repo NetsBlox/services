@@ -1,5 +1,11 @@
 const _ = require("lodash");
 const fetch = require("node-fetch");
+const CacheManager = require("cache-manager");
+const cache = CacheManager.caching({
+  store: "memory",
+  max: 1000,
+  ttl: 3, // secs
+});
 
 // Client for NetsBlox Cloud
 class NetsBloxCloud {
@@ -9,8 +15,19 @@ class NetsBloxCloud {
     this.secret = secret;
   }
 
-  async whoami(cookie) {
-    // TODO: look up the username using the cookie
+  async whoami(cookieJar) {
+    const cookieStr = Object.entries(cookieJar)
+      .map(([name, value]) => `${name}=${value}`)
+      .join("; ");
+
+    const opts = {
+      headers: {
+        cookie: cookieStr,
+      },
+    };
+    console.log("whoami using cookies:", cookieStr);
+    const response = await this.fetch("/users/whoami", opts);
+    return await response.text();
   }
 
   async getRoomState(projectId) {
@@ -35,7 +52,6 @@ class NetsBloxCloud {
 
   async sendMessage(message) {
     const url = `/network/messages/`;
-    console.log("sending", message);
     const response = await this.post(url, message);
     return response.status > 199 && response.status < 400;
   }
@@ -47,8 +63,10 @@ class NetsBloxCloud {
   }
 
   async get(urlPath) {
-    const response = await this.fetch(urlPath);
-    return await response.json();
+    return await cache.wrap(urlPath, async () => {
+      const response = await this.fetch(urlPath);
+      return await response.json();
+    });
   }
 
   async fetch(urlPath, options = {}) {
@@ -109,6 +127,10 @@ class NetsBloxCloud {
     const url = `/oauth/clients/`;
     const clients = await this.get(url);
     return clients;
+  }
+
+  async getOAuthToken(tokenId) {
+    return await this.get(`/oauth/token/${tokenId}`);
   }
 
   isConfigured() {

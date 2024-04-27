@@ -48,6 +48,9 @@ describe(utils.suiteName(__filename), function () {
       "timeInputFormat",
       "timeDisplayFormat",
       "logscale",
+      "fontSize",
+      "legendLocation",
+      "lineWidth",
     ];
     assert.deepEqual(opts.map((i) => i[0]), expectedOpts);
   });

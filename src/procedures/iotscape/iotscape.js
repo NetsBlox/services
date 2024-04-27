@@ -168,22 +168,32 @@ IoTScape._createService = async function (definition, remote) {
   };
 
   // Handle merge for existing service
-  service = await _mergeWithExistingService(name, service, methods);
+  [service, methodsChanged] = await _mergeWithExistingService(
+    name,
+    service,
+    methods,
+  );
 
   // Send to database
-  const query = { $set: service };
-  try {
-    await IoTScape._getDatabase().updateOne({ name }, query, { upsert: true });
-    ServiceEvents.emit(ServiceEvents.UPDATE, name);
-    IoTScapeServices.updateOrCreateServiceInfo(name, parsed, id, remote);
-  } catch (err) {
-    if (err.message === MONGODB_DOC_TOO_LARGE) {
-      logger.log(
-        "Uploaded service is too large. Please decrease service size and try again.",
-      );
+  if (methodsChanged) {
+    const query = { $set: service };
+    try {
+      await IoTScape._getDatabase().updateOne({ name }, query, {
+        upsert: true,
+      });
+      ServiceEvents.emit(ServiceEvents.UPDATE, name);
+    } catch (err) {
+      if (err.message === MONGODB_DOC_TOO_LARGE) {
+        logger.log(
+          "Uploaded service is too large. Please decrease service size and try again.",
+        );
+      }
+      throw err;
     }
-    throw err;
+  } else {
+    logger.log(`Service ${name} already exists and is up to date`);
   }
+  IoTScapeServices.updateOrCreateServiceInfo(name, parsed, id, remote);
 };
 
 /**
@@ -257,6 +267,7 @@ function _generateMethods(methodsInfo) {
  */
 async function _mergeWithExistingService(name, service) {
   let existing = await IoTScape._getDatabase().findOne({ name });
+  let methodsChanged = false;
 
   if (existing !== null) {
     const methodNames = _.uniq(
@@ -266,6 +277,12 @@ async function _mergeWithExistingService(name, service) {
           method.arguments.every((arg) => isValidArgName(arg.name))
         ) // validate methods
         .map((method) => method.name),
+    );
+
+    // Check if methods are the same
+    methodsChanged = !_.isEqual(
+      service.methods.map((method) => method.name),
+      existing.methods.map((method) => method.name),
     );
 
     // Use newer methods if available
@@ -288,9 +305,12 @@ async function _mergeWithExistingService(name, service) {
     if (existing.version > service.version) {
       service.version = existing.version;
     }
+  } else {
+    // No existing service, so update required
+    methodsChanged = true;
   }
 
-  return service;
+  return [service, methodsChanged];
 }
 
 server.on("listening", function () {

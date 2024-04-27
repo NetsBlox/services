@@ -6,10 +6,33 @@ describe(utils.suiteName(__filename), function () {
   const assert = require("assert");
 
   describe("String", function () {
-    it("should convert to a string", async () => {
-      let rawInput = 0;
-      let parsedInput = await typesParser.String(rawInput);
+    it("should convert numbers to strings", async () => {
+      let parsedInput = await typesParser.String(0);
       assert.strictEqual(typeof parsedInput, "string");
+      assert.strictEqual(parsedInput, "0");
+
+      assert.strictEqual(await typesParser.String(61), "61");
+      assert.strictEqual(await typesParser.String(-48), "-48");
+    });
+    it("should no-op string inputs", async () => {
+      assert.strictEqual(await typesParser.String(""), "");
+      assert.strictEqual(await typesParser.String("test"), "test");
+      assert.strictEqual(
+        await typesParser.String(" hello world "),
+        " hello world ",
+      );
+    });
+    it("should forbid array inputs", async () => {
+      await utils.shouldThrow(() => typesParser.String([]));
+      await utils.shouldThrow(() => typesParser.String(["test"]));
+      await utils.shouldThrow(() => typesParser.String(["test", "another"]));
+    });
+    it("should forbid object inputs", async () => {
+      await utils.shouldThrow(() => typesParser.String({}));
+      await utils.shouldThrow(() => typesParser.String({ test: 4 }));
+      await utils.shouldThrow(() =>
+        typesParser.String({ test: 4, more: "thingy" })
+      );
     });
   });
 
@@ -103,6 +126,45 @@ describe(utils.suiteName(__filename), function () {
     it("should not allow numbers above max", async () => {
       await utils.shouldThrow(() => typesParser.BoundedInteger("22", params));
       await utils.shouldThrow(() => typesParser.BoundedInteger("87", params));
+    });
+  });
+
+  describe("YearSince", function () {
+    it("should forbid years outside the range", async () => {
+      await utils.shouldThrow(() => typesParser.YearSince("1948", [1950]));
+      await utils.shouldThrow(() => typesParser.YearSince("1949", [1950]));
+      await utils.shouldThrow(() =>
+        typesParser.YearSince(new Date().getFullYear() + 1, [1950])
+      );
+      await utils.shouldThrow(() =>
+        typesParser.YearSince(new Date().getFullYear() + 2, [1950])
+      );
+    });
+    it("should forbid non-integers", async () => {
+      await utils.shouldThrow(() => typesParser.YearSince("1975.2", [1950]));
+    });
+    it("should parse valid years", async () => {
+      assert.deepStrictEqual(await typesParser.YearSince("1950", [1950]), 1950);
+      assert.deepStrictEqual(await typesParser.YearSince("1951", [1950]), 1951);
+      assert.deepStrictEqual(await typesParser.YearSince("1952", [1950]), 1952);
+      assert.deepStrictEqual(
+        await typesParser.YearSince((new Date().getFullYear() - 2).toString(), [
+          1950,
+        ]),
+        new Date().getFullYear() - 2,
+      );
+      assert.deepStrictEqual(
+        await typesParser.YearSince((new Date().getFullYear() - 1).toString(), [
+          1950,
+        ]),
+        new Date().getFullYear() - 1,
+      );
+      assert.deepStrictEqual(
+        await typesParser.YearSince(new Date().getFullYear().toString(), [
+          1950,
+        ]),
+        new Date().getFullYear(),
+      );
     });
   });
 

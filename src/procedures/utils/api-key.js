@@ -19,6 +19,10 @@ class ApiKey {
   }
 }
 
+module.exports.MovebankKey = new ApiKey(
+  "Movebank",
+  "https://github.com/movebank/movebank-api-doc/blob/master/movebank-api.md#authenticate-by-token",
+);
 module.exports.TimezoneDBKey = new ApiKey(
   "TimezoneDB",
   "https://timezonedb.com/register",

@@ -7,7 +7,6 @@ var assert = require("assert"),
   logger = new Logger("netsblox:api:utils"),
   version = require("../package.json").version;
 
-const { setTimeout } = require("./timers");
 const Filter = require("bad-words");
 const profaneChecker = new Filter();
 
@@ -255,6 +254,40 @@ function isProfane(text) {
     );
 }
 
+async function ninvoke(obj, method, ...args) {
+  return new Promise((resolve, reject) => {
+    const callback = (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    };
+    args.push(callback);
+    obj[method](...args);
+  });
+}
+
+function filterMap(list, fn) {
+  return list.reduce((keep, item) => {
+    const mapped = fn(item);
+    if (mapped !== undefined) {
+      keep.push(mapped);
+    }
+    return keep;
+  }, []);
+}
+
+async function filterAsync(list, fn) {
+  const indices = await Promise.all(list.map(async (item, index) => {
+    if (await fn(item)) {
+      return index;
+    } else {
+      return -1;
+    }
+  }));
+  return filterMap(indices, (idx) => list[idx]);
+}
+
 module.exports = {
   serialize,
   serializeArray,
@@ -280,4 +313,8 @@ module.exports = {
   isValidIdent,
   profaneChecker,
   isProfane,
+  ninvoke,
+
+  filterAsync,
+  filterMap,
 };

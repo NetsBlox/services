@@ -28,7 +28,7 @@ class RemoteClient {
 
   async sendMessageTo(address, type, contents = {}) {
     return NetsBloxCloud.sendMessage(
-      new SendMessage(this.projectId, this.roleId, address, type, contents),
+      new SendMessage(address, type, contents),
     );
   }
 

@@ -379,8 +379,15 @@ Docs.prototype.getDocFor = function (actionName) {
   return undefined;
 };
 
-Docs.prototype.isEnabledInProduction = function () {
-  return !this.tags.includes("alpha");
+/**
+ * Get the environment (ie, production or dev) that the service targets.
+ *
+ * Alpha services are only available in the dev environment; stable services
+ * are only available on production. If the environment is unspecified, all
+ * will be loaded.
+ */
+Docs.prototype.getTargetEnvironment = function () {
+  return this.tags.includes("alpha") ? "dev" : "production";
 };
 
 // public interface

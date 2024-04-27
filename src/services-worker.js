@@ -16,7 +16,8 @@ const ServiceEvents = require("./procedures/utils/service-events");
 const Storage = require("./storage");
 const CommunityService = require("./community");
 const DEFAULT_COMPATIBILITY = { arguments: {} };
-const isProduction = process.env.ENV === "production";
+const DEPLOYMENT_ENV = ["production", "dev"]
+  .find((validEnv) => validEnv === (process.env.ENV || "").toLowerCase());
 
 class ServicesWorker {
   constructor(logger) {
@@ -78,9 +79,9 @@ class ServicesWorker {
     }
 
     const getParser = (tydoc) => {
-      if (typeof (tydoc) != "object") return undefined;
+      if (typeof tydoc != "object") return undefined;
       const ty = tydoc.type ? tydoc.type : tydoc;
-      return InputTypes.parse[typeof (ty) == "object" ? ty.name : ty];
+      return InputTypes.parse[typeof ty == "object" ? ty.name : ty];
     };
 
     for (const rpc of docs.rpcs) {
@@ -115,6 +116,14 @@ class ServicesWorker {
   }
 
   async loadRPCsFromFS() {
+    if (!this.fsServices) {
+      this.fsServices = this._loadRPCsFromFS();
+    }
+
+    return await this.fsServices;
+  }
+
+  async _loadRPCsFromFS() {
     const PROCEDURES_DIR = path.join(__dirname, "procedures");
     const typesAndServices = fs.readdirSync(PROCEDURES_DIR)
       .map((name) => [name, path.join(PROCEDURES_DIR, name, name + ".js")])
@@ -140,7 +149,7 @@ class ServicesWorker {
         return [types, service];
       });
 
-    const services = await Promise.all(
+    return await Promise.all(
       typesAndServices.map(async ([types, service]) => {
         if (service.init) {
           service.init(this._logger);
@@ -180,24 +189,16 @@ class ServicesWorker {
           }
         }
 
-        if (!service.isSupported) {
-          service.isSupported = () => true;
-        }
-
-        if (!await service.isSupported()) {
+        // FS services don't change status at runtime, so cache their status
+        const isSupported = await this.isFsServiceSupported(service);
+        if (!isSupported) {
           /* eslint-disable no-console*/
           console.error(
             `${service.serviceName} is not supported in this deployment.`,
           );
           /* eslint-enable no-console*/
-        } else if (isProduction && !service._docs.isEnabledInProduction()) {
-          /* eslint-disable no-console*/
-          console.error(
-            `${service.serviceName} is not supported in production.`,
-          );
-          /* eslint-enable no-console*/
-          service.isSupported = () => false;
         }
+        service.isSupported = () => isSupported;
 
         types.forEach((argType) =>
           InputTypes.registerType(argType, service.serviceName)
@@ -205,8 +206,26 @@ class ServicesWorker {
         return service;
       }),
     );
+  }
 
-    return services;
+  async isFsServiceSupported(service) {
+    if (
+      DEPLOYMENT_ENV &&
+      DEPLOYMENT_ENV !== service._docs.getTargetEnvironment()
+    ) {
+      /* eslint-disable no-console*/
+      console.error(
+        `${service.serviceName} is not supported in ${DEPLOYMENT_ENV}.`,
+      );
+      /* eslint-enable no-console*/
+      return false;
+    }
+
+    if (!service.isSupported) {
+      return true;
+    }
+
+    return await service.isSupported();
   }
 
   async loadRPCsFromDatabase() {
@@ -286,9 +305,12 @@ class ServicesWorker {
 
   invoke(context, serviceName, rpcName, args) {
     const rpc = this.getServiceInstance(serviceName, context.caller.projectId);
-    const ctx = Object.create(rpc);
-    Object.assign(ctx, context);
-    return this.callRPC(rpcName, ctx, args);
+
+    if (rpc) {
+      const ctx = Object.create(rpc);
+      Object.assign(ctx, context);
+      return this.callRPC(rpcName, ctx, args);
+    }
   }
 
   getServiceInstance(name, projectId) {
@@ -459,14 +481,14 @@ class ServicesWorker {
     response.status(500).send(error.message);
   }
 
-  isServiceLoaded(serviceName) {
+  async isServiceLoaded(serviceName) {
     return this.rpcRegistry[serviceName] &&
-      this.rpcRegistry[serviceName].isSupported();
+      await this.rpcRegistry[serviceName].isSupported();
   }
 
   getApiKey(serviceName) {
     const service = this.getServiceInstance(serviceName);
-    return service.apiKey;
+    return service?.apiKey;
   }
 
   checkStaleServices() {

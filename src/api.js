@@ -1,5 +1,5 @@
 const express = require("express");
-const { defer } = require("./utils");
+const { defer, filterAsync } = require("./utils");
 const RemoteClient = require("./remote-client");
 const Services = require("./services-worker");
 const Logger = require("./logger");
@@ -24,8 +24,8 @@ class ServicesAPI {
     await this.services.initialize();
   }
 
-  isServiceLoaded(name) {
-    return this.services.isServiceLoaded(name);
+  async isServiceLoaded(name) {
+    return await this.services.isServiceLoaded(name);
   }
 
   getServices() {
@@ -85,9 +85,12 @@ class ServicesAPI {
 
     this.addServiceRoutes(router);
 
-    router.route("/").get((req, res) => {
-      const metadata = Object.entries(this.services.metadata)
-        .filter((nameAndMetadata) => this.isServiceLoaded(nameAndMetadata[0]))
+    router.route("/").get(async (req, res) => {
+      const namedPairs = await filterAsync(
+        Object.entries(this.services.metadata),
+        (nameAndMetadata) => this.isServiceLoaded(nameAndMetadata[0]),
+      );
+      const metadata = namedPairs
         .map((pair) => {
           const [name, metadata] = pair;
           return {
@@ -95,13 +98,14 @@ class ServicesAPI {
             categories: metadata.categories,
           };
         });
+
       return res.send(metadata);
     });
 
-    router.route("/:serviceName").get((req, res) => {
+    router.route("/:serviceName").get(async (req, res) => {
       const serviceName = this.getValidServiceName(req.params.serviceName);
 
-      if (!this.isServiceLoaded(serviceName)) {
+      if (!await this.isServiceLoaded(serviceName)) {
         return res.status(404).send(
           `Service "${serviceName}" is not available.`,
         );
@@ -111,9 +115,9 @@ class ServicesAPI {
     });
 
     router.route("/:serviceName/:rpcName")
-      .post((req, res) => {
+      .post(async (req, res) => {
         const serviceName = this.getValidServiceName(req.params.serviceName);
-        if (this.validateRPCRequest(serviceName, req, res)) {
+        if (await this.validateRPCRequest(serviceName, req, res)) {
           const { rpcName } = req.params;
           return this.invokeRPC(serviceName, rpcName, req, res);
         }
@@ -150,16 +154,16 @@ class ServicesAPI {
 
   getArgumentNames(serviceName, rpcName) {
     const service = this.services.metadata[serviceName];
-    return service.rpcs[rpcName].args.map((arg) => arg.name);
+    return service?.rpcs[rpcName].args.map((arg) => arg.name) ?? [];
   }
 
-  validateRPCRequest(serviceName, req, res) {
+  async validateRPCRequest(serviceName, req, res) {
     const { rpcName } = req.params;
     const { clientId } = req.query;
 
     if (!clientId) {
       res.status(400).send("Client ID is required.");
-    } else if (!this.isServiceLoaded(serviceName)) {
+    } else if (!await this.isServiceLoaded(serviceName)) {
       res.status(404).send(`Service "${serviceName}" is not available.`);
     } else if (!this.exists(serviceName, rpcName)) {
       res.status(404).send(`RPC "${rpcName}" is not available.`);

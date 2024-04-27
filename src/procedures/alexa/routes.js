@@ -1,14 +1,10 @@
 const AlexaSkill = require("./skill");
 const express = require("express");
 
-module.exports = express(); // FIXME: add support for OAuth on NetsBlox cloud
-return;
-// TODO: refactor the next imports
-const OAuth = require("../../../api/core/oauth");
-// FIXME: TODO: Update this
-const { handleErrors } = require("../../../api/rest/utils");
+const NetsBloxCloud = require("../../cloud-client");
+const { handleUserErrors } = require("../../error");
 const { setUsernameFromCookie } = require("../utils/router-utils");
-const { LoginRequired, RequestError } = require("../../../api/core/errors");
+const { LoginRequired, RequestError } = require("../../error");
 
 const bodyParser = require("body-parser");
 const axios = require("axios");
@@ -27,14 +23,14 @@ const logger = require("../utils/logger")("alexa:routes");
 
 const router = express();
 const parseCookies = cookieParser();
-router.get("/ping", (req, res) => res.send("pong"));
+router.get("/ping", (_req, res) => res.send("pong"));
 router.get(
   "/login.html",
   bodyParser.json(),
   parseCookies,
   setUsernameFromCookie,
-  handleErrors((req, res) => {
-    const username = req.session.username;
+  handleUserErrors((req, res) => {
+    const username = req.username;
 
     const isLoggedIn = !!username;
     if (!isLoggedIn) {
@@ -63,8 +59,8 @@ router.put(
   bodyParser.json(),
   parseCookies,
   setUsernameFromCookie,
-  handleErrors(async (req, res) => {
-    const { username } = req.session;
+  handleUserErrors(async (req, res) => {
+    const { username } = req;
     const isLoggedIn = !!username;
 
     if (!isLoggedIn) {
@@ -126,7 +122,7 @@ router.post(
   handleErrorsInAlexa(async (req, res) => {
     const reqData = req.body;
     const { accessToken } = reqData.session.user;
-    const token = await OAuth.getToken(accessToken);
+    const token = await NetsBloxCloud.getOAuthToken(accessToken);
     const { username } = token;
 
     const skillId = reqData.session.application.applicationId;
@@ -194,7 +190,7 @@ function speak(text) {
 }
 
 function handleErrorsInAlexa(fn) {
-  return async function (req, res) {
+  return async function (_req, res) {
     try {
       await fn(...arguments);
     } catch (err) {
