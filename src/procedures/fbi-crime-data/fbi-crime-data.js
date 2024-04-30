@@ -2,7 +2,7 @@
  * The FBICrimeData Service provides access to the FBI database,
  * containing catalogued information on crime statistics.
  *
- * For more information, check out https://crime-data-explorer.fr.cloud.gov/pages/docApi
+ * For more information, check out https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/docApi
  *
  * @alpha
  * @service
