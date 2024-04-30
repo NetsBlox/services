@@ -1,7 +1,6 @@
 /**
  * Access to Movebank, a free, online database of animal tracking data hosted by the Max Planck Institute of Animal Behavior.
  *
- * @alpha
  * @service
  * @category GeoData
  */
