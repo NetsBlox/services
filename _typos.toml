@@ -24,11 +24,12 @@ extend-exclude = [
     # data files
     "src/procedures/common-words/words/*.txt",
     "src/procedures/hurricane-data/*.txt",
-    "src/procedures/ice-core-data/data/domec-deuterium/*.txt",
+    "src/procedures/ice-core-data/data/**/*.txt",
     "src/procedures/nexrad-radar/RadarLocations.js",
     "src/procedures/word-guess/dict/*.*",
     "src/procedures/financial-data/currency-types.js",
     "src/procedures/the-cat-api/types.js",
+    "src/procedures/fbi-crime-data/types.js",
 
     # misc
     "test/utils.spec.js",
