@@ -11,7 +11,6 @@ const logger = require("../utils/logger")("matlab");
 const axios = require("axios");
 
 const { MATLAB_KEY, MATLAB_URL = "" } = process.env;
-const KeepWarm = require("./keep-warm");
 const request = axios.create({
   headers: {
     "X-NetsBlox-Auth-Token": MATLAB_KEY,
@@ -21,17 +20,10 @@ const request = axios.create({
 const MATLAB = {};
 MATLAB.serviceName = "MATLAB";
 
-const warmer = new KeepWarm(async () => {
-  logger.info("warming is disabled");
-  return;
-
-  const body = [...new Array(10)].map(() => ({
-    function: "ver",
-    arguments: [],
-    nargout: 1,
-  }));
-  request.post(`${MATLAB_URL}/feval-fast`, body);
-});
+function reversed(arr) {
+  const cpy = [...arr];
+  return cpy.reverse();
+}
 
 async function requestWithRetry(url, body, numRetries = 0) {
   try {
@@ -50,9 +42,9 @@ async function requestWithRetry(url, body, numRetries = 0) {
  * Evaluate a MATLAB function with the given arguments and number of return
  * values.
  *
- * @param{String} fn Name of the function to call
- * @param{Array<Any>=} args arguments to pass to the function
- * @param{BoundedInteger<1>=} numReturnValues Number of return values expected.
+ * @param {String} fn Name of the function to call
+ * @param {Array<Any>=} args arguments to pass to the function
+ * @param {BoundedInteger<1>=} numReturnValues Number of return values expected.
  */
 MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   const body = [{
@@ -75,7 +67,7 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
       JSON.stringify(resp.data)
     }`,
   );
-  warmer.keepWarm();
+
   const results = resp.data.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
@@ -151,12 +143,20 @@ MATLAB._parseResult = (result) => {
 MATLAB._parseResultData = (result) => {
   // reshape the data
   let data = result.mwdata;
+  let size = result.mwsize;
   if (!Array.isArray(data)) {
     data = [data];
   }
-  return MATLAB._squeeze(
-    MATLAB._reshape(data, result.mwsize),
-  );
+
+  if (result.mwtype === 'char') {
+    if (!Array.isArray(result.mwdata) || result.mwdata.length !== 1 || typeof(result.mwdata[0]) !== 'string') {
+      throw Error('error parsing character string result');
+    }
+    data = data[0];
+    // size = reversed(size);
+  }
+
+  return MATLAB._squeeze(MATLAB._reshape(data, size));
 };
 
 MATLAB._take = function* (iter, num) {
@@ -182,7 +182,7 @@ MATLAB._squeeze = (data) => {
 
 MATLAB._reshape = (data, shape) => {
   return [
-    ...shape.reverse().reduce(
+    ...reversed(shape).reduce(
       (iterable, num) => MATLAB._take(iterable, num),
       data,
     ),

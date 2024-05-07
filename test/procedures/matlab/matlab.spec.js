@@ -113,6 +113,36 @@ describe(utils.suiteName(__filename), function () {
         /CLASSNAME argument must be a class/,
       );
     });
+
+    it("should parse strings - 1", function () {
+      const result = MATLAB._parseResult(
+        {"results":[{"mwdata":["hello world"],"mwsize":[1,1],"mwtype":"string"}],"isError":false,"uuid":"","messageFaults":[]}
+      );
+      const expected = "hello world";
+      assert.deepEqual(result, expected);
+    });
+    it("should parse strings - 2", function () {
+      const result = MATLAB._parseResult(
+        {"results":[{"mwdata":["hellotest","worldtest"],"mwsize":[1,2],"mwtype":"string"}],"isError":false,"uuid":"","messageFaults":[]}
+      );
+      const expected = ["hellotest", "worldtest"];
+      assert.deepEqual(result, expected);
+    });
+
+    it("should parse in column major order - 1", function() {
+      const result = MATLAB._parseResult(
+        {"results":[{"mwdata":[1,1,1,1,1,1,1,1,1],"mwsize":[3,3],"mwtype":"double"}],"isError":false,"uuid":"","messageFaults":[]}
+      );
+      const expected = [[1,1,1],[1,1,1],[1,1,1]];
+      assert.deepEqual(result, expected);
+    });
+    it("should parse in column major order - 1", function() {
+      const result = MATLAB._parseResult(
+        {"results":[{"mwdata":[1,1,1,0,1,1,0,0,1],"mwsize":[3,3],"mwtype":"double"}],"isError":false,"uuid":"","messageFaults":[]}
+      );
+      const expected = [[1,0,0],[1,1,0],[1,1,1]];
+      assert.deepEqual(result, expected);
+    });
   });
 
   describe("_parseArgument", function () {
