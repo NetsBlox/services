@@ -167,9 +167,9 @@ describe(utils.suiteName(__filename), function () {
     });
 
     it("should coerce nested lists", function () {
-      const example = [["5", "6"], "7"];
+      const example = [["5", "6"], ["7", "9"]];
       const actual = MATLAB._parseArgument(example);
-      const expected = [5, 6, 7];
+      const expected = [5, 7, 6, 9];
       assert.deepEqual(actual.mwdata, expected);
     });
 
@@ -206,45 +206,51 @@ describe(utils.suiteName(__filename), function () {
     });
   });
 
-  describe("_flatten", function () {
-    it("should flatten recursively", function () {
+  describe("_flatten/_shape", function () {
+    it("should flatten recursively - 1", function () {
       const tensor = [
-        [[1, 2]],
-        [[3, 4]],
-        [[5, 6]],
-        [[7, 8]],
+        [[1, 5]],
+        [[2, 6]],
+        [[3, 7]],
+        [[4, 8]],
       ];
+      const shape = MATLAB._shape(tensor);
       const flat = MATLAB._flatten(tensor);
       assert.deepEqual(flat, range(8));
+      assert.deepEqual(shape, [4, 1, 2]);
     });
-  });
 
-  describe("_shape", function () {
-    it("should detect shape in [4,1,2] tensor", function () {
+    it("should flatten recursively - 2", function () {
       const tensor = [
-        [[1, 2]],
-        [[1, 2]],
-        [[1, 2]],
-        [[1, 2]],
+        [[1, 5], [9, 13]],
+        [[2, 6], [10, 14]],
+        [[3, 7], [11, 15]],
+        [[4, 8], [12, 16]],
       ];
-      const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [4, 1, 2]);
+      const shape = MATLAB._shape(tensor);
+      const flat = MATLAB._flatten(tensor);
+      assert.deepEqual(flat, range(16));
+      assert.deepEqual(shape, [4, 1, 2]);
     });
 
-    it("should detect shape in [1 2] tensor", function () {
+    it("should flatten a 1x2 tensor", function () {
       const tensor = [1, 2];
-      const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [1, 2]);
+      const shape = MATLAB._shape(tensor);
+      const flat = MATLAB._flatten(tensor);
+      assert.deepEqual(flat, [1, 2]);
+      assert.deepEqual(shape, [2]);
     });
 
-    it("should detect shape in [3, 4] tensor", function () {
+    it("should flatten a 3x4 tensor", function () {
       const tensor = [
         [1, 2, 3, 4],
         [1, 2, 3, 4],
         [1, 2, 3, 4],
       ];
-      const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [3, 4]);
+      const shape = MATLAB._shape(tensor);
+      const flat = MATLAB._flatten(tensor);
+      assert.deepEqual(flat, [1,1,1,2,2,2,3,3,3,4,4,4]);
+      assert.deepEqual(shape, [3, 4]);
     });
   });
 
@@ -279,7 +285,10 @@ describe(utils.suiteName(__filename), function () {
         [[1, 2, 3], [4, 5, 6]],
         [[7, 8, 9], [10, 11, 12]],
       ];
-      const [flat, shape] = MATLAB._flatten(input);
+      const shape = MATLAB._shape(input);
+      const flat = MATLAB._flatten(input);
+      assert.deepEqual(flat, [1, 7, 4, 10, 2, 8, 5, 11, 3, 9, 6, 12]);
+      assert.deepEqual(shape, [2, 2, 3]);
       const reconstructed = MATLAB._unflatten(flat, shape);
       assert.deepEqual(input, reconstructed);
     });

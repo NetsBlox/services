@@ -89,7 +89,8 @@ MATLAB._parseArgument = function (arg) {
     arg = [arg];
   }
 
-  const [flatValues, shape] = MATLAB._flatten(arg);
+  const shape = MATLAB._shape(arg);
+  const flatValues = MATLAB._flatten(arg);
   const mwtype = MATLAB._getMwType(flatValues);
   const mwdata = flatValues
     .map((v) => {
@@ -109,7 +110,7 @@ MATLAB._parseArgument = function (arg) {
 
   return {
     mwdata,
-    mwsize: shape,
+    mwsize: shape.length >= 2 ? shape : [1, ...shape],
     mwtype,
   };
 };
@@ -210,13 +211,19 @@ MATLAB._deepEq = (a, b) => {
   return a === b;
 }
 
-// returns [flattened result, shape]
+MATLAB._shape = (data) => {
+  if (!Array.isArray(data)) return [1];
+  if (data.length === 0) return [];
+  if (!Array.isArray(data[0])) return [data.length];
+  return [data.length, ...MATLAB._shape(data[0])];
+};
+
 MATLAB._flatten = (data) => {
   if (!Array.isArray(data)) {
     throw Error('internal usage error');
   }
   if (data.length === 0) {
-    return [[], []];
+    return [];
   }
   if (!Array.isArray(data[0])) {
     for (const row of data) {
@@ -224,7 +231,7 @@ MATLAB._flatten = (data) => {
         throw Error('input must be rectangular');
       }
     }
-    return [data, [data.length]];
+    return data;
   }
 
   for (const row of data) {
@@ -233,19 +240,14 @@ MATLAB._flatten = (data) => {
     }
   }
   if (data[0].length === 0) {
-    return [[], []];
+    return [];
   }
 
   const cols = [];
   for (let col = 0; col < data[0].length; ++col) {
-    cols.push(MATLAB._flatten(data.map((x) => x[col])));
+    cols.push(MATLAB._flatten(data.map((x) => x[col]), data[0].length));
   }
-  for (const col of cols) {
-    if (!MATLAB._deepEq(col[1], cols[0][1])) {
-      throw Error('input must be rectangular');
-    }
-  }
-  return [cols.reduce((acc, x) => acc.concat(x), []), [data.length, ...cols[0][1]]];
+  return cols.reduce((acc, x) => acc.concat(x), []);
 };
 
 MATLAB.isSupported = () => {
