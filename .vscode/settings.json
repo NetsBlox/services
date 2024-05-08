@@ -11,5 +11,15 @@
     "touchpad",
     "touchpads",
     "upsert"
+  ],
+  "cSpell.words": [
+    "colcat",
+    "feval",
+    "mwdata",
+    "mwsize",
+    "mwtype",
+    "nargout",
+    "unflatten",
+    "vals"
   ]
 }

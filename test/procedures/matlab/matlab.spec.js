@@ -248,28 +248,28 @@ describe(utils.suiteName(__filename), function () {
     });
   });
 
-  describe("_reshape", function () {
+  describe("_unflatten", function () {
     it("should reconstruct a 2x2 matrix", function () {
       const example = [1, 2, 3, 4];
-      const actual = MATLAB._reshape(example, [2, 2]);
-      const expected = [[1, 2], [3, 4]];
+      const actual = MATLAB._unflatten(example, [2, 2]);
+      const expected = [[1, 3], [2, 4]];
       assert.deepEqual(actual, expected);
     });
 
     it("should reconstruct a 3x2 matrix", function () {
       const example = range(6);
-      const actual = MATLAB._reshape(example, [3, 2]);
-      const expected = [[1, 2], [3, 4], [5, 6]];
+      const actual = MATLAB._unflatten(example, [3, 2]);
+      const expected = [[1, 4], [2, 5], [3, 6]];
       assert.deepEqual(actual, expected);
     });
 
     it("should reconstruct a 3x2x2 tensor", function () {
       const example = range(12);
-      const actual = MATLAB._reshape(example, [3, 2, 2]);
+      const actual = MATLAB._unflatten(example, [3, 2, 2]);
       const expected = [
-        [[1, 2], [3, 4]],
-        [[5, 6], [7, 8]],
-        [[9, 10], [11, 12]],
+        [[1, 7], [4, 10]],
+        [[2, 8], [5, 11]],
+        [[3, 9], [6, 12]],
       ];
       assert.deepEqual(actual, expected);
     });
@@ -279,8 +279,8 @@ describe(utils.suiteName(__filename), function () {
         [[1, 2, 3], [4, 5, 6]],
         [[7, 8, 9], [10, 11, 12]],
       ];
-      const shape = MATLAB._shape(input);
-      const reconstructed = MATLAB._reshape(MATLAB._flatten(input), shape);
+      const [flat, shape] = MATLAB._flatten(input);
+      const reconstructed = MATLAB._unflatten(flat, shape);
       assert.deepEqual(input, reconstructed);
     });
   });

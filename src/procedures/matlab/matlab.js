@@ -89,8 +89,7 @@ MATLAB._parseArgument = function (arg) {
     arg = [arg];
   }
 
-  const shape = MATLAB._shape(arg);
-  const flatValues = MATLAB._flatten(arg);
+  const [flatValues, shape] = MATLAB._flatten(arg);
   const mwtype = MATLAB._getMwType(flatValues);
   const mwdata = flatValues
     .map((v) => {
@@ -141,7 +140,6 @@ MATLAB._parseResult = (result) => {
 };
 
 MATLAB._parseResultData = (result) => {
-  // reshape the data
   let data = result.mwdata;
   let size = result.mwsize;
   if (!Array.isArray(data)) {
@@ -153,24 +151,9 @@ MATLAB._parseResultData = (result) => {
       throw Error('error parsing character string result');
     }
     data = data[0];
-    // size = reversed(size);
   }
 
-  return MATLAB._squeeze(MATLAB._reshape(data, size));
-};
-
-MATLAB._take = function* (iter, num) {
-  let chunk = [];
-  for (const v of iter) {
-    chunk.push(v);
-    if (chunk.length === num) {
-      yield chunk;
-      chunk = [];
-    }
-  }
-  if (chunk.length) {
-    return chunk;
-  }
+  return MATLAB._squeeze(MATLAB._unflatten(data, size));
 };
 
 MATLAB._squeeze = (data) => {
@@ -180,38 +163,89 @@ MATLAB._squeeze = (data) => {
   return data;
 };
 
-MATLAB._reshape = (data, shape) => {
-  return [
-    ...reversed(shape).reduce(
-      (iterable, num) => MATLAB._take(iterable, num),
-      data,
-    ),
-  ].pop();
+MATLAB._product = (vals) => {
+  let res = 1;
+  for (const v of vals) {
+    res *= v;
+  }
+  return res;
 };
 
-MATLAB._shape = (data) => {
-  const shape = [];
-  let item = data;
-  while (Array.isArray(item)) {
-    shape.push(item.length);
-    item = item[0];
+MATLAB._colcat = (cols) => {
+  if (cols.length === 0) {
+    return [];
+  }
+  if (!Array.isArray(cols[0])) {
+    return cols.reduce((acc, v) => acc.concat(v), []);
   }
 
-  while (shape.length < 2) {
-    shape.unshift(1);
+  const rows = cols[0].length;
+  const res = [];
+  for (let i = 0; i < rows; ++i) {
+    res.push(MATLAB._colcat(cols.map((row) => row[i])));
   }
-
-  return shape;
+  return res;
 };
 
+MATLAB._unflatten = (data, shape) => {
+  if (shape.length <= 1) {
+    return data;
+  }
+
+  const colCount = shape[shape.length - 1];
+  const colShape = shape.slice(0, shape.length - 1);
+  const colSize = MATLAB._product(colShape);
+
+  const cols = [];
+  for (let i = 0; i < colCount; ++i) {
+    cols.push(MATLAB._unflatten(data.slice(i * colSize, (i + 1) * colSize), colShape));
+  }
+  return MATLAB._colcat(cols);
+};
+
+MATLAB._deepEq = (a, b) => {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.length === b.length && a.every((x, i) => MATLAB._deepEq(x, b[i]));
+  }
+  return a === b;
+}
+
+// returns [flattened result, shape]
 MATLAB._flatten = (data) => {
-  return data.flatMap((item) => {
-    if (Array.isArray(item)) {
-      return MATLAB._flatten(item);
-    } else {
-      return item;
+  if (!Array.isArray(data)) {
+    throw Error('internal usage error');
+  }
+  if (data.length === 0) {
+    return [[], []];
+  }
+  if (!Array.isArray(data[0])) {
+    for (const row of data) {
+      if (Array.isArray(row)) {
+        throw Error('input must be rectangular');
+      }
     }
-  });
+    return [data, [data.length]];
+  }
+
+  for (const row of data) {
+    if (!Array.isArray(row) || row.length !== data[0].length) {
+      throw Error('input must be rectangular');
+    }
+  }
+  if (data[0].length === 0) {
+    return [[], []];
+  }
+
+  const cols = [];
+  for (let col = 0; col < data[0].length; ++col) {
+    cols.push(MATLAB._flatten(data.map((x) => x[col])));
+  }
+  for (const col of cols) {
+    if (!MATLAB._deepEq(col[1], cols[0][1])) {
+      throw Error('input must be rectangular');
+    }
+  }
+  return [cols.reduce((acc, x) => acc.concat(x), []), [data.length, ...cols[0][1]]];
 };
 
 MATLAB.isSupported = () => {
