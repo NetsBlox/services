@@ -3,8 +3,8 @@
  *
  * For more information, check out https://www.mathworks.com/products/matlab.html.
  *
- * @service
  * @alpha
+ * @service
  */
 
 const logger = require("../utils/logger")("matlab");
@@ -19,11 +19,6 @@ const request = axios.create({
 
 const MATLAB = {};
 MATLAB.serviceName = "MATLAB";
-
-function reversed(arr) {
-  const cpy = [...arr];
-  return cpy.reverse();
-}
 
 async function requestWithRetry(url, body, numRetries = 0) {
   try {
@@ -42,6 +37,8 @@ async function requestWithRetry(url, body, numRetries = 0) {
  * Evaluate a MATLAB function with the given arguments and number of return
  * values.
  *
+ * For a list of all MATLAB functions, see the `Reference Manual <https://www.mathworks.com/help/matlab/referencelist.html?type=function>`__.
+ * 
  * @param {String} fn Name of the function to call
  * @param {Array<Any>=} args arguments to pass to the function
  * @param {BoundedInteger<1>=} numReturnValues Number of return values expected.
@@ -150,7 +147,13 @@ MATLAB._parseResultData = (result) => {
     if (!Array.isArray(result.mwdata) || result.mwdata.length !== 1 || typeof(result.mwdata[0]) !== 'string') {
       throw Error('error parsing character string result');
     }
-    data = data[0];
+    function rejoin(x) {
+      if (x.length !== 0 && !Array.isArray(x[0])) {
+        return x.join('');
+      }
+      return x.map((y) => rejoin(y));
+    }
+    return MATLAB._squeeze(rejoin(MATLAB._unflatten([...data[0]], size)));
   }
 
   return MATLAB._squeeze(MATLAB._unflatten(data, size));
@@ -188,6 +191,10 @@ MATLAB._colcat = (cols) => {
 };
 
 MATLAB._unflatten = (data, shape) => {
+  if (!Array.isArray(data)) {
+    throw Error('internal usage error');
+  }
+
   if (shape.length <= 1) {
     return data;
   }

@@ -136,11 +136,33 @@ describe(utils.suiteName(__filename), function () {
       const expected = [[1,1,1],[1,1,1],[1,1,1]];
       assert.deepEqual(result, expected);
     });
-    it("should parse in column major order - 1", function() {
+    it("should parse in column major order - 2", function() {
       const result = MATLAB._parseResult(
         {"results":[{"mwdata":[1,1,1,0,1,1,0,0,1],"mwsize":[3,3],"mwtype":"double"}],"isError":false,"uuid":"","messageFaults":[]}
       );
       const expected = [[1,0,0],[1,1,0],[1,1,1]];
+      assert.deepEqual(result, expected);
+    });
+    it("should parse in column major order - 3", function() {
+      const result = MATLAB._parseResult(
+        {"results":[{"mwdata":[1,0,0,0,1,0,0,0,1,0,0,0],"mwsize":[3,4],"mwtype":"double"}],"isError":false,"uuid":"","messageFaults":[]}
+      );
+      const expected = [[1,0,0,0],[0,1,0,0],[0,0,1,0]];
+      assert.deepEqual(result, expected);
+    });
+    it("should parse in column major order - 4", function() {
+      const result = MATLAB._parseResult(
+        {"results":[{"mwdata":[140,320,146,335],"mwsize":[2,2],"mwtype":"double"}],"isError":false,"uuid":"","messageFaults":[]}
+      );
+      const expected = [[140,146],[320,335]];
+      assert.deepEqual(result, expected);
+    });
+
+    it("should parse character tensors", function() {
+      const result = MATLAB._parseResult(
+        {"results":[{"mwdata":["00110101"],"mwsize":[4,2],"mwtype":"char"}],"isError":false,"uuid":"","messageFaults":[]}
+      );
+      const expected = ["00","01","10","11"];
       assert.deepEqual(result, expected);
     });
   });
@@ -286,6 +308,18 @@ describe(utils.suiteName(__filename), function () {
       assert.deepEqual(shape, [2, 2, 3]);
       const reconstructed = MATLAB._unflatten(flat, shape);
       assert.deepEqual(input, reconstructed);
+    });
+
+    it("should reconstruct a character tensor", function () {
+      const example = ["0","0","1","1","0","1","0","1"];
+      const actual = MATLAB._unflatten(example, [4, 2]);
+      const expected = [
+        ["0", "0"],
+        ["0", "1"],
+        ["1", "0"],
+        ["1", "1"],
+      ];
+      assert.deepEqual(actual, expected);
     });
   });
 
