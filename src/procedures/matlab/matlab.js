@@ -38,7 +38,7 @@ async function requestWithRetry(url, body, numRetries = 0) {
  * values.
  *
  * For a list of all MATLAB functions, see the `Reference Manual <https://www.mathworks.com/help/matlab/referencelist.html?type=function>`__.
- * 
+ *
  * @param {String} fn Name of the function to call
  * @param {Array<Any>=} args arguments to pass to the function
  * @param {BoundedInteger<1>=} numReturnValues Number of return values expected.
@@ -143,13 +143,16 @@ MATLAB._parseResultData = (result) => {
     data = [data];
   }
 
-  if (result.mwtype === 'char') {
-    if (!Array.isArray(result.mwdata) || result.mwdata.length !== 1 || typeof(result.mwdata[0]) !== 'string') {
-      throw Error('error parsing character string result');
+  if (result.mwtype === "char") {
+    if (
+      !Array.isArray(result.mwdata) || result.mwdata.length !== 1 ||
+      typeof (result.mwdata[0]) !== "string"
+    ) {
+      throw Error("error parsing character string result");
     }
     function rejoin(x) {
       if (x.length !== 0 && !Array.isArray(x[0])) {
-        return x.join('');
+        return x.join("");
       }
       return x.map((y) => rejoin(y));
     }
@@ -192,7 +195,7 @@ MATLAB._colcat = (cols) => {
 
 MATLAB._unflatten = (data, shape) => {
   if (!Array.isArray(data)) {
-    throw Error('internal usage error');
+    throw Error("internal usage error");
   }
 
   if (shape.length <= 1) {
@@ -205,7 +208,9 @@ MATLAB._unflatten = (data, shape) => {
 
   const cols = [];
   for (let i = 0; i < colCount; ++i) {
-    cols.push(MATLAB._unflatten(data.slice(i * colSize, (i + 1) * colSize), colShape));
+    cols.push(
+      MATLAB._unflatten(data.slice(i * colSize, (i + 1) * colSize), colShape),
+    );
   }
   return MATLAB._colcat(cols);
 };
@@ -215,26 +220,26 @@ MATLAB._deepEq = (a, b) => {
     return a.length === b.length && a.every((x, i) => MATLAB._deepEq(x, b[i]));
   }
   return a === b;
-}
+};
 
 MATLAB._shape = (data) => {
   if (!Array.isArray(data)) {
-    throw Error('internal usage error');
+    throw Error("internal usage error");
   }
 
   if (data.length === 0 || !Array.isArray(data[0])) {
     if (data.some((x) => Array.isArray(x))) {
-      throw Error('input must be rectangular');
+      throw Error("input must be rectangular");
     }
     return [data.length];
   }
   if (data.some((x) => !Array.isArray(x))) {
-    throw Error('input must be rectangular');
+    throw Error("input must be rectangular");
   }
 
   const shapes = data.map((x) => MATLAB._shape(x));
   if (shapes.some((x) => !MATLAB._deepEq(x, shapes[0]))) {
-    throw Error('input must be rectangular');
+    throw Error("input must be rectangular");
   }
   return [data.length, ...shapes[0]];
 };
