@@ -89,8 +89,7 @@ MATLAB._parseArgument = function (arg) {
     arg = [arg];
   }
 
-  const shape = MATLAB._shape(arg);
-  const flatValues = MATLAB._flatten(arg);
+  const [flatValues, shape] = MATLAB._flatten(arg);
   const mwtype = MATLAB._getMwType(flatValues);
   const mwdata = flatValues
     .map((v) => {
@@ -212,42 +211,49 @@ MATLAB._deepEq = (a, b) => {
 }
 
 MATLAB._shape = (data) => {
-  if (!Array.isArray(data)) return [1];
-  if (data.length === 0) return [];
-  if (!Array.isArray(data[0])) return [data.length];
-  return [data.length, ...MATLAB._shape(data[0])];
-};
-
-MATLAB._flatten = (data) => {
   if (!Array.isArray(data)) {
     throw Error('internal usage error');
   }
-  if (data.length === 0) {
-    return [];
-  }
-  if (!Array.isArray(data[0])) {
-    for (const row of data) {
-      if (Array.isArray(row)) {
-        throw Error('input must be rectangular');
-      }
-    }
-    return data;
-  }
 
-  for (const row of data) {
-    if (!Array.isArray(row) || row.length !== data[0].length) {
+  if (data.length === 0 || !Array.isArray(data[0])) {
+    if (data.some((x) => Array.isArray(x))) {
       throw Error('input must be rectangular');
     }
+    return [data.length];
   }
-  if (data[0].length === 0) {
-    return [];
+  if (data.some((x) => !Array.isArray(x))) {
+    throw Error('input must be rectangular');
   }
 
-  const cols = [];
-  for (let col = 0; col < data[0].length; ++col) {
-    cols.push(MATLAB._flatten(data.map((x) => x[col]), data[0].length));
+  const shapes = data.map((x) => MATLAB._shape(x));
+  if (shapes.some((x) => !MATLAB._deepEq(x, shapes[0]))) {
+    throw Error('input must be rectangular');
   }
-  return cols.reduce((acc, x) => acc.concat(x), []);
+  return [data.length, ...shapes[0]];
+};
+
+// returns [flattened, shape] so that shape can be reused
+MATLAB._flatten = (data) => {
+  const shape = MATLAB._shape(data);
+  if (shape.some((x) => x === 0)) return [[], shape];
+
+  const shapeCumProd = [1, ...shape];
+  for (let i = 1; i < shapeCumProd.length; ++i) {
+    shapeCumProd[i] *= shapeCumProd[i - 1];
+  }
+
+  const res = new Array(shapeCumProd[shapeCumProd.length - 1]);
+  function visit(x, pos, depth) {
+    if (depth === shape.length) {
+      res[pos] = x;
+    } else {
+      for (let i = 0; i < x.length; ++i) {
+        visit(x[i], pos + i * shapeCumProd[depth], depth + 1);
+      }
+    }
+  }
+  visit(data, 0, 0);
+  return [res, shape];
 };
 
 MATLAB.isSupported = () => {

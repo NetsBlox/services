@@ -214,29 +214,26 @@ describe(utils.suiteName(__filename), function () {
         [[3, 7]],
         [[4, 8]],
       ];
-      const shape = MATLAB._shape(tensor);
-      const flat = MATLAB._flatten(tensor);
+      const [flat, shape] = MATLAB._flatten(tensor);
       assert.deepEqual(flat, range(8));
       assert.deepEqual(shape, [4, 1, 2]);
     });
 
     it("should flatten recursively - 2", function () {
       const tensor = [
-        [[1, 5], [9, 13]],
-        [[2, 6], [10, 14]],
-        [[3, 7], [11, 15]],
-        [[4, 8], [12, 16]],
+        [[1, 9], [5, 13]],
+        [[2, 10], [6, 14]],
+        [[3, 11], [7, 15]],
+        [[4, 12], [8, 16]],
       ];
-      const shape = MATLAB._shape(tensor);
-      const flat = MATLAB._flatten(tensor);
+      const [flat, shape] = MATLAB._flatten(tensor);
       assert.deepEqual(flat, range(16));
-      assert.deepEqual(shape, [4, 1, 2]);
+      assert.deepEqual(shape, [4, 2, 2]);
     });
 
     it("should flatten a 1x2 tensor", function () {
       const tensor = [1, 2];
-      const shape = MATLAB._shape(tensor);
-      const flat = MATLAB._flatten(tensor);
+      const [flat, shape] = MATLAB._flatten(tensor);
       assert.deepEqual(flat, [1, 2]);
       assert.deepEqual(shape, [2]);
     });
@@ -247,8 +244,7 @@ describe(utils.suiteName(__filename), function () {
         [1, 2, 3, 4],
         [1, 2, 3, 4],
       ];
-      const shape = MATLAB._shape(tensor);
-      const flat = MATLAB._flatten(tensor);
+      const [flat, shape] = MATLAB._flatten(tensor);
       assert.deepEqual(flat, [1,1,1,2,2,2,3,3,3,4,4,4]);
       assert.deepEqual(shape, [3, 4]);
     });
@@ -285,8 +281,7 @@ describe(utils.suiteName(__filename), function () {
         [[1, 2, 3], [4, 5, 6]],
         [[7, 8, 9], [10, 11, 12]],
       ];
-      const shape = MATLAB._shape(input);
-      const flat = MATLAB._flatten(input);
+      const [flat, shape] = MATLAB._flatten(input);
       assert.deepEqual(flat, [1, 7, 4, 10, 2, 8, 5, 11, 3, 9, 6, 12]);
       assert.deepEqual(shape, [2, 2, 3]);
       const reconstructed = MATLAB._unflatten(flat, shape);
