@@ -2,7 +2,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cloud = require("../../cloud-client");
 const axios = require("axios");
-const logger = require("./logger")('router-utils');
+const logger = require("./logger")("router-utils");
 
 function urlencoded(limit = "50mb", extended = true) {
   return bodyParser.urlencoded({
@@ -49,7 +49,9 @@ async function setUsernameFromCookie(req, res, next) {
     const username = await cloud.whoami(cookie);
     req.username = username;
   } catch (e) {
-    logger.error(`setUsernameFromCookie failed cookie=${cookie} -> cloud error ${e}`);
+    logger.error(
+      `setUsernameFromCookie failed cookie=${cookie} -> cloud error ${e}`,
+    );
   }
   next();
 }
