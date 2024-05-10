@@ -2,6 +2,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cloud = require("../../cloud-client");
 const axios = require("axios");
+const logger = require("./logger")('router-utils');
 
 function urlencoded(limit = "50mb", extended = true) {
   return bodyParser.urlencoded({
@@ -31,17 +32,25 @@ async function tryLogin(req, res, next) {
   if (cookie) {
     return setUsernameFromCookie(req, res, next);
   } else if (clientId) {
-    const { username, state } = await cloud.getClientInfo(clientId);
-    req.username = username;
-    req.clientState = state;
+    try {
+      const { username, state } = await cloud.getClientInfo(clientId);
+      req.username = username;
+      req.clientState = state;
+    } catch (e) {
+      logger.error(`tryLogin failed clientId=${clientId} -> cloud error ${e}`);
+    }
   }
   next();
 }
 
 async function setUsernameFromCookie(req, res, next) {
   const cookie = req.cookies.netsblox;
-  const username = await cloud.whoami(cookie);
-  req.username = username;
+  try {
+    const username = await cloud.whoami(cookie);
+    req.username = username;
+  } catch (e) {
+    logger.error(`setUsernameFromCookie failed cookie=${cookie} -> cloud error ${e}`);
+  }
   next();
 }
 
