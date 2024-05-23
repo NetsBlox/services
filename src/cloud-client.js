@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fetch = require("node-fetch");
 const CacheManager = require("cache-manager");
-const logger = new (require('./logger'))('cloud-client');
+const logger = new (require("./logger"))("cloud-client");
 const cache = CacheManager.caching({
   store: "memory",
   max: 1000,
@@ -63,7 +63,9 @@ class NetsBloxCloud {
       body = JSON.stringify(body);
       return await this.fetch(urlPath, { method: "post", body, headers });
     } catch (e) {
-      logger.error(`failed post request to ${urlPath} (body ${body}) -> cause ${e}`);
+      logger.error(
+        `failed post request to ${urlPath} (body ${body}) -> cause ${e}`,
+      );
       throw e;
     }
   }
