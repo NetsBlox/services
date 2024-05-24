@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const fetch = require("node-fetch");
 const CacheManager = require("cache-manager");
+const logger = new (require("./logger"))("cloud-client");
 const cache = CacheManager.caching({
   store: "memory",
   max: 1000,
@@ -57,15 +58,27 @@ class NetsBloxCloud {
   }
 
   async post(urlPath, body) {
-    const headers = { "Content-Type": "application/json" };
-    body = JSON.stringify(body);
-    return await this.fetch(urlPath, { method: "post", body, headers });
+    try {
+      const headers = { "Content-Type": "application/json" };
+      body = JSON.stringify(body);
+      return await this.fetch(urlPath, { method: "post", body, headers });
+    } catch (e) {
+      logger.error(
+        `failed post request to ${urlPath} (body ${body}) -> cause ${e}`,
+      );
+      throw e;
+    }
   }
 
   async get(urlPath) {
     return await cache.wrap(urlPath, async () => {
-      const response = await this.fetch(urlPath);
-      return await response.json();
+      try {
+        const response = await this.fetch(urlPath);
+        return await response.json();
+      } catch (e) {
+        logger.error(`failed get request to ${urlPath} -> cause ${e}`);
+        throw e;
+      }
     });
   }
 
