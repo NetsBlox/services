@@ -132,11 +132,15 @@ Movebank.getStudies = async function () {
     }),
   );
 
-  const split = (x) => x.split(",").map((x) => x.trim()).filter((x) => x.length);
+  const split = (x) =>
+    x.split(",").map((x) => x.trim()).filter((x) => x.length);
 
   const res = [];
   for (const raw of data) {
-    if (!raw.id || !raw.main_location_lat || !raw.main_location_long || !raw.citation || !ALLOWED_LICENSE_TYPES[raw.license_type]) continue;
+    if (
+      !raw.id || !raw.main_location_lat || !raw.main_location_long ||
+      !raw.citation || !ALLOWED_LICENSE_TYPES[raw.license_type]
+    ) continue;
 
     const species = split(raw.taxon_ids);
     if (species.length === 0) continue;
@@ -164,8 +168,12 @@ Movebank.getStudies = async function () {
  */
 Movebank.getStudiesNear = async function (latitude, longitude, distance) {
   const p = { latitude, longitude };
-  const d = (x) => geolib.getDistance(p, { latitude: x.latitude, longitude: x.longitude });
-  return (await Movebank.getStudies()).filter((x) => d(x) <= distance).sort((a, b) => d(a) - d(b));
+  const d = (x) =>
+    geolib.getDistance(p, { latitude: x.latitude, longitude: x.longitude });
+  return (await Movebank.getStudies()).filter((x) => d(x) <= distance).sort((
+    a,
+    b,
+  ) => d(a) - d(b));
 };
 
 /**
