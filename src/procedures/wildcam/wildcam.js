@@ -137,7 +137,7 @@ const { DATA, SPECIES, CAMERAS } = (function () {
   }
 
   const DATA = Object.values(res);
-  DATA.sort((a, b) => +a.date - +b.date);
+  DATA.sort((a, b) => a.date === b.date ? 0 : a.date > b.date ? 1 : -1); // dates are now in yyyy/mm/dd string form
 
   let SPECIES = new Set();
   for (const entry of DATA) {
