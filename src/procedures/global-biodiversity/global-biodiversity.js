@@ -198,7 +198,8 @@ GBIF.getMediaURLs = async function (type, id, page = 1) {
 
   // if there were occurrences, use those since they provide better images
   if (res.count > 0) {
-    return res.results.flatMap((r) => r.media).filter((r) => r.type === type).map((r) => r.identifier);
+    return res.results.flatMap((r) => r.media).filter((r) => r.type === type)
+      .map((r) => r.identifier);
   }
 
   // otherwise fallback to species media, which are less interesting scientific images, but at least that's something
