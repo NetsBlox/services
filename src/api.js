@@ -190,7 +190,9 @@ class ServicesAPI {
       username = clientInfo.username;
       state = clientInfo.state;
     } catch (e) {
-      this.logger.error(`invokeRPC: failed to get client info - clientId=${clientId} cloud error: ${e}`);
+      this.logger.error(
+        `invokeRPC: failed to get client info - clientId=${clientId} cloud error: ${e}`,
+      );
     }
 
     // TODO: add support for external states, too?
