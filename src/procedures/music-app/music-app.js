@@ -1,3 +1,4 @@
+
 /**
  * This service allows users to play songs.
  * @alpha
@@ -9,6 +10,7 @@
 
 const fsp = require("fs/promises");
 const { registerTypes } = require("./types");
+const {MidiReader} = require("./src/midi-api");
 const path = require("path");
 const utils = require("../utils/index");
 const MusicApp = {};
@@ -139,5 +141,19 @@ MusicApp._getMetaDataByName = async function (nameOfSound = "") {
     .find((obj) => obj.soundName === nameOfSound);
   return metadata;
 };
+
+/**
+ * Get a song by name
+ * @param {String=} nameOfSong 
+ * @returns {[Object{name: String, notes: [Note]}]}
+ */
+MusicApp.getSong = async function (nameOfSong = "") {
+  const x = 'MidiLibrary/' + nameOfSong;
+  const midiPath = path.join(__dirname, x);
+  const data = await fsp.readFile(midiPath);
+  const raw = new Uint8Array(data);
+  const midi = new MidiReader(raw.buffer);
+  return midi.getNotes();
+}
 
 module.exports = MusicApp;
