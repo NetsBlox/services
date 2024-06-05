@@ -1,0 +1,79 @@
+{
+    "netsbloxMidiLibrary" : [
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 1",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-01.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 2",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-02.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 3",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-03.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 4",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-04.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 5",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-05.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 6",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-06.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 7",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-07.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 8",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-08.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 9",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-09.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 10",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-10.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 11",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-11.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 12",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-12.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 13",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-13.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 14",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-14.mid"
+        },
+        {
+            "Composer": "J.S. Bach",
+            "Name": "Invention 15",
+            "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-01.mid"
+        }
+    ]
+}
