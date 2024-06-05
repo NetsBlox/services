@@ -197,9 +197,9 @@ class TrackChunkNode extends TreeNode {
     }
 
     /**
-     * @description gets this name of this midi track
-     * @return {String} if found
-     * @return {null} if not found
+     * @description gets the name of this midi track
+     * @returns {String} if found
+     * @returns {null} if not found
      */
     getName() {
         const metaEvents = this.lookup(MetaEventNode);
@@ -299,6 +299,14 @@ class MetaEventNode extends TreeNode {
      */
     getData() {
         return this.nodes[3].getBuffer();
+    }
+
+    /**
+     * @description gets the data for the meta event and converts it to a number
+     * @returns {Number}
+     */
+    getDataAsInt() {
+        return this.nodes[3].toInt();
     }
 
     /**
