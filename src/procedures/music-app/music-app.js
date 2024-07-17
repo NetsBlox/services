@@ -1,4 +1,3 @@
-
 /**
  * This service allows users to play songs.
  * @alpha
@@ -10,7 +9,7 @@
 
 const fsp = require("fs/promises");
 const { registerTypes } = require("./types");
-const {MidiReader} = require("./src/midi-api");
+const { MidiReader } = require("./src/midi-api");
 const path = require("path");
 const utils = require("../utils/index");
 const MusicApp = {};
@@ -145,11 +144,13 @@ MusicApp._getMetaDataByName = async function (nameOfSound = "") {
 
 /**
  * Get a song by name
- * @param {String=} nameOfSong 
+ * @param {String=} nameOfSong
  * @returns {[Object{name: String, notes: [Note]}]}
  */
 MusicApp.getSong = async function (nameOfSong = "") {
-  const metadata = midiLibrary.netsbloxMidiLibrary.find((obj) => obj.Name === nameOfSong);
+  const metadata = midiLibrary.netsbloxMidiLibrary.find((obj) =>
+    obj.Name === nameOfSong
+  );
   if (metadata) {
     const audioPath = path.join(__dirname, metadata.Path);
     const data = await fsp.readFile(audioPath);
@@ -157,8 +158,8 @@ MusicApp.getSong = async function (nameOfSong = "") {
     const midi = new MidiReader(raw.buffer);
     return midi.getNotes();
   }
-  throw new Error('Song not found');
-}
+  throw new Error("Song not found");
+};
 
 /**
  * Get songs based on query.
@@ -173,19 +174,23 @@ MusicApp.getSongNames = async function (composer = "", name = "") {
   //Ensure at least one field is selected
   if (composer !== "" || name !== "") {
     queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (composer === "" || obj.Composer === composer) && (name === "" || obj.Name === name);
+      return (composer === "" || obj.Composer === composer) &&
+        (name === "" || obj.Name === name);
+    });
+  } else {
+    queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) {
+      return true;
     });
   }
-  else
-    queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) { return true; });
 
   //Convert JSON to array of String names
   for (let i = 0; i < queriedJSON.length; i++) {
     names.push(queriedJSON[i].Name);
   }
 
-  if (names.length == 1)
+  if (names.length == 1) {
     return names[0];
+  }
   return names;
 };
 
