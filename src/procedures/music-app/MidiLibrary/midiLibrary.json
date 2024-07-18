@@ -1,0 +1,429 @@
+{
+  "netsbloxMidiLibrary": [
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 1",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 2",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-02.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 3",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-03.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 4",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-04.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 5",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-05.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 6",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-06.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 7",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-07.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 8",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-08.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 9",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-09.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 10",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-10.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 11",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-11.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 12",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-12.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 13",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-13.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 14",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-14.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Invention 15",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 1",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv787.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 2",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv788.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 3",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv789.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 4",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv790.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 5",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv791.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 6",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv792.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 7",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv793.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 8",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv794.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 9",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv795.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 10",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv796.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 11",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv797.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 12",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv798.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 13",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv799.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 14",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv800.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Sinfonia 15",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv801.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "English Suite I: Bourree I",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-1-bourree-1.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "English Suite I: Bourree II",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-1-bourree-2.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "English Suite II: Bourree I",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-2-bourree-1.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "English Suite II: Bourree II",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-2-bourree-2.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "English Suite II: Gigue",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-2-prelude.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - Aria",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-aria.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 1",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 2",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v02.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 3",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v03.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 4",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v04.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 5",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v05.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 6",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v06.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 7",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v07.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 8",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v08.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 9",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v09.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 10",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v10.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 11",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v11.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 12",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v12.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 13",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v13.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 14",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v14.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 15",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v15.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 16",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v16.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 17",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v17.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 18",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v18.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 19",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v19.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 20",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v20.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 21",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v21.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 22",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v22.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 23",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v23.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 24",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v24.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 25",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v25.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 26",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v26.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 27",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v27.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 28",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v28.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 29",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v29.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 30",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v30.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Lute Suite BWV 997: 1. Prelude",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-01prelude.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Lute Suite BWV 997: 2. Fuga",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-02fuga.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Lute Suite BWV 997: 3. Sarabande",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-03sarabande.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Lute Suite BWV 997: 4. Gigue",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-04gigue.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Lute Suite BWV 997: 5. Double",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-05double.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 1",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 2",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-02.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 3",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-03.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 4",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-04.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 5",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-05.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 6",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-06.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 7",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-07.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 8",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-08.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 9",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-09.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 10",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-10.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 11",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-11.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 12",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-12.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 13",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-13.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "14 Canons - 14",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-14.mid"
+    }
+  ]
+}

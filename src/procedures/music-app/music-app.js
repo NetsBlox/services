@@ -9,11 +9,13 @@
 
 const fsp = require("fs/promises");
 const { registerTypes } = require("./types");
+const { MidiReader } = require("./src/midi-api");
 const path = require("path");
 const utils = require("../utils/index");
 const MusicApp = {};
 const soundLibrary = require("./SoundLibrary/soundLibrary.json");
 const drumLibrary = require("./SoundLibrary/drumSoundLibrary.json");
+const midiLibrary = require("./MidiLibrary/midiLibrary.json");
 const masterSoundLibrary = [
   ...soundLibrary.netsbloxSoundLibrary,
   ...drumLibrary.drumSoundLibrary,
@@ -138,6 +140,58 @@ MusicApp._getMetaDataByName = async function (nameOfSound = "") {
   const metadata = soundLibrary.netsbloxSoundLibrary
     .find((obj) => obj.soundName === nameOfSound);
   return metadata;
+};
+
+/**
+ * Get a song by name
+ * @param {String=} nameOfSong
+ * @returns {[Object{name: String, notes: [Note]}]}
+ */
+MusicApp.getSong = async function (nameOfSong = "") {
+  const metadata = midiLibrary.netsbloxMidiLibrary.find((obj) =>
+    obj.Name === nameOfSong
+  );
+  if (metadata) {
+    const audioPath = path.join(__dirname, metadata.Path);
+    const data = await fsp.readFile(audioPath);
+    const raw = new Uint8Array(data);
+    const midi = new MidiReader(raw.buffer);
+    return midi.getNotes();
+  }
+  throw new Error("Song not found");
+};
+
+/**
+ * Get songs based on query.
+ * @param {String=} composer
+ * @param {String=} name
+ * @returns {Array}
+ */
+MusicApp.getSongNames = async function (composer = "", name = "") {
+  var names = [];
+  let queriedJSON = "";
+
+  //Ensure at least one field is selected
+  if (composer !== "" || name !== "") {
+    queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
+      return (composer === "" || obj.Composer === composer) &&
+        (name === "" || obj.Name === name);
+    });
+  } else {
+    queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) {
+      return true;
+    });
+  }
+
+  //Convert JSON to array of String names
+  for (let i = 0; i < queriedJSON.length; i++) {
+    names.push(queriedJSON[i].Name);
+  }
+
+  if (names.length == 1) {
+    return names[0];
+  }
+  return names;
 };
 
 module.exports = MusicApp;
