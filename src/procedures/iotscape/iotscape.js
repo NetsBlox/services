@@ -118,6 +118,14 @@ IoTScape._send = function (service, id, command, caller) {
     throw new Error("Device not found");
   }
 
+  // Relay as-is message to listening clients
+  IoTScapeServices.sendMessageToListeningClients(
+    service,
+    id,
+    "device command",
+    { command },
+  );
+
   let parts = IoTScapeDevices.deviceDecrypt(service, id, command).split(/\s+/g);
 
   // Require at least a function name

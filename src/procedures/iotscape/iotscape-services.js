@@ -278,20 +278,6 @@ IoTScapeServices.call = async function (service, func, id, clientId, ...args) {
       params: [...args],
     };
 
-    // Relay as message to listening clients
-    IoTScapeServices.sendMessageToListeningClients(
-      service,
-      id,
-      "device command",
-      {
-        command: IoTScapeDevices.deviceEncrypt(
-          service,
-          id,
-          [func, ...args].join(" "),
-        ),
-      },
-    );
-
     // Handle special functions
     if (
       func == "setKey" || func == "setCipher" || func == "setClientRate" ||
@@ -562,18 +548,19 @@ IoTScapeServices.sendMessageToListeningClients = function (
   const clientsByID = IoTScapeServices._listeningClients[service] || {};
   const clients = clientsByID[id] || [];
 
-  if (IoTScapeDevices.getEncryptionState(service, id).cipher == "plain") {
-    // Send basic mode responses
-    clients.forEach((client) => {
-      client.sendMessage(type, { service, id, ...content });
-    });
-  }
+  logger.log("Sending message to clients: " + JSON.stringify(clients));
 
-  if (type !== "device command") {
+  if (type == "device command") {
+    // Send command directly
+    clients.forEach((client) => {
+      client.sendMessage(type, { service, device: id, ...content });
+    });
+  } else {
+    // Currently not used, but could be used to return device responses
     clients.forEach((client) => {
       client.sendMessage("device message", {
         service,
-        id,
+        device: id,
         message: IoTScapeDevices.deviceEncrypt(
           service,
           id,
