@@ -400,7 +400,7 @@ function _generateMethods(methodsInfo) {
         const method = {
           name: methodName,
           documentation: methodInfo.documentation,
-          categories: [["Basic"]],
+          categories: [[]],
           returns: methodInfo.returns,
         };
 
