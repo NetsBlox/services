@@ -133,7 +133,6 @@ IoTScapeDevices.accepts = function (service, id, clientId, seqNum = -1) {
   state.clientCounts[clientId] = client;
   IoTScapeDevices._encryptionStates[service][id] = state;
 
-  logger.log(JSON.stringify(IoTScapeDevices._encryptionStates[service][id]));
   return true;
 };
 

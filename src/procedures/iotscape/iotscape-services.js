@@ -185,7 +185,8 @@ IoTScapeServices.getFunctionInfo = function (service, func) {
     return IoTScapeServices._specialMethods[func];
   }
 
-  return IoTScapeServices._serviceDefinitions[service].methods[func];
+  let method = (IoTScapeServices._serviceDefinitions[service] ?? {methods: []}).methods.filter(m => m.name === func);
+  return method.length > 0 ? method[0] : undefined;
 };
 
 IoTScapeServices._lastRequestID = 0;
@@ -250,6 +251,13 @@ IoTScapeServices.call = async function (service, func, id, clientId, ...args) {
     !IoTScapeDevices.deviceExists(service, id) ||
     !IoTScapeServices.functionExists(service, func)
   ) {
+    if (!IoTScapeDevices.deviceExists(service, id)) {
+      logger.log("Device does not exist");
+    }
+    if (!IoTScapeServices.functionExists(service, func)) {
+      logger.log("Function does not exist");
+    }
+
     return false;
   }
 
