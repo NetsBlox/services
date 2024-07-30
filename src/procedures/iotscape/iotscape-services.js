@@ -185,7 +185,9 @@ IoTScapeServices.getFunctionInfo = function (service, func) {
     return IoTScapeServices._specialMethods[func];
   }
 
-  let method = (IoTScapeServices._serviceDefinitions[service] ?? {methods: []}).methods.filter(m => m.name === func);
+  let method =
+    (IoTScapeServices._serviceDefinitions[service] ?? { methods: [] }).methods
+      .filter((m) => m.name === func);
   return method.length > 0 ? method[0] : undefined;
 };
 
