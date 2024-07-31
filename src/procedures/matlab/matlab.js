@@ -37,7 +37,7 @@ async function requestWithRetry(url, body, numRetries = 0) {
 
 /**
  * Converts an image/costume into a matrix of pixels, each represented as a list of RGB (``[red, green, blue]``) values.
- * 
+ *
  * @param {Image} img Image to convert into a matrix
  * @param {Boolean=} alpha ``true`` to include the alpha/transparency values (default ``false``)
  * @returns {Array} The resulting pixel matrix
@@ -60,7 +60,11 @@ MATLAB.imageToMatrix = async function (img, alpha = false) {
     const row = [];
     for (x = 0; x < width; ++x) {
       const color = jimp.intToRGBA(img.getPixelColor(x, y));
-      row.push(alpha ? [color.r, color.g, color.b, color.a] : [color.r, color.g, color.b]);
+      row.push(
+        alpha
+          ? [color.r, color.g, color.b, color.a]
+          : [color.r, color.g, color.b],
+      );
     }
     res.push(row);
   }
@@ -70,7 +74,7 @@ MATLAB.imageToMatrix = async function (img, alpha = false) {
 /**
  * Converts a HxWx3 matrix of RGB (``[red, green, blue]``) pixel values into an image.
  * For each pixel, an optional additional alpha/transparency value can be included (default ``255``).
- * 
+ *
  * @param {Array<Array<Array<BoundedInteger<0, 255>, 3, 4>>>} matrix The input matrix of pixel data
  * @returns {Image} The constructed image/costume
  */
@@ -92,7 +96,10 @@ MATLAB.imageFromMatrix = async function (matrix) {
       res.setPixelColor(jimp.rgbaToInt(r, g, b, a), x, y);
     }
   }
-  return utils.sendImageBuffer(this.response, await res.getBufferAsync(jimp.MIME_PNG));
+  return utils.sendImageBuffer(
+    this.response,
+    await res.getBufferAsync(jimp.MIME_PNG),
+  );
 };
 
 /**
