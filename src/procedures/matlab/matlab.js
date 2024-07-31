@@ -9,6 +9,8 @@
 
 const logger = require("../utils/logger")("matlab");
 const axios = require("axios");
+const jimp = require("jimp");
+const utils = require("../utils/index");
 
 const { MATLAB_KEY, MATLAB_URL = "" } = process.env;
 const request = axios.create({
@@ -34,6 +36,73 @@ async function requestWithRetry(url, body, numRetries = 0) {
 }
 
 /**
+ * Converts an image/costume into a matrix of pixels, each represented as a list of RGB (``[red, green, blue]``) values.
+ *
+ * @param {Image} img Image to convert into a matrix
+ * @param {Boolean=} alpha ``true`` to include the alpha/transparency values (default ``false``)
+ * @returns {Array} The resulting pixel matrix
+ */
+MATLAB.imageToMatrix = async function (img, alpha = false) {
+  let matches = img.match(
+    /^\s*\<costume .*image="data:image\/\w+;base64,([^"]+)".*\/\>\s*$/,
+  );
+  if (!matches) {
+    throw Error("unknown image type");
+  }
+
+  const raw = Buffer.from(matches[1], "base64");
+  img = await jimp.read(raw);
+  const [width, height] = [img.bitmap.width, img.bitmap.height];
+  logger.log(`deconstructing a ${width}x${height} image`);
+
+  const res = [];
+  for (y = 0; y < height; ++y) {
+    const row = [];
+    for (x = 0; x < width; ++x) {
+      const color = jimp.intToRGBA(img.getPixelColor(x, y));
+      row.push(
+        alpha
+          ? [color.r, color.g, color.b, color.a]
+          : [color.r, color.g, color.b],
+      );
+    }
+    res.push(row);
+  }
+  return res;
+};
+
+/**
+ * Converts a HxWx3 matrix of RGB (``[red, green, blue]``) pixel values into an image.
+ * For each pixel, an optional additional alpha/transparency value can be included (default ``255``).
+ *
+ * @param {Array<Array<Array<BoundedInteger<0, 255>, 3, 4>>>} matrix The input matrix of pixel data
+ * @returns {Image} The constructed image/costume
+ */
+MATLAB.imageFromMatrix = async function (matrix) {
+  const height = matrix.length;
+  const width = height > 0 ? matrix[0].length : 0;
+
+  for (const row of matrix) {
+    if (row.length !== width) {
+      throw Error(`input matrix must be rectangular`);
+    }
+  }
+  logger.log(`reconstructing a ${width}x${height} image`);
+
+  const res = new jimp(width, height);
+  for (y = 0; y < height; ++y) {
+    for (x = 0; x < width; ++x) {
+      const [r, g, b, a = 255] = matrix[y][x];
+      res.setPixelColor(jimp.rgbaToInt(r, g, b, a), x, y);
+    }
+  }
+  return utils.sendImageBuffer(
+    this.response,
+    await res.getBufferAsync(jimp.MIME_PNG),
+  );
+};
+
+/**
  * Evaluate a MATLAB function with the given arguments and number of return
  * values.
  *
@@ -42,6 +111,7 @@ async function requestWithRetry(url, body, numRetries = 0) {
  * @param {String} fn Name of the function to call
  * @param {Array<Any>=} args arguments to pass to the function
  * @param {BoundedInteger<1>=} numReturnValues Number of return values expected.
+ * @returns {Any} Result of the MATLAB function call
  */
 MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   const body = [{

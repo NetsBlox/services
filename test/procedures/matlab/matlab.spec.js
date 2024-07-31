@@ -16,6 +16,8 @@ describe(utils.suiteName(__filename), function () {
 
   utils.verifyRPCInterfaces("MATLAB", [
     ["function", ["fn", "args", "numReturnValues"]],
+    ["imageToMatrix", ["img", "alpha"]],
+    ["imageFromMatrix", ["matrix"]],
   ]);
 
   describe("_parseResult", function () {
