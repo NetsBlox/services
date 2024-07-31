@@ -31,12 +31,21 @@ router.post(
   async (req, res) => {
     if (req.body) {
       // Validate fields
-      if (!req.body.request || !req.body.response || !Array.isArray(req.body.response)) {
+      if (
+        !req.body.request || !req.body.response ||
+        !Array.isArray(req.body.response)
+      ) {
         return res.status(400).send("Invalid request: missing fields");
       }
-      
-      if(Object.keys(IoTScapeServices._awaitingRequests).includes(req.body.request)) {
-        IoTScapeServices._awaitingRequests[req.body.request].resolve(...req.body.response);
+
+      if (
+        Object.keys(IoTScapeServices._awaitingRequests).includes(
+          req.body.request,
+        )
+      ) {
+        IoTScapeServices._awaitingRequests[req.body.request].resolve(
+          ...req.body.response,
+        );
         return res.status(200).send("OK");
       } else {
         return res.status(400).send("No request found for this response.");
@@ -44,7 +53,7 @@ router.post(
     }
 
     res.status(400).send("Invalid request.");
-  }
-)
+  },
+);
 
 module.exports = router;
