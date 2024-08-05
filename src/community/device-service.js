@@ -76,10 +76,25 @@ class DeviceService {
       };
     } else {
       this[methodSpec.name] = async function () {
+        let args = Object.values(arguments).splice(1).map((arg) => {
+          
+          // Convert objects to strings
+          if (typeof arg === "object") {
+            return JSON.stringify(arg);
+          }
+
+          // Strings with spaces need to be wrapped in quotes
+          if (typeof arg === "string" && arg.includes(" ")) {
+            return `"${arg}"`;
+          }
+          
+          return arg;
+        });
+
         return await IoTScape._send(
           this.serviceName,
           arguments[0],
-          [methodSpec.name, ...Object.values(arguments).splice(1)].join(" "),
+          [methodSpec.name, ...args].join(" "),
           this.caller,
         );
       };
