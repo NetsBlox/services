@@ -26,7 +26,7 @@ class DeviceService {
 
     this._docs = {
       description: record.description,
-      categories: [["Community", "Device"], ["Devices", "Community"]],
+      categories: [["Community", "Devices"], ["Devices", "Community"]],
       getDocFor: (method) => {
         let m = record.methods.find((val) => val.name == method);
         return {
