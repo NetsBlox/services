@@ -77,7 +77,6 @@ class DeviceService {
     } else {
       this[methodSpec.name] = async function () {
         let args = Object.values(arguments).splice(1).map((arg) => {
-          
           // Convert objects to strings
           if (typeof arg === "object") {
             return JSON.stringify(arg);
@@ -92,7 +91,7 @@ class DeviceService {
           if (typeof arg === "string" && arg.includes(" ")) {
             return `"${arg}"`;
           }
-          
+
           return arg;
         });
 

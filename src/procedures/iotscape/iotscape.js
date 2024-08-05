@@ -146,7 +146,9 @@ IoTScape._send = function (service, id, command, caller) {
   // Allow for RoboScape-esque "set"/"get" commands to be implemented simpler (e.g. "set speed" becomes "setSpeed" instead of a "set" method)
   if (parts.length >= 2) {
     // Combine first words such as "set", "get", and "reset" with the next words if it's a valid method in the service
-    if (["set", "get", "reset", "add", "show", "hide", "clear"].includes(parts[0])) {
+    if (
+      ["set", "get", "reset", "add", "show", "hide", "clear"].includes(parts[0])
+    ) {
       let methodName = parts[0] + parts[1][0].toUpperCase() + parts[1].slice(1);
       if (IoTScapeServices.functionExists(service, methodName)) {
         parts = [methodName, ...parts.slice(2)];
@@ -322,7 +324,7 @@ IoTScape._validateServiceStrings = function (name, id, serviceInfo, methods) {
     filter.isProfane(serviceInfo.description) ||
     methods.map((method) => method.name).some((name) =>
       !isValidRPCName(name) || filter.isProfane(name) ||
-    filter.isProfane(name.replace(/[A-Z]/g, " $&"))
+      filter.isProfane(name.replace(/[A-Z]/g, " $&"))
     ) ||
     methods.map((method) => method.documentation).some((doc) =>
       filter.isProfane(doc)
