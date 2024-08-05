@@ -126,7 +126,10 @@ IoTScape._send = function (service, id, command, caller) {
     { command },
   );
 
-  let parts = IoTScapeDevices.deviceDecrypt(service, id, command).split(/\s+/g);
+  let parts = IoTScapeDevices.deviceDecrypt(service, id, command);
+
+  // Split command into parts, with space separated parts, allowing for quoted strings (not splitting on escaped quotes) and JSON arrays/objects
+  parts = parts.match(/(?:[^\s"]+|"(?:[^"\\]|\\.)*")+/g);
 
   // Require at least a function name
   if (parts.length < 1) {
@@ -142,8 +145,10 @@ IoTScape._send = function (service, id, command, caller) {
 
   // Allow for RoboScape-esque "set"/"get" commands to be implemented simpler (e.g. "set speed" becomes "setSpeed" instead of a "set" method)
   if (parts.length >= 2) {
-    // Combine first word "set", "get", and "reset" with the next words if it's a valid method in the service
-    if (["set", "get", "reset"].includes(parts[0])) {
+    // Combine first words such as "set", "get", and "reset" with the next words if it's a valid method in the service
+    if (
+      ["set", "get", "reset", "add", "show", "hide", "clear"].includes(parts[0])
+    ) {
       let methodName = parts[0] + parts[1][0].toUpperCase() + parts[1].slice(1);
       if (IoTScapeServices.functionExists(service, methodName)) {
         parts = [methodName, ...parts.slice(2)];
@@ -165,6 +170,15 @@ IoTScape._send = function (service, id, command, caller) {
   if (!IoTScapeDevices.accepts(service, id, clientId, seqNum)) {
     return false;
   }
+
+  // Attempt to parse JSON/quoted strings
+  parts = parts.map((part) => {
+    try {
+      return JSON.parse(part);
+    } catch (err) {
+      return part;
+    }
+  });
 
   return IoTScapeServices.call(
     service,
@@ -309,7 +323,8 @@ IoTScape._validateServiceStrings = function (name, id, serviceInfo, methods) {
   if (
     filter.isProfane(serviceInfo.description) ||
     methods.map((method) => method.name).some((name) =>
-      !isValidRPCName(name) || filter.isProfane(name)
+      !isValidRPCName(name) || filter.isProfane(name) ||
+      filter.isProfane(name.replace(/[A-Z]/g, " $&"))
     ) ||
     methods.map((method) => method.documentation).some((doc) =>
       filter.isProfane(doc)
