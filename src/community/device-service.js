@@ -1,5 +1,7 @@
 const createLogger = require("../procedures/utils/logger");
 const IoTScapeServices = require("../procedures/iotscape/iotscape-services");
+const IoTScapeDevices = require("../procedures/iotscape/iotscape-devices");
+const IoTScape = require("../procedures/iotscape/iotscape");
 
 /**
  * Represents a service created for a IoTScape device
@@ -24,12 +26,13 @@ class DeviceService {
 
     this._docs = {
       description: record.description,
-      categories: [["Community", "Device"]],
+      categories: [["Community", "Devices"], ["Devices", "Community"]],
       getDocFor: (method) => {
         let m = record.methods.find((val) => val.name == method);
         return {
           name: m.name,
           description: m.documentation,
+          categories: m.categories,
           args: m.arguments.map((argument) => ({
             name: argument.name,
             optional: argument.optional,
@@ -41,10 +44,10 @@ class DeviceService {
   }
 
   async _initializeRPC(methodSpec) {
-    // getDevices and listen have special implementations
+    // Default methods have special implementations
     if (methodSpec.name === "getDevices") {
       this[methodSpec.name] = async function () {
-        return IoTScapeServices.getDevices(this.serviceName);
+        return IoTScapeDevices.getDevices(this.serviceName);
       };
     } else if (methodSpec.name === "listen") {
       this[methodSpec.name] = async function () {
@@ -54,12 +57,30 @@ class DeviceService {
           ...arguments,
         );
       };
+    } else if (methodSpec.name === "send") {
+      this[methodSpec.name] = async function () {
+        return IoTScape._send(
+          this.serviceName,
+          arguments[0],
+          arguments[1],
+          this.caller,
+        );
+      };
+    } else if (methodSpec.name === "getMessageTypes") {
+      this[methodSpec.name] = async function () {
+        return IoTScapeServices.getMessageTypes(this.serviceName);
+      };
+    } else if (methodSpec.name === "getMethods") {
+      this[methodSpec.name] = async function () {
+        return IoTScapeServices.getMethods(this.serviceName);
+      };
     } else {
       this[methodSpec.name] = async function () {
-        return await IoTScapeServices.call(
+        return await IoTScape._send(
           this.serviceName,
-          methodSpec.name,
-          ...arguments,
+          arguments[0],
+          [methodSpec.name, ...Object.values(arguments).splice(1)].join(" "),
+          this.caller,
         );
       };
     }
