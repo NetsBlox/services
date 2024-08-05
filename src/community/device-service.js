@@ -83,6 +83,11 @@ class DeviceService {
             return JSON.stringify(arg);
           }
 
+          // Escape quotes
+          if (typeof arg === "string") {
+            arg = arg.replace(/"/g, '\\"');
+          }
+
           // Strings with spaces need to be wrapped in quotes
           if (typeof arg === "string" && arg.includes(" ")) {
             return `"${arg}"`;

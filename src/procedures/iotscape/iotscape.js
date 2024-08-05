@@ -128,8 +128,8 @@ IoTScape._send = function (service, id, command, caller) {
 
   let parts = IoTScapeDevices.deviceDecrypt(service, id, command);
 
-  // Split command into parts, with space separated parts, allowing for quoted strings and JSON arrays/objects
-  parts = parts.match(/(?:[^\s"]+|"[^"]*")+/g);
+  // Split command into parts, with space separated parts, allowing for quoted strings (not splitting on escaped quotes) and JSON arrays/objects
+  parts = parts.match(/(?:[^\s"]+|"(?:[^"\\]|\\.)*")+/g);
 
   // Require at least a function name
   if (parts.length < 1) {
