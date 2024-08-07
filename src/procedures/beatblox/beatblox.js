@@ -11,7 +11,7 @@ const fsp = require("fs/promises");
 const { registerTypes } = require("./types");
 const path = require("path");
 const utils = require("../utils/index");
-const MusicApp = {};
+const BeatBlox = {};
 const soundLibrary = require("./SoundLibrary/soundLibrary.json");
 const drumLibrary = require("./SoundLibrary/drumSoundLibrary.json");
 const masterSoundLibrary = [
@@ -21,7 +21,7 @@ const masterSoundLibrary = [
 
 registerTypes();
 
-MusicApp._filetoBuffer = async function (audio_path) {
+BeatBlox._filetoBuffer = async function (audio_path) {
   const data = await fsp.readFile(audio_path);
   utils.sendAudioBuffer(this.response, data);
 };
@@ -31,7 +31,7 @@ MusicApp._filetoBuffer = async function (audio_path) {
  * @param {String=} soundType
  * @returns {Array}
  */
-MusicApp._getNamesBySoundType = async function (soundType = "") {
+BeatBlox._getNamesBySoundType = async function (soundType = "") {
   var names = [];
 
   //Filter SoundCategories JSON by soundType
@@ -53,7 +53,7 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
  * @param {DrumOneShotTypes=} drumType
  * @returns {String}
  */
-MusicApp.getDrumOneShotNames = async function (
+BeatBlox.getDrumOneShotNames = async function (
   packName = "",
   drumType = "",
 ) {
@@ -85,7 +85,7 @@ MusicApp.getDrumOneShotNames = async function (
  * @param {InstrumentNames=} instrumentName
  * @returns {Array}
  */
-MusicApp.getSoundNames = async function (
+BeatBlox.getSoundNames = async function (
   chords = "",
   key = "",
   bpm = "",
@@ -118,7 +118,7 @@ MusicApp.getSoundNames = async function (
  * Get sound by name.
  * @param {String=} nameOfSound
  */
-MusicApp.nameToSound = async function (nameOfSound = "") {
+BeatBlox.nameToSound = async function (nameOfSound = "") {
   const metadata = masterSoundLibrary
     .find((obj) => obj.soundName === nameOfSound);
 
@@ -134,10 +134,10 @@ MusicApp.nameToSound = async function (nameOfSound = "") {
  * @param {String=} nameOfSound
  * @returns {Array}
  */
-MusicApp._getMetaDataByName = async function (nameOfSound = "") {
+BeatBlox._getMetaDataByName = async function (nameOfSound = "") {
   const metadata = soundLibrary.netsbloxSoundLibrary
     .find((obj) => obj.soundName === nameOfSound);
   return metadata;
 };
 
-module.exports = MusicApp;
+module.exports = BeatBlox;
