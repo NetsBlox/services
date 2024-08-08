@@ -40,7 +40,7 @@ async function requestWithRetry(url, body, numRetries = 0) {
  *
  * @param {Image} img Image to convert into a matrix
  * @param {Boolean=} alpha ``true`` to include the alpha/transparency values (default ``false``)
- * @returns {Array} The resulting pixel matrix
+ * @returns {Array<Array<Array<Number, 3, 4>>>} The resulting pixel matrix
  */
 MATLAB.imageToMatrix = async function (img, alpha = false) {
   let matches = img.match(
@@ -75,7 +75,7 @@ MATLAB.imageToMatrix = async function (img, alpha = false) {
  * Converts a HxWx3 matrix of RGB (``[red, green, blue]``) pixel values into an image.
  * For each pixel, an optional additional alpha/transparency value can be included (default ``255``).
  *
- * @param {Array<Array<Array<BoundedInteger<0, 255>, 3, 4>>>} matrix The input matrix of pixel data
+ * @param {Array<Array<Array<Number, 3, 4>>>} matrix The input matrix of pixel data
  * @returns {Image} The constructed image/costume
  */
 MATLAB.imageFromMatrix = async function (matrix) {
@@ -89,11 +89,12 @@ MATLAB.imageFromMatrix = async function (matrix) {
   }
   logger.log(`reconstructing a ${width}x${height} image`);
 
+  const clamp = (x) => x <= 0 ? 0 : x >= 255 ? 255 : Math.round(x);
   const res = new jimp(width, height);
   for (y = 0; y < height; ++y) {
     for (x = 0; x < width; ++x) {
       const [r, g, b, a = 255] = matrix[y][x];
-      res.setPixelColor(jimp.rgbaToInt(r, g, b, a), x, y);
+      res.setPixelColor(jimp.rgbaToInt(clamp(r), clamp(g), clamp(b), clamp(a)), x, y);
     }
   }
   return utils.sendImageBuffer(
