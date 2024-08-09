@@ -35,7 +35,7 @@ async function requestWithRetry(url, body, numRetries = 0) {
       }
     }
   }
-  throw err || Error('no attempts were made');
+  throw err || Error("no attempts were made");
 }
 
 /**
@@ -97,7 +97,11 @@ MATLAB.imageFromMatrix = async function (matrix) {
   for (y = 0; y < height; ++y) {
     for (x = 0; x < width; ++x) {
       const [r, g, b, a = 255] = matrix[y][x];
-      res.setPixelColor(jimp.rgbaToInt(clamp(r), clamp(g), clamp(b), clamp(a)), x, y);
+      res.setPixelColor(
+        jimp.rgbaToInt(clamp(r), clamp(g), clamp(b), clamp(a)),
+        x,
+        y,
+      );
     }
   }
   return utils.sendImageBuffer(
@@ -131,9 +135,15 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   //    - send requests on start
 
   const startTime = Date.now();
-  const [resp, attempts] = await requestWithRetry(`${MATLAB_URL}/feval-fast`, body, 5);
+  const [resp, attempts] = await requestWithRetry(
+    `${MATLAB_URL}/feval-fast`,
+    body,
+    5,
+  );
   const duration = Date.now() - startTime;
-  logger.info(`matlab response -- duration: ${duration / 1000}s, attempts: ${attempts}`)
+  logger.info(
+    `matlab response -- duration: ${duration / 1000}s, attempts: ${attempts}`,
+  );
 
   const results = resp.data.FEvalResponse;
   // TODO: add batching queue
