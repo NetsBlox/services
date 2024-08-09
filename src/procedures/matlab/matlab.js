@@ -23,16 +23,19 @@ const MATLAB = {};
 MATLAB.serviceName = "MATLAB";
 
 async function requestWithRetry(url, body, numRetries = 0) {
-  try {
-    return await request.post(url, body, {
-      timeout: 10000,
-    });
-  } catch (err) {
-    if (err.code === "ECONNABORTED" && numRetries > 0) {
-      return requestWithRetry(url, body, numRetries - 1);
+  let err = undefined;
+  for (let attempts = 1; attempts <= 1 + numRetries; ++attempts) {
+    try {
+      const res = await request.post(url, body, { timeout: 10000 });
+      return [res, attempts];
+    } catch (e) {
+      err = e;
+      if (e.code !== "ECONNABORTED") {
+        break;
+      }
     }
-    throw err;
   }
+  throw err || Error("no attempts were made");
 }
 
 /**
@@ -94,7 +97,11 @@ MATLAB.imageFromMatrix = async function (matrix) {
   for (y = 0; y < height; ++y) {
     for (x = 0; x < width; ++x) {
       const [r, g, b, a = 255] = matrix[y][x];
-      res.setPixelColor(jimp.rgbaToInt(clamp(r), clamp(g), clamp(b), clamp(a)), x, y);
+      res.setPixelColor(
+        jimp.rgbaToInt(clamp(r), clamp(g), clamp(b), clamp(a)),
+        x,
+        y,
+      );
     }
   }
   return utils.sendImageBuffer(
@@ -126,14 +133,16 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   //  - start
   //    - batch requests while starting
   //    - send requests on start
-  //  - keepWarm
+
   const startTime = Date.now();
-  const resp = await requestWithRetry(`${MATLAB_URL}/feval-fast`, body, 5);
+  const [resp, attempts] = await requestWithRetry(
+    `${MATLAB_URL}/feval-fast`,
+    body,
+    5,
+  );
   const duration = Date.now() - startTime;
   logger.info(
-    `${duration} body: ${JSON.stringify(body)} response: ${
-      JSON.stringify(resp.data)
-    }`,
+    `matlab response -- duration: ${duration / 1000}s, attempts: ${attempts}`,
   );
 
   const results = resp.data.FEvalResponse;
