@@ -23,16 +23,19 @@ const MATLAB = {};
 MATLAB.serviceName = "MATLAB";
 
 async function requestWithRetry(url, body, numRetries = 0) {
-  try {
-    return await request.post(url, body, {
-      timeout: 10000,
-    });
-  } catch (err) {
-    if (err.code === "ECONNABORTED" && numRetries > 0) {
-      return requestWithRetry(url, body, numRetries - 1);
+  let err = undefined;
+  for (let attempts = 1; attempts <= 1 + numRetries; ++attempts) {
+    try {
+      const res = await request.post(url, body, { timeout: 10000 });
+      return [res, attempts];
+    } catch (e) {
+      err = e;
+      if (e.code !== "ECONNABORTED") {
+        break;
+      }
     }
-    throw err;
   }
+  throw err || Error("no attempts were made");
 }
 
 /**
@@ -40,7 +43,7 @@ async function requestWithRetry(url, body, numRetries = 0) {
  *
  * @param {Image} img Image to convert into a matrix
  * @param {Boolean=} alpha ``true`` to include the alpha/transparency values (default ``false``)
- * @returns {Array} The resulting pixel matrix
+ * @returns {Array<Array<Array<Number, 3, 4>>>} The resulting pixel matrix
  */
 MATLAB.imageToMatrix = async function (img, alpha = false) {
   let matches = img.match(
@@ -75,7 +78,7 @@ MATLAB.imageToMatrix = async function (img, alpha = false) {
  * Converts a HxWx3 matrix of RGB (``[red, green, blue]``) pixel values into an image.
  * For each pixel, an optional additional alpha/transparency value can be included (default ``255``).
  *
- * @param {Array<Array<Array<BoundedInteger<0, 255>, 3, 4>>>} matrix The input matrix of pixel data
+ * @param {Array<Array<Array<Number, 3, 4>>>} matrix The input matrix of pixel data
  * @returns {Image} The constructed image/costume
  */
 MATLAB.imageFromMatrix = async function (matrix) {
@@ -89,11 +92,16 @@ MATLAB.imageFromMatrix = async function (matrix) {
   }
   logger.log(`reconstructing a ${width}x${height} image`);
 
+  const clamp = (x) => x <= 0 ? 0 : x >= 255 ? 255 : Math.round(x);
   const res = new jimp(width, height);
   for (y = 0; y < height; ++y) {
     for (x = 0; x < width; ++x) {
       const [r, g, b, a = 255] = matrix[y][x];
-      res.setPixelColor(jimp.rgbaToInt(r, g, b, a), x, y);
+      res.setPixelColor(
+        jimp.rgbaToInt(clamp(r), clamp(g), clamp(b), clamp(a)),
+        x,
+        y,
+      );
     }
   }
   return utils.sendImageBuffer(
@@ -125,14 +133,16 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   //  - start
   //    - batch requests while starting
   //    - send requests on start
-  //  - keepWarm
+
   const startTime = Date.now();
-  const resp = await requestWithRetry(`${MATLAB_URL}/feval-fast`, body, 5);
+  const [resp, attempts] = await requestWithRetry(
+    `${MATLAB_URL}/feval-fast`,
+    body,
+    5,
+  );
   const duration = Date.now() - startTime;
   logger.info(
-    `${duration} body: ${JSON.stringify(body)} response: ${
-      JSON.stringify(resp.data)
-    }`,
+    `matlab response -- duration: ${duration / 1000}s, attempts: ${attempts}`,
   );
 
   const results = resp.data.FEvalResponse;

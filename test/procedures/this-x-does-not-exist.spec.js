@@ -19,6 +19,7 @@ describe(utils.suiteName(__filename), function () {
     "getPerson",
     "getCat",
     "getHorse",
+    "getHomeInterior",
   ];
   utils.verifyRPCInterfaces("ThisXDoesNotExist", rpcs);
 
