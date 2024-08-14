@@ -12,7 +12,7 @@ const { registerTypes } = require("./types");
 const { MidiReader } = require("./src/midi-api");
 const path = require("path");
 const utils = require("../utils/index");
-const MusicApp = {};
+const BeatBlox = {};
 const soundLibrary = require("./SoundLibrary/soundLibrary.json");
 const drumLibrary = require("./SoundLibrary/drumSoundLibrary.json");
 const midiLibrary = require("./MidiLibrary/midiLibrary.json");
@@ -23,7 +23,7 @@ const masterSoundLibrary = [
 
 registerTypes();
 
-MusicApp._filetoBuffer = async function (audio_path) {
+BeatBlox._filetoBuffer = async function (audio_path) {
   const data = await fsp.readFile(audio_path);
   utils.sendAudioBuffer(this.response, data);
 };
@@ -33,7 +33,7 @@ MusicApp._filetoBuffer = async function (audio_path) {
  * @param {String=} soundType
  * @returns {Array}
  */
-MusicApp._getNamesBySoundType = async function (soundType = "") {
+BeatBlox._getNamesBySoundType = async function (soundType = "") {
   var names = [];
 
   //Filter SoundCategories JSON by soundType
@@ -55,7 +55,7 @@ MusicApp._getNamesBySoundType = async function (soundType = "") {
  * @param {DrumOneShotTypes=} drumType
  * @returns {String}
  */
-MusicApp.getDrumOneShotNames = async function (
+BeatBlox.getDrumOneShotNames = async function (
   packName = "",
   drumType = "",
 ) {
@@ -87,7 +87,7 @@ MusicApp.getDrumOneShotNames = async function (
  * @param {InstrumentNames=} instrumentName
  * @returns {Array}
  */
-MusicApp.getSoundNames = async function (
+BeatBlox.getSoundNames = async function (
   chords = "",
   key = "",
   bpm = "",
@@ -120,7 +120,7 @@ MusicApp.getSoundNames = async function (
  * Get sound by name.
  * @param {String=} nameOfSound
  */
-MusicApp.nameToSound = async function (nameOfSound = "") {
+BeatBlox.nameToSound = async function (nameOfSound = "") {
   const metadata = masterSoundLibrary
     .find((obj) => obj.soundName === nameOfSound);
 
@@ -136,7 +136,7 @@ MusicApp.nameToSound = async function (nameOfSound = "") {
  * @param {String=} nameOfSound
  * @returns {Array}
  */
-MusicApp._getMetaDataByName = async function (nameOfSound = "") {
+BeatBlox._getMetaDataByName = async function (nameOfSound = "") {
   const metadata = soundLibrary.netsbloxSoundLibrary
     .find((obj) => obj.soundName === nameOfSound);
   return metadata;
@@ -147,7 +147,7 @@ MusicApp._getMetaDataByName = async function (nameOfSound = "") {
  * @param {String=} nameOfSong
  * @returns {[Object{name: String, notes: [Note]}]}
  */
-MusicApp.getSong = async function (nameOfSong = "") {
+BeatBlox._getSong = async function (nameOfSong = "") {
   const metadata = midiLibrary.netsbloxMidiLibrary.find((obj) =>
     obj.Name === nameOfSong
   );
@@ -167,7 +167,7 @@ MusicApp.getSong = async function (nameOfSong = "") {
  * @param {String=} name
  * @returns {Array}
  */
-MusicApp.getSongNames = async function (composer = "", name = "") {
+BeatBlox._getSongNames = async function (composer = "", name = "") {
   var names = [];
   let queriedJSON = "";
 
@@ -194,4 +194,4 @@ MusicApp.getSongNames = async function (composer = "", name = "") {
   return names;
 };
 
-module.exports = MusicApp;
+module.exports = BeatBlox;
