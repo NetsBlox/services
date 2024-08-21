@@ -15,10 +15,12 @@ const utils = require("../utils/index");
 const SoundClips = {};
 const soundLibrary = require("./SoundLibrary/soundLibrary.json");
 const drumLibrary = require("./SoundLibrary/drumSoundLibrary.json");
+const fxLibrary = require("./SoundLibrary/fxSoundLibrary.json");
 const midiLibrary = require("./MidiLibrary/midiLibrary.json");
 const masterSoundLibrary = [
   ...soundLibrary.netsbloxSoundLibrary,
   ...drumLibrary.drumSoundLibrary,
+  ...fxLibrary.fxSoundLibrary,
 ];
 
 registerTypes();
@@ -28,26 +30,6 @@ SoundClips._filetoBuffer = async function (audio_path) {
   utils.sendAudioBuffer(this.response, data);
 };
 
-/**
- * Get Sounds based on query.
- * @param {String=} soundType
- * @returns {Array}
- */
-SoundClips._getNamesBySoundType = async function (soundType = "") {
-  var names = [];
-
-  //Filter SoundCategories JSON by soundType
-  const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter((obj) =>
-    obj.SoundType === soundType.toUpperCase()
-  );
-
-  //Convert JSON to array of String names
-  for (let i = 0; i < queriedJSON.length; i++) {
-    names.push(queriedJSON[i].Name);
-  }
-
-  return names;
-};
 
 /**
  * Get sounds based on query.
@@ -117,6 +99,22 @@ SoundClips.getSoundNames = async function (
 };
 
 /**
+ * Get fx sounds 
+ * @returns {Array}
+ */
+SoundClips.getFXSounds = async function(){
+  var names = [];
+  let queriedJSON = "";
+  queriedJSON = fxLibrary.fxSoundLibrary;
+  //Convert JSON to array of String names
+  for (let i = 0; i < queriedJSON.length; i++) {
+    names.push(queriedJSON[i].soundName);
+  }
+  return names;
+
+}
+
+/**
  * Get sound by name.
  * @param {String=} nameOfSound
  */
@@ -129,6 +127,27 @@ SoundClips.nameToSound = async function (nameOfSound = "") {
     const data = await fsp.readFile(audioPath);
     return utils.sendAudioBuffer(this.response, data);
   }
+};
+
+/**
+ * Get Sounds based on query.
+ * @param {String=} soundType
+ * @returns {Array}
+ */
+SoundClips._getNamesBySoundType = async function (soundType = "") {
+  var names = [];
+
+  //Filter SoundCategories JSON by soundType
+  const queriedJSON = soundLibrary.netsbloxSoundLibrary.filter((obj) =>
+    obj.SoundType === soundType.toUpperCase()
+  );
+
+  //Convert JSON to array of String names
+  for (let i = 0; i < queriedJSON.length; i++) {
+    names.push(queriedJSON[i].Name);
+  }
+
+  return names;
 };
 
 /**
