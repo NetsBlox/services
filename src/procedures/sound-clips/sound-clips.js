@@ -30,7 +30,6 @@ SoundClips._filetoBuffer = async function (audio_path) {
   utils.sendAudioBuffer(this.response, data);
 };
 
-
 /**
  * Get sounds based on query.
  * @param {DrumPackName=} packName
@@ -99,10 +98,10 @@ SoundClips.getSoundNames = async function (
 };
 
 /**
- * Get fx sounds 
+ * Get fx sounds
  * @returns {Array}
  */
-SoundClips.getFXSounds = async function(){
+SoundClips.getFXSounds = async function () {
   var names = [];
   let queriedJSON = "";
   queriedJSON = fxLibrary.fxSoundLibrary;
@@ -111,8 +110,7 @@ SoundClips.getFXSounds = async function(){
     names.push(queriedJSON[i].soundName);
   }
   return names;
-
-}
+};
 
 /**
  * Get sound by name.
