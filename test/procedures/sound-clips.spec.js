@@ -12,8 +12,6 @@ describe(utils.suiteName(__filename), function () {
     ["getSoundNames", ["chords", "key", "bpm", "instrumentName"]],
     ["nameToSound", ["nameOfSound"]],
     ["getDrumOneShotNames", ["packName", "drumType"]],
-    ["getSong", ["nameOfSong"]],
-    ["getSongNames", ["composer", "name"]],
   ]);
 
   before(async () => {
