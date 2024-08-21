@@ -3,7 +3,7 @@ const utils = require("../assets/utils");
 describe(utils.suiteName(__filename), function () {
   const MockService = require("../assets/mock-service");
   const SoundClips = utils.reqSrc(
-    "procedures/music-app/music-app",
+    "procedures/sound-clips/sound-clips",
   );
   const assert = require("assert");
   let service, testSuite;
