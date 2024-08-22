@@ -2,23 +2,22 @@ const utils = require("../assets/utils");
 
 describe(utils.suiteName(__filename), function () {
   const MockService = require("../assets/mock-service");
-  const MusicApp = utils.reqSrc(
-    "procedures/music-app/music-app",
+  const SoundClips = utils.reqSrc(
+    "procedures/sound-clips/sound-clips",
   );
   const assert = require("assert");
   let service, testSuite;
 
-  utils.verifyRPCInterfaces("MusicApp", [
+  utils.verifyRPCInterfaces("SoundClips", [
     ["getSoundNames", ["chords", "key", "bpm", "instrumentName"]],
     ["nameToSound", ["nameOfSound"]],
     ["getDrumOneShotNames", ["packName", "drumType"]],
-    ["getSong", ["nameOfSong"]],
-    ["getSongNames", ["composer", "name"]],
+    ["getFXSounds"],
   ]);
 
   before(async () => {
     testSuite = await utils.TestSuiteBuilder().setup();
-    service = new MockService(MusicApp);
+    service = new MockService(SoundClips);
   });
   after(() => {
     testSuite.takedown();
