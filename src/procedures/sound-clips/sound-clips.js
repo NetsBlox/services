@@ -101,7 +101,7 @@ SoundClips.getSoundNames = async function (
  * Get fx sounds
  * @returns {Array}
  */
-SoundClips.getFXSounds = async function () {
+SoundClips.getFXSoundNames = async function () {
   var names = [];
   let queriedJSON = "";
   queriedJSON = fxLibrary.fxSoundLibrary;
