@@ -482,50 +482,50 @@ Robot.prototype.onMessage = function (message) {
 Robot.prototype.onCommand = function (command) {
   const cases = [
     {
-      regex: /^is alive$/,
+      regex: /^is alive\s*$/,
       handler: () => {
         this.sendToClient("alive", {});
         return this.isAlive();
       },
     },
     {
-      regex: /^beep (-?\d+)[, ](-?\d+)$/,
+      regex: /^beep (-?\d+)[, ](-?\d+)\s*$/,
       handler: () => {
         this.beep(+RegExp.$1, +RegExp.$2);
       },
     },
     {
-      regex: /^set speed (-?\d+)[, ](-?\d+)$/,
+      regex: /^set speed (-?\d+)[, ](-?\d+)\s*$/,
       handler: () => {
         this.setSpeed(+RegExp.$1, +RegExp.$2);
       },
     },
     {
-      regex: /^drive (-?\d+)[, ](-?\d+)$/,
+      regex: /^drive (-?\d+)[, ](-?\d+)\s*$/,
       handler: () => {
         this.drive(+RegExp.$1, +RegExp.$2);
       },
     },
     {
-      regex: /^turn wheels (-?\d+)[, ](-?\d+)$/,
+      regex: /^turn wheels (-?\d+)[, ](-?\d+)\s*$/,
       handler: () => {
         this.drive(+RegExp.$1, +RegExp.$2);
       },
     },
     {
-      regex: /^get range$/,
+      regex: /^get range\s*$/,
       handler: () => {
         return this.getRange();
       },
     },
     {
-      regex: /^get ticks$/,
+      regex: /^get ticks\s*$/,
       handler: () => {
         return this.getTicks();
       },
     },
     {
-      regex: /^set encryption ([^ ]+)(| -?\d+([ ,]-?\d+)*)$/, // name of the cipher
+      regex: /^set encryption ([^ ]+)(| -?\d+([ ,]-?\d+)*)\s*$/, // name of the cipher
       handler: () => {
         let cipherName = RegExp.$1.toLowerCase();
         var key = RegExp.$2.split(/[, ]/);
@@ -537,7 +537,7 @@ Robot.prototype.onCommand = function (command) {
       },
     },
     { // deprecated
-      regex: /^set key(| -?\d+([ ,]-?\d+)*)$/,
+      regex: /^set key(| -?\d+([ ,]-?\d+)*)\s*$/,
       handler: () => {
         var encryption = RegExp.$1.split(/[, ]/);
         if (encryption[0] === "") {
@@ -547,25 +547,25 @@ Robot.prototype.onCommand = function (command) {
       },
     },
     {
-      regex: /^set total rate (-?\d+)$/,
+      regex: /^set total rate (-?\d+)\s*$/,
       handler: () => {
         this.setTotalRate(+RegExp.$1);
       },
     },
     {
-      regex: /^set client rate (-?\d+)[, ](-?\d+)$/,
+      regex: /^set client rate (-?\d+)[, ](-?\d+)\s*$/,
       handler: () => {
         this.setClientRate(+RegExp.$1, +RegExp.$2);
       },
     },
     {
-      regex: /^set led (-?\d+)[, ](-?\d+)$/,
+      regex: /^set led (-?\d+)[, ](-?\d+)\s*$/,
       handler: () => {
         this.setLed(+RegExp.$1, +RegExp.$2);
       },
     },
     {
-      regex: /^show number (\d+)(?:[, ](\d+))?$/,
+      regex: /^show number (\d+)(?:[, ](\d+))?\s*$/,
       handler: () => {
         this.setNumericDisplay(
           +RegExp.$1,
@@ -574,19 +574,19 @@ Robot.prototype.onCommand = function (command) {
       },
     },
     {
-      regex: /^infra light (-?\d+)[, ](-?\d+)$/,
+      regex: /^infra light (-?\d+)[, ](-?\d+)\s*$/,
       handler: () => {
         this.infraLight(+RegExp.$1, +RegExp.$2);
       },
     },
     {
-      regex: /^reset seq$/,
+      regex: /^reset seq\s*$/,
       handler: () => {
         this.resetSeqNum();
       },
     },
     {
-      regex: /^reset rates$/,
+      regex: /^reset rates\s*$/,
       handler: () => {
         this.resetRates();
       },
