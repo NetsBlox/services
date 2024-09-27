@@ -169,8 +169,8 @@ async function retry(retries, f) {
     try {
       return await f();
     } catch (e) {
-      if (e.message === 'response timeout' && retries-- > 0) {
-        logger.info('response timeout... retrying...');
+      if (e.message === "response timeout" && retries-- > 0) {
+        logger.info("response timeout... retrying...");
       } else {
         throw e;
       }
