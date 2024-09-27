@@ -164,6 +164,20 @@ types.defineType({
   },
 });
 
+async function retry(retries, f) {
+  while (true) {
+    try {
+      return await f();
+    } catch (e) {
+      if (e.message === 'response timeout' && retries-- > 0) {
+        logger.info('response timeout... retrying...');
+      } else {
+        throw e;
+      }
+    }
+  }
+}
+
 /*
  * PhoneIoT - This constructor is called on the first
  * request to an RPC from a given room.
@@ -254,9 +268,10 @@ PhoneIoT.prototype._passToDevice = async function (fnName, args) {
   args = Array.from(args);
   const device = args.shift();
   if (device.accepts(this.caller.clientId)) {
-    let rv = device[fnName](device, args, this.caller.clientId);
-    if (rv === undefined) rv = true;
-    return rv;
+    return await retry(4, async () => {
+      let res = await device[fnName](device, args, this.caller.clientId);
+      return res !== undefined ? res : true;
+    });
   }
   throw Error("response timeout");
 };
