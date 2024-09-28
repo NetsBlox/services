@@ -1,31 +1,13 @@
 FROM node:18-bookworm
-MAINTAINER Brian Broll <brian.broll@vanderbilt.edu>
 
-ADD . /netsblox
+# Install updated C++ std lib plus a few things required for NodeHun, canvas/chart, docs building, etc.
+RUN echo "deb http://deb.debian.org/debian testing main" >> /etc/apt/sources.list && apt-get update
+RUN apt-get install -y build-essential libstdc++-11-dev gnuplot libcairo2-dev libpango1.0-dev libsdl-pango-dev libjpeg-dev libgif-dev librsvg2-dev python3-sphinx python3-sphinx-rtd-theme
 
-# Configure apt-get for C++ std lib installation (later)
-RUN echo "deb http://deb.debian.org/debian testing main" >> /etc/apt/sources.list && \
-	apt-get update
-
-# # Fix broken perl setup as described here: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=993755
-# RUN cd /tmp && \
-# 	apt-get -y download libcrypt1 && \
-# 	dpkg-deb -x $(ls | grep libcrypt) . && \
-# 	cp -av lib/x86_64-linux-gnu/* /usr/lib/x86_64-linux-gnu/
-
-# Install updated C++ std lib (required for NodeHun)
-RUN apt-get install -y libstdc++-11-dev gnuplot \
-  libsdl-pango-dev libgif-dev  # Required for canvas (chart service)
+RUN ls /usr/include/cairo
 
 WORKDIR /netsblox
-
-# Clean up and install NetsBlox dependencies
-RUN apt-get clean && \
-	rm -rf /tmp/* && \
-	cd /netsblox && npm install  # Install netsblox dependencies
-
-# Build the service docs for the publicly deployed services
-RUN apt-get install -y python3-sphinx python3-sphinx-rtd-theme
-# node utils/build-docs.js
+ADD . .
+RUN apt-get clean && rm -rf /tmp/* && npm install
 
 CMD ["npm", "start"]
