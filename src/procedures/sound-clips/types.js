@@ -34,6 +34,7 @@ const NAMES = [
   "ClassicSuitcasePiano",
   "CloudyPluckedSynth",
   "DreamSinesPad",
+  "DriftingPulsations",
   "FadedKeys",
   "FingerstyleBass",
   "FutureFeelsBrass",

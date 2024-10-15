@@ -134,7 +134,7 @@ const routes = [
     customMiddleware: [isRobotOwner],
     Handler: function (req) {
       const { _id } = req.params;
-      // NOTE if using robotId => lowecase
+      // NOTE if using robotId => lowercase
       return RoboscapeCol.findById(_id);
     },
   },

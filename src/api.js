@@ -182,7 +182,19 @@ class ServicesAPI {
     const ctx = {};
     ctx.response = res;
     ctx.request = req;
-    const { username, state } = await NetsBloxCloud.getClientInfo(clientId);
+
+    let username = undefined;
+    let state = undefined;
+    try {
+      const clientInfo = await NetsBloxCloud.getClientInfo(clientId);
+      username = clientInfo.username;
+      state = clientInfo.state;
+    } catch (e) {
+      this.logger.error(
+        `invokeRPC: failed to get client info - clientId=${clientId} cloud error: ${e}`,
+      );
+    }
+
     // TODO: add support for external states, too?
     const projectId = state?.browser?.projectId;
     const roleId = state?.browser?.roleId;

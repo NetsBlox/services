@@ -171,7 +171,7 @@ GBIF.getChildren = async function (id, page = 1) {
  * Get the URL of any media associated with a particular taxonomy node/entry in the tree of life.
  * These URLs can then be passed to :func:`GlobalBiodiversity.getImage` or :func:`GlobalBiodiversity.getSound` to get the image/sound.
  *
- * Because there may be many associated media entries, only up to 20 URLs are returned per call to this RPC.
+ * Because there may be many associated media entries, only up to 20 entries are returned per call to this RPC (though each entry may have multiple URLs).
  * You can check if there are more URLs by increasing the ``page`` number of results to return.
  * When there are no more URLs, an empty list is returned.
  *
@@ -187,6 +187,22 @@ GBIF.getMediaURLs = async function (type, id, page = 1) {
   const offset = (page - 1) * limit;
 
   let res;
+  try {
+    res = await this._requestData({
+      path: "occurrence/search",
+      queryString: `acceptedTaxonKey=${id}&limit=${limit}&offset=${offset}`,
+    });
+  } catch (e) {
+    throw Error(`unknown taxonomy node: ${id}`);
+  }
+
+  // if there were occurrences, use those since they provide better images
+  if (res.count > 0) {
+    return res.results.flatMap((r) => r.media).filter((r) => r.type === type)
+      .map((r) => r.identifier);
+  }
+
+  // otherwise fallback to species media, which are less interesting scientific images, but at least that's something
   try {
     res = await this._requestData({
       path: `species/${id}/media`,
