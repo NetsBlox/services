@@ -8,7 +8,7 @@
 "use strict";
 
 const fsp = require("fs/promises");
-const { registerTypes } = require("./types");
+const { registerTypes} = require("./types");
 const { MidiReader } = require("./src/midi-api");
 const path = require("path");
 const utils = require("../utils/index");
@@ -61,6 +61,37 @@ SoundClips.getDrumOneShotNames = async function (
 };
 
 /**
+ * Get drum loops based on query.
+ * @param {DrumPackName=} packName
+ * @param {BPM=} bpm
+ * @returns {String}
+ */
+SoundClips.getDrumLoopNames = async function (
+  packName = "",
+  bpm = ""
+) {
+  var names = [];
+  let queriedJSON = "";
+
+  //Ensure at least one field is selected
+  if (packName !== "" || bpm !== "") {
+    queriedJSON = drumLibrary.drumSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
+      return (bpm === "" || (obj.BPM && obj.BPM.toUpperCase() === bpm.toUpperCase())) &&
+        (packName === "" || obj.packName === packName) &&
+        (obj.Instrument === "LOOPS");
+    });
+  } else {
+    throw Error("At least one field must be selected");
+  }
+
+  //Convert JSON to array of String names
+  for (let i = 0; i < queriedJSON.length; i++) {
+    names.push(queriedJSON[i].soundName);
+  }
+  return names;
+};
+
+/**
  * Get sounds based on query.
  * @param {Chords=} chords
  * @param {Keys=} key
@@ -96,6 +127,43 @@ SoundClips.getSoundNames = async function (
 
   return names;
 };
+
+/**
+ * Get sounds based on query.
+ * @param {InstrumentFamily=} instrumentFamily - synth, guitar, brass, etc.
+ * @param {Keys=} key - C, D, Eb, etc.
+ * @param {BPM=} bpm - e.g., 90BPM
+ * @returns {Array}
+ */
+SoundClips.getSoundNamesByInstrument = async function (
+  instrumentFamily = "",
+  key = "",
+  bpm = "",
+) {
+  var names = [];
+  let queriedJSON = "";
+
+
+  // Ensure at least one field is selected
+  if (instrumentFamily !== "" || key !== "" || bpm !== "") {
+    queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj) {
+   
+      return (instrumentFamily === "" || (instrumentFamily && instrumentFamily.includes(obj.InstrumentName))) &&
+        (bpm === "" || obj.BPM === bpm ) &&
+        (key === "" || obj.Key === key);
+    });
+  } else {
+    throw Error("At least one field must be selected");
+  }
+
+  // Convert JSON to array of String names
+  for (let i = 0; i < queriedJSON.length; i++) {
+    names.push(queriedJSON[i].soundName);
+  }
+
+  return names;
+};
+
 
 /**
  * Get fx sounds
