@@ -163,7 +163,7 @@ MusicApp.getSong = async function (nameOfSong = "") {
 
 /**
  * Get songs based on query.
- * @param {String=} composer
+ * @param {Composers=} composer
  * @param {String=} name
  * @returns {Array}
  */

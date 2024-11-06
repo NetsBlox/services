@@ -424,6 +424,51 @@
       "Composer": "J.S. Bach",
       "Name": "14 Canons - 14",
       "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-14.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 1 (1st Movement: Allegro)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_1.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 1 (2nd Movement: Adagio)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_2.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 1 (3rd Movement: Allegretto)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_3.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 1 (4th Movement: Prestissimo)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_4.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 5 (1st Movement: Allegro molto e con brio)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_10no1_1.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 5 (3rd Movement: Prestissimo)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_10no1_3.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 6 (1st Movement: Allegro)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/lvb_sonate_10no2_1.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 6 (2nd Movement: Allegretto)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/lvb_sonate_10no2_2.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Name": "Sonata No. 6 (3rd Movement: Presto)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/lvb_sonate_10no2_3.mid"
     }
   ]
 }

@@ -80,7 +80,19 @@ const CHORDS = [
   "3625",
 ];
 
+const COMPOSERS = [
+  "J.S. Bach",
+  "Beethoven",
+];
+
 function registerTypes() {
+  types.defineType({
+    name: "Composers",
+    description: "List of available Composers",
+    baseType: "Enum",
+    baseParams: COMPOSERS,
+  });
+  
   types.defineType({
     name: "Instruments",
     description: "List of available Instruments",
