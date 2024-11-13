@@ -10,8 +10,10 @@ describe(utils.suiteName(__filename), function () {
 
   utils.verifyRPCInterfaces("SoundClips", [
     ["getSoundNames", ["chords", "key", "bpm", "instrumentName"]],
+    ["getSoundNamesByInstrument", ["instrumentFamily", "key", "bpm"]],
     ["nameToSound", ["nameOfSound"]],
     ["getDrumOneShotNames", ["packName", "drumType"]],
+    ["getDrumLoopNames", ["packName", "bpm"]],
     ["getFXSoundNames"],
   ]);
 

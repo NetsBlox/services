@@ -17,10 +17,11 @@ const DRUMONESHOTTYPES = {
   FX: "FX",
 };
 const DRUMPACKS = {
-  Peace: "PeaceTreaty",
-  UK: "UK",
-  US: "US",
-  DSS: "DSSxDP",
+  PeaceKit: "PeaceTreaty",
+  UKKit: "UK",
+  USKit: "US",
+  DSSKit: "DSSxDP",
+  AfricanKit: "African",
 };
 
 const NAMES = [
@@ -51,6 +52,39 @@ const NAMES = [
   "90sSolidSynthBass",
 ];
 
+const INSTRUMENTFAMILY = {
+  Piano: [
+    "Steinway",
+    "ToyPiano",
+    "ClassicSuitcasePiano",
+    "ClassicSuitcase",
+    "ClassicElectricPiano",
+    "FadedKeys",
+    "ChilledClav",
+    "JazzOrgan",
+  ],
+  Synth: [
+    "GhostlyReversedOrgan",
+    "SunriseChords",
+    "80sWaveBells",
+    "BoardingArea",
+    "BrightDigitalChords",
+    "CloudyPluckedSynth",
+    "DreamSinesPad",
+    "DriftingPulsations",
+    "PulsatingWaves",
+  ],
+  Guitar: ["AcousticGuitar"],
+  Bass: [
+    "Liverpool",
+    "FingerstyleBass",
+    "SolidSoulElectricBass",
+    "90sSolidSynthBass",
+    "BrightSynthBrass",
+  ],
+  Brass: ["FutureFeelsBrass", "Saxophone"],
+};
+
 const KEYS = [
   "C",
   "C#",
@@ -66,18 +100,20 @@ const KEYS = [
   "B",
 ];
 
+const CHORDS = [
+  "1564",
+  "1251",
+  "3625",
+];
+
 const BPM = [
   "70BPM",
   "80BPM",
   "90BPM",
   "100BPM",
   "110BPM",
-];
-
-const CHORDS = [
-  "1564",
-  "1251",
-  "3625",
+  "120BPM",
+  "130BPM",
 ];
 
 function registerTypes() {
@@ -129,6 +165,13 @@ function registerTypes() {
     baseType: "Enum",
     baseParams: DRUMPACKS,
   });
+
+  types.defineType({
+    name: "InstrumentFamily",
+    description: "List of available Instrument families",
+    baseType: "Enum",
+    baseParams: INSTRUMENTFAMILY,
+  });
 }
 
-module.exports = { registerTypes };
+module.exports = { registerTypes, INSTRUMENTFAMILY };
