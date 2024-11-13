@@ -8,7 +8,7 @@
 "use strict";
 
 const fsp = require("fs/promises");
-const { registerTypes} = require("./types");
+const { registerTypes } = require("./types");
 const { MidiReader } = require("./src/midi-api");
 const path = require("path");
 const utils = require("../utils/index");
@@ -68,7 +68,7 @@ SoundClips.getDrumOneShotNames = async function (
  */
 SoundClips.getDrumLoopNames = async function (
   packName = "",
-  bpm = ""
+  bpm = "",
 ) {
   var names = [];
   let queriedJSON = "";
@@ -76,7 +76,8 @@ SoundClips.getDrumLoopNames = async function (
   //Ensure at least one field is selected
   if (packName !== "" || bpm !== "") {
     queriedJSON = drumLibrary.drumSoundLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (bpm === "" || (obj.BPM && obj.BPM.toUpperCase() === bpm.toUpperCase())) &&
+      return (bpm === "" ||
+        (obj.BPM && obj.BPM.toUpperCase() === bpm.toUpperCase())) &&
         (packName === "" || obj.packName === packName) &&
         (obj.Instrument === "LOOPS");
     });
@@ -143,13 +144,12 @@ SoundClips.getSoundNamesByInstrument = async function (
   var names = [];
   let queriedJSON = "";
 
-
   // Ensure at least one field is selected
   if (instrumentFamily !== "" || key !== "" || bpm !== "") {
     queriedJSON = soundLibrary.netsbloxSoundLibrary.filter(function (obj) {
-   
-      return (instrumentFamily === "" || (instrumentFamily && instrumentFamily.includes(obj.InstrumentName))) &&
-        (bpm === "" || obj.BPM === bpm ) &&
+      return (instrumentFamily === "" ||
+        (instrumentFamily && instrumentFamily.includes(obj.InstrumentName))) &&
+        (bpm === "" || obj.BPM === bpm) &&
         (key === "" || obj.Key === key);
     });
   } else {
@@ -163,7 +163,6 @@ SoundClips.getSoundNamesByInstrument = async function (
 
   return names;
 };
-
 
 /**
  * Get fx sounds

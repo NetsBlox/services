@@ -53,38 +53,37 @@ const NAMES = [
 ];
 
 const INSTRUMENTFAMILY = {
-  Piano: [ "Steinway",
-            "ToyPiano",
-            "ClassicSuitcasePiano",
-            "ClassicSuitcase",
-            "ClassicElectricPiano",
-            "FadedKeys",
-            "ChilledClav",
-            "JazzOrgan",
+  Piano: [
+    "Steinway",
+    "ToyPiano",
+    "ClassicSuitcasePiano",
+    "ClassicSuitcase",
+    "ClassicElectricPiano",
+    "FadedKeys",
+    "ChilledClav",
+    "JazzOrgan",
   ],
-  Synth:["GhostlyReversedOrgan",
-         "SunriseChords",
-         "80sWaveBells",
-         "BoardingArea",
-         "BrightDigitalChords",
-         "CloudyPluckedSynth",
-         "DreamSinesPad",
-         "DriftingPulsations",
-         "PulsatingWaves",
+  Synth: [
+    "GhostlyReversedOrgan",
+    "SunriseChords",
+    "80sWaveBells",
+    "BoardingArea",
+    "BrightDigitalChords",
+    "CloudyPluckedSynth",
+    "DreamSinesPad",
+    "DriftingPulsations",
+    "PulsatingWaves",
   ],
-  Guitar: ["AcousticGuitar",    
+  Guitar: ["AcousticGuitar"],
+  Bass: [
+    "Liverpool",
+    "FingerstyleBass",
+    "SolidSoulElectricBass",
+    "90sSolidSynthBass",
+    "BrightSynthBrass",
   ],
-  Bass: ["Liverpool",
-         "FingerstyleBass",
-         "SolidSoulElectricBass",
-         "90sSolidSynthBass",
-         "BrightSynthBrass",
-  ],
-  Brass:["FutureFeelsBrass",
-        "Saxophone",
-  ]
-
-}
+  Brass: ["FutureFeelsBrass", "Saxophone"],
+};
 
 const KEYS = [
   "C",
@@ -116,7 +115,6 @@ const BPM = [
   "120BPM",
   "130BPM",
 ];
-
 
 function registerTypes() {
   types.defineType({
@@ -176,4 +174,4 @@ function registerTypes() {
   });
 }
 
-module.exports = { registerTypes,INSTRUMENTFAMILY};
+module.exports = { registerTypes, INSTRUMENTFAMILY };
