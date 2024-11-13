@@ -230,7 +230,7 @@ GeoLocationRPC.countryCode = function (latitude, longitude) {
  *
  * @param {Latitude} latitude latitude of the target location
  * @param {Longitude} longitude longitude of the target location
- * @returns {Array} list of administative level names
+ * @returns {Array} list of administrative level names
  */
 GeoLocationRPC.info = async function (latitude, longitude) {
   const [topResult] = await geocoder.reverse({ lat: latitude, lon: longitude });
