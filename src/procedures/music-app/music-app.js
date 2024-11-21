@@ -147,7 +147,7 @@ MusicApp._getMetaDataByName = async function (nameOfSound = "") {
  * @param {String=} nameOfSong
  * @returns {[Object{name: String, notes: [Note]}]}
  */
-MusicApp.getSong = async function (nameOfSong = "") {
+MusicApp.getSongData = async function (nameOfSong = "") {
   const metadata = midiLibrary.netsbloxMidiLibrary.find((obj) =>
     obj.Name === nameOfSong
   );
@@ -164,18 +164,18 @@ MusicApp.getSong = async function (nameOfSong = "") {
 /**
  * Get songs based on query.
  * @param {Composers=} composer
- * @param {String=} name
+ * @param {String=} search
  * @returns {Array}
  */
-MusicApp.getSongNames = async function (composer = "", name = "") {
+MusicApp.findSong = async function (composer = "", search = "") {
   var names = [];
   let queriedJSON = "";
 
   //Ensure at least one field is selected
-  if (composer !== "" || name !== "") {
+  if (composer !== "" || search !== "") {
     queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
       return (composer === "" || obj.Composer === composer) &&
-        (name === "" || obj.Name === name);
+        (search === "" || obj.Name.indexOf(search) !== -1);
     });
   } else {
     queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) {
@@ -188,9 +188,6 @@ MusicApp.getSongNames = async function (composer = "", name = "") {
     names.push(queriedJSON[i].Name);
   }
 
-  if (names.length == 1) {
-    return names[0];
-  }
   return names;
 };
 
