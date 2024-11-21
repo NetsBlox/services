@@ -469,6 +469,421 @@
       "Composer": "Beethoven",
       "Name": "Sonata No. 6 (3rd Movement: Presto)",
       "Path": "./MidiLibrary/beethoven_piano_sonatas/lvb_sonate_10no2_3.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Name": "String Quartet KV. 387 (nr. 14)",
+      "Path": "./mozart_string_quartets/k458-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Name": "String Quartet KV. 421 (nr. 15)",
+      "Path": "./mozart_string_quartets/k428-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Name": "String Quartet KV. 428 (nr. 16)",
+      "Path": "./mozart_string_quartets/k387-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Name": "String Quartet KV. 458 (nr. 17) \"Hunt\"",
+      "Path": "./mozart_string_quartets/k464-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Name": "String Quartet KV. 464 (nr. 18)",
+      "Path": "./mozart_string_quartets/k421-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Name": "String Quartet KV. 465 (nr. 19) \"Dissonances\"",
+      "Path": "./mozart_string_quartets/k465-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Name": "String Quartet in G major (Op. 76 No. 1)",
+      "Path": "./haydn_string_quartets/op76-n6-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Name": "String Quartet in D minor (Op. 76 No. 2)",
+      "Path": "./haydn_string_quartets/op76-n1-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Name": "String Quartet in C major (Op. 76 No. 3)",
+      "Path": "./haydn_string_quartets/op76-n2-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Name": "String Quartet in B-flat major (Op. 76 No. 4)",
+      "Path": "./haydn_string_quartets/op76-n4-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Name": "String Quartet in D major (Op. 76 No. 5)",
+      "Path": "./haydn_string_quartets/op76-n3-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Name": "String Quartet in E-flat major (Op. 76 No. 6)",
+      "Path": "./haydn_string_quartets/op76-n5-score.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Name": "Premi\u00e8re Arabesque",
+      "Path": "./debussy/debussy_Ste_Bergamesq_Clair.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Name": "Deuxi\u00e8me Arabesque",
+      "Path": "./debussy/L117-prel-4.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Name": "Suite Bergamasque: Clair de Lune",
+      "Path": "./debussy/debussy_Arabesque_1.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Name": "Pr\u00e9lude 4: Les sons et les parfums tournent dans l'air du soir",
+      "Path": "./debussy/debussy_Arabesque_2.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "It's a me, Oh Lord",
+      "Path": "./traditional/its_me_oh_Lord.mid"
+    },
+    {
+      "Composer": "O. Comeau",
+      "Name": "Ellen's Song",
+      "Path": "./folk/ellens_song.mid"
+    },
+    {
+      "Composer": "S. C. Foster",
+      "Name": "The Old Folks At Home (Swanee River)",
+      "Path": "./folk/oldfolks.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Aamulla varhain",
+      "Path": "./folk/JPM069-Asaku-Tomo.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Banza-Bushi",
+      "Path": "./folk/J95000-YanresoHoi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Yanreso Hoi",
+      "Path": "./folk/JPM004-Toka-Ebisu.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Noue Bushi",
+      "Path": "./folk/JPM032-K-Honen.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Umewa Saitaka",
+      "Path": "./folk/JPM037-Sakura-Miyotote.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Doujan",
+      "Path": "./folk/JPM001-GonbeGaTanemaku.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Saakorasa",
+      "Path": "./folk/SingIvy.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Chidori Meimei",
+      "Path": "./folk/JPM021-Inshu-Inaba.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Nisshin Danpan",
+      "Path": "./folk/JPM013-Riukiu-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Shashari",
+      "Path": "./folk/JPM064-Otsue-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Soushi-Bushi",
+      "Path": "./folk/JPM007-O-Edo-Nihonbashi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Shigin-Cho, Nanagon Zeku",
+      "Path": "./folk/JPM056-Horete-Kayouni.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "John Barleycorn",
+      "Path": "./folk/RedAppleRag.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Gonbe ga Tanemaku",
+      "Path": "./folk/JPM016-SedoNoDanbatake.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Toka-Ebisu",
+      "Path": "./folk/AAMULLAVARHAIN.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "O-Edo-Nihonbashi",
+      "Path": "./folk/J95014-Shashari.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Suiryo-Bushi",
+      "Path": "./folk/JPM085-Murasaki.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Riukiu-Bushi",
+      "Path": "./folk/J95010-NisshinDanpan.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Sedo no Danbatake",
+      "Path": "./folk/JPM072-Iyo-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Inshu-Inaba",
+      "Path": "./folk/J95000-Banzai-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Kappore",
+      "Path": "./folk/JPM024-Kappore.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Yube-Yonda",
+      "Path": "./folk/JPM080-GoshoNoOniwa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "K Honen",
+      "Path": "./folk/JPM048-Kosunoto.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Sakura-Miyotote",
+      "Path": "./folk/J95006-ChidoriMeimei.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Kuro-Kami",
+      "Path": "./folk/JPM053-Kayo-Kami.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Waga-Koiwa",
+      "Path": "./folk/JPM045-Waga-Koiwa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Kosunoto",
+      "Path": "./folk/JPM029-YubeYonda.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Kayo-Kami",
+      "Path": "./folk/J95004-Saakorasa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Horete-Kayouni",
+      "Path": "./folk/J95016-Shigin-Cho.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Doteo-Toruwa",
+      "Path": "./folk/SINIVALKOINEN.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Otsue-Bushi",
+      "Path": "./folk/J95002-UmewaSaitaka.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Asaku-Tomo",
+      "Path": "./folk/J95002-Noue-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Iyo-Bushi",
+      "Path": "./folk/JPM105-Ukiyo-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Oki No Taisen",
+      "Path": "./folk/J95014-Soushi-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Gosho no Oniwa",
+      "Path": "./folk/JPM061-Doteo-Toruwa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Murasaki",
+      "Path": "./folk/johnbarleycorn.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Na No Ha",
+      "Path": "./folk/JPM040-Kuro-Kami.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Echigo Jishi",
+      "Path": "./folk/JPM009-Suiryo-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Fuku-Ju-So",
+      "Path": "./folk/JPM096-Echigo-Jishi-hiragana.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Ukiyo-Bushi",
+      "Path": "./folk/J95004-Doujan.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Red Apple Rag",
+      "Path": "./folk/JPM101-Fuku-Ju-So.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Sing Ivy",
+      "Path": "./folk/JPM088-NaNoHa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Name": "Taivas on sininen ja valkoinen",
+      "Path": "./folk/JPM077-OkiNoTaisen.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "In a Summer Garden",
+      "Path": "./cj_brown/ebbflow.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "A Tango Trifle",
+      "Path": "./cj_brown/bridge.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "Bridge of Bows",
+      "Path": "./cj_brown/september.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "Ebb and Flow",
+      "Path": "./cj_brown/bagatelle2.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "Lullaby to an Eastern Child",
+      "Path": "./cj_brown/bagatelle1.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "September Song",
+      "Path": "./cj_brown/tunebook.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "Toccatina",
+      "Path": "./cj_brown/lullaby.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "A Little Tune Book",
+      "Path": "./cj_brown/wedding.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Name": "Wedding Music",
+      "Path": "./cj_brown/toccatina.mid"
+    },
+    {
+      "Composer": "F. Abt",
+      "Name": "When the Swallows Homeward Fly (Agathe)",
+      "Path": "./f_abt/swallows.mid"
+    },
+    {
+      "Composer": "F. Abt",
+      "Name": "Vocalise \u2116 1",
+      "Path": "./f_abt/Vocalise1.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Ases Tod",
+      "Path": "./grieg/Hjemkomst.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Lual\u00e5t (The Mountaineer's Song)",
+      "Path": "./grieg/aasesdeath.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "ase's Death from Peer Gynt Suite I",
+      "Path": "./grieg/No03_Albumblatt.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Anitra's Dance (Tanz) from Peer Gynt Suite I",
+      "Path": "./grieg/grieg-ich-liebe-dich.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "In the Hall of the Mountain King",
+      "Path": "./grieg/02-lamortdase.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Ich liebe dich",
+      "Path": "./grieg/7-MountaineersSong.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Hjemkomst",
+      "Path": "./grieg/Dans_l_antre_du_roi_de_la_montagne.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Albumblatt in E minor",
+      "Path": "./grieg/anitrasdance.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Wedding-day at Troldhaugen",
+      "Path": "./grieg/Troldtog.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Name": "Troldtog (March of the Dwarfs)",
+      "Path": "./grieg/troldhaugen.mid"
     }
   ]
 }
