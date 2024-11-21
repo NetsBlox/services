@@ -83,6 +83,16 @@ const CHORDS = [
 const COMPOSERS = [
   "J.S. Bach",
   "Beethoven",
+  "Mozart",
+  "Haydn",
+  "Debussy",
+  "Traditional",
+  "O. Comeau",
+  "S. C. Foster",
+  "C. J. Brown",
+  "F. Abt",
+  "E. Grieg",
+  "E. Satie",
 ];
 
 function registerTypes() {
