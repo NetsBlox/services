@@ -164,18 +164,19 @@ MusicApp.getSongData = async function (nameOfSong = "") {
 /**
  * Get songs based on query.
  * @param {Composers=} composer
+ * @param {Styles=} style
  * @param {String=} search
  * @returns {Array}
  */
-MusicApp.findSong = async function (composer = "", search = "") {
+MusicApp.findSong = async function (composer = "", style = "", search = "") {
   var names = [];
   let queriedJSON = "";
 
   //Ensure at least one field is selected
-  if (composer !== "" || search !== "") {
+  if (composer !== "" || search !== "" || style !== "") {
     queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (composer === "" || obj.Composer === composer) &&
-        (search === "" || obj.Name.indexOf(search) !== -1);
+      return (composer === "" || obj.Composer === composer) && 
+        (style === "" || obj.Style === style) && (search === "" || obj.Name.indexOf(search) !== -1);
     });
   } else {
     queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) {

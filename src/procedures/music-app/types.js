@@ -95,6 +95,16 @@ const COMPOSERS = [
   "E. Satie",
 ];
 
+const STYLES = [
+  "Classical",
+  "Baroque",
+  "Folk",
+  "Gospel",
+  "Hymn",
+  "Modern",
+  "Romantic",
+];
+
 function registerTypes() {
   types.defineType({
     name: "Composers",
