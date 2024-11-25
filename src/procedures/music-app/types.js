@@ -93,6 +93,9 @@ const COMPOSERS = [
   "F. Abt",
   "E. Grieg",
   "E. Satie",
+  "Spagnoletti",
+  "Kruetzer",
+  "Yaniewicz",
 ];
 
 const STYLES = [
@@ -103,6 +106,7 @@ const STYLES = [
   "Hymn",
   "Modern",
   "Romantic",
+  "Popular / Dance"
 ];
 
 function registerTypes() {

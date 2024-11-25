@@ -1060,6 +1060,42 @@
       "Style": "Romantic",
       "Name": "Troldtog (March of the Dwarfs)",
       "Path": "./grieg/troldhaugen.mid"
+    },
+    {
+      "Composer": "Anonymous",
+      "Style": "Popular / Dance",
+      "Name": "La Native",
+      "Path": "./popular_dance/lanative.mid"
+    },
+    {
+      "Composer": "Anonymous",
+      "Style": "Popular / Dance",
+      "Name": "Les Graces",
+      "Path": "./popular_dance/lesgraces.mid"
+    },
+    {
+      "Composer": "Kruetzer",
+      "Style": "Popular / Dance",
+      "Name": "Ladoiska",
+      "Path": "./popular_dance/lodiska.mid"
+    },
+    {
+      "Composer": "Spagnoletti",
+      "Style": "Popular / Dance",
+      "Name": "The Countess of Farnham's Waltz",
+      "Path": "./popular_dance/farnham.mid"
+    },
+    {
+      "Composer": "Spagnoletti",
+      "Style": "Popular / Dance",
+      "Name": "La Dorset",
+      "Path": "./popular_dance/ladorset.mid"
+    },
+    {
+      "Composer": "Yaniewicz",
+      "Style": "Popular / Dance",
+      "Name": "Les Lanciers",
+      "Path": "./popular_dance/leslanciers.mid"
     }
   ]
 }
