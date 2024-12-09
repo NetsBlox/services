@@ -26,7 +26,7 @@ MidiData.getSongData = async function (nameOfSong = "") {
     obj.Name === nameOfSong
   );
   if (metadata) {
-    const midiPath = path.join(__dirname, './MidiLibrary/', metadata.Path);
+    const midiPath = path.join(__dirname, "./MidiLibrary/", metadata.Path);
     const data = await fsp.readFile(midiPath);
     const raw = new Uint8Array(data);
     const midi = new MidiReader(raw.buffer);
@@ -49,8 +49,9 @@ MidiData.findSong = async function (composer = "", style = "", search = "") {
   //Ensure at least one field is selected
   if (composer !== "" || search !== "" || style !== "") {
     queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) { // Check if field value is empty before finding obj with value.
-      return (composer === "" || obj.Composer === composer) && 
-        (style === "" || obj.Style === style) && (search === "" || obj.Name.indexOf(search) !== -1);
+      return (composer === "" || obj.Composer === composer) &&
+        (style === "" || obj.Style === style) &&
+        (search === "" || obj.Name.indexOf(search) !== -1);
     });
   } else {
     queriedJSON = midiLibrary.netsbloxMidiLibrary.filter(function (obj) {

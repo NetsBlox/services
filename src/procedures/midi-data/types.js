@@ -36,7 +36,7 @@ function registerTypes() {
     baseType: "Enum",
     baseParams: COMPOSERS,
   });
-  
+
   types.defineType({
     name: "Styles",
     description: "List of available styles",
