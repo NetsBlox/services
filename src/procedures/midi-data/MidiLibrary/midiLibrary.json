@@ -1,0 +1,1101 @@
+{
+  "netsbloxMidiLibrary": [
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 1",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 2",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-02.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 3",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-03.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 4",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-04.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 5",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-05.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 6",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-06.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 7",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-07.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 8",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-08.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 9",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-09.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 10",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-10.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 11",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-11.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 12",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-12.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 13",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-13.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 14",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-14.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Invention 15",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bach-invention-01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 1",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv787.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 2",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv788.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 3",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv789.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 4",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv790.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 5",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv791.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 6",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv792.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 7",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv793.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 8",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv794.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 9",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv795.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 10",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv796.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 11",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv797.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 12",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv798.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 13",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv799.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 14",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv800.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Sinfonia 15",
+      "Path": "./MidiLibrary/js_bach_inventions_and_sinfonias/bwv801.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "English Suite I: Bourree I",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-1-bourree-1.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "English Suite I: Bourree II",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-1-bourree-2.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "English Suite II: Bourree I",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-2-bourree-1.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "English Suite II: Bourree II",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-2-bourree-2.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "English Suite II: Gigue",
+      "Path": "./MidiLibrary/js_bach_english_suites/bach-english-suite-2-prelude.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - Aria",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-aria.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 1",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 2",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v02.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 3",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v03.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 4",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v04.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 5",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v05.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 6",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v06.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 7",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v07.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 8",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v08.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 9",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v09.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 10",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v10.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 11",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v11.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 12",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v12.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 13",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v13.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 14",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v14.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 15",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v15.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 16",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v16.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 17",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v17.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 18",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v18.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 19",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v19.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 20",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v20.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Name": "Goldberg Variations - 21",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v21.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 22",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v22.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 23",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v23.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 24",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v24.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 25",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v25.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 26",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v26.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 27",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v27.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 28",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v28.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 29",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v29.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Goldberg Variations - 30",
+      "Path": "./MidiLibrary/js_bach_goldberg_variations/bwv-988-v30.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Lute Suite BWV 997: 1. Prelude",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-01prelude.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Lute Suite BWV 997: 2. Fuga",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-02fuga.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Lute Suite BWV 997: 3. Sarabande",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-03sarabande.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Lute Suite BWV 997: 4. Gigue",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-04gigue.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "Lute Suite BWV 997: 5. Double",
+      "Path": "./MidiLibrary/js_bach_lute_suite/bwv997-05double.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 1",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-01.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 2",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-02.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 3",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-03.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 4",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-04.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 5",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-05.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 6",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-06.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 7",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-07.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 8",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-08.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 9",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-09.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 10",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-10.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 11",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-11.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 12",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-12.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 13",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-13.mid"
+    },
+    {
+      "Composer": "J.S. Bach",
+      "Style": "Baroque",
+      "Name": "14 Canons - 14",
+      "Path": "./MidiLibrary/js_bach_14_canons/bwv-1087-14.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 1 (1st Movement: Allegro)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_1.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 1 (2nd Movement: Adagio)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_2.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 1 (3rd Movement: Allegretto)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_3.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 1 (4th Movement: Prestissimo)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_02no1_4.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 5 (1st Movement: Allegro molto e con brio)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_10no1_1.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 5 (3rd Movement: Prestissimo)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/LVB_Sonate_10no1_3.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 6 (1st Movement: Allegro)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/lvb_sonate_10no2_1.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 6 (2nd Movement: Allegretto)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/lvb_sonate_10no2_2.mid"
+    },
+    {
+      "Composer": "Beethoven",
+      "Style": "Classical",
+      "Name": "Sonata No. 6 (3rd Movement: Presto)",
+      "Path": "./MidiLibrary/beethoven_piano_sonatas/lvb_sonate_10no2_3.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Style": "Classical",
+      "Name": "String Quartet KV. 387 (nr. 14)",
+      "Path": "./mozart_string_quartets/k458-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Style": "Classical",
+      "Name": "String Quartet KV. 421 (nr. 15)",
+      "Path": "./mozart_string_quartets/k428-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Style": "Classical",
+      "Name": "String Quartet KV. 428 (nr. 16)",
+      "Path": "./mozart_string_quartets/k387-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Style": "Classical",
+      "Name": "String Quartet KV. 458 (nr. 17) \"Hunt\"",
+      "Path": "./mozart_string_quartets/k464-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Style": "Classical",
+      "Name": "String Quartet KV. 464 (nr. 18)",
+      "Path": "./mozart_string_quartets/k421-score.mid"
+    },
+    {
+      "Composer": "Mozart",
+      "Style": "Classical",
+      "Name": "String Quartet KV. 465 (nr. 19) \"Dissonances\"",
+      "Path": "./mozart_string_quartets/k465-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Style": "Classical",
+      "Name": "String Quartet in G major (Op. 76 No. 1)",
+      "Path": "./haydn_string_quartets/op76-n6-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Style": "Classical",
+      "Name": "String Quartet in D minor (Op. 76 No. 2)",
+      "Path": "./haydn_string_quartets/op76-n1-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Style": "Classical",
+      "Name": "String Quartet in C major (Op. 76 No. 3)",
+      "Path": "./haydn_string_quartets/op76-n2-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Style": "Classical",
+      "Name": "String Quartet in B-flat major (Op. 76 No. 4)",
+      "Path": "./haydn_string_quartets/op76-n4-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Style": "Classical",
+      "Name": "String Quartet in D major (Op. 76 No. 5)",
+      "Path": "./haydn_string_quartets/op76-n3-score.mid"
+    },
+    {
+      "Composer": "Haydn",
+      "Style": "Classical",
+      "Name": "String Quartet in E-flat major (Op. 76 No. 6)",
+      "Path": "./haydn_string_quartets/op76-n5-score.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Style": "Modern",
+      "Name": "Premi\u00e8re Arabesque",
+      "Path": "./debussy/debussy_Ste_Bergamesq_Clair.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Style": "Modern",
+      "Name": "Deuxi\u00e8me Arabesque",
+      "Path": "./debussy/L117-prel-4.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Style": "Modern",
+      "Name": "Suite Bergamasque: Clair de Lune",
+      "Path": "./debussy/debussy_Arabesque_1.mid"
+    },
+    {
+      "Composer": "Debussy",
+      "Style": "Romantic",
+      "Name": "Pr\u00e9lude 4: Les sons et les parfums tournent dans l'air du soir",
+      "Path": "./debussy/debussy_Arabesque_2.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Gospel",
+      "Name": "It's a me, Oh Lord",
+      "Path": "./traditional/its_me_oh_Lord.mid"
+    },
+    {
+      "Composer": "O. Comeau",
+      "Style": "Folk",
+      "Name": "Ellen's Song",
+      "Path": "./folk/ellens_song.mid"
+    },
+    {
+      "Composer": "S. C. Foster",
+      "Style": "Folk",
+      "Name": "The Old Folks At Home (Swanee River)",
+      "Path": "./folk/oldfolks.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Aamulla varhain",
+      "Path": "./folk/JPM069-Asaku-Tomo.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Banza-Bushi",
+      "Path": "./folk/J95000-YanresoHoi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Yanreso Hoi",
+      "Path": "./folk/JPM004-Toka-Ebisu.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Noue Bushi",
+      "Path": "./folk/JPM032-K-Honen.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Umewa Saitaka",
+      "Path": "./folk/JPM037-Sakura-Miyotote.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Doujan",
+      "Path": "./folk/JPM001-GonbeGaTanemaku.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Saakorasa",
+      "Path": "./folk/SingIvy.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Chidori Meimei",
+      "Path": "./folk/JPM021-Inshu-Inaba.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Nisshin Danpan",
+      "Path": "./folk/JPM013-Riukiu-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Shashari",
+      "Path": "./folk/JPM064-Otsue-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Soushi-Bushi",
+      "Path": "./folk/JPM007-O-Edo-Nihonbashi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Shigin-Cho, Nanagon Zeku",
+      "Path": "./folk/JPM056-Horete-Kayouni.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "John Barleycorn",
+      "Path": "./folk/RedAppleRag.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Gonbe ga Tanemaku",
+      "Path": "./folk/JPM016-SedoNoDanbatake.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Toka-Ebisu",
+      "Path": "./folk/AAMULLAVARHAIN.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "O-Edo-Nihonbashi",
+      "Path": "./folk/J95014-Shashari.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Suiryo-Bushi",
+      "Path": "./folk/JPM085-Murasaki.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Riukiu-Bushi",
+      "Path": "./folk/J95010-NisshinDanpan.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Sedo no Danbatake",
+      "Path": "./folk/JPM072-Iyo-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Inshu-Inaba",
+      "Path": "./folk/J95000-Banzai-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Kappore",
+      "Path": "./folk/JPM024-Kappore.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Yube-Yonda",
+      "Path": "./folk/JPM080-GoshoNoOniwa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "K Honen",
+      "Path": "./folk/JPM048-Kosunoto.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Sakura-Miyotote",
+      "Path": "./folk/J95006-ChidoriMeimei.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Kuro-Kami",
+      "Path": "./folk/JPM053-Kayo-Kami.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Waga-Koiwa",
+      "Path": "./folk/JPM045-Waga-Koiwa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Kosunoto",
+      "Path": "./folk/JPM029-YubeYonda.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Kayo-Kami",
+      "Path": "./folk/J95004-Saakorasa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Horete-Kayouni",
+      "Path": "./folk/J95016-Shigin-Cho.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Doteo-Toruwa",
+      "Path": "./folk/SINIVALKOINEN.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Otsue-Bushi",
+      "Path": "./folk/J95002-UmewaSaitaka.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Asaku-Tomo",
+      "Path": "./folk/J95002-Noue-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Iyo-Bushi",
+      "Path": "./folk/JPM105-Ukiyo-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Oki No Taisen",
+      "Path": "./folk/J95014-Soushi-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Gosho no Oniwa",
+      "Path": "./folk/JPM061-Doteo-Toruwa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Murasaki",
+      "Path": "./folk/johnbarleycorn.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Na No Ha",
+      "Path": "./folk/JPM040-Kuro-Kami.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Echigo Jishi",
+      "Path": "./folk/JPM009-Suiryo-Bushi.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Fuku-Ju-So",
+      "Path": "./folk/JPM096-Echigo-Jishi-hiragana.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Ukiyo-Bushi",
+      "Path": "./folk/J95004-Doujan.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Red Apple Rag",
+      "Path": "./folk/JPM101-Fuku-Ju-So.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Sing Ivy",
+      "Path": "./folk/JPM088-NaNoHa.mid"
+    },
+    {
+      "Composer": "Traditional",
+      "Style": "Folk",
+      "Name": "Taivas on sininen ja valkoinen",
+      "Path": "./folk/JPM077-OkiNoTaisen.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Romantic",
+      "Name": "In a Summer Garden",
+      "Path": "./cj_brown/ebbflow.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Romantic",
+      "Name": "A Tango Trifle",
+      "Path": "./cj_brown/bridge.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Modern",
+      "Name": "Bridge of Bows",
+      "Path": "./cj_brown/september.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Romantic",
+      "Name": "Ebb and Flow",
+      "Path": "./cj_brown/bagatelle2.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Romantic",
+      "Name": "Lullaby to an Eastern Child",
+      "Path": "./cj_brown/bagatelle1.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Romantic",
+      "Name": "September Song",
+      "Path": "./cj_brown/tunebook.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Modern",
+      "Name": "Toccatina",
+      "Path": "./cj_brown/lullaby.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Modern",
+      "Name": "A Little Tune Book",
+      "Path": "./cj_brown/wedding.mid"
+    },
+    {
+      "Composer": "C. J. Brown",
+      "Style": "Modern",
+      "Name": "Wedding Music",
+      "Path": "./cj_brown/toccatina.mid"
+    },
+    {
+      "Composer": "F. Abt",
+      "Style": "Song",
+      "Name": "When the Swallows Homeward Fly (Agathe)",
+      "Path": "./f_abt/swallows.mid"
+    },
+    {
+      "Composer": "F. Abt",
+      "Style": "Romantic",
+      "Name": "Vocalise \u2116 1",
+      "Path": "./f_abt/Vocalise1.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Ases Tod",
+      "Path": "./grieg/Hjemkomst.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Lual\u00e5t (The Mountaineer's Song)",
+      "Path": "./grieg/aasesdeath.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "ase's Death from Peer Gynt Suite I",
+      "Path": "./grieg/No03_Albumblatt.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Anitra's Dance (Tanz) from Peer Gynt Suite I",
+      "Path": "./grieg/grieg-ich-liebe-dich.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Classical",
+      "Name": "In the Hall of the Mountain King",
+      "Path": "./grieg/02-lamortdase.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Ich liebe dich",
+      "Path": "./grieg/7-MountaineersSong.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Hjemkomst",
+      "Path": "./grieg/Dans_l_antre_du_roi_de_la_montagne.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Albumblatt in E minor",
+      "Path": "./grieg/anitrasdance.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Wedding-day at Troldhaugen",
+      "Path": "./grieg/Troldtog.mid"
+    },
+    {
+      "Composer": "E. Grieg",
+      "Style": "Romantic",
+      "Name": "Troldtog (March of the Dwarfs)",
+      "Path": "./grieg/troldhaugen.mid"
+    },
+    {
+      "Composer": "Anonymous",
+      "Style": "Popular / Dance",
+      "Name": "La Native",
+      "Path": "./popular_dance/lanative.mid"
+    },
+    {
+      "Composer": "Anonymous",
+      "Style": "Popular / Dance",
+      "Name": "Les Graces",
+      "Path": "./popular_dance/lesgraces.mid"
+    },
+    {
+      "Composer": "Kruetzer",
+      "Style": "Popular / Dance",
+      "Name": "Ladoiska",
+      "Path": "./popular_dance/lodiska.mid"
+    },
+    {
+      "Composer": "Spagnoletti",
+      "Style": "Popular / Dance",
+      "Name": "The Countess of Farnham's Waltz",
+      "Path": "./popular_dance/farnham.mid"
+    },
+    {
+      "Composer": "Spagnoletti",
+      "Style": "Popular / Dance",
+      "Name": "La Dorset",
+      "Path": "./popular_dance/ladorset.mid"
+    },
+    {
+      "Composer": "Yaniewicz",
+      "Style": "Popular / Dance",
+      "Name": "Les Lanciers",
+      "Path": "./popular_dance/leslanciers.mid"
+    }
+  ]
+}
