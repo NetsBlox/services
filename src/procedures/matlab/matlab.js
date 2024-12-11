@@ -3,15 +3,16 @@
  *
  * For more information, check out https://www.mathworks.com/products/matlab.html.
  *
- * @service
  * @alpha
+ * @service
  */
 
 const logger = require("../utils/logger")("matlab");
 const axios = require("axios");
+const jimp = require("jimp");
+const utils = require("../utils/index");
 
 const { MATLAB_KEY, MATLAB_URL = "" } = process.env;
-const KeepWarm = require("./keep-warm");
 const request = axios.create({
   headers: {
     "X-NetsBlox-Auth-Token": MATLAB_KEY,
@@ -21,38 +22,104 @@ const request = axios.create({
 const MATLAB = {};
 MATLAB.serviceName = "MATLAB";
 
-const warmer = new KeepWarm(async () => {
-  logger.info("warming is disabled");
-  return;
-
-  const body = [...new Array(10)].map(() => ({
-    function: "ver",
-    arguments: [],
-    nargout: 1,
-  }));
-  request.post(`${MATLAB_URL}/feval-fast`, body);
-});
-
 async function requestWithRetry(url, body, numRetries = 0) {
-  try {
-    return await request.post(url, body, {
-      timeout: 10000,
-    });
-  } catch (err) {
-    if (err.code === "ECONNABORTED" && numRetries > 0) {
-      return requestWithRetry(url, body, numRetries - 1);
+  let err = undefined;
+  for (let attempts = 1; attempts <= 1 + numRetries; ++attempts) {
+    try {
+      const res = await request.post(url, body, { timeout: 10000 });
+      return [res, attempts];
+    } catch (e) {
+      err = e;
+      if (e.code !== "ECONNABORTED") {
+        break;
+      }
     }
-    throw err;
   }
+  throw err || Error("no attempts were made");
 }
+
+/**
+ * Converts an image/costume into a matrix of pixels, each represented as a list of RGB (``[red, green, blue]``) values.
+ *
+ * @param {Image} img Image to convert into a matrix
+ * @param {Boolean=} alpha ``true`` to include the alpha/transparency values (default ``false``)
+ * @returns {Array<Array<Array<Number, 3, 4>>>} The resulting pixel matrix
+ */
+MATLAB.imageToMatrix = async function (img, alpha = false) {
+  let matches = img.match(
+    /^\s*\<costume .*image="data:image\/\w+;base64,([^"]+)".*\/\>\s*$/,
+  );
+  if (!matches) {
+    throw Error("unknown image type");
+  }
+
+  const raw = Buffer.from(matches[1], "base64");
+  img = await jimp.read(raw);
+  const [width, height] = [img.bitmap.width, img.bitmap.height];
+  logger.log(`deconstructing a ${width}x${height} image`);
+
+  const res = [];
+  for (y = 0; y < height; ++y) {
+    const row = [];
+    for (x = 0; x < width; ++x) {
+      const color = jimp.intToRGBA(img.getPixelColor(x, y));
+      row.push(
+        alpha
+          ? [color.r, color.g, color.b, color.a]
+          : [color.r, color.g, color.b],
+      );
+    }
+    res.push(row);
+  }
+  return res;
+};
+
+/**
+ * Converts a HxWx3 matrix of RGB (``[red, green, blue]``) pixel values into an image.
+ * For each pixel, an optional additional alpha/transparency value can be included (default ``255``).
+ *
+ * @param {Array<Array<Array<Number, 3, 4>>>} matrix The input matrix of pixel data
+ * @returns {Image} The constructed image/costume
+ */
+MATLAB.imageFromMatrix = async function (matrix) {
+  const height = matrix.length;
+  const width = height > 0 ? matrix[0].length : 0;
+
+  for (const row of matrix) {
+    if (row.length !== width) {
+      throw Error(`input matrix must be rectangular`);
+    }
+  }
+  logger.log(`reconstructing a ${width}x${height} image`);
+
+  const clamp = (x) => x <= 0 ? 0 : x >= 255 ? 255 : Math.round(x);
+  const res = new jimp(width, height);
+  for (y = 0; y < height; ++y) {
+    for (x = 0; x < width; ++x) {
+      const [r, g, b, a = 255] = matrix[y][x];
+      res.setPixelColor(
+        jimp.rgbaToInt(clamp(r), clamp(g), clamp(b), clamp(a)),
+        x,
+        y,
+      );
+    }
+  }
+  return utils.sendImageBuffer(
+    this.response,
+    await res.getBufferAsync(jimp.MIME_PNG),
+  );
+};
 
 /**
  * Evaluate a MATLAB function with the given arguments and number of return
  * values.
  *
- * @param{String} fn Name of the function to call
- * @param{Array<Any>=} args arguments to pass to the function
- * @param{BoundedInteger<1>=} numReturnValues Number of return values expected.
+ * For a list of all MATLAB functions, see the `Reference Manual <https://www.mathworks.com/help/matlab/referencelist.html?type=function>`__.
+ *
+ * @param {String} fn Name of the function to call
+ * @param {Array<Any>=} args arguments to pass to the function
+ * @param {BoundedInteger<1>=} numReturnValues Number of return values expected.
+ * @returns {Any} Result of the MATLAB function call
  */
 MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   const body = [{
@@ -66,16 +133,18 @@ MATLAB.function = async function (fn, args = [], numReturnValues = 1) {
   //  - start
   //    - batch requests while starting
   //    - send requests on start
-  //  - keepWarm
+
   const startTime = Date.now();
-  const resp = await requestWithRetry(`${MATLAB_URL}/feval-fast`, body, 5);
+  const [resp, attempts] = await requestWithRetry(
+    `${MATLAB_URL}/feval-fast`,
+    body,
+    5,
+  );
   const duration = Date.now() - startTime;
   logger.info(
-    `${duration} body: ${JSON.stringify(body)} response: ${
-      JSON.stringify(resp.data)
-    }`,
+    `matlab response -- duration: ${duration / 1000}s, attempts: ${attempts}`,
   );
-  warmer.keepWarm();
+
   const results = resp.data.FEvalResponse;
   // TODO: add batching queue
   return this._parseResult(results[0]);
@@ -97,8 +166,7 @@ MATLAB._parseArgument = function (arg) {
     arg = [arg];
   }
 
-  const shape = MATLAB._shape(arg);
-  const flatValues = MATLAB._flatten(arg);
+  const [flatValues, shape] = MATLAB._flatten(arg);
   const mwtype = MATLAB._getMwType(flatValues);
   const mwdata = flatValues
     .map((v) => {
@@ -118,7 +186,7 @@ MATLAB._parseArgument = function (arg) {
 
   return {
     mwdata,
-    mwsize: shape,
+    mwsize: shape.length >= 2 ? shape : [1, ...shape],
     mwtype,
   };
 };
@@ -149,28 +217,29 @@ MATLAB._parseResult = (result) => {
 };
 
 MATLAB._parseResultData = (result) => {
-  // reshape the data
   let data = result.mwdata;
+  let size = result.mwsize;
   if (!Array.isArray(data)) {
     data = [data];
   }
-  return MATLAB._squeeze(
-    MATLAB._reshape(data, result.mwsize),
-  );
-};
 
-MATLAB._take = function* (iter, num) {
-  let chunk = [];
-  for (const v of iter) {
-    chunk.push(v);
-    if (chunk.length === num) {
-      yield chunk;
-      chunk = [];
+  if (result.mwtype === "char") {
+    if (
+      !Array.isArray(result.mwdata) || result.mwdata.length !== 1 ||
+      typeof (result.mwdata[0]) !== "string"
+    ) {
+      throw Error("error parsing character string result");
     }
+    function rejoin(x) {
+      if (x.length !== 0 && !Array.isArray(x[0])) {
+        return x.join("");
+      }
+      return x.map((y) => rejoin(y));
+    }
+    return MATLAB._squeeze(rejoin(MATLAB._unflatten([...data[0]], size)));
   }
-  if (chunk.length) {
-    return chunk;
-  }
+
+  return MATLAB._squeeze(MATLAB._unflatten(data, size));
 };
 
 MATLAB._squeeze = (data) => {
@@ -180,38 +249,103 @@ MATLAB._squeeze = (data) => {
   return data;
 };
 
-MATLAB._reshape = (data, shape) => {
-  return [
-    ...shape.reverse().reduce(
-      (iterable, num) => MATLAB._take(iterable, num),
-      data,
-    ),
-  ].pop();
+MATLAB._product = (vals) => {
+  let res = 1;
+  for (const v of vals) {
+    res *= v;
+  }
+  return res;
+};
+
+MATLAB._colcat = (cols) => {
+  if (cols.length === 0) {
+    return [];
+  }
+  if (!Array.isArray(cols[0])) {
+    return cols.reduce((acc, v) => acc.concat(v), []);
+  }
+
+  const rows = cols[0].length;
+  const res = [];
+  for (let i = 0; i < rows; ++i) {
+    res.push(MATLAB._colcat(cols.map((row) => row[i])));
+  }
+  return res;
+};
+
+MATLAB._unflatten = (data, shape) => {
+  if (!Array.isArray(data)) {
+    throw Error("internal usage error");
+  }
+
+  if (shape.length <= 1) {
+    return data;
+  }
+
+  const colCount = shape[shape.length - 1];
+  const colShape = shape.slice(0, shape.length - 1);
+  const colSize = MATLAB._product(colShape);
+
+  const cols = [];
+  for (let i = 0; i < colCount; ++i) {
+    cols.push(
+      MATLAB._unflatten(data.slice(i * colSize, (i + 1) * colSize), colShape),
+    );
+  }
+  return MATLAB._colcat(cols);
+};
+
+MATLAB._deepEq = (a, b) => {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.length === b.length && a.every((x, i) => MATLAB._deepEq(x, b[i]));
+  }
+  return a === b;
 };
 
 MATLAB._shape = (data) => {
-  const shape = [];
-  let item = data;
-  while (Array.isArray(item)) {
-    shape.push(item.length);
-    item = item[0];
+  if (!Array.isArray(data)) {
+    throw Error("internal usage error");
   }
 
-  while (shape.length < 2) {
-    shape.unshift(1);
+  if (data.length === 0 || !Array.isArray(data[0])) {
+    if (data.some((x) => Array.isArray(x))) {
+      throw Error("input must be rectangular");
+    }
+    return [data.length];
+  }
+  if (data.some((x) => !Array.isArray(x))) {
+    throw Error("input must be rectangular");
   }
 
-  return shape;
+  const shapes = data.map((x) => MATLAB._shape(x));
+  if (shapes.some((x) => !MATLAB._deepEq(x, shapes[0]))) {
+    throw Error("input must be rectangular");
+  }
+  return [data.length, ...shapes[0]];
 };
 
+// returns [flattened, shape] so that shape can be reused
 MATLAB._flatten = (data) => {
-  return data.flatMap((item) => {
-    if (Array.isArray(item)) {
-      return MATLAB._flatten(item);
+  const shape = MATLAB._shape(data);
+  if (shape.some((x) => x === 0)) return [[], shape];
+
+  const shapeCumProd = [1, ...shape];
+  for (let i = 1; i < shapeCumProd.length; ++i) {
+    shapeCumProd[i] *= shapeCumProd[i - 1];
+  }
+
+  const res = new Array(shapeCumProd[shapeCumProd.length - 1]);
+  function visit(x, pos, depth) {
+    if (depth === shape.length) {
+      res[pos] = x;
     } else {
-      return item;
+      for (let i = 0; i < x.length; ++i) {
+        visit(x[i], pos + i * shapeCumProd[depth], depth + 1);
+      }
     }
-  });
+  }
+  visit(data, 0, 0);
+  return [res, shape];
 };
 
 MATLAB.isSupported = () => {

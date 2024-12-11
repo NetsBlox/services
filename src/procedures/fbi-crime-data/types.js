@@ -122,7 +122,7 @@ const OFFENSE_Arrest_Controller_OPTIONS = {
   "gambling bookmaking": "gambling-bookmaking",
   "gambling numbers": "gambling-numbers",
   "gambling total": "gambling-total",
-  "human trafficking commercial": "human-trafficking-com" + "merical", // split to pass spell check
+  "human trafficking commercial": "human-trafficking-commerical",
   "human trafficking servitude": "human-trafficking-servitude",
   "larceny": "larceny",
   "liquor laws": "liqour-laws",

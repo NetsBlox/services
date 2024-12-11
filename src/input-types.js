@@ -472,10 +472,15 @@ defineType({
 });
 
 // in the future, this should have a useful parser of some kind
-// not an issue for now since only 1 RPC takes images as input
 defineType({
   name: "Image",
   description: "Any image",
+  baseType: "Any",
+});
+// in the future, this should have a useful parser of some kind
+defineType({
+  name: "Audio",
+  description: "Any audio clip",
   baseType: "Any",
 });
 

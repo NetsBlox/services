@@ -58,7 +58,7 @@ const { setTimeout } = require("../../timers");
 
 // these might be better defined as an attribute on the device
 const FORGET_TIME = 120; // forgetting a device in seconds
-const RESPONSE_TIMEOUT = 2000; // ms (well over worst case)
+const RESPONSE_TIMEOUT = 4000; // ms
 
 const Device = function (mac_addr, ip4_addr, ip4_port, aServer) {
   this.id = mac_addr;

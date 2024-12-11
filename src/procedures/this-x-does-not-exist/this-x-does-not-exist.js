@@ -116,6 +116,7 @@ TXDNE.getPony = function () {
 /**
  * Gets an image of a home interior that does not exist
  *
+ * @deprecated
  * @returns {Image} a random image of the given type
  */
 TXDNE.getHomeInterior = function () {

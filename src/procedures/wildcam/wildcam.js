@@ -137,7 +137,7 @@ const { DATA, SPECIES, CAMERAS } = (function () {
   }
 
   const DATA = Object.values(res);
-  DATA.sort((a, b) => +a.date - +b.date);
+  DATA.sort((a, b) => a.date === b.date ? 0 : a.date > b.date ? 1 : -1); // dates are now in yyyy/mm/dd string form
 
   let SPECIES = new Set();
   for (const entry of DATA) {
@@ -259,6 +259,7 @@ Wildcam.search = function (
  * @param {Date=} stopDate The latest date to include in the results. If omitted, no stopping cutoff is used for filtering.
  * @param {Species=} species Filters results to only entries which contained the requested species. If omitted, no species filtering is performed.
  * @param {Object=} camera Filters results to only entries taken by a specific camera. If omitted, no camera-based filtering is performed.
+ * @returns {Array<Object>} All data entries matching the search, in chronological order
  */
 Wildcam.searchByCamera = function (
   startDate = null,

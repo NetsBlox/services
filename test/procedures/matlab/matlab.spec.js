@@ -16,6 +16,8 @@ describe(utils.suiteName(__filename), function () {
 
   utils.verifyRPCInterfaces("MATLAB", [
     ["function", ["fn", "args", "numReturnValues"]],
+    ["imageToMatrix", ["img", "alpha"]],
+    ["imageFromMatrix", ["matrix"]],
   ]);
 
   describe("_parseResult", function () {
@@ -113,6 +115,121 @@ describe(utils.suiteName(__filename), function () {
         /CLASSNAME argument must be a class/,
       );
     });
+
+    it("should parse strings - 1", function () {
+      const result = MATLAB._parseResult(
+        {
+          "results": [{
+            "mwdata": ["hello world"],
+            "mwsize": [1, 1],
+            "mwtype": "string",
+          }],
+          "isError": false,
+          "uuid": "",
+          "messageFaults": [],
+        },
+      );
+      const expected = "hello world";
+      assert.deepEqual(result, expected);
+    });
+    it("should parse strings - 2", function () {
+      const result = MATLAB._parseResult(
+        {
+          "results": [{
+            "mwdata": ["hellotest", "worldtest"],
+            "mwsize": [1, 2],
+            "mwtype": "string",
+          }],
+          "isError": false,
+          "uuid": "",
+          "messageFaults": [],
+        },
+      );
+      const expected = ["hellotest", "worldtest"];
+      assert.deepEqual(result, expected);
+    });
+
+    it("should parse in column major order - 1", function () {
+      const result = MATLAB._parseResult(
+        {
+          "results": [{
+            "mwdata": [1, 1, 1, 1, 1, 1, 1, 1, 1],
+            "mwsize": [3, 3],
+            "mwtype": "double",
+          }],
+          "isError": false,
+          "uuid": "",
+          "messageFaults": [],
+        },
+      );
+      const expected = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
+      assert.deepEqual(result, expected);
+    });
+    it("should parse in column major order - 2", function () {
+      const result = MATLAB._parseResult(
+        {
+          "results": [{
+            "mwdata": [1, 1, 1, 0, 1, 1, 0, 0, 1],
+            "mwsize": [3, 3],
+            "mwtype": "double",
+          }],
+          "isError": false,
+          "uuid": "",
+          "messageFaults": [],
+        },
+      );
+      const expected = [[1, 0, 0], [1, 1, 0], [1, 1, 1]];
+      assert.deepEqual(result, expected);
+    });
+    it("should parse in column major order - 3", function () {
+      const result = MATLAB._parseResult(
+        {
+          "results": [{
+            "mwdata": [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+            "mwsize": [3, 4],
+            "mwtype": "double",
+          }],
+          "isError": false,
+          "uuid": "",
+          "messageFaults": [],
+        },
+      );
+      const expected = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0]];
+      assert.deepEqual(result, expected);
+    });
+    it("should parse in column major order - 4", function () {
+      const result = MATLAB._parseResult(
+        {
+          "results": [{
+            "mwdata": [140, 320, 146, 335],
+            "mwsize": [2, 2],
+            "mwtype": "double",
+          }],
+          "isError": false,
+          "uuid": "",
+          "messageFaults": [],
+        },
+      );
+      const expected = [[140, 146], [320, 335]];
+      assert.deepEqual(result, expected);
+    });
+
+    it("should parse character tensors", function () {
+      const result = MATLAB._parseResult(
+        {
+          "results": [{
+            "mwdata": ["00110101"],
+            "mwsize": [4, 2],
+            "mwtype": "char",
+          }],
+          "isError": false,
+          "uuid": "",
+          "messageFaults": [],
+        },
+      );
+      const expected = ["00", "01", "10", "11"];
+      assert.deepEqual(result, expected);
+    });
   });
 
   describe("_parseArgument", function () {
@@ -137,9 +254,9 @@ describe(utils.suiteName(__filename), function () {
     });
 
     it("should coerce nested lists", function () {
-      const example = [["5", "6"], "7"];
+      const example = [["5", "6"], ["7", "9"]];
       const actual = MATLAB._parseArgument(example);
-      const expected = [5, 6, 7];
+      const expected = [5, 7, 6, 9];
       assert.deepEqual(actual.mwdata, expected);
     });
 
@@ -176,70 +293,72 @@ describe(utils.suiteName(__filename), function () {
     });
   });
 
-  describe("_flatten", function () {
-    it("should flatten recursively", function () {
+  describe("_flatten/_shape", function () {
+    it("should flatten recursively - 1", function () {
       const tensor = [
-        [[1, 2]],
-        [[3, 4]],
-        [[5, 6]],
-        [[7, 8]],
+        [[1, 5]],
+        [[2, 6]],
+        [[3, 7]],
+        [[4, 8]],
       ];
-      const flat = MATLAB._flatten(tensor);
+      const [flat, shape] = MATLAB._flatten(tensor);
       assert.deepEqual(flat, range(8));
+      assert.deepEqual(shape, [4, 1, 2]);
     });
-  });
 
-  describe("_shape", function () {
-    it("should detect shape in [4,1,2] tensor", function () {
+    it("should flatten recursively - 2", function () {
       const tensor = [
-        [[1, 2]],
-        [[1, 2]],
-        [[1, 2]],
-        [[1, 2]],
+        [[1, 9], [5, 13]],
+        [[2, 10], [6, 14]],
+        [[3, 11], [7, 15]],
+        [[4, 12], [8, 16]],
       ];
-      const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [4, 1, 2]);
+      const [flat, shape] = MATLAB._flatten(tensor);
+      assert.deepEqual(flat, range(16));
+      assert.deepEqual(shape, [4, 2, 2]);
     });
 
-    it("should detect shape in [1 2] tensor", function () {
+    it("should flatten a 1x2 tensor", function () {
       const tensor = [1, 2];
-      const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [1, 2]);
+      const [flat, shape] = MATLAB._flatten(tensor);
+      assert.deepEqual(flat, [1, 2]);
+      assert.deepEqual(shape, [2]);
     });
 
-    it("should detect shape in [3, 4] tensor", function () {
+    it("should flatten a 3x4 tensor", function () {
       const tensor = [
         [1, 2, 3, 4],
         [1, 2, 3, 4],
         [1, 2, 3, 4],
       ];
-      const actual = MATLAB._shape(tensor);
-      assert.deepEqual(actual, [3, 4]);
+      const [flat, shape] = MATLAB._flatten(tensor);
+      assert.deepEqual(flat, [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]);
+      assert.deepEqual(shape, [3, 4]);
     });
   });
 
-  describe("_reshape", function () {
+  describe("_unflatten", function () {
     it("should reconstruct a 2x2 matrix", function () {
       const example = [1, 2, 3, 4];
-      const actual = MATLAB._reshape(example, [2, 2]);
-      const expected = [[1, 2], [3, 4]];
+      const actual = MATLAB._unflatten(example, [2, 2]);
+      const expected = [[1, 3], [2, 4]];
       assert.deepEqual(actual, expected);
     });
 
     it("should reconstruct a 3x2 matrix", function () {
       const example = range(6);
-      const actual = MATLAB._reshape(example, [3, 2]);
-      const expected = [[1, 2], [3, 4], [5, 6]];
+      const actual = MATLAB._unflatten(example, [3, 2]);
+      const expected = [[1, 4], [2, 5], [3, 6]];
       assert.deepEqual(actual, expected);
     });
 
     it("should reconstruct a 3x2x2 tensor", function () {
       const example = range(12);
-      const actual = MATLAB._reshape(example, [3, 2, 2]);
+      const actual = MATLAB._unflatten(example, [3, 2, 2]);
       const expected = [
-        [[1, 2], [3, 4]],
-        [[5, 6], [7, 8]],
-        [[9, 10], [11, 12]],
+        [[1, 7], [4, 10]],
+        [[2, 8], [5, 11]],
+        [[3, 9], [6, 12]],
       ];
       assert.deepEqual(actual, expected);
     });
@@ -249,9 +368,23 @@ describe(utils.suiteName(__filename), function () {
         [[1, 2, 3], [4, 5, 6]],
         [[7, 8, 9], [10, 11, 12]],
       ];
-      const shape = MATLAB._shape(input);
-      const reconstructed = MATLAB._reshape(MATLAB._flatten(input), shape);
+      const [flat, shape] = MATLAB._flatten(input);
+      assert.deepEqual(flat, [1, 7, 4, 10, 2, 8, 5, 11, 3, 9, 6, 12]);
+      assert.deepEqual(shape, [2, 2, 3]);
+      const reconstructed = MATLAB._unflatten(flat, shape);
       assert.deepEqual(input, reconstructed);
+    });
+
+    it("should reconstruct a character tensor", function () {
+      const example = ["0", "0", "1", "1", "0", "1", "0", "1"];
+      const actual = MATLAB._unflatten(example, [4, 2]);
+      const expected = [
+        ["0", "0"],
+        ["0", "1"],
+        ["1", "0"],
+        ["1", "1"],
+      ];
+      assert.deepEqual(actual, expected);
     });
   });
 

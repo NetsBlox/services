@@ -17,6 +17,9 @@ const logger = require("../utils/logger")("iotscape");
 const Storage = require("../../storage");
 const ServiceEvents = require("../utils/service-events");
 const IoTScapeServices = require("./iotscape-services");
+const IoTScapeDevices = require("./iotscape-devices");
+const Filter = require("bad-words"),
+  filter = new Filter();
 
 const normalizeServiceName = (name) =>
   name.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -54,7 +57,7 @@ IoTScape.getDevices = function (service) {
     throw new Error("Service not found");
   }
 
-  return IoTScapeServices.getDevices(service);
+  return IoTScapeDevices.getDevices(service);
 };
 
 /**
@@ -75,28 +78,115 @@ IoTScape.getMessageTypes = function (service) {
 };
 
 /**
+ * List the methods associated with a service
+ * @param {String} service Name of service to get methods for
+ */
+IoTScape.getMethods = function (service) {
+  if (!IoTScapeServices.serviceExists(service)) {
+    throw new Error("Service not found");
+  }
+
+  return IoTScapeServices.getMethods(service);
+};
+
+/**
  * Make a call to a device as a text command
  * @param {String} service Name of service to make call to
  * @param {String} id ID of device to make call to
  * @param {String} command Input to RPC
  */
 IoTScape.send = function (service, id, command) {
+  return IoTScape._send(service, id, command, this.caller);
+};
+
+/**
+ * Internal method for sending a command to a device
+ * @param {String} service Name of service to make call to
+ * @param {String} id ID of device to make call to
+ * @param {String} command Input to RPC
+ * @param {Object} caller The caller object from the RPC
+ * @returns
+ */
+IoTScape._send = function (service, id, command, caller) {
+  const clientId = caller.clientId;
+
   if (!IoTScapeServices.serviceExists(service)) {
     throw new Error("Service not found");
   }
 
-  if (!IoTScapeServices.deviceExists(service, id)) {
+  if (!IoTScapeDevices.deviceExists(service, id)) {
     throw new Error("Device not found");
   }
 
-  let parts = command.split(/\s+/g);
+  // Relay as-is message to listening clients
+  IoTScapeServices.sendMessageToListeningClients(
+    service,
+    id,
+    "device command",
+    { command },
+  );
+
+  let parts = IoTScapeDevices.deviceDecrypt(service, id, command);
+
+  // Split command into parts, with space separated parts, allowing for quoted strings (not splitting on escaped quotes) and JSON arrays/objects
+  parts = parts.match(/(?:[^\s"]+|"(?:[^"\\]|\\.)*")+/g);
 
   // Require at least a function name
   if (parts.length < 1) {
     throw new Error("Command too short or invalid");
   }
 
-  return IoTScapeServices.call(service, parts[0], id, ...parts.slice(1));
+  // Check for sequence number
+  let seqNum = -1;
+  if (parts[0].match(/^[0-9]+$/)) {
+    seqNum = parseInt(parts[0]);
+    parts = parts.slice(1);
+  }
+
+  // Allow for RoboScape-esque "set"/"get" commands to be implemented simpler (e.g. "set speed" becomes "setSpeed" instead of a "set" method)
+  if (parts.length >= 2) {
+    // Combine first words such as "set", "get", and "reset" with the next words if it's a valid method in the service
+    if (
+      ["set", "get", "reset", "add", "show", "hide", "clear"].includes(parts[0])
+    ) {
+      let methodName = parts[0] + parts[1][0].toUpperCase() + parts[1].slice(1);
+      if (IoTScapeServices.functionExists(service, methodName)) {
+        parts = [methodName, ...parts.slice(2)];
+      } else {
+        // Attempt with three words (e.g. "set client rate" becomes "setClientRate" instead of a "set" method)
+        if (parts.length >= 3) {
+          methodName = parts[0] + parts[1][0].toUpperCase() +
+            parts[1].slice(1) +
+            parts[2][0].toUpperCase() + parts[2].slice(1);
+          if (IoTScapeServices.functionExists(service, methodName)) {
+            parts = [methodName, ...parts.slice(3)];
+          }
+        }
+      }
+    }
+  }
+
+  // Check that call will be accepted
+  if (!IoTScapeDevices.accepts(service, id, clientId, seqNum)) {
+    return false;
+  }
+
+  // Attempt to parse JSON/quoted strings
+  parts = parts.map((part) => {
+    try {
+      return JSON.parse(part);
+    } catch (err) {
+      return part;
+    }
+  });
+
+  return IoTScapeServices.call(
+    service,
+    parts[0],
+    id,
+    clientId,
+    ...parts.slice(1),
+  );
 };
 
 /**
@@ -105,26 +195,36 @@ IoTScape.send = function (service, id, command) {
  * @param {String} definition Service definition
  * @param {RemoteInfo} remote Remote host information
  */
-IoTScape._createService = async function (definition, remote) {
-  let parsed;
+IoTScape._createService = async function (definition, remote = null) {
+  let parsed = null;
 
-  try {
-    parsed = JSON.parse(definition);
-  } catch (err) {
-    logger.log("Error parsing IoTScape service: " + err);
-    return;
+  // Handle buffer input
+  if (Buffer.isBuffer(definition)) {
+    definition = definition.toString();
   }
 
-  // Ignore request messages sent to this method
-  if (parsed.request) {
+  if (typeof definition === "string") {
+    try {
+      parsed = JSON.parse(definition);
+    } catch (err) {
+      logger.log("Error parsing IoTScape service: " + err);
+      return;
+    }
+  } else {
+    parsed = definition;
+  }
+
+  // Ignore empty and request messages sent to this method
+  if (parsed == null || parsed.request) {
     return;
   }
 
   const name = Object.keys(parsed)[0];
   parsed = parsed[name];
 
-  // Verify service definition in message
-  if (parsed.service == undefined) {
+  // Verify service definition is in message
+  if (typeof (parsed.service) == "undefined") {
+    logger.log("Service definition not found in message");
     return;
   }
 
@@ -135,7 +235,8 @@ IoTScape._createService = async function (definition, remote) {
   }
 
   const serviceInfo = parsed.service;
-  const methodsInfo = parsed.methods;
+  const methodsInfo = parsed.methods || {};
+  let methods = _generateMethods(methodsInfo);
 
   // Validate method names
   if (
@@ -149,13 +250,16 @@ IoTScape._createService = async function (definition, remote) {
   }
 
   const version = serviceInfo.version;
-  const id = parsed.id;
+  const id = parsed.id.trim();
 
   logger.log(
     `Received definition for service ${name} v${version} from ID ${id}`,
   );
 
-  let methods = _generateMethods(methodsInfo);
+  if (!IoTScape._validateServiceStrings(name, id, serviceInfo, methods)) {
+    logger.log(`Service ${name} rejected due to invalid string`);
+    return;
+  }
 
   let service = {
     name: name,
@@ -193,71 +297,155 @@ IoTScape._createService = async function (definition, remote) {
   } else {
     logger.log(`Service ${name} already exists and is up to date`);
   }
-  IoTScapeServices.updateOrCreateServiceInfo(name, parsed, id, remote);
+  IoTScapeServices.updateOrCreateServiceInfo(name, service, id, remote);
 };
+
+/**
+ * Check that strings provided in a service definition are valid and free of profanity
+ * @returns {boolean} Were the strings for this service considered valid
+ */
+IoTScape._validateServiceStrings = function (name, id, serviceInfo, methods) {
+  // Validate service name
+  if (
+    !isValidServiceName(name) || name.replace(/[^a-zA-Z0-9]/g, "") !== name ||
+    filter.isProfane(name.replace(/[A-Z]/g, " $&"))
+  ) {
+    logger.log(`Service name ${name} rejected`);
+    return false;
+  }
+
+  if (id == "" || filter.isProfane(id.replace(/[A-Z]/g, " $&"))) {
+    logger.log("ID invalid");
+    return false;
+  }
+
+  // Additional profanity checks
+  if (
+    filter.isProfane(serviceInfo.description) ||
+    methods.map((method) => method.name).some((name) =>
+      !isValidRPCName(name) || filter.isProfane(name) ||
+      filter.isProfane(name.replace(/[A-Z]/g, " $&"))
+    ) ||
+    methods.map((method) => method.documentation).some((doc) =>
+      filter.isProfane(doc)
+    )
+  ) {
+    logger.log(`Definition for service ${name} rejected`);
+    return false;
+  }
+
+  return true;
+};
+
+// Methods used for all device services but not included in definitions
+const _defaultMethods = [{
+  name: "getDevices",
+  documentation: "Get a list of device IDs for this service",
+  arguments: [],
+  returns: {
+    documentation: "",
+    type: ["void"],
+  },
+}, {
+  name: "listen",
+  documentation: "Register for receiving messages from the given id",
+  arguments: [{
+    name: "id",
+    optional: false,
+    documentation: "ID of device to listen to messages from",
+  }],
+  returns: {
+    documentation: "",
+    type: ["void"],
+  },
+}, {
+  name: "send",
+  documentation: "Send a text-based message to the service",
+  arguments: [{
+    name: "id",
+    optional: false,
+    documentation: "ID of device to send request to",
+  }, {
+    name: "command",
+    optional: false,
+    documentation: "Request to send to device",
+  }],
+  returns: {
+    documentation: "",
+    type: ["any"],
+  },
+}, {
+  name: "getMessageTypes",
+  documentation: "Register for receiving messages from the given id",
+  arguments: [],
+  returns: {
+    documentation: "",
+    type: ["array"],
+  },
+}, {
+  name: "getMethods",
+  documentation: "Get methods associated with this service",
+  arguments: [],
+  returns: {
+    documentation: "",
+    type: ["array"],
+  },
+}];
 
 /**
  * Creates definitions for methods of an incoming service
  * @param {Object} methodsInfo Methods from parsed JSON data
  */
 function _generateMethods(methodsInfo) {
-  // Add getDevices and listen methods by default
-  let methods = [
-    {
-      name: "getDevices",
-      documentation: "Get a list of device IDs for this service",
-      arguments: [],
-      returns: {
-        documentation: "",
-        type: ["void"],
-      },
-    },
-    {
-      name: "listen",
-      documentation: "Register for receiving messages from the given id",
-      arguments: [{
-        name: "id",
-        optional: false,
-        documentation: "ID of device to send request to",
-      }],
-      returns: {
-        documentation: "",
-        type: ["void"],
-      },
-    },
-    ...Object.keys(methodsInfo).map((methodName) => {
-      const methodInfo = methodsInfo[methodName];
+  if (!methodsInfo) {
+    logger.error("No methods definition for service");
+    return [];
+  }
+  try {
+    // Add default methods first
+    let methods = [
+      ..._defaultMethods,
+      ...Object.keys(methodsInfo).map((methodName) => {
+        const methodInfo = methodsInfo[methodName];
 
-      const method = {
-        name: methodName,
-        documentation: methodInfo.documentation,
-        returns: methodInfo.returns,
-      };
+        if (!methodInfo) {
+          throw new Error("Undefined method " + methodName);
+        }
 
-      method.arguments = methodInfo.params.map((param) => {
-        let type = param.type === "number"
-          ? { name: "Number", params: [] }
-          : null;
-        return {
-          name: param.name,
-          optional: param.optional,
-          documentation: param.documentation,
-          type,
+        const method = {
+          name: methodName,
+          documentation: methodInfo.documentation,
+          categories: [[]],
+          returns: methodInfo.returns,
         };
-      });
 
-      // Add ID argument to all non-getDevices methods
-      method.arguments = [{
-        name: "id",
-        optional: false,
-        documentation: "ID of device to send request to",
-      }, ...method.arguments];
+        method.arguments = methodInfo.params.map((param) => {
+          let type = param.type === "number"
+            ? { name: "Number", params: [] }
+            : null;
+          return {
+            name: param.name,
+            optional: param.optional,
+            documentation: param.documentation,
+            type,
+          };
+        });
 
-      return method;
-    }),
-  ];
+        // Add ID argument to all non-getDevices methods
+        method.arguments = [{
+          name: "id",
+          optional: false,
+          documentation: "ID of device to send request to",
+        }, ...method.arguments];
 
-  return methods;
+        return method;
+      }),
+    ];
+    return methods;
+  } catch (error) {
+    logger.err(error);
+    return [];
+  }
 }
 
 /**
