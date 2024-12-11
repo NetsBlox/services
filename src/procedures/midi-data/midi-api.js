@@ -651,7 +651,7 @@ function parseVariableLengthValue(bytes) {
 }
 
 /**
- * @description - A helper fuction to help with identifying the type of track event.
+ * @description - A helper function to help with identifying the type of track event.
  * @param {ArrayBuffer} arraybuffer
  * @returns {Boolean}
  */
@@ -679,7 +679,7 @@ function getMetaEventLength(arraybuffer) {
 }
 
 /**
- * @description - A helper fuction to help with identifying the type of track event.
+ * @description - A helper function to help with identifying the type of track event.
  * @param {ArrayBuffer} arraybuffer
  * @returns {Boolean}
  */
