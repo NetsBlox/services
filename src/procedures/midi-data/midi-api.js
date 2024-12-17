@@ -38,14 +38,44 @@ const HEX_TO_INT = {
   "F": 15,
 };
 const NOTE_DURATION_LENGTHS = [
-  0.125, 0.1875, 0.21875, 0.25, 0.375, 0.4375, 0.5,
-  0.75, 0.875, 1, 1.5, 1.75, 2, 3, 3.5, 4, 6, 7
+  0.125,
+  0.1875,
+  0.21875,
+  0.25,
+  0.375,
+  0.4375,
+  0.5,
+  0.75,
+  0.875,
+  1,
+  1.5,
+  1.75,
+  2,
+  3,
+  3.5,
+  4,
+  6,
+  7,
 ];
 const NOTE_DURATION_NAMES = [
-  'ThirtySecond', 'DottedThirtySecond', 'DoubleDottedThirtySecond', 'Sixteenth',
-  'DottedSixteenth', 'DoubleDottedSixteenth', 'Eighth', 'DottedEighth', 'DoubleDottedEighth',
-  'Quarter', 'DottedQuarter', 'DoubleDottedQuarter', 'Half', 'DottedHalf', 'DoubleDottedHalf',
-  'Whole', 'DottedWhole', 'DoubleDottedWhole'
+  "ThirtySecond",
+  "DottedThirtySecond",
+  "DoubleDottedThirtySecond",
+  "Sixteenth",
+  "DottedSixteenth",
+  "DoubleDottedSixteenth",
+  "Eighth",
+  "DottedEighth",
+  "DoubleDottedEighth",
+  "Quarter",
+  "DottedQuarter",
+  "DoubleDottedQuarter",
+  "Half",
+  "DottedHalf",
+  "DoubleDottedHalf",
+  "Whole",
+  "DottedWhole",
+  "DoubleDottedWhole",
 ];
 
 function Note(value, duration) {
@@ -265,7 +295,8 @@ class TrackChunkNode extends TreeNode {
       if (notesRecord[commands[i].note] === undefined) {
         notesRecord[commands[i].note] = commands[i].time;
       } else {
-        const durInt = (commands[i].time - notesRecord[commands[i].note]) / division;
+        const durInt = (commands[i].time - notesRecord[commands[i].note]) /
+          division;
         const duration = durationFromInt(durInt);
         notes.push(new Note(commands[i].note, duration));
         notesRecord[commands[i].note] = undefined;
@@ -781,28 +812,32 @@ function getTrackEvents(arraybuffer) {
 
 /**
  * @description - converts a beat length into a name for a music duration.
- * @param {Number} beatLength 
+ * @param {Number} beatLength
  * @returns {String}
  */
-function durationFromInt (beatLength) {
+function durationFromInt(beatLength) {
   let index = NOTE_DURATION_LENGTHS.indexOf(beatLength);
   if (index !== -1) return NOTE_DURATION_NAMES[index];
 
-  let duration = '';
+  let duration = "";
   while (beatLength >= NOTE_DURATION_LENGTHS[0]) {
     for (let i = 0; i < NOTE_DURATION_LENGTHS.length; i++) {
-      if (i === NOTE_DURATION_LENGTHS.length - 1 && beatLength >= NOTE_DURATION_LENGTHS[i]) 
+      if (
+        i === NOTE_DURATION_LENGTHS.length - 1 &&
+        beatLength >= NOTE_DURATION_LENGTHS[i]
+      ) {
         index = i;
-      else if (beatLength < NOTE_DURATION_LENGTHS[i]) {
+      } else if (beatLength < NOTE_DURATION_LENGTHS[i]) {
         index = i - 1;
         break;
       }
     }
-    duration += duration === '' ? 
-      `${NOTE_DURATION_NAMES[index]}` : `+${NOTE_DURATION_NAMES[index]}`;
+    duration += duration === ""
+      ? `${NOTE_DURATION_NAMES[index]}`
+      : `+${NOTE_DURATION_NAMES[index]}`;
     beatLength -= NOTE_DURATION_LENGTHS[index];
   }
-  return duration === '' ? NOTE_DURATION_NAMES[0] : duration;
+  return duration === "" ? NOTE_DURATION_NAMES[0] : duration;
 }
 
 module.exports = { MidiReader };
