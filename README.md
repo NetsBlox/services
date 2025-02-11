@@ -35,6 +35,8 @@ Then run local services and do any development you need.
 PORT=8080 NETSBLOX_CLOUD=https://cloud.netsblox.org NETSBLOX_CLOUD_ID=LocalServices NETSBLOX_CLOUD_SECRET=SuperSecret npm start
 ```
 
+If you get spurious login attempt errors in the console output (something like "invalid token L in JSON"), you may need to temporarily disable the `X-Authorization` header in `cloud-client.js`. BUT DO NOT COMMIT THIS CHANGE!
+
 And finally, remove local services from your account. This is an optional step;
 not doing this will only result in a warning message every time you load the
 editor while local services are not running.
