@@ -9,6 +9,7 @@ const NetsBloxCloud = require("./cloud-client");
 class RemoteClient {
   constructor(state, clientId, username) {
     this.state = state;
+    this.clientId = clientId;
     this.projectId = state?.browser?.projectId;
     this.roleId = state?.browser?.roleId;
     this.username = username;
