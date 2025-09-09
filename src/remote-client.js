@@ -7,9 +7,10 @@ const {
 const NetsBloxCloud = require("./cloud-client");
 
 class RemoteClient {
-  constructor(projectId, roleId, clientId, username) {
-    this.projectId = projectId;
-    this.clientId = clientId;
+  constructor(state, clientId, username) {
+    this.state = state;
+    this.projectId = state?.browser?.projectId;
+    this.roleId = state?.browser?.roleId;
     this.roleId = roleId;
     this.username = username;
   }
@@ -17,8 +18,7 @@ class RemoteClient {
   async sendMessage(type, contents = {}) {
     return NetsBloxCloud.sendMessage(
       new SendMessageToClient(
-        this.projectId,
-        this.roleId,
+        this.state,
         this.clientId,
         type,
         contents,

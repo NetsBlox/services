@@ -195,12 +195,12 @@ class ServicesAPI {
       );
     }
 
-    // TODO: add support for external states, too?
     const projectId = state?.browser?.projectId;
     const roleId = state?.browser?.roleId;
 
     ctx.caller = {
       username,
+      state,
       projectId,
       roleId,
       clientId,
@@ -214,7 +214,7 @@ class ServicesAPI {
         ctx.apiKey = apiKeyValue;
       }
     }
-    ctx.socket = new RemoteClient(projectId, roleId, clientId);
+    ctx.socket = new RemoteClient(state, clientId);
 
     const args = this.getArguments(serviceName, rpcName, req);
 
