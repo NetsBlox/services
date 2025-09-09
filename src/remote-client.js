@@ -11,7 +11,6 @@ class RemoteClient {
     this.state = state;
     this.projectId = state?.browser?.projectId;
     this.roleId = state?.browser?.roleId;
-    this.roleId = roleId;
     this.username = username;
   }
 
