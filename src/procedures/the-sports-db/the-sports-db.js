@@ -124,6 +124,8 @@ TheSportsDb.getTeamInfo = async function (teamName, sport, apiKey) {
   };
 };
 
-// As a general comment, I want to add the location of a match to recentTeamStats in the future. However, from my tests, it seems unreliable, as it always uses the team's home stadium.
+// As a general comment, I want to add the location of a match to recentTeamStats in the future.
+// However, from my tests, the above seems unreliable, as it always uses the team's home stadium.
+// Want to implement charting of an individual team's stats over multiple seasons.
 
 module.exports = TheSportsDb;
