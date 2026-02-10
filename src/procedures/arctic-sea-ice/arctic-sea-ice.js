@@ -45,4 +45,6 @@ ArcticSeaIce.getMonthlyIceArea = async function (startyear = -Infinity, endyear 
   return filterRange(data, startyear, endyear);
 };
 
+// Want to implement anomaly plot boolean option as seen in image on https://psl.noaa.gov/data/timeseries/monthly/NHICE/.
+
 module.exports = ArcticSeaIce;
