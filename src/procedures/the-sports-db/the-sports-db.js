@@ -126,8 +126,13 @@ TheSportsDb.getTeamInfo = async function (teamName, sport, apiKey) {
   };
 };
 
-// As a general comment, I want to add the location of a match to recentTeamStats in the future.
-// However, from my tests, the above seems unreliable, as it always uses the team's home stadium.
-// Want to implement charting of an individual team's stats over multiple seasons.
+// This above is a stats implementation with V1!
+// Getting the V2 API would allow for RPCs with live score data by sport and league.
+// It would also allow for searching within the next/previous 10 events of a team/league/venue.
+// Also would allow a full team/league schedule search.
+
+// TODO:
+// V2 features listed above would allow this to become a complete sports stats service.
+// Also want to implement charting of an individual team's points over multiple seasons.
 
 module.exports = TheSportsDb;
