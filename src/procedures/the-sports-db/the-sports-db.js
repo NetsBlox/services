@@ -34,7 +34,9 @@ TheSportsDb._getTeam = async function (teamName, apiKey, sport) {
   }
 
   const normalizedSport = sport.trim().toLowerCase();
-  return teams.find((team) => (team.strSport || "").trim().toLowerCase() === normalizedSport);
+  return teams.find((team) =>
+    (team.strSport || "").trim().toLowerCase() === normalizedSport
+  );
 };
 
 /**

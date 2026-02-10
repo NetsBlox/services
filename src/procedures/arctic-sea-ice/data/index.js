@@ -2,8 +2,10 @@ const axios = require("axios");
 const logger = require("../../utils/logger")("arctic-sea-ice");
 
 const DATA_SOURCE_LIFETIME = 1 * 24 * 60 * 60 * 1000; // 1 day
-const ICE_EXTENT_URL = "https://psl.noaa.gov/data/timeseries/monthly/data/n_iceextent.mon.data";
-const ICE_AREA_URL = "https://psl.noaa.gov/data/timeseries/monthly/data/n_icearea.mon.data";
+const ICE_EXTENT_URL =
+  "https://psl.noaa.gov/data/timeseries/monthly/data/n_iceextent.mon.data";
+const ICE_AREA_URL =
+  "https://psl.noaa.gov/data/timeseries/monthly/data/n_icearea.mon.data";
 
 function parseMonthlySeries(raw) {
   const tokens = raw.trim().split(/\s+/);
@@ -68,6 +70,6 @@ async function getIceAreaData() {
   return getData(ICE_AREA_URL, areaCache);
 }
 
-module.exports = { getIceExtentData, getIceAreaData, };
+module.exports = { getIceExtentData, getIceAreaData };
 
 // Will implement local file backup.
