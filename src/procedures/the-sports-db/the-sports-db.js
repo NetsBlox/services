@@ -133,6 +133,8 @@ TheSportsDb.getTeamInfo = async function (teamName, sport, apiKey) {
 
 // TODO:
 // V2 features listed above would allow this to become a complete sports stats service.
+// If we go ahead with V2, then implementing premium feature error handling will be needed.
+// (e.g., "This feature requires a premium TheSportsDB key.")
 // Also want to implement charting of an individual team's points over multiple seasons.
 
 module.exports = TheSportsDb;
