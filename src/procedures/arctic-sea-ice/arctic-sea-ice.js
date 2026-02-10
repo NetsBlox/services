@@ -14,7 +14,7 @@ const ArcticSeaIce = {};
 ArcticSeaIce.serviceName = "ArcticSeaIce";
 
 function filterRange(data, startyear, endyear) {
-  return data.filter(([date]) => date > startyear && date < endyear);
+  return data.filter(([date]) => date >= startyear && date < endyear + 1);
 }
 
 /**
