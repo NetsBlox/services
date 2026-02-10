@@ -18,7 +18,7 @@ function filterRange(data, startyear, endyear) {
 }
 
 /**
- * Get the monthly Arctic sea ice extent data.
+ * Get the monthly Arctic sea ice extent data in millions of square kilometers.
  *
  * If startyear or endyear is provided, only measurements within the given range will be returned.
  *
@@ -35,7 +35,7 @@ ArcticSeaIce.getMonthlyIceExtent = async function (
 };
 
 /**
- * Get the monthly Arctic sea ice area data.
+ * Get the monthly Arctic sea ice area data in millions of square kilometers.
  *
  * If startyear or endyear is provided, only measurements within the given range will be returned.
  *
