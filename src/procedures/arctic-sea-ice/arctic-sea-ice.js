@@ -26,7 +26,10 @@ function filterRange(data, startyear, endyear) {
  * @param {Number=} endyear last year of data to include
  * @returns {Array<Array>} Monthly data points
  */
-ArcticSeaIce.getMonthlyIceExtent = async function (startyear = -Infinity, endyear = Infinity,) {
+ArcticSeaIce.getMonthlyIceExtent = async function (
+  startyear = -Infinity,
+  endyear = Infinity,
+) {
   const data = await getIceExtentData();
   return filterRange(data, startyear, endyear);
 };
@@ -40,7 +43,10 @@ ArcticSeaIce.getMonthlyIceExtent = async function (startyear = -Infinity, endyea
  * @param {Number=} endyear last year of data to include
  * @returns {Array<Array>} Monthly data points
  */
-ArcticSeaIce.getMonthlyIceArea = async function (startyear = -Infinity, endyear = Infinity,) {
+ArcticSeaIce.getMonthlyIceArea = async function (
+  startyear = -Infinity,
+  endyear = Infinity,
+) {
   const data = await getIceAreaData();
   return filterRange(data, startyear, endyear);
 };
