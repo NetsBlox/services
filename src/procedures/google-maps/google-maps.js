@@ -37,6 +37,7 @@ const GoogleMaps = new ApiConsumer("GoogleMaps", baseUrl, {
   cache: { ttl: Infinity },
 });
 ApiConsumer.setRequiredApiKey(GoogleMaps, GoogleMapsKey);
+
 GoogleMaps._coordsAt = function (x, y, map) {
   x = Math.ceil(x / map.scale);
   y = Math.ceil(y / map.scale);

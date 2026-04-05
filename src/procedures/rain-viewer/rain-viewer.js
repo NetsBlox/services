@@ -12,18 +12,23 @@ const GoogleMaps = require("../google-maps/google-maps");
 const ApiConsumer = require("../utils/api-consumer");
 const jimp = require("jimp");
 const _ = require("lodash");
+const SphericalMercator = require("sphericalmercator");
+const merc256 = new SphericalMercator({ size: 256 });
+const merc512 = new SphericalMercator({ size: 512 });
 
 const { defineTypes, TIME_OFFSETS, COLOR_SCHEMES } = require("./types");
+const { COLOR_MAPPER, getNearestMapping } = require("./utils");
 defineTypes();
+
+const DEFAULT_OPTS = {
+  smooth: true,
+  showSnow: false,
+  colorScheme: 4,
+};
 
 const RainViewer = new ApiConsumer("RainViewer", "", {
   cache: { ttl: 5 * 60 },
 }); // radar data updates every 10 minutes (or so)
-
-function decimalize(val) {
-  const str = val.toString();
-  return str.includes(".") ? str : `${str}.0`;
-}
 
 /**
  * Get the list of valid radar time offsets for the :func:`RainViewer.getOverlay` RPC.
@@ -69,76 +74,169 @@ RainViewer.getOverlay = async function (
   timeOffset = TIME_OFFSETS["now"],
   options = {},
 ) {
-  latitude = GoogleMaps._toPrecision(latitude);
-  longitude = GoogleMaps._toPrecision(longitude);
+  const JSON_URL = "https://api.rainviewer.com/public/weather-maps.json";
 
-  width = Math.min(width, 1280); // google maps api invisibly enforces these, so we must match in order to line up properly
-  height = Math.min(height, 1280);
+  const MAX_ZOOM = 7;
 
-  const scale = width <= 640 && height <= 640 ? 1 : 2; // must be 1 or 2 - must match how the GoogleMaps service computes this value
-  width = Math.floor(width / scale);
-  height = Math.floor(height / scale);
+  options = { ...DEFAULT_OPTS, ...options };
 
-  const DEFAULT_OPTS = {
-    smooth: true,
-    showSnow: false,
-    colorScheme: 4,
-  };
-  options = _.merge({}, DEFAULT_OPTS, options);
+  const radarIndex = await this._requestData({ baseUrl: JSON_URL });
+  const host = radarIndex.host;
 
-  const bg_width = width * scale;
-  const bg_height = height * scale;
-  const res = new jimp(bg_width, bg_height);
+  const samples = radarIndex.radar["past"];
+  const samplesIdxDelta = Object.keys(TIME_OFFSETS).length - samples.length;
+  const sampleIdxClamped = Math.max(0, timeOffset - samplesIdxDelta);
+  const sample = samples[sampleIdxClamped];
 
-  const radarIndex = await this._requestData({
-    baseUrl: "https://api.rainviewer.com/public/weather-maps.json",
-  });
-  const sample = radarIndex.radar[timeOffset[0]][timeOffset[1]];
+  const widthClamped = Math.min(width, 1280);
+  const heightClamped = Math.min(height, 1280);
 
-  const mapInfo = {
-    center: { lat: latitude, lon: longitude },
-    width,
-    height,
-    zoom,
-    scale,
-    mapType: "roadmap", // just pretend this is a roadmap so the field has a valid value
-  };
+  const use512 = widthClamped > 640 || heightClamped > 640;
+  // logger.trace(`using tile resolution: ${use512 ? "512x512" : "256x256"}`);
 
-  const radar_size = 256 * scale;
-  const rx = Math.ceil((bg_width - radar_size) / radar_size);
-  const ry = Math.ceil((bg_height - radar_size) / radar_size);
-  logger.trace(`radar tiling: ${2 * rx + 1}x${2 * ry + 1}`);
+  const merc = use512 ? merc512 : merc256;
+  const size = use512 ? 512 : 256;
 
-  const tilesReq = [];
-  for (let i = -rx; i <= rx; ++i) {
-    for (let j = -ry; j <= ry; ++j) {
-      const { lat, lon } = GoogleMaps._coordsAt(
-        radar_size * i,
-        radar_size * j,
-        mapInfo,
-      );
-      tilesReq.push(this._requestImage({
-        baseUrl: radarIndex.host,
-        path: `${sample.path}/${radar_size}/${zoom}/${decimalize(lat)}/${
-          decimalize(lon)
-        }/${options.colorScheme}/${(options.smooth ? 1 : 0)}_${(options.showSnow
-          ? 1
-          : 0)}.png`,
-      }));
+  const zoomDelta = Math.max(0, zoom - MAX_ZOOM);
+  const zoomClamped = Math.min(zoom, MAX_ZOOM);
+  logger.trace(`zoom_delta: ${zoomDelta}, zoom_clamped: ${zoomClamped}`);
+
+  // Shrink canvas to crop zoom 7 tiles
+  // Will be resized back to requested resolution
+  const bgWidth = Math.ceil(widthClamped / (zoomDelta + 1));
+  const bgHeight = Math.ceil(heightClamped / (zoomDelta + 1));
+
+  // logger.trace(`shrunk image size: ${bgWidth}x${bgHeight}`);
+
+  const res = new jimp(bgWidth, bgHeight);
+
+  const maxPx = 2 ** zoomClamped * size;
+  const [MIN_LAT, MAX_LAT] = [-85.05, 85.05];
+  const [MIN_LON, MAX_LON] = [-180, 180];
+
+  // logger.trace(`map max pixels: ${maxPx}`);
+
+  const [centerXPx, centerYPx] = merc.px([longitude, latitude], zoomClamped);
+  const northYPx = Math.max(0, centerYPx - Math.floor(bgHeight / 2));
+  const southYPx = Math.min(maxPx, centerYPx + Math.floor(bgHeight / 2));
+
+  const westXPx = centerXPx - Math.floor(bgWidth / 2);
+  const eastXPx = centerXPx + Math.floor(bgWidth / 2);
+
+  // logger.trace(`map pixel x bounds: ${westXPx} to ${eastXPx}`);
+  // logger.trace(`map pixel y bounds: ${northYPx} to ${southYPx}`);
+
+  const [westLon, northLat] = merc.ll([westXPx, northYPx], zoomClamped);
+  const [eastLon, southLat] = merc.ll([eastXPx, southYPx], zoomClamped);
+
+  // logger.trace(`map coordinate long bounds: ${westLon} to ${eastLon}`);
+  // logger.trace(`map coordinate lat bounds: ${northLat} to ${southLat}`);
+
+  const bbox = [westLon, southLat, eastLon, northLat];
+  const tileBBox = merc.xyz(bbox, zoomClamped);
+
+  const { minX, maxX, minY, maxY } = tileBBox;
+
+  // logger.trace(`map tiles x indeces from: ${minX} to ${maxX}`);
+  // logger.trace(`map tiles y indeces from: ${minY} to ${maxY}`);
+
+  const tilePromises = [];
+
+  for (let x = minX; x <= maxX; x++) {
+    for (let y = minY; y <= maxY; y++) {
+      const p = this._getTile(host, sample, size, zoomClamped, x, y, options)
+        .then((tile) => jimp.read(tile))
+        .then((img) => {
+          const [tileXPx, tileYPx] = [x * size, y * size];
+          const [resXPx, resYPx] = [tileXPx - westXPx, tileYPx - northYPx];
+          // logger.trace(`tile (${x}, ${y}) placed at pixel (${resXPx}, ${resYPx})`);
+          res.composite(img, resXPx, resYPx);
+        });
+      tilePromises.push(p);
     }
   }
-  const tiles = await Promise.all(tilesReq);
 
-  for (let i = -rx; i <= rx; ++i) {
-    for (let j = -ry; j <= ry; ++j) {
-      const tile = await jimp.read(tiles[(i + rx) * (2 * ry + 1) + (j + ry)]);
-      const px = radar_size * i + Math.round((bg_width - radar_size) / 2);
-      const py = -radar_size * j + Math.round((bg_height - radar_size) / 2);
-      await res.composite(tile, px, py);
+  const leftWrap = westLon < MIN_LON;
+  if (leftWrap) {
+    const lBbox = [westLon + 360, southLat, MAX_LON, northLat];
+    const { minX, maxX, minY, maxY } = merc.xyz(lBbox, zoomClamped);
+    // logger.trace(`left wrapping`);
+    // logger.trace(`left wrap map tiles x indeces from: ${minX} to ${maxX}`);
+    // logger.trace(`left wrap map tiles y indeces from: ${minY} to ${maxY}`);
+    for (let x = minX; x <= maxX; x++) {
+      for (let y = minY; y <= maxY; y++) {
+        const p = this._getTile(host, sample, size, zoomClamped, x, y, options)
+          .then((tile) => jimp.read(tile))
+          .then((img) => {
+            const [tileXPx, tileYPx] = [x * size, y * size];
+            const [resXPx, resYPx] = [
+              tileXPx - maxPx - westXPx,
+              tileYPx - northYPx,
+            ];
+            // logger.trace(`tile (${x}, ${y}) placed at pixel (${resXPx}, ${resYPx})`);
+            res.composite(img, resXPx, resYPx);
+          });
+        tilePromises.push(p);
+      }
+    }
+  }
+  const rightWrap = eastLon > 180;
+  if (rightWrap) {
+    const rBbox = [MIN_LON, southLat, eastLon - 360, northLat];
+    const { minX, maxX, minY, maxY } = merc.xyz(rBbox, zoomClamped);
+    // logger.trace(`right wrapping`);
+    // logger.trace(`right wrap map tiles x indeces from: ${minX} to ${maxX}`);
+    // logger.trace(`right wrap map tiles y indeces from: ${minY} to ${maxY}`);
+    for (let x = minX; x <= maxX; x++) {
+      for (let y = minY; y <= maxY; y++) {
+        const p = this._getTile(host, sample, size, zoomClamped, x, y, options)
+          .then((tile) => jimp.read(tile))
+          .then((img) => {
+            const [tileXPx, tileYPx] = [x * size, y * size];
+            const [resXPx, resYPx] = [
+              tileXPx + maxPx - westXPx,
+              tileYPx - northYPx,
+            ];
+            // logger.trace( `tile (${x}, ${y}) placed at pixel (${resXPx}, ${resYPx})`);
+            res.composite(img, resXPx, resYPx);
+          });
+        tilePromises.push(p);
+      }
     }
   }
 
+  await Promise.all(tilePromises);
+
+  // if (options.colorScheme >= 0 && options.colorScheme < 8) {
+  //   logger.trace(`recoloring tiles to ${options.colorScheme}`);
+  //   this._recolor(res, options.colorScheme);
+  // }
+
+  res.resize(widthClamped, heightClamped);
+  logger.trace( `resizing from ${bgWidth}x${bgHeight} to ${widthClamped}x${heightClamped}`);
   this._sendImageBuffer(await res.getBufferAsync(jimp.MIME_PNG));
 };
 
+RainViewer._getTile = function (baseUrl, sample, size, zoom, x, y, options) {
+  const color = 2;
+  const path = `${sample.path}/${size}/${zoom}/${x}/${y}/${color}/${options.smooth ? 1 : 0}_${
+    options.showSnow ? 1 : 0
+  }.png`;
+
+  return this._requestImage({ baseUrl: baseUrl, path });
+};
+
+RainViewer._recolor = function (img, selection) {
+  for (let xPx = 0; xPx < img.getWidth(); xPx++) {
+    for (let yPx = 0; yPx < img.getHeight(); yPx++) {
+      const oldColor = img.getPixelColor(xPx, yPx);
+      const colorList = COLOR_MAPPER[oldColor];
+      const newColor =
+        colorList?.[selection] ??
+        getNearestMapping(oldColor, selection) ??
+        0x0;
+      img.setPixelColor(newColor, xPx, yPx);
+    }
+  }
+};
 module.exports = RainViewer;

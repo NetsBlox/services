@@ -1,0 +1,216 @@
+// Universal Blue
+const UN = [
+  0x00000000, 0x63615911, 0x6361591b, 0x63615925, 0x6361592f, 0x63615939,
+  0x79746044, 0x79746051, 0x7974605f, 0x7974606c, 0x7974607a, 0x92887188,
+  0x92887195, 0x928871a3, 0x928871b0, 0x928871be, 0xcec087cc, 0xcec087d6,
+  0xcec087e0, 0xcec087ea, 0xcec087f4, 0x88ddeeff, 0x0099ccff, 0x0077aaff,
+  0x005588ff, 0xffee00ff, 0xffaa00ff, 0xff7700ff, 0xff4400ff, 0xee0000ff,
+  0x990000ff, 0xffaaffff, 0xff77ffff, 0xff44ffff, 0xff00ffff, 0xaa00aaff,
+  0xefffffff, 0xdfffffff, 0xcfffffff, 0xbfffffff, 0xafffffff, 0x9fffffff,
+  0x9fdfffff, 0x7fbfffff, 0x5f9fffff, 0x4f8fffff, 0x3f7fffff, 0x2f6fffff,
+  0x1f5fffff, 0x0f4fffff, 0x003fffff, 0x002fffff, 0x001fffff, 0x000fffff,
+  0x0000ffff,
+];
+
+// Black and white
+const BL = [
+  0x00000000, 0x161616ff, 0x171717ff, 0x181818ff, 0x191919ff, 0x1a1a1aff,
+  0x1b1b1bff, 0x1c1c1cff, 0x1d1d1dff, 0x1e1e1eff, 0x1f1f1fff, 0x202020ff,
+  0x212121ff, 0x222222ff, 0x232323ff, 0x242424ff, 0x252525ff, 0x262626ff,
+  0x272727ff, 0x282828ff, 0x292929ff, 0x2a2a2aff, 0x2f2f2fff, 0x343434ff,
+  0x393939ff, 0x3e3e3eff, 0x434343ff, 0x484848ff, 0x4d4d4dff, 0x525252ff,
+  0x575757ff, 0x5c5c5cff, 0x616161ff, 0x666666ff, 0x6b6b6bff, 0x707070ff,
+  0x8c8c8cff, 0x919191ff, 0x969696ff, 0x9b9b9bff, 0xa0a0a0ff, 0xa5a5a5ff,
+  0xafafafff, 0xb4b4b4ff, 0xb9b9b9ff, 0xbebebeff, 0xc3c3c3ff, 0xc8c8c8ff,
+  0xcdcdcdff, 0xd2d2d2ff, 0xd7d7d7ff, 0xdcdcdcff, 0xe1e1e1ff, 0xe6e6e6ff,
+  0xebebebff,
+];
+
+// Original
+const OR = [
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0xdfdfdfff, 0x9bea8fff, 0x58ff42ff,
+  0x47c278ff, 0x4793f9ff, 0x0c59ffff, 0x6153c1ff, 0xff93a3ff, 0xff3f35ff,
+  0xc20511ff, 0xffeb0aff, 0xff9811ff, 0xa84c06ff, 0xdda8ffff, 0xffffffff,
+  0xefffffff, 0xdfffffff, 0xcfffffff, 0xbfffffff, 0xafffffff, 0x9fffffff,
+  0x7fefffff, 0x6fdfffff, 0x5fcfffff, 0x4fafffff, 0x3f9fffff, 0x2f8fffff,
+  0x1f7fffff, 0x0f6fffff, 0x005fffff, 0x004fffff, 0x003fffff, 0x002fffff,
+  0x001fffff,
+];
+
+// Titan
+const TI = [
+  0x00000000, 0x353535ff, 0x353535ff, 0x353535ff, 0x353535ff, 0x353535ff,
+  0x757575ff, 0x757575ff, 0x757575ff, 0x757575ff, 0x757575ff, 0x005a00ff,
+  0x005a00ff, 0x005a00ff, 0x005a00ff, 0x005a00ff, 0x007e00ff, 0x007e00ff,
+  0x007e00ff, 0x007e00ff, 0x007e00ff, 0x087fdbff, 0x1c47e8ff, 0x6e0dc6ff,
+  0xc80f86ff, 0xc06487ff, 0xd2883bff, 0xfac431ff, 0xfefb02ff, 0xfe9a58ff,
+  0xfe5f05ff, 0xfd341cff, 0xbebebeff, 0xd3d3d3ff, 0xd3d3d3ff, 0xd3d3d3ff,
+  0xefffffff, 0xdfffffff, 0xcfffffff, 0xbfffffff, 0xafffffff, 0x9fffffff,
+  0x7fefffff, 0x6fdfffff, 0x5fcfffff, 0x4fafffff, 0x3f9fffff, 0x2f8fffff,
+  0x1f7fffff, 0x0f6fffff, 0x005fffff, 0x004fffff, 0x003fffff, 0x002fffff,
+  0x001fffff,
+];
+
+// The Weather Channel
+const TH = [
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x01b714ff, 0x088915ff, 0x11651aff,
+  0x064307ff, 0xffee07ff, 0xf8bb08ff, 0xf38b08ff, 0xf07108ff, 0xea5e09ff,
+  0xdf370aff, 0xd3100cff, 0xc00d09ff, 0xb80c08ff, 0xb80c08ff, 0xb80c08ff,
+  0xefffffff, 0xdfffffff, 0xcfffffff, 0xbfffffff, 0xafffffff, 0x9fffffff,
+  0x7fefffff, 0x6fdfffff, 0x5fcfffff, 0x4fafffff, 0x3f9fffff, 0x2f8fffff,
+  0x1f7fffff, 0x0f6fffff, 0x005fffff, 0x004fffff, 0x003fffff, 0x002fffff,
+  0x001fffff,
+];
+
+// Meteored
+const ME = [
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x3ffefcff, 0x1790f9ff, 0x0000f3ff,
+  0x41ff50ff, 0x32c23dff, 0x4b8339ff, 0xffff50ff, 0xfdbb3cff, 0xdf5e0bff,
+  0xfd8788ff, 0xe90000ff, 0xa80000ff, 0xef5beeff, 0x924cbeff, 0x502a68ff,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x1790f9ff, 0x0000f3ff, 0x41ff50ff, 0x32c23dff, 0x4b8339ff, 0xffff50ff,
+  0xfdbb3cff, 0xdf5e0bff, 0xfd8788ff, 0xe90000ff, 0xa80000ff, 0xef5beeff,
+  0x924cbeff,
+];
+
+const NEX = [
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x04e9e7ff,
+  0x04e9e7ff, 0x04e9e7ff, 0x04e9e7ff, 0x04e9e7ff, 0x00efe7ff, 0x00efe7ff,
+  0x00efe7ff, 0x00efe7ff, 0x00efe7ff, 0x009cf7ff, 0x0000f7ff, 0x00ff00ff,
+  0x03b703ff, 0x087305ff, 0xffff00ff, 0xecce00ff, 0xfe9300ff, 0xff0000ff,
+  0xbd0000ff, 0xbd0000ff, 0xfe00feff, 0x9c52c6ff, 0xfefefeff, 0xffffffff,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xe5fefeff,
+  0x51cffdff, 0x0d99fcff, 0x0f75fbff, 0x1053fbff, 0x103ffbff, 0x0b32cfff,
+  0x0b32cfff, 0x0726a4ff, 0x0726a4ff, 0x031875ff, 0x031875ff, 0x010940ff,
+  0x010940ff,
+];
+
+// Rainbow @ Selex SI
+const RA = [
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x009f9fff, 0x008c4bff, 0x00d319ff,
+  0x21fd22ff, 0xfffd1bff, 0xffd400ff, 0xffab00ff, 0xff6e00ff, 0xf01002ff,
+  0xd00523ff, 0xe400b1ff, 0xff33ffff, 0xff66ffff, 0xff99ffff, 0xffaaffff,
+  0xefffffff, 0xdfffffff, 0xcfffffff, 0xbfffffff, 0xafffffff, 0x9fffffff,
+  0x7fefffff, 0x6fdfffff, 0x5fcfffff, 0x4fafffff, 0x3f9fffff, 0x2f8fffff,
+  0x1f7fffff, 0x0f6fffff, 0x005fffff, 0x004fffff, 0x003fffff, 0x002fffff,
+  0x001fffff,
+];
+
+// Dark Sky
+const DA = [
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x005eb611,
+  0x005eb614, 0x005eb617, 0x005eb61b, 0x005eb61e, 0x005eb622, 0x005eb625,
+  0x005eb628, 0x005eb62c, 0x005eb62f, 0x005eb633, 0x005eb655, 0x005eb699,
+  0x2458afdd, 0x8e4b9bff, 0xfc5370ff, 0xffb76eff, 0xfffd05ff, 0xfffd05ff,
+  0xfffd05ff, 0xfffd05ff, 0xfffd05ff, 0xfffd05ff, 0xfffd05ff, 0xfffd05ff,
+  0xefffffff, 0xdfffffff, 0xcfffffff, 0xbfffffff, 0xafffffff, 0x9fffffff,
+  0x7fefffff, 0x6fdfffff, 0x5fcfffff, 0x4fafffff, 0x3f9fffff, 0x2f8fffff,
+  0x1f7fffff, 0x0f6fffff, 0x005fffff, 0x004fffff, 0x003fffff, 0x002fffff,
+  0x001fffff,
+];
+
+const COLOR_MAP = {
+  [UN[0]]: [BL[0], OR[0], TI[0], TH[0], ME[0], NEX[0], RA[0], DA[0]],
+  [UN[1]]: [BL[1], OR[1], TI[1], TH[1], ME[1], NEX[1], RA[1], DA[1]],
+  [UN[2]]: [BL[2], OR[2], TI[2], TH[2], ME[2], NEX[2], RA[2], DA[2]],
+  [UN[3]]: [BL[3], OR[3], TI[3], TH[3], ME[3], NEX[3], RA[3], DA[3]],
+  [UN[4]]: [BL[4], OR[4], TI[4], TH[4], ME[4], NEX[4], RA[4], DA[4]],
+  [UN[5]]: [BL[5], OR[5], TI[5], TH[5], ME[5], NEX[5], RA[5], DA[5]],
+  [UN[6]]: [BL[6], OR[6], TI[6], TH[6], ME[6], NEX[6], RA[6], DA[6]],
+  [UN[7]]: [BL[7], OR[7], TI[7], TH[7], ME[7], NEX[7], RA[7], DA[7]],
+  [UN[8]]: [BL[8], OR[8], TI[8], TH[8], ME[8], NEX[8], RA[8], DA[8]],
+  [UN[9]]: [BL[9], OR[9], TI[9], TH[9], ME[9], NEX[9], RA[9], DA[9]],
+  [UN[10]]: [BL[10], OR[10], TI[10], TH[10], ME[10], NEX[10], RA[10], DA[10]],
+  [UN[11]]: [BL[11], OR[11], TI[11], TH[11], ME[11], NEX[11], RA[11], DA[11]],
+  [UN[12]]: [BL[12], OR[12], TI[12], TH[12], ME[12], NEX[12], RA[12], DA[12]],
+  [UN[13]]: [BL[13], OR[13], TI[13], TH[13], ME[13], NEX[13], RA[13], DA[13]],
+  [UN[14]]: [BL[14], OR[14], TI[14], TH[14], ME[14], NEX[14], RA[14], DA[14]],
+  [UN[15]]: [BL[15], OR[15], TI[15], TH[15], ME[15], NEX[15], RA[15], DA[15]],
+  [UN[16]]: [BL[16], OR[16], TI[16], TH[16], ME[16], NEX[16], RA[16], DA[16]],
+  [UN[17]]: [BL[17], OR[17], TI[17], TH[17], ME[17], NEX[17], RA[17], DA[17]],
+  [UN[18]]: [BL[18], OR[18], TI[18], TH[18], ME[18], NEX[18], RA[18], DA[18]],
+  [UN[19]]: [BL[19], OR[19], TI[19], TH[19], ME[19], NEX[19], RA[19], DA[19]],
+  [UN[20]]: [BL[20], OR[20], TI[20], TH[20], ME[20], NEX[20], RA[20], DA[20]],
+  [UN[21]]: [BL[21], OR[21], TI[21], TH[21], ME[21], NEX[21], RA[21], DA[21]],
+  [UN[22]]: [BL[22], OR[22], TI[22], TH[22], ME[22], NEX[22], RA[22], DA[22]],
+  [UN[23]]: [BL[23], OR[23], TI[23], TH[23], ME[23], NEX[23], RA[23], DA[23]],
+  [UN[24]]: [BL[24], OR[24], TI[24], TH[24], ME[24], NEX[24], RA[24], DA[24]],
+  [UN[25]]: [BL[25], OR[25], TI[25], TH[25], ME[25], NEX[25], RA[25], DA[25]],
+  [UN[26]]: [BL[26], OR[26], TI[26], TH[26], ME[26], NEX[26], RA[26], DA[26]],
+  [UN[27]]: [BL[27], OR[27], TI[27], TH[27], ME[27], NEX[27], RA[27], DA[27]],
+  [UN[28]]: [BL[28], OR[28], TI[28], TH[28], ME[28], NEX[28], RA[28], DA[28]],
+  [UN[29]]: [BL[29], OR[29], TI[29], TH[29], ME[29], NEX[29], RA[29], DA[29]],
+  [UN[30]]: [BL[30], OR[30], TI[30], TH[30], ME[30], NEX[30], RA[30], DA[30]],
+  [UN[31]]: [BL[31], OR[31], TI[31], TH[31], ME[31], NEX[31], RA[31], DA[31]],
+  [UN[32]]: [BL[32], OR[32], TI[32], TH[32], ME[32], NEX[32], RA[32], DA[32]],
+  [UN[33]]: [BL[33], OR[33], TI[33], TH[33], ME[33], NEX[33], RA[33], DA[33]],
+  [UN[34]]: [BL[34], OR[34], TI[34], TH[34], ME[34], NEX[34], RA[34], DA[34]],
+  [UN[35]]: [BL[35], OR[35], TI[35], TH[35], ME[35], NEX[35], RA[35], DA[35]],
+  [UN[36]]: [BL[36], OR[36], TI[36], TH[36], ME[36], NEX[36], RA[36], DA[36]],
+  [UN[37]]: [BL[37], OR[37], TI[37], TH[37], ME[37], NEX[37], RA[37], DA[37]],
+  [UN[38]]: [BL[38], OR[38], TI[38], TH[38], ME[38], NEX[38], RA[38], DA[38]],
+  [UN[39]]: [BL[39], OR[39], TI[39], TH[39], ME[39], NEX[39], RA[39], DA[39]],
+  [UN[40]]: [BL[40], OR[40], TI[40], TH[40], ME[40], NEX[40], RA[40], DA[40]],
+  [UN[41]]: [BL[41], OR[41], TI[41], TH[41], ME[41], NEX[41], RA[41], DA[41]],
+  [UN[42]]: [BL[42], OR[42], TI[42], TH[42], ME[42], NEX[42], RA[42], DA[42]],
+  [UN[43]]: [BL[43], OR[43], TI[43], TH[43], ME[43], NEX[43], RA[43], DA[43]],
+  [UN[44]]: [BL[44], OR[44], TI[44], TH[44], ME[44], NEX[44], RA[44], DA[44]],
+  [UN[45]]: [BL[45], OR[45], TI[45], TH[45], ME[45], NEX[45], RA[45], DA[45]],
+  [UN[46]]: [BL[46], OR[46], TI[46], TH[46], ME[46], NEX[46], RA[46], DA[46]],
+  [UN[47]]: [BL[47], OR[47], TI[47], TH[47], ME[47], NEX[47], RA[47], DA[47]],
+  [UN[48]]: [BL[48], OR[48], TI[48], TH[48], ME[48], NEX[48], RA[48], DA[48]],
+  [UN[49]]: [BL[49], OR[49], TI[49], TH[49], ME[49], NEX[49], RA[49], DA[49]],
+  [UN[50]]: [BL[50], OR[50], TI[50], TH[50], ME[50], NEX[50], RA[50], DA[50]],
+  [UN[51]]: [BL[51], OR[51], TI[51], TH[51], ME[51], NEX[51], RA[51], DA[51]],
+  [UN[52]]: [BL[52], OR[52], TI[52], TH[52], ME[52], NEX[52], RA[52], DA[52]],
+  [UN[53]]: [BL[53], OR[53], TI[53], TH[53], ME[53], NEX[53], RA[53], DA[53]],
+  [UN[54]]: [BL[54], OR[54], TI[54], TH[54], ME[54], NEX[54], RA[54], DA[54]],
+};
+
+/**
+ * @param {Number} color
+ */
+
+const THRESHOLD = 100;
+function getNearestMapping(color, selection) {
+  const rgba = color
+    .toString(16)
+    .padStart(8, "0")
+    .match(/\w{2}/g)
+    .map((v) => parseInt(v, 16));
+
+  for (const un of UN) {
+    const un_rgba = un
+      .toString(16)
+      .padStart(8, "0")
+      .match(/\w{2}/g)
+      .map((v) => parseInt(v, 16));
+
+    const rd = Math.abs(rgba[0] - un_rgba[0]);
+    const gd = Math.abs(rgba[1] - un_rgba[1]);
+    const bd = Math.abs(rgba[2] - un_rgba[2]);
+    const ad = Math.abs(rgba[3] - un_rgba[3]);
+
+    const total = rd + gd + bd + ad;
+    if (total < THRESHOLD) {
+      return COLOR_MAP[un][selection];
+    }
+  }
+  return null;
+}
+
+module.exports = { COLOR_MAPPER: COLOR_MAP, getNearestMapping};
