@@ -691,7 +691,7 @@ describe(utils.suiteName(__filename), function () {
     });
     it("should accept true and false (case insensitive)", async () => {
       assert.strictEqual(await typesParser[type]("true"), true);
-      assert.strictEqual(await typesParser[type]("TruE"), true);
+      assert.strictEqual(await typesParser[type]("TrUE"), true);
       assert.strictEqual(await typesParser[type]("false"), false);
       assert.strictEqual(await typesParser[type]("faLSe"), false);
     });

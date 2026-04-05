@@ -1,34 +1,23 @@
 const types = require("../../input-types");
 
 const TIME_OFFSETS = {
-  "-120min": ["past", 0],
-  "-110min": ["past", 1],
-  "-100min": ["past", 2],
-  "-90min": ["past", 3],
-  "-80min": ["past", 4],
-  "-70min": ["past", 5],
-  "-60min": ["past", 6],
-  "-50min": ["past", 7],
-  "-40min": ["past", 8],
-  "-30min": ["past", 9],
-  "-20min": ["past", 10],
-  "-10min": ["past", 11],
-  "now": ["past", 12],
-  "+10min": ["nowcast", 0],
-  "+20min": ["nowcast", 1],
-  "+30min": ["nowcast", 2],
+  "-120min": 0,
+  "-110min": 1,
+  "-100min": 2,
+  "-90min": 3,
+  "-80min": 4,
+  "-70min": 5,
+  "-60min": 6,
+  "-50min": 7,
+  "-40min": 8,
+  "-30min": 9,
+  "-20min": 10,
+  "-10min": 11,
+  "now": 12,
 };
 
 const COLOR_SCHEMES = {
-  "Black and White": 0,
-  "Original": 1,
-  "Universal Blue": 2,
-  "TITAN": 3,
-  "The Weather Channel": 4,
-  "Meteored": 5,
-  "NEXRAD Level III": 6,
-  "Rainbow @ SELEX-IS": 7,
-  "Dark Sky": 8,
+  "Universal Blue": 8,
 };
 
 function defineTypes() {
