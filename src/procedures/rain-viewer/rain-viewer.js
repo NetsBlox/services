@@ -213,15 +213,17 @@ RainViewer.getOverlay = async function (
   // }
 
   res.resize(widthClamped, heightClamped);
-  logger.trace( `resizing from ${bgWidth}x${bgHeight} to ${widthClamped}x${heightClamped}`);
+  logger.trace(
+    `resizing from ${bgWidth}x${bgHeight} to ${widthClamped}x${heightClamped}`,
+  );
   this._sendImageBuffer(await res.getBufferAsync(jimp.MIME_PNG));
 };
 
 RainViewer._getTile = function (baseUrl, sample, size, zoom, x, y, options) {
   const color = 2;
-  const path = `${sample.path}/${size}/${zoom}/${x}/${y}/${color}/${options.smooth ? 1 : 0}_${
-    options.showSnow ? 1 : 0
-  }.png`;
+  const path = `${sample.path}/${size}/${zoom}/${x}/${y}/${color}/${
+    options.smooth ? 1 : 0
+  }_${options.showSnow ? 1 : 0}.png`;
 
   return this._requestImage({ baseUrl: baseUrl, path });
 };
@@ -231,8 +233,7 @@ RainViewer._recolor = function (img, selection) {
     for (let yPx = 0; yPx < img.getHeight(); yPx++) {
       const oldColor = img.getPixelColor(xPx, yPx);
       const colorList = COLOR_MAPPER[oldColor];
-      const newColor =
-        colorList?.[selection] ??
+      const newColor = colorList?.[selection] ??
         getNearestMapping(oldColor, selection) ??
         0x0;
       img.setPixelColor(newColor, xPx, yPx);
