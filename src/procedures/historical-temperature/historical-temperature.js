@@ -17,7 +17,7 @@
 const ApiConsumer = require("../utils/api-consumer");
 const BerkeleyEarth = new ApiConsumer(
   "HistoricalTemperature",
-  "http://berkeleyearth.lbl.gov/auto/",
+  "https://berkeley-earth-temperature.s3.us-west-1.amazonaws.com/",
   { cache: { ttl: 60 * 60 * 24 * 30 } },
 );
 const _ = require("lodash");
@@ -29,12 +29,10 @@ const regionsDictionary = {
   allland: "Global/Complete_TAVG_complete.txt",
   "all-land": "Global/Complete_TAVG_complete.txt",
   global: "Global/Land_and_Ocean_complete.txt",
-  northern: "Regional/TAVG/Text/northern-hemisphere-TAVG-Trend.txt",
-  southern: "Regional/TAVG/Text/southern-hemisphere-TAVG-Trend.txt",
-  "northern-hemisphere":
-    "Regional/TAVG/Text/northern-hemisphere-TAVG-Trend.txt",
-  "southern-hemisphere":
-    "Regional/TAVG/Text/southern-hemisphere-TAVG-Trend.txt",
+  northern: "Regional/TAVG/northern-hemisphere-TAVG-Trend.txt",
+  southern: "Regional/TAVG/southern-hemisphere-TAVG-Trend.txt",
+  "northern-hemisphere": "Regional/TAVG/northern-hemisphere-TAVG-Trend.txt",
+  "southern-hemisphere": "Regional/TAVG/southern-hemisphere-TAVG-Trend.txt",
 };
 
 /**
@@ -84,8 +82,8 @@ BerkeleyEarth.twentyYearAnomaly = function (region) {
 
 // Indices for data columns
 BerkeleyEarth._dataColumns = {
-  "monthly": 2,
-  "annual": 4,
+  monthly: 2,
+  annual: 4,
   "5year": 6,
   "10year": 8,
   "20year": 10,
@@ -100,7 +98,7 @@ BerkeleyEarth._dataColumns = {
 BerkeleyEarth._getCountryData = function (country, type) {
   country = country.toLowerCase().trim().replace(/\s+/, "-");
   const options = {
-    path: `Regional/TAVG/Text/${country}-TAVG-Trend.txt`,
+    path: `Regional/TAVG/${country}-TAVG-Trend.txt`,
   };
 
   // Check for special region names
@@ -108,9 +106,10 @@ BerkeleyEarth._getCountryData = function (country, type) {
     options.path = regionsDictionary[country];
   }
 
-  return this._requestData(options).then(this._extractData.bind(this, type))
+  return this._requestData(options)
+    .then(this._extractData.bind(this, type))
     .catch((err) => {
-      if (err.statusCode === 404) {
+      if (err.statusCode === 404 || err.statusCode === 403) {
         throw new Error("Unknown country or region");
       }
       throw err;
