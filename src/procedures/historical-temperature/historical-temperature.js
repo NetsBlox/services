@@ -31,10 +31,8 @@ const regionsDictionary = {
   global: "Global/Land_and_Ocean_complete.txt",
   northern: "Regional/TAVG/northern-hemisphere-TAVG-Trend.txt",
   southern: "Regional/TAVG/southern-hemisphere-TAVG-Trend.txt",
-  "northern-hemisphere":
-    "Regional/TAVG/northern-hemisphere-TAVG-Trend.txt",
-  "southern-hemisphere":
-    "Regional/TAVG/southern-hemisphere-TAVG-Trend.txt",
+  "northern-hemisphere": "Regional/TAVG/northern-hemisphere-TAVG-Trend.txt",
+  "southern-hemisphere": "Regional/TAVG/southern-hemisphere-TAVG-Trend.txt",
 };
 
 /**
