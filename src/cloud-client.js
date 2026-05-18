@@ -99,37 +99,31 @@ class NetsBloxCloud {
 
   // Service Settings
   async getServiceSettings(username) {
-    const url = `/services/settings/user/${username}/${this.id}/all`;
-    const settings = await this.get(url);
-    // settings fields are strings which we happen to use to store JSON
-    // so we need to JSON.parse them, too
-    settings.user = JSON.parse(settings.user);
-    settings.member = JSON.parse(settings.member);
-    settings.groups = _.mapValues(settings.groups, JSON.parse);
-    return settings;
+    const url = `/services/settings/user/${username}/host/${this.id}/all`;
+    return await this.get(url);
   }
 
   async getUserServiceSettings(username) {
-    const url = `/services/settings/user/${username}/${this.id}`;
+    const url = `/services/settings/user/${username}/host/${this.id}`;
     const settings = await this.get(url);
     return JSON.parse(settings);
   }
 
   async setUserServiceSettings(username, settings) {
-    const url = `/services/settings/user/${username}/${this.id}`;
+    const url = `/services/settings/user/${username}/host/${this.id}`;
     const response = await this.post(url, settings);
     const isOk = response.status > 199 && response.status < 400;
     return isOk; // FIXME: throwing might be better...
   }
 
   async getGroupServiceSettings(groupId) {
-    const url = `/services/settings/group/${groupId}/${this.id}`;
+    const url = `/services/settings/group/${groupId}/host/${this.id}`;
     const settings = await this.get(url);
     return JSON.parse(settings);
   }
 
   async setGroupServiceSettings(groupId, settings) {
-    const url = `/services/settings/group/${groupId}/${this.id}`;
+    const url = `/services/settings/group/${groupId}/host/${this.id}`;
     const response = await this.post(url, settings);
     const isOk = response.status > 199 && response.status < 400;
     return isOk; // FIXME: throwing might be better...
