@@ -125,6 +125,21 @@ const setRequiredApiKey = (service, apiKey) => {
   };
 };
 
+// Remain supported to attempt to fetch user apikey on invocation
+const trySetGlobalApiKey = (service, apiKey) => {
+  service.apiKey = apiKey;
+  service.isSupported = function () {
+    if (!this.apiKey.value) {
+      /* eslint-disable no-console*/
+      console.error(
+        this.apiKey.envVar + " is missing. Falling back to user provided key",
+      );
+      /* eslint-enable no-console*/
+    }
+    return true; 
+  };
+};
+
 class RPCError extends Error {
   constructor(message) {
     super(message || "An error occurred. Please try again later.");
@@ -163,6 +178,7 @@ module.exports = {
   jsonToSnapList,
   isValidServiceName,
   setRequiredApiKey,
+  trySetGlobalApiKey: trySetGlobalApiKey,
   RPCError,
   defer,
 

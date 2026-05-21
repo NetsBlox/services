@@ -90,6 +90,9 @@ class ApiConsumer extends NBService {
     if (queryOptions.body) {
       this._logger.trace("with the body", queryOptions.body);
     }
+    if (queryOptions.headers) {
+      this._logger.trace("with headers", queryOptions.headers);
+    }
     return this._cache.wrap(this._getCacheKey(queryOptions), () => {
       this._logger.trace("request is not cached, calling external endpoint");
       return rp({
@@ -138,7 +141,7 @@ class ApiConsumer extends NBService {
   /**
    * requests for an image
    * @param  {obj} queryOptions
-   * @return {Response Obj}              response object from 'request' module
+   * @return {Promise}              response object from 'request' module
    */
   _requestImage(queryOptions) {
     const logger = this._logger;
@@ -264,6 +267,10 @@ class ApiConsumer extends NBService {
 
   static setRequiredApiKey(service, apiKey) {
     utils.setRequiredApiKey(service, apiKey);
+  }
+
+  static trySetGlobalApiKey(service, apiKey) {
+    utils.trySetGlobalApiKey(service, apiKey);
   }
 }
 

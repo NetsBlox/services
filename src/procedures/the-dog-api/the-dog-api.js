@@ -7,7 +7,7 @@
  * @category Media
  */
 
-const { TheDogApiKey } = require("../utils/api-key");
+const { TheDogApiKey, InvalidKeyError } = require("../utils/api-key");
 const { registerTypes, DOG_BREEDS } = require("./types");
 const ApiConsumer = require("../utils/api-consumer");
 registerTypes();
@@ -18,7 +18,7 @@ const dogApiUrl = "https://api.thedogapi.com/v1/images/search";
 const TheDogApi = new ApiConsumer("TheDogApi", dogApiUrl, {
   cache: { ttl: 1 },
 });
-ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey);
+ApiConsumer.trySetGlobalApiKey(TheDogApi, TheDogApiKey);
 
 /**
  * Get random dog image.
@@ -26,10 +26,16 @@ ApiConsumer.setRequiredApiKey(TheDogApi, TheDogApiKey);
  * @returns {Image} the requested image
  */
 TheDogApi.getRandomDogImage = async function (dogBreed = "") {
+
+  if(this.apiKey.value === undefined) {
+    throw new InvalidKeyError(this.apiKey);
+  }
+  
   //Requesting JSON from the Dog Api Url
   const dogJson = await this._requestData({
     baseUrl: "https://api.thedogapi.com/v1/images/search?t=" + Date.now(),
-    queryString: "&breed_ids=" + dogBreed,
+    queryString: "&breed_id=" + dogBreed,
+    headers: { "x-api-key": this.apiKey.value }
   });
 
   //Get the image URL from the received JSON

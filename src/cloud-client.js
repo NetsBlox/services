@@ -19,7 +19,7 @@ class NetsBloxCloud {
   async whoami(cookieJar) {
     const cookieStr = Object.entries(cookieJar)
       .map(([name, value]) => `${name}=${value}`)
-      .join("; ");
+      .join(";");
 
     const opts = {
       headers: {
@@ -106,27 +106,13 @@ class NetsBloxCloud {
   async getUserServiceSettings(username) {
     const url = `/services/settings/user/${username}/host/${this.id}`;
     const settings = await this.get(url);
-    return JSON.parse(settings);
-  }
-
-  async setUserServiceSettings(username, settings) {
-    const url = `/services/settings/user/${username}/host/${this.id}`;
-    const response = await this.post(url, settings);
-    const isOk = response.status > 199 && response.status < 400;
-    return isOk; // FIXME: throwing might be better...
+    return settings;
   }
 
   async getGroupServiceSettings(groupId) {
     const url = `/services/settings/group/${groupId}/host/${this.id}`;
     const settings = await this.get(url);
-    return JSON.parse(settings);
-  }
-
-  async setGroupServiceSettings(groupId, settings) {
-    const url = `/services/settings/group/${groupId}/host/${this.id}`;
-    const response = await this.post(url, settings);
-    const isOk = response.status > 199 && response.status < 400;
-    return isOk; // FIXME: throwing might be better...
+    return settings;
   }
 
   // OAuth

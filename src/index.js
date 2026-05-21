@@ -43,12 +43,6 @@ async function listen(port) {
     next();
   });
   app.use(
-    "/keys",
-    ...routeUtils.allDefaults(),
-    routeUtils.ensureLoggedIn,
-    ServicesAPI.keys.router(),
-  );
-  app.use(
     "/docs",
     express.static(
       path.join(__dirname, "..", "docs", "_generated", "_build", "html"),
