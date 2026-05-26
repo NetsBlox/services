@@ -178,7 +178,7 @@ module.exports = {
   jsonToSnapList,
   isValidServiceName,
   setRequiredApiKey,
-  trySetGlobalApiKey: trySetGlobalApiKey,
+  trySetGlobalApiKey,
   RPCError,
   defer,
 

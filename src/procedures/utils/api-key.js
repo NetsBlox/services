@@ -107,6 +107,11 @@ module.exports.TheDogApiKey = new ApiKey(
   "https://thedogapi.com/signup",
 );
 
+module.exports.TheSportsDbKey= new ApiKey(
+  "TheSportsDB",
+  "https://www.thesportsdb.com/user_register.php",
+);
+
 class InvalidKeyError extends Error {
   constructor(apiKey) {
     const message =

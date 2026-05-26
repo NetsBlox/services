@@ -10,6 +10,9 @@
 
 const ApiConsumer = require("../utils/api-consumer");
 const rpcUtils = require("../utils");
+const logger = require("../utils/logger")("TheSportsDB");
+
+const { TheSportsDbKey, InvalidKeyError } = require("../utils/api-key");
 
 const baseUrl = "https://www.thesportsdb.com/api/v1/json";
 
@@ -17,26 +20,34 @@ const TheSportsDb = new ApiConsumer("TheSportsDb", baseUrl, {
   cache: { ttl: 60 },
 });
 
-TheSportsDb._searchTeams = async function (teamName, apiKey) {
+ApiConsumer.trySetGlobalApiKey(TheSportsDb, TheSportsDbKey);
+
+TheSportsDb._searchTeams = async function (teamName) {
+
   const queryString = rpcUtils.encodeQueryData({ t: teamName });
   const data = await this._requestData({
-    path: `${apiKey}/searchteams.php`,
+    path: `${this.apiKey.value}/searchteams.php`,
     queryString,
   });
 
   return data && data.teams ? data.teams : [];
 };
 
-TheSportsDb._getTeam = async function (teamName, apiKey, sport) {
-  const teams = await this._searchTeams(teamName, apiKey);
+TheSportsDb._getTeam = async function (teamName, sport) {
+  const teams = await this._searchTeams(teamName);
   if (!sport) {
     return teams.length ? teams[0] : null;
   }
 
   const normalizedSport = sport.trim().toLowerCase();
-  return teams.find((team) =>
-    (team.strSport || "").trim().toLowerCase() === normalizedSport
+  const team = teams.find(
+    (team) => (team.strSport || "").trim().toLowerCase() === normalizedSport,
   );
+  if (team === undefined) {
+    throw new Error("Team not found");
+  } else {
+    return team;
+  }
 };
 
 /**
@@ -44,18 +55,18 @@ TheSportsDb._getTeam = async function (teamName, apiKey, sport) {
  *
  * @param {String} teamName Team name to search for
  * @param {String=} sport Sport name to filter matches (optional)
- * @param {String} apiKey TheSportsDB API key
  * @returns {Object} structured data with the most recent game stats
  */
-TheSportsDb.recentTeamStats = async function (teamName, sport, apiKey) {
-  const team = await this._getTeam(teamName, apiKey, sport);
+TheSportsDb.recentTeamStats = async function (teamName, sport) {
+
+  const team = await this._getTeam(teamName, sport);
   if (!team) {
-    return null;
+    throw new Error("Team Not found");
   }
 
   const queryString = rpcUtils.encodeQueryData({ id: team.idTeam });
   const data = await this._requestData({
-    path: `${apiKey}/eventslast.php`,
+    path: `${this.apiKey.value}/eventslast.php`,
     queryString,
   });
 
@@ -108,13 +119,12 @@ TheSportsDb.recentTeamStats = async function (teamName, sport, apiKey) {
  *
  * @param {String} teamName Team name to search for
  * @param {String=} sport Sport name to filter matches (optional)
- * @param {String} apiKey TheSportsDB API key
  * @returns {Object} structured data with the matched team info
  */
-TheSportsDb.getTeamInfo = async function (teamName, sport, apiKey) {
-  const team = await this._getTeam(teamName, apiKey, sport);
+TheSportsDb.getTeamInfo = async function (teamName, sport) {
+  const team = await this._getTeam(teamName, sport);
   if (!team) {
-    return null;
+    throw new Error("Team Not found");
   }
 
   return {

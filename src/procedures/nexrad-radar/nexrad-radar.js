@@ -42,7 +42,7 @@ const s3 = new AWS.S3();
 const NexradRadar = new ApiConsumer("NexradRadar", baseUrl, {
   cache: { ttl: Infinity },
 });
-ApiConsumer.setRequiredApiKey(NexradRadar, GoogleMapsKey);
+ApiConsumer.trySetGlobalApiKey(NexradRadar, GoogleMapsKey);
 
 // define mapTypes
 const MAPTYPES = ["none", "roadmap", "terrain", "satellite"];

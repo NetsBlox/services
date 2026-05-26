@@ -19,7 +19,7 @@ const Movebank = new ApiConsumer(
   "https://www.movebank.org/movebank/service/direct-read/",
   { cache: { ttl: 1 * 60 * 60 } },
 );
-ApiConsumer.setRequiredApiKey(Movebank, MovebankKey);
+ApiConsumer.trySetGlobalApiKey(Movebank, MovebankKey);
 
 // some studies require us to accept a license before we can view the data,
 // and there doesn't seem to be a way to filter these out before attempting to download the data.

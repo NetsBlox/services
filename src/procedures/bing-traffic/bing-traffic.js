@@ -40,7 +40,7 @@ var sendNext = function (socket) {
 };
 
 const BingTraffic = {};
-utils.setRequiredApiKey(BingTraffic, BingMapsKey);
+utils.trySetGlobalApiKey(BingTraffic, BingMapsKey);
 
 /**
  * Search for traffic accidents in a given region. Results are sent as messages in the format:

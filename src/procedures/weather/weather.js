@@ -22,7 +22,7 @@ const weather = new ApiConsumer(
   "http://api.openweathermap.org/data/2.5/weather",
   { cache: { ttl: 60 } },
 );
-ApiConsumer.setRequiredApiKey(weather, OpenWeatherMapKey);
+ApiConsumer.trySetGlobalApiKey(weather, OpenWeatherMapKey);
 
 const isWithinMaxDistance = function (result, lat, lng) {
   var distance = geolib.getDistance(

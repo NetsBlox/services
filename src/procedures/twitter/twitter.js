@@ -22,7 +22,7 @@ const TwitterConsumer = new ApiConsumer(
     },
   },
 );
-ApiConsumer.setRequiredApiKey(TwitterConsumer, TwitterKey);
+ApiConsumer.trySetGlobalApiKey(TwitterConsumer, TwitterKey);
 
 /**
  * Get tweets from a user

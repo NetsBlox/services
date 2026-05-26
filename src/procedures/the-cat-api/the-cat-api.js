@@ -18,7 +18,7 @@ const catApiUrl = "https://api.thecatapi.com/v1/images/search";
 const TheCatApi = new ApiConsumer("TheCatApi", catApiUrl, {
   cache: { ttl: 1 },
 });
-ApiConsumer.setRequiredApiKey(TheCatApi, TheCatApiKey);
+ApiConsumer.trySetGlobalApiKey(TheCatApi, TheCatApiKey);
 
 /**
  * Get random cat image.

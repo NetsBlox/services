@@ -69,6 +69,16 @@ The service can register API keys as shown below.
 The API key can then be accessed via ``this.apiKey.value`` within the individual RPCs.
 This ensures that a user's custom API key will be used when possible.
 
+If the service wants to allow the use of user provided keys, but try to find a global key, they can instead use the function below:
+
+.. code-block:: js
+
+    ApiConsumer.trySetGlobalApiKey(GoogleMaps, GoogleMapsKey);
+
+The api key is accessed the same way as above. However, the service is responsible for checking if the user
+has a valid api key for every invocation. ``this.apiKey.value`` is undefined if the user does not have
+a valid api key for this service. 
+
 Error Handling
 ^^^^^^^^^^^^^^
 

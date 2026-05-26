@@ -14,7 +14,7 @@ const Smithsonian = new ApiConsumer(
   "https://api.si.edu/openaccess/api/v1.0",
   { cache: { ttl: 5 * 60 } },
 );
-ApiConsumer.setRequiredApiKey(Smithsonian, DataDotGovKey);
+ApiConsumer.trySetGlobalApiKey(Smithsonian, DataDotGovKey);
 
 function listify(item) {
   return item === undefined ? [] : item instanceof Array ? item : [item];

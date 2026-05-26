@@ -12,7 +12,7 @@ const hours = 60 * 60;
 const NewYorkTimes = new ApiConsumer("NewYorkTimes", baseUrl, {
   cache: { ttl: 24 * hours },
 });
-ApiConsumer.setRequiredApiKey(NewYorkTimes, NewYorkTimesKey);
+ApiConsumer.trySetGlobalApiKey(NewYorkTimes, NewYorkTimesKey);
 
 const {
   ArticleSections,
