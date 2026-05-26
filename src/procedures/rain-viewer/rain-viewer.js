@@ -137,8 +137,8 @@ RainViewer.getOverlay = async function (
 
   const { minX, maxX, minY, maxY } = tileBBox;
 
-  // logger.trace(`map tiles x indeces from: ${minX} to ${maxX}`);
-  // logger.trace(`map tiles y indeces from: ${minY} to ${maxY}`);
+  // logger.trace(`map tiles x indices from: ${minX} to ${maxX}`);
+  // logger.trace(`map tiles y indices from: ${minY} to ${maxY}`);
 
   const tilePromises = [];
 
@@ -161,8 +161,8 @@ RainViewer.getOverlay = async function (
     const lBbox = [westLon + 360, southLat, MAX_LON, northLat];
     const { minX, maxX, minY, maxY } = merc.xyz(lBbox, zoomClamped);
     // logger.trace(`left wrapping`);
-    // logger.trace(`left wrap map tiles x indeces from: ${minX} to ${maxX}`);
-    // logger.trace(`left wrap map tiles y indeces from: ${minY} to ${maxY}`);
+    // logger.trace(`left wrap map tiles x indices from: ${minX} to ${maxX}`);
+    // logger.trace(`left wrap map tiles y indices from: ${minY} to ${maxY}`);
     for (let x = minX; x <= maxX; x++) {
       for (let y = minY; y <= maxY; y++) {
         const p = this._getTile(host, sample, size, zoomClamped, x, y, options)
@@ -185,8 +185,8 @@ RainViewer.getOverlay = async function (
     const rBbox = [MIN_LON, southLat, eastLon - 360, northLat];
     const { minX, maxX, minY, maxY } = merc.xyz(rBbox, zoomClamped);
     // logger.trace(`right wrapping`);
-    // logger.trace(`right wrap map tiles x indeces from: ${minX} to ${maxX}`);
-    // logger.trace(`right wrap map tiles y indeces from: ${minY} to ${maxY}`);
+    // logger.trace(`right wrap map tiles x indices from: ${minX} to ${maxX}`);
+    // logger.trace(`right wrap map tiles y indices from: ${minY} to ${maxY}`);
     for (let x = minX; x <= maxX; x++) {
       for (let y = minY; y <= maxY; y++) {
         const p = this._getTile(host, sample, size, zoomClamped, x, y, options)
