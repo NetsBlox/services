@@ -120,8 +120,8 @@ class TestSuiteBuilder {
 }
 
 class TestSuite {
-  dropDatabase() {
-    Storage._db.dropDatabase();
+  async dropDatabase() {
+    return await Storage._db.dropDatabase();
   }
 
   async takedown() {

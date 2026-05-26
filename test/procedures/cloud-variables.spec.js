@@ -102,7 +102,7 @@ describe(utils.suiteName(__filename), function () {
       beforeEach(async () => {
         cloudvariables.unwrap()._setMaxLockAge(5 * 1000 * 60);
         cloudvariables.setRequester(client1);
-        testSuite.dropDatabase();
+        await testSuite.dropDatabase();
         name = `lock-var-test-${index++}`;
         await cloudvariables.setVariable(name, initialValue);
         await cloudvariables.lockVariable(name);
