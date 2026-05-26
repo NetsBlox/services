@@ -36,7 +36,7 @@ const baseUrl = "https://maps.googleapis.com/maps/api/staticmap";
 const GoogleMaps = new ApiConsumer("GoogleMaps", baseUrl, {
   cache: { ttl: Infinity },
 });
-ApiConsumer.setRequiredApiKey(GoogleMaps, GoogleMapsKey);
+ApiConsumer.trySetGlobalApiKey(GoogleMaps, GoogleMapsKey);
 
 GoogleMaps._coordsAt = function (x, y, map) {
   x = Math.ceil(x / map.scale);

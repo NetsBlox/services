@@ -691,8 +691,10 @@ describe(utils.suiteName(__filename), function () {
     });
     it("should accept true and false (case insensitive)", async () => {
       assert.strictEqual(await typesParser[type]("true"), true);
-      assert.strictEqual(await typesParser[type]("TrUE"), true);
+      // spellchecker:ignore-next-line
+      assert.strictEqual(await typesParser[type]("TrUe"), true);
       assert.strictEqual(await typesParser[type]("false"), false);
+      // spellchecker:ignore-next-line
       assert.strictEqual(await typesParser[type]("faLSe"), false);
     });
   });

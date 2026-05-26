@@ -14,7 +14,7 @@ const baseUrl = "https://alphavantage.co";
 const AlphaVantage = new ApiConsumer("FinancialData", baseUrl, {
   cache: { ttl: 30 },
 });
-ApiConsumer.setRequiredApiKey(AlphaVantage, AlphaVantageKey);
+ApiConsumer.trySetGlobalApiKey(AlphaVantage, AlphaVantageKey);
 const currencyTypes = require("./currency-types");
 const types = require("../../input-types");
 

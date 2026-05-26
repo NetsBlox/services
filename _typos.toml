@@ -1,3 +1,12 @@
+[default]
+extend-ignore-re = [
+    # Ignore lines that end with `# spellchecker:disable-line`
+    "(?Rm)^.*(#|//)\\s*spellchecker:disable-line$",
+    # Ignore the line after `# spellchecker:ignore-next-line`:
+    "(#|//)\\s*spellchecker:ignore-next-line\\n.*",
+    # Ignore blocks between `# spellchecker:off` and `# spellchecker:on`
+    "(?s)(#|//)\\s*spellchecker:off.*?\\n\\s*(#|//)\\s*spellchecker:on",
+]
 [files]
 extend-exclude = [
     # dear lord why is this not ignored by default
@@ -33,6 +42,7 @@ extend-exclude = [
 
     # misc
     "test/utils.spec.js",
+    "test/input-types.spec.js",
 ]
 
 [type.js]

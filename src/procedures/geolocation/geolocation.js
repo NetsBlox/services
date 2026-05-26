@@ -9,7 +9,7 @@
 const { GoogleMapsKey, TimezoneDBKey } = require("../utils/api-key");
 const utils = require("../utils");
 const GeoLocationRPC = {};
-utils.setRequiredApiKey(GeoLocationRPC, GoogleMapsKey);
+utils.trySetGlobalApiKey(GeoLocationRPC, GoogleMapsKey);
 const { RPCError } = utils;
 
 const logger = require("../utils/logger")("geolocation");

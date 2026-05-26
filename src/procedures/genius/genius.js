@@ -14,7 +14,7 @@ const { GeniusKey } = require("../utils/api-key");
 const baseUrl = "https://api.genius.com/";
 const days = 24 * 60 * 60;
 const Genius = new ApiConsumer("Genius", baseUrl, { cache: { ttl: 7 * days } });
-ApiConsumer.setRequiredApiKey(Genius, GeniusKey);
+ApiConsumer.trySetGlobalApiKey(Genius, GeniusKey);
 const prepare = require("./data-prep");
 
 Genius._requestData = async function (options) {

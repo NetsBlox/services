@@ -152,7 +152,7 @@ OpenAI.generateImage = async function (prompt, size = "256x256") {
   try {
     resp = await axios.post("https://api.openai.com/v1/images/generations", {
       model: user.imageModel,
-      prompt,
+      prompt: prompt,
       n: 1,
       size,
     }, {

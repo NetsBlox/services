@@ -15,7 +15,7 @@ const GoogleStreetView = new ApiConsumer(
   "https://maps.googleapis.com/maps/api/streetview",
   { cache: { ttl: 7 * 24 * 60 * 60 } },
 );
-ApiConsumer.setRequiredApiKey(GoogleStreetView, GoogleMapsKey);
+ApiConsumer.trySetGlobalApiKey(GoogleStreetView, GoogleMapsKey);
 
 /**
  * Get Street View image of a location using coordinates

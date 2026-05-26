@@ -33,13 +33,14 @@ class ServicesAPI {
   }
 
   getServiceNameFromDeprecated(name) {
-    const deprecatedService = Object.entries(this.services.compatibility)
-      .find((pair) => {
+    const deprecatedService = Object.entries(this.services.compatibility).find(
+      (pair) => {
         const [validName, info] = pair;
         if (info.path && info.path.toLowerCase() === name) {
           return validName;
         }
-      });
+      },
+    );
 
     return deprecatedService ? deprecatedService[0] : null;
   }
@@ -51,8 +52,9 @@ class ServicesAPI {
 
     name = name.toLowerCase();
     const validNames = Object.keys(this.services.metadata);
-    let validName = validNames
-      .find((serviceName) => serviceName.toLowerCase() === name);
+    let validName = validNames.find(
+      (serviceName) => serviceName.toLowerCase() === name,
+    );
 
     if (validName) {
       return validName;
@@ -90,14 +92,13 @@ class ServicesAPI {
         Object.entries(this.services.metadata),
         (nameAndMetadata) => this.isServiceLoaded(nameAndMetadata[0]),
       );
-      const metadata = namedPairs
-        .map((pair) => {
-          const [name, metadata] = pair;
-          return {
-            name: name,
-            categories: metadata.categories,
-          };
-        });
+      const metadata = namedPairs.map((pair) => {
+        const [name, metadata] = pair;
+        return {
+          name: name,
+          categories: metadata.categories,
+        };
+      });
 
       return res.send(metadata);
     });
@@ -105,31 +106,29 @@ class ServicesAPI {
     router.route("/:serviceName").get(async (req, res) => {
       const serviceName = this.getValidServiceName(req.params.serviceName);
 
-      if (!await this.isServiceLoaded(serviceName)) {
-        return res.status(404).send(
-          `Service "${serviceName}" is not available.`,
-        );
+      if (!(await this.isServiceLoaded(serviceName))) {
+        return res
+          .status(404)
+          .send(`Service "${serviceName}" is not available.`);
       }
 
       return res.json(this.services.metadata[serviceName]);
     });
 
-    router.route("/:serviceName/:rpcName")
-      .post(async (req, res) => {
-        const serviceName = this.getValidServiceName(req.params.serviceName);
-        if (await this.validateRPCRequest(serviceName, req, res)) {
-          const { rpcName } = req.params;
-          return this.invokeRPC(serviceName, rpcName, req, res);
-        }
-      });
+    router.route("/:serviceName/:rpcName").post(async (req, res) => {
+      const serviceName = this.getValidServiceName(req.params.serviceName);
+      if (await this.validateRPCRequest(serviceName, req, res)) {
+        const { rpcName } = req.params;
+        return this.invokeRPC(serviceName, rpcName, req, res);
+      }
+    });
 
     return router;
   }
 
   addServiceRoutes(router) {
-    const servicesWithRoutes = fs.readdirSync(
-      path.join(__dirname, "procedures"),
-    )
+    const servicesWithRoutes = fs
+      .readdirSync(path.join(__dirname, "procedures"))
       .filter((name) =>
         fs.existsSync(path.join(__dirname, "procedures", name, "routes.js"))
       );
@@ -163,7 +162,7 @@ class ServicesAPI {
 
     if (!clientId) {
       res.status(400).send("Client ID is required.");
-    } else if (!await this.isServiceLoaded(serviceName)) {
+    } else if (!(await this.isServiceLoaded(serviceName))) {
       res.status(404).send(`Service "${serviceName}" is not available.`);
     } else if (!this.exists(serviceName, rpcName)) {
       res.status(404).send(`RPC "${rpcName}" is not available.`);
@@ -208,8 +207,7 @@ class ServicesAPI {
     const apiKey = this.services.getApiKey(serviceName);
     const isLoggedIn = !!username;
     if (apiKey && isLoggedIn) {
-      // TODO: handle invalid settings (parse error)
-      const apiKeyValue = await this.keys.get(username, apiKey); // TODO: double check this
+      const apiKeyValue = await this.keys.get(username, apiKey);
       if (apiKeyValue) {
         ctx.apiKey = apiKeyValue;
       }

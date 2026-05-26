@@ -14,7 +14,7 @@ const TranslationConsumer = new ApiConsumer(
   "https://api.cognitive.microsofttranslator.com/",
   { cache: { ttl: 12 * 60 * 60 } },
 );
-ApiConsumer.setRequiredApiKey(TranslationConsumer, AzureTranslationKey);
+ApiConsumer.trySetGlobalApiKey(TranslationConsumer, AzureTranslationKey);
 
 /**
  * Generates a GUID-like string

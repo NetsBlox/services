@@ -13,7 +13,7 @@ const NYPL = new ApiConsumer(
   "http://api.repo.nypl.org/api/v2",
   { cache: { ttl: 5 * 60 } },
 );
-ApiConsumer.setRequiredApiKey(NYPL, NewYorkPublicLibraryKey);
+ApiConsumer.trySetGlobalApiKey(NYPL, NewYorkPublicLibraryKey);
 
 function listify(item) {
   return item === undefined ? [] : item instanceof Array ? item : [item];

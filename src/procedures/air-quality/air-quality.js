@@ -23,7 +23,7 @@ const AirConsumer = new ApiConsumer(
   "http://www.airnowapi.org/aq/observation/zipCode/current/",
   { cache: { ttl: 30 * 60 } },
 );
-ApiConsumer.setRequiredApiKey(AirConsumer, AirNowKey);
+ApiConsumer.trySetGlobalApiKey(AirConsumer, AirNowKey);
 
 var reportingLocations = (function () { // Parse csv
   var locationPath = path.join(__dirname, "air-reporting-locations.csv"),

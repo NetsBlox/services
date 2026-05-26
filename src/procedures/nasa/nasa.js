@@ -15,7 +15,7 @@ const MARS_URL = "http://marsweather.ingenology.com/v1/latest/";
 
 const NASA = {};
 NASA.serviceName = "NASA";
-utils.setRequiredApiKey(NASA, NASAKey);
+utils.trySetGlobalApiKey(NASA, NASAKey);
 
 NASA._getUrl = async function (url) {
   try {

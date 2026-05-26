@@ -16,7 +16,7 @@ const ParallelDots = new ApiConsumer(
   "https://apis.paralleldots.com/v4",
   { cache: { ttl: 5 * 60 } },
 );
-ApiConsumer.setRequiredApiKey(ParallelDots, ParallelDotsKey);
+ApiConsumer.trySetGlobalApiKey(ParallelDots, ParallelDotsKey);
 
 const toLowerCaseKeys = (object) => {
   const result = {};

@@ -19,7 +19,7 @@ const Crime = new ApiConsumer(
   { cache: { ttl: 24 * 60 * 60 } },
 );
 const _ = require("lodash");
-ApiConsumer.setRequiredApiKey(Crime, DataDotGovKey);
+ApiConsumer.trySetGlobalApiKey(Crime, DataDotGovKey);
 registerTypes();
 
 // TODO: We are going to need to clean up the results...

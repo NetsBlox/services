@@ -117,10 +117,9 @@ class ServicesWorker {
 
   async loadRPCsFromFS() {
     if (!this.fsServices) {
-      this.fsServices = this._loadRPCsFromFS();
+      this.fsServices = await this._loadRPCsFromFS();
     }
-
-    return await this.fsServices;
+    return this.fsServices;
   }
 
   async _loadRPCsFromFS() {
