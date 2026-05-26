@@ -10,6 +10,10 @@
     SampleConsumer = new ApiConsumer('test', 'https://jsonplaceholder.typicode.com');
     ApiConsumer.setRequiredApiKey(SampleConsumer, SomeApiKey);
 
+    // To attempt to set a global key, but allow falling back to user provided keys,
+    // use this instead:
+    // ApiConsumer.trySetGlobalApiKey(SampleConsumer, SomeApiKey);
+
     /**
     * returns all available posts up to a limit
     * @param {Number} limit limit on how many posts to return
