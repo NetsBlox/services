@@ -23,7 +23,6 @@ const TheSportsDb = new ApiConsumer("TheSportsDb", baseUrl, {
 ApiConsumer.trySetGlobalApiKey(TheSportsDb, TheSportsDbKey);
 
 TheSportsDb._searchTeams = async function (teamName) {
-
   const queryString = rpcUtils.encodeQueryData({ t: teamName });
   const data = await this._requestData({
     path: `${this.apiKey.value}/searchteams.php`,
@@ -58,7 +57,6 @@ TheSportsDb._getTeam = async function (teamName, sport) {
  * @returns {Object} structured data with the most recent game stats
  */
 TheSportsDb.recentTeamStats = async function (teamName, sport) {
-
   const team = await this._getTeam(teamName, sport);
   if (!team) {
     throw new Error("Team Not found");

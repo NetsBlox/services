@@ -107,7 +107,7 @@ module.exports.TheDogApiKey = new ApiKey(
   "https://thedogapi.com/signup",
 );
 
-module.exports.TheSportsDbKey= new ApiKey(
+module.exports.TheSportsDbKey = new ApiKey(
   "TheSportsDB",
   "https://www.thesportsdb.com/user_register.php",
 );

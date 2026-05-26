@@ -26,16 +26,15 @@ ApiConsumer.trySetGlobalApiKey(TheDogApi, TheDogApiKey);
  * @returns {Image} the requested image
  */
 TheDogApi.getRandomDogImage = async function (dogBreed = "") {
-
-  if(this.apiKey.value === undefined) {
+  if (this.apiKey.value === undefined) {
     throw new InvalidKeyError(this.apiKey);
   }
-  
+
   //Requesting JSON from the Dog Api Url
   const dogJson = await this._requestData({
     baseUrl: "https://api.thedogapi.com/v1/images/search?t=" + Date.now(),
     queryString: "&breed_id=" + dogBreed,
-    headers: { "x-api-key": this.apiKey.value }
+    headers: { "x-api-key": this.apiKey.value },
   });
 
   //Get the image URL from the received JSON

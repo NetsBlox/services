@@ -46,7 +46,7 @@ async function tryLogin(req, res, next) {
 async function setUsernameFromCookie(req, res, next) {
   const cookie = req.cookies.netsblox;
   try {
-    const username = await cloud.whoami({netsblox: cookie});
+    const username = await cloud.whoami({ netsblox: cookie });
     req.username = username;
   } catch (e) {
     logger.error(

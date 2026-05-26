@@ -130,7 +130,7 @@ class ServicesAPI {
     const servicesWithRoutes = fs
       .readdirSync(path.join(__dirname, "procedures"))
       .filter((name) =>
-        fs.existsSync(path.join(__dirname, "procedures", name, "routes.js")),
+        fs.existsSync(path.join(__dirname, "procedures", name, "routes.js"))
       );
 
     servicesWithRoutes.forEach((name) => {
@@ -208,7 +208,7 @@ class ServicesAPI {
     const isLoggedIn = !!username;
     if (apiKey && isLoggedIn) {
       const apiKeyValue = await this.keys.get(username, apiKey);
-    if (apiKeyValue) {
+      if (apiKeyValue) {
         ctx.apiKey = apiKeyValue;
       }
     }
@@ -221,8 +221,8 @@ class ServicesAPI {
 
   getArguments(serviceName, rpcName, req) {
     const expectedArgs = this.getArgumentNames(serviceName, rpcName);
-    const oldFieldNameFor =
-      this.getDeprecatedArgName(serviceName, rpcName) || {};
+    const oldFieldNameFor = this.getDeprecatedArgName(serviceName, rpcName) ||
+      {};
     return expectedArgs.map((argName) => {
       const oldName = oldFieldNameFor[argName];
       return req.body.hasOwnProperty(argName)

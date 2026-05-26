@@ -136,7 +136,7 @@ const trySetGlobalApiKey = (service, apiKey) => {
       );
       /* eslint-enable no-console*/
     }
-    return true; 
+    return true;
   };
 };
 
