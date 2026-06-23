@@ -31,18 +31,12 @@ AfricanAmericanHistory.getWomenInSTEM = async function (field) {
  *
  * If ``startyear`` or ``endyear`` is provided, only measurements within the given range will be returned.
  *
- * @param {Number=} startyear first year of data to include
- * @param {Number=} endyear last year of data to include
- * @returns {Array}
+ * @param {string=} field first year of data to include
+ * @returns {object}
  */
-AfricanAmericanHistory.getCO2Trend = async function (
-  startyear = -Infinity,
-  endyear = Infinity,
-) {
-  return (await getData()).filter((datum) =>
-    datum.date > startyear && datum.date < endyear
-  )
-    .map((datum) => [datum.date, datum.trend]);
+AfricanAmericanHistory.getRandomWomanInSTEM = async function (field) {
+  const people = await this.getWomenInSTEM(field);
+  return people[Math.floor(Math.random() * people.length)];
 };
 
 module.exports = AfricanAmericanHistory;
