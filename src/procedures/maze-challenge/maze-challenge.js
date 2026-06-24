@@ -11,8 +11,7 @@ const GENERATED_MAZES = Object.create(null);
 let NEXT_MAZE_ID = 1;
 const LEVEL_SIZES = {
   easy: 9,
-  medium: 13,
-  hard: 17,
+  hard: 13,
 };
 const DELTAS = {
   U: { row: -1, col: 0 },
@@ -25,7 +24,7 @@ const MazeChallenge = {};
 
 /**
  * Generate and return a fresh maze for the given difficulty level.
- * @param {String=} level Level to load: easy, medium, or hard
+ * @param {String=} level Level to load: easy or hard
  * @returns {Object} maze data for drawing
  */
 MazeChallenge.getMaze = function (level) {
@@ -33,19 +32,19 @@ MazeChallenge.getMaze = function (level) {
 
   GENERATED_MAZES[maze.mazeId] = maze;
 
-  return {
-    mazeId: maze.mazeId,
-    level: maze.level,
-    rows: maze.rows,
-    cols: maze.cols,
-    grid: maze.grid,
-    startRow: maze.startRow,
-    startCol: maze.startCol,
-    goalRow: maze.goalRow,
-    goalCol: maze.goalCol,
-    optimalLength: maze.optimalPath.length,
-    message: "Loaded " + maze.level + " maze.",
-  };
+  return [
+    maze.mazeId,
+    maze.level,
+    maze.rows,
+    maze.cols,
+    maze.grid,
+    maze.startRow,
+    maze.startCol,
+    maze.goalRow,
+    maze.goalCol,
+    maze.optimalPath.length,
+    "Loaded " + maze.level + " maze.",
+  ];
 };
 
 /**
@@ -58,62 +57,62 @@ MazeChallenge.evaluatePath = function (mazeId, path) {
   const maze = GENERATED_MAZES[mazeId];
 
   if (typeof path !== "string") {
-    return {
-      score: 0,
-      message: "Path can only contain U, D, L, and R.",
-    };
+    return [
+      0,
+      "Path can only contain U, D, L, and R.",
+    ];
   }
 
   path = path.toUpperCase().replace(/[ ,]/g, "");
 
   if (!maze) {
-    return {
-      score: 0,
-      message: "Unknown maze ID.",
-    };
+    return [
+      0,
+      "Unknown maze ID.",
+    ];
   }
 
   if (/[^UDLR]/.test(path)) {
-    return {
-      score: 0,
-      message: "Path can only contain U, D, L, and R.",
-    };
+    return [
+      0,
+      "Path can only contain U, D, L, and R.",
+    ];
   }
 
   if (path.length === 0) {
-    return {
-      score: 0,
-      message: "Enter a path using U, D, L, and R.",
-    };
+    return [
+      0,
+      "Enter a path using U, D, L, and R.",
+    ];
   }
 
   const result = simulatePath(maze, path);
 
   if (!result.valid) {
-    return {
-      score: Math.min(250, result.validSteps * 15),
-      message: result.message,
-    };
+    return [
+      Math.min(250, result.validSteps * 15),
+      result.message,
+    ];
   }
 
   if (!result.reachedGoal) {
-    return {
-      score: Math.min(400, result.validSteps * 20),
-      message: "Your path is valid so far, but it does not reach the goal.",
-    };
+    return [
+      Math.min(400, result.validSteps * 20),
+      "Your path is valid so far, but it does not reach the goal.",
+    ];
   }
 
   if (path.length === maze.optimalPath.length) {
-    return {
-      score: 1000,
-      message: "Correct. You reached the goal with an optimal path.",
-    };
+    return [
+      1000,
+      "Correct. You reached the goal with an optimal path.",
+    ];
   }
 
-  return {
-    score: Math.max(500, 800 - (path.length - maze.optimalPath.length) * 20),
-    message: "You reached the goal, but your path was longer than optimal.",
-  };
+  return [
+    Math.max(500, 800 - (path.length - maze.optimalPath.length) * 20),
+    "You reached the goal, but your path was longer than optimal.",
+  ];
 };
 
 /**
@@ -126,42 +125,42 @@ MazeChallenge.getHint = function (mazeId, currentPath) {
   const maze = GENERATED_MAZES[mazeId];
 
   if (!maze) {
-    return {
-      nextMove: "",
-      message: "Unknown maze ID.",
-    };
+    return [
+      "",
+      "Unknown maze ID.",
+    ];
   }
 
   if (typeof currentPath !== "string") {
-    return {
-      nextMove: "",
-      message: "Path can only contain U, D, L, and R.",
-    };
+    return [
+      "",
+      "Path can only contain U, D, L, and R.",
+    ];
   }
 
   currentPath = currentPath.toUpperCase().replace(/[ ,]/g, "");
 
   if (/[^UDLR]/.test(currentPath)) {
-    return {
-      nextMove: "",
-      message: "Path can only contain U, D, L, and R.",
-    };
+    return [
+      "",
+      "Path can only contain U, D, L, and R.",
+    ];
   }
 
   const result = simulatePath(maze, currentPath);
 
   if (!result.valid) {
-    return {
-      nextMove: "",
-      message: result.message,
-    };
+    return [
+      "",
+      result.message,
+    ];
   }
 
   if (result.row === maze.goalRow && result.col === maze.goalCol) {
-    return {
-      nextMove: "",
-      message: "You are already at the goal.",
-    };
+    return [
+      "",
+      "You are already at the goal.",
+    ];
   }
 
   const pathToGoal = shortestPath(
@@ -174,12 +173,12 @@ MazeChallenge.getHint = function (mazeId, currentPath) {
   const nextMove = pathToGoal[0] || "";
   const names = { U: "up", D: "down", L: "left", R: "right" };
 
-  return {
-    nextMove: nextMove,
-    message: nextMove
+  return [
+    nextMove,
+    nextMove
       ? "Try moving " + names[nextMove] + " next."
       : "No hint is available.",
-  };
+  ];
 };
 
 function generateMaze(level) {
@@ -225,6 +224,8 @@ function generateMaze(level) {
     stack.push(next);
   }
 
+  addLoopsToGrid(grid, size, level);
+
   const goal = size % 2 === 0 ? size - 2 : size - 1;
 
   grid[0][0] = "S";
@@ -254,6 +255,42 @@ function generateMaze(level) {
   );
 
   return maze;
+}
+
+function addLoopsToGrid(grid, size, level) {
+  const loopCounts = { easy: 3, hard: 8 };
+  const target = loopCounts[level] || loopCounts.easy;
+  const maxAttempts = target * 50;
+  let opened = 0;
+  let attempts = 0;
+
+  while (opened < target && attempts < maxAttempts) {
+    attempts++;
+
+    const row = 1 + Math.floor(Math.random() * (size - 2));
+    const col = 1 + Math.floor(Math.random() * (size - 2));
+    let openNeighbors = 0;
+
+    if (grid[row][col] !== "#") {
+      continue;
+    }
+
+    [
+      grid[row - 1][col],
+      grid[row + 1][col],
+      grid[row][col - 1],
+      grid[row][col + 1],
+    ].forEach(function (value) {
+      if (value === "." || value === "S" || value === "G") {
+        openNeighbors++;
+      }
+    });
+
+    if (openNeighbors >= 2) {
+      grid[row][col] = ".";
+      opened++;
+    }
+  }
 }
 
 function simulatePath(maze, path) {
