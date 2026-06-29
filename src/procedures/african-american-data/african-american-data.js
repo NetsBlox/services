@@ -26,17 +26,15 @@ AfricanAmericanHistory.getWomenInSTEM = async function (field) {
 };
 
 /**
- * Get the mole fraction of CO2 (in parts per million) by year with the seasonal
- * cycle removed.
+ * Get one random woman in STEM, optionally filtered by field of study.
  *
- * If ``startyear`` or ``endyear`` is provided, only measurements within the given range will be returned.
- *
- * @param {string=} field first year of data to include
- * @returns {object}
+ * @param {String=} field optional field to filter by
+ * @returns {Object}
  */
 AfricanAmericanHistory.getRandomWomanInSTEM = async function (field) {
   const people = await this.getWomenInSTEM(field);
   return people[Math.floor(Math.random() * people.length)];
 };
+
 
 module.exports = AfricanAmericanHistory;
