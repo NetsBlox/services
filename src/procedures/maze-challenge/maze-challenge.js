@@ -25,7 +25,7 @@ const MazeChallenge = {};
 /**
  * Generate and return a fresh maze for the given difficulty level.
  * @param {String=} level Level to load: easy or hard
- * @returns {Object} maze data for drawing
+ * @returns {List} maze data for drawing
  */
 MazeChallenge.getMaze = function (level) {
   const maze = generateMaze(level);
@@ -51,7 +51,7 @@ MazeChallenge.getMaze = function (level) {
  * Evaluate a submitted path for a maze.
  * @param {String} mazeId ID returned by getMaze
  * @param {String} path Path using U, D, L, and R
- * @returns {Object} score and feedback for the submitted path
+ * @returns {List} score and feedback for the submitted path
  */
 MazeChallenge.evaluatePath = function (mazeId, path) {
   const maze = GENERATED_MAZES[mazeId];
@@ -119,7 +119,7 @@ MazeChallenge.evaluatePath = function (mazeId, path) {
  * Get a suggested next move for the current path.
  * @param {String} mazeId ID returned by getMaze
  * @param {String} currentPath Current path using U, D, L, and R
- * @returns {Object} simple hint data
+ * @returns {List} simple hint data
  */
 MazeChallenge.getHint = function (mazeId, currentPath) {
   const maze = GENERATED_MAZES[mazeId];
