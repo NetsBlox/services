@@ -118,49 +118,38 @@ MazeChallenge.evaluatePath = function (mazeId, path) {
 /**
  * Get a suggested next move for the current path.
  * @param {String} mazeId ID returned by getMaze
- * @param {String} currentPath Current path using U, D, L, and R
- * @returns {Array} simple hint data
+ * @param {String=} currentPath Optional current path using U, D, L, and R
+ * @returns {String} next move, one of U, D, L, R, or an empty string if no move is available
  */
 MazeChallenge.getHint = function (mazeId, currentPath) {
   const maze = GENERATED_MAZES[mazeId];
 
   if (!maze) {
-    return [
-      "",
-      "Unknown maze ID.",
-    ];
+    return "";
+  }
+
+  if (currentPath === undefined || currentPath === null) {
+    currentPath = "";
   }
 
   if (typeof currentPath !== "string") {
-    return [
-      "",
-      "Path can only contain U, D, L, and R.",
-    ];
+    return "";
   }
 
   currentPath = currentPath.toUpperCase().replace(/[ ,]/g, "");
 
   if (/[^UDLR]/.test(currentPath)) {
-    return [
-      "",
-      "Path can only contain U, D, L, and R.",
-    ];
+    return "";
   }
 
   const result = simulatePath(maze, currentPath);
 
   if (!result.valid) {
-    return [
-      "",
-      result.message,
-    ];
+    return "";
   }
 
   if (result.row === maze.goalRow && result.col === maze.goalCol) {
-    return [
-      "",
-      "You are already at the goal.",
-    ];
+    return "";
   }
 
   const pathToGoal = shortestPath(
@@ -171,14 +160,8 @@ MazeChallenge.getHint = function (mazeId, currentPath) {
     maze.goalCol,
   );
   const nextMove = pathToGoal[0] || "";
-  const names = { U: "up", D: "down", L: "left", R: "right" };
 
-  return [
-    nextMove,
-    nextMove
-      ? "Try moving " + names[nextMove] + " next."
-      : "No hint is available.",
-  ];
+  return nextMove;
 };
 
 function generateMaze(level) {
@@ -226,7 +209,7 @@ function generateMaze(level) {
 
   addLoopsToGrid(grid, size, level);
 
-  const goal = size % 2 === 0 ? size - 2 : size - 1;
+  const goal = size - 1;
 
   grid[0][0] = "S";
   grid[goal][goal] = "G";
@@ -281,7 +264,7 @@ function addLoopsToGrid(grid, size, level) {
       grid[row][col - 1],
       grid[row][col + 1],
     ].forEach(function (value) {
-      if (value === "." || value === "S" || value === "G") {
+      if (value === ".") {
         openNeighbors++;
       }
     });
