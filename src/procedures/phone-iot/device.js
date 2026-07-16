@@ -1068,12 +1068,14 @@ Device.prototype._sendSensorPacketUpdates = function (packet) {
     const listeners = this.sensorToListeners[sensor] || {};
     for (const listener in listeners) {
       const [socket, lastUpdate, period] = listeners[listener];
-      if (now - lastUpdate < period) {
-        this._logger.log(
-          `skipping sensor update (${now - lastUpdate} < ${period})`,
-        );
-        continue;
-      }
+      // todo: eventually replace this with smarter interval-based rate limiting
+      // (individual updates are too varied and lead to false positive skips)
+      // if (now - lastUpdate < period) {
+      //   this._logger.log(
+      //     `skipping sensor update (${now - lastUpdate} < ${period})`,
+      //   );
+      //   continue;
+      // }
       listeners[listener][1] = now; // update lastUpdate
 
       try {
