@@ -1227,8 +1227,7 @@ Device.prototype.onMessage = function (message) {
         res: [message.readFloatBE(12), message.readFloatBE(16)],
       });
     }
-  }
-  else if (command === "H") this._sendControlResult("settext", message);
+  } else if (command === "H") this._sendControlResult("settext", message);
   else if (command === "s") this._sendControlResult("setcolor", message);
   else if (command === "e") this._sendControlResult("setlevel", message);
   else if (command === "i") this._sendControlResult("setimage", message);
