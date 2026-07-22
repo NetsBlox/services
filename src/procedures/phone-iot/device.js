@@ -42,6 +42,7 @@ const { setTimeout } = require("../../timers");
 // R - rotation vector
 // r - game rotation vector
 // S - step counter
+// s - set style (colors)
 // T - add custom text field
 // t - text field content
 // U - add custom image box
@@ -584,6 +585,21 @@ Device.prototype.setImage = async function (device, args, clientId) {
 
   const img = await common.prepImageToSend(args[1]);
   this.sendToDevice(Buffer.concat([message, id, img]));
+
+  throwIfErr(await response);
+};
+Device.prototype.setColor = async function (device, args, clientId) {
+  const { response, password } = this.rpcHeader("setcolor", clientId);
+  const id = parseId(args[0]);
+
+  const message = Buffer.alloc(18);
+  message.write("s", 0, 1);
+  message.writeBigInt64BE(common.gracefulPasswordParse(password), 1);
+  message.writeInt32BE(args[1], 9);
+  message.writeInt32BE(args[2], 13);
+  message[17] = id.length;
+
+  this.sendToDevice(Buffer.concat([message, id]));
 
   throwIfErr(await response);
 };
@@ -1212,6 +1228,7 @@ Device.prototype.onMessage = function (message) {
       });
     }
   } else if (command === "H") this._sendControlResult("settext", message);
+  else if (command === "s") this._sendControlResult("setcolor", message);
   else if (command === "e") this._sendControlResult("setlevel", message);
   else if (command === "i") this._sendControlResult("setimage", message);
   else if (command === "g") this._sendControlResult("addlabel", message);

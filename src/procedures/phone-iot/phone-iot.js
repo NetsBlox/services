@@ -753,6 +753,20 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
     return this._passToDevice("addRadioButton", arguments);
   };
   /**
+   * Sets the primary and secondary colors of an existing control that supports custom colors.
+   * Some controls only use one color (not two), in which case the secondary will be ignored.
+   *
+   * @category Display
+   * @param {Device} device id of the device
+   * @param {String} id id of the control to modify
+   * @param {Color} primary primary color to use
+   * @param {Color=} secondary secondary color to use
+   */
+  PhoneIoT.prototype.setColor = function (device, id, primary, secondary) {
+    arguments[2] = secondary || this.getColor(0, 0, 0);
+    return this._passToDevice("setColor", arguments);
+  };
+  /**
    * Sets the text content of the text-like control with the given ID.
    * This can be used on any control that has text, such as a button, label, or text field.
    *

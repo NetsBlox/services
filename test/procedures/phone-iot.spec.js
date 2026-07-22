@@ -51,6 +51,7 @@ describe(utils.suiteName(__filename), function () {
     ["magnitude", ["vec"]],
     ["normalize", ["vec"]],
     ["setText", ["device", "id", "text"]],
+    ["setColor", ["device", "id", "primary", "secondary"]],
     ["getText", ["device", "id"]],
     ["setCredentials", ["device", "password"]],
     ["getPressure", ["device"]],
