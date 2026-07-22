@@ -763,7 +763,7 @@ if (PHONE_IOT_MODE === "native" || PHONE_IOT_MODE === "both") {
    * @param {Color=} secondary secondary color to use
    */
   PhoneIoT.prototype.setColor = function (device, id, primary, secondary) {
-    arguments[2] = secondary || this.getColor(0, 0, 0);
+    arguments[3] = secondary || this.getColor(0, 0, 0);
     return this._passToDevice("setColor", arguments);
   };
   /**
