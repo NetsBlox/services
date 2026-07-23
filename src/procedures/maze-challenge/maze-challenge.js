@@ -20,6 +20,16 @@ const DELTAS = {
   R: { row: 0, col: 1 },
 };
 
+const GAME_STATE = {
+  roundNumber: 0,
+  currentMazeId: null,
+  roundStartedAt: 0,
+  roundEndsAt: 0,
+  durationSeconds: 0,
+  totals: Object.create(null),
+  submittedThisRound: Object.create(null),
+};
+
 const MazeChallenge = {};
 
 /**
@@ -162,6 +172,120 @@ MazeChallenge.getHint = function (mazeId, currentPath) {
   const nextMove = pathToGoal[0] || "";
 
   return nextMove;
+};
+
+/**
+ * Start a timed multiplayer round using an already generated maze.
+ * @param {String} mazeId ID returned by getMaze
+ * @param {Number=} durationSeconds Number of seconds for the round
+ * @returns {Array} round number, duration, and leaderboard text
+ */
+MazeChallenge.startRoundForMaze = function (mazeId, durationSeconds) {
+  durationSeconds = Number(durationSeconds);
+
+  if (!Number.isFinite(durationSeconds) || durationSeconds <= 0) {
+    durationSeconds = 60;
+  }
+
+  if (!GENERATED_MAZES[mazeId]) {
+    return [
+      0,
+      durationSeconds,
+      "Unknown maze ID.",
+    ];
+  }
+
+  GAME_STATE.roundNumber++;
+  GAME_STATE.currentMazeId = mazeId;
+  GAME_STATE.roundStartedAt = Date.now();
+  GAME_STATE.roundEndsAt = GAME_STATE.roundStartedAt + durationSeconds * 1000;
+  GAME_STATE.durationSeconds = durationSeconds;
+  GAME_STATE.submittedThisRound = Object.create(null);
+
+  return [
+    GAME_STATE.roundNumber,
+    durationSeconds,
+    formatLeaderboard(),
+  ];
+};
+
+/**
+ * Submit a player's path for the current timed round.
+ * @param {Number} roundNumber Round number being submitted
+ * @param {String} playerName Player name
+ * @param {String} path Path using U, D, L, and R
+ * @returns {Array} round score, total score, feedback message, and leaderboard text
+ */
+MazeChallenge.submitScore = function (
+  roundNumber,
+  playerName,
+  path
+) {
+  if (typeof playerName !== "string" || playerName.trim().length === 0) {
+    playerName = "Anonymous";
+  } else {
+    playerName = playerName.trim();
+  }
+
+  roundNumber = Number(roundNumber);
+
+  if (!(playerName in GAME_STATE.totals)) {
+    GAME_STATE.totals[playerName] = 0;
+  }
+
+  if (roundNumber !== GAME_STATE.roundNumber) {
+    return [
+      0,
+      GAME_STATE.totals[playerName],
+      "This round is no longer active.",
+      formatLeaderboard(),
+    ];
+  }
+
+  if (Date.now() > GAME_STATE.roundEndsAt) {
+    return [
+      0,
+      GAME_STATE.totals[playerName],
+      "Round is over.",
+      formatLeaderboard(),
+    ];
+  }
+
+  if (GAME_STATE.submittedThisRound[playerName]) {
+    return [
+      0,
+      GAME_STATE.totals[playerName],
+      "Already submitted for this round.",
+      formatLeaderboard(),
+    ];
+  }
+
+  const result = MazeChallenge.evaluatePath(GAME_STATE.currentMazeId, path);
+  const baseScore = result[0];
+  const message = result[1];
+  const elapsedTime = Math.floor((Date.now() - GAME_STATE.roundStartedAt) / 1000);
+
+  let roundScore = baseScore - elapsedTime;
+
+  roundScore = Math.max(0, roundScore);
+
+  GAME_STATE.totals[playerName] += roundScore;
+  GAME_STATE.submittedThisRound[playerName] = true;
+
+  return [
+    roundScore,
+    GAME_STATE.totals[playerName],
+    message,
+    formatLeaderboard(),
+  ];
+};
+
+/**
+ * Get the current cumulative leaderboard.
+ * @returns {String} leaderboard text
+ */
+MazeChallenge.getLeaderboard = function () {
+  return formatLeaderboard();
 };
 
 function generateMaze(level) {
@@ -362,6 +486,30 @@ function shortestPath(maze, startRow, startCol, goalRow, goalCol) {
   }
 
   return "";
+}
+
+function formatLeaderboard() {
+  const playerNames = Object.keys(GAME_STATE.totals);
+
+  if (playerNames.length === 0) {
+    return "Round " + GAME_STATE.roundNumber + " | No scores yet.";
+  }
+
+  playerNames.sort(function (a, b) {
+    if (GAME_STATE.totals[b] !== GAME_STATE.totals[a]) {
+      return GAME_STATE.totals[b] - GAME_STATE.totals[a];
+    }
+
+    return a.localeCompare(b);
+  });
+
+  let text = "Round " + GAME_STATE.roundNumber;
+
+  playerNames.forEach(function (name) {
+    text += " | " + name + ": " + GAME_STATE.totals[name];
+  });
+
+  return text;
 }
 
 module.exports = MazeChallenge;
