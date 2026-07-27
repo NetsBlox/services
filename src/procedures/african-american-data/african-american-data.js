@@ -7,27 +7,27 @@
  * @service
  * @category History
  */
- 
+
 const ApiConsumer = require("../utils/api-consumer");
- 
+
 const BASE_URL =
   "http://flask-api-env.eba-er3e5y3h.us-east-2.elasticbeanstalk.com/api";
- 
+
 const AfricanAmericanData = new ApiConsumer(
   "AfricanAmericanData",
   BASE_URL,
   {
     cache: { ttl: 5 * 60 },
-  }
+  },
 );
- 
+
 function encode(value) {
   return encodeURIComponent(String(value || "").trim());
 }
- // PEOPLE
+// PEOPLE
 // Fields:
 // name, achievement, occupation, category, image
- 
+
 /**
  * Get the names of all people.
  *
@@ -40,7 +40,7 @@ AfricanAmericanData.getAllPeople = async function () {
   });
   return people.map((person) => person.name);
 };
- 
+
 /**
  * Search people by name, occupation, achievement, or category.
  *
@@ -54,7 +54,7 @@ AfricanAmericanData.searchPeople = async function (nameOrFieldOrCategory) {
   });
   return people.map((person) => person.name);
 };
- 
+
 /**
  * Get the name of one random person.
  *
@@ -80,7 +80,7 @@ AfricanAmericanData.getPeopleByCategory = async function (category) {
     path: `/people/category/${encode(category)}`,
   });
 };
- 
+
 /**
  * Get all available people categories.
  *
@@ -92,7 +92,7 @@ AfricanAmericanData.getPeopleCategories = async function () {
     path: "/people/categories",
   });
 };
- 
+
 async function lookupPerson(self, name) {
   return self._requestData({
     path: `/people/lookup/${encode(name)}`,
@@ -110,7 +110,7 @@ AfricanAmericanData.getPersonAchievement = async function (name) {
   const person = await lookupPerson(this, name);
   return person.achievement || "";
 };
- 
+
 /**
  * Get a person's occupation.
  *
@@ -122,7 +122,7 @@ AfricanAmericanData.getPersonOccupation = async function (name) {
   const person = await lookupPerson(this, name);
   return person.occupation || "";
 };
- 
+
 /**
  * Get a person's category.
  *
@@ -134,7 +134,7 @@ AfricanAmericanData.getPersonCategory = async function (name) {
   const person = await lookupPerson(this, name);
   return person.category || "";
 };
- 
+
 /**
  * Get a person's image.
  *
@@ -148,10 +148,10 @@ AfricanAmericanData.getPersonImage = async function (name) {
     baseUrl: person.image,
   });
 };
- 
+
 // HISTORY
 // title, summary, year, location, category, image
- 
+
 /**
  * Get the titles of all historical events.
  *
@@ -164,7 +164,7 @@ AfricanAmericanData.getAllHistoryEvents = async function () {
   });
   return events.map((event) => event.title);
 };
- 
+
 /**
  * Search historical events by title, summary, location,
  * year, or category.
@@ -179,7 +179,7 @@ AfricanAmericanData.searchHistory = async function (titleOrCategory) {
   });
   return events.map((event) => event.title);
 };
- 
+
 /**
  * Get the title of one random historical event.
  *
@@ -192,7 +192,7 @@ AfricanAmericanData.getRandomHistoryEvent = async function () {
   });
   return event.title || "";
 };
- 
+
 /**
  * Get historical event titles from a category.
  *
@@ -206,7 +206,7 @@ AfricanAmericanData.getHistoryByCategory = async function (category) {
   });
   return events.map((event) => event.title);
 };
- 
+
 /**
  * Get all available history categories.
  *
@@ -224,7 +224,7 @@ async function lookupHistoryEvent(self, title) {
     path: `/history/lookup/${encode(title)}`,
   });
 }
- 
+
 /**
  * Get the summary of a historical event.
  *
@@ -236,7 +236,7 @@ AfricanAmericanData.getEventSummary = async function (title) {
   const event = await lookupHistoryEvent(this, title);
   return event.summary || "";
 };
- 
+
 /**
  * Get the year of a historical event.
  *
@@ -248,7 +248,7 @@ AfricanAmericanData.getEventYear = async function (title) {
   const event = await lookupHistoryEvent(this, title);
   return event.year;
 };
- 
+
 /**
  * Get the location of a historical event.
  *
@@ -260,7 +260,7 @@ AfricanAmericanData.getEventLocation = async function (title) {
   const event = await lookupHistoryEvent(this, title);
   return event.location || "";
 };
- 
+
 /**
  * Get the category of a historical event.
  *
@@ -272,7 +272,7 @@ AfricanAmericanData.getEventCategory = async function (title) {
   const event = await lookupHistoryEvent(this, title);
   return event.category || "";
 };
- 
+
 /**
  * Get an image for a historical event.
  *
@@ -286,10 +286,10 @@ AfricanAmericanData.getHistoryImage = async function (title) {
     baseUrl: event.image,
   });
 };
- 
+
 // MEDIA
 // name, summary, role, image
- 
+
 /**
  * Get the names of all media people.
  *
@@ -302,7 +302,7 @@ AfricanAmericanData.getAllMediaPeople = async function () {
   });
   return people.map((person) => person.name);
 };
- 
+
 /**
  * Search media people by name.
  *
@@ -316,7 +316,7 @@ AfricanAmericanData.searchMediaByName = async function (personName) {
   });
   return people.map((person) => person.name);
 };
- 
+
 /**
  * Get the name of one random media person.
  *
@@ -329,13 +329,13 @@ AfricanAmericanData.getRandomMediaPerson = async function () {
   });
   return person.name || "";
 };
- 
+
 async function lookupMediaPerson(self, name) {
   return self._requestData({
     path: `/media/lookup/${encode(name)}`,
   });
 }
- 
+
 /**
  * Get a media person's summary.
  *
@@ -347,7 +347,7 @@ AfricanAmericanData.getMediaSummary = async function (name) {
   const media = await lookupMediaPerson(this, name);
   return media.summary || "";
 };
- 
+
 /**
  * Get a media person's role.
  *
@@ -359,7 +359,7 @@ AfricanAmericanData.getMediaRole = async function (name) {
   const media = await lookupMediaPerson(this, name);
   return media.role || "";
 };
- 
+
 /**
  * Get a media person's image.
  *
@@ -373,9 +373,9 @@ AfricanAmericanData.getMediaImage = async function (name) {
     baseUrl: media.image,
   });
 };
- 
+
 // CULTURE
-// title, category, description, image 
+// title, category, description, image
 /**
  * Get the titles of all culture items.
  *
@@ -388,7 +388,7 @@ AfricanAmericanData.getAllCultureItems = async function () {
   });
   return items.map((item) => item.title);
 };
- 
+
 /**
  * Search culture items by title, description, or category.
  *
@@ -402,7 +402,7 @@ AfricanAmericanData.searchCulture = async function (titleOrDescription) {
   });
   return items.map((item) => item.title);
 };
- 
+
 /**
  * Get the title of one random culture item, optionally filtered
  * by category.
@@ -418,7 +418,7 @@ AfricanAmericanData.getRandomCultureItem = async function (category) {
   const item = await this._requestData({ path });
   return item.title || "";
 };
- 
+
 /**
  * Get culture item titles from a category.
  *
@@ -432,7 +432,7 @@ AfricanAmericanData.getCultureByCategory = async function (category) {
   });
   return items.map((item) => item.title);
 };
- 
+
 /**
  * Get all available culture categories.
  *
@@ -444,13 +444,13 @@ AfricanAmericanData.getCultureCategories = async function () {
     path: "/culture/categories",
   });
 };
- 
+
 async function lookupCultureItem(self, title) {
   return self._requestData({
     path: `/culture/lookup/${encode(title)}`,
   });
 }
- 
+
 /**
  * Get the category of a culture item.
  *
@@ -462,7 +462,7 @@ AfricanAmericanData.getCultureCategory = async function (title) {
   const item = await lookupCultureItem(this, title);
   return item.category || "";
 };
- 
+
 /**
  * Get the description of a culture item.
  *
@@ -474,7 +474,7 @@ AfricanAmericanData.getCultureDescription = async function (title) {
   const item = await lookupCultureItem(this, title);
   return item.description || "";
 };
- 
+
 /**
  * Get the image for a culture item.
  *
@@ -488,11 +488,11 @@ AfricanAmericanData.getCultureImage = async function (title) {
     baseUrl: item.image,
   });
 };
- 
+
 // COMMUNITY
 // Fields:
 // name, description, type, city, state, website, image
- 
+
 /**
  * Get the names of all community resources.
  *
@@ -505,7 +505,7 @@ AfricanAmericanData.getAllCommunityResources = async function () {
   });
   return resources.map((resource) => resource.name);
 };
- 
+
 /**
  * Search community resources by name, type, city,
  * state, or description.
@@ -520,7 +520,7 @@ AfricanAmericanData.searchCommunity = async function (nameOrDescription) {
   });
   return resources.map((resource) => resource.name);
 };
- 
+
 /**
  * Get the name of one random community resource.
  *
@@ -533,7 +533,7 @@ AfricanAmericanData.getRandomCommunityResource = async function () {
   });
   return resource.name || "";
 };
- 
+
 /**
  * Get community resource names by type.
  *
@@ -547,7 +547,7 @@ AfricanAmericanData.getCommunityByType = async function (type) {
   });
   return resources.map((resource) => resource.name);
 };
- 
+
 /**
  * Get community resource names by state.
  *
@@ -561,7 +561,7 @@ AfricanAmericanData.getCommunityByState = async function (state) {
   });
   return resources.map((resource) => resource.name);
 };
- 
+
 /**
  * Get all available community resource types.
  *
@@ -573,7 +573,7 @@ AfricanAmericanData.getCommunityTypes = async function () {
     path: "/community/types",
   });
 };
- 
+
 /**
  * Get all represented states.
  *
@@ -591,7 +591,7 @@ async function lookupCommunityResource(self, name) {
     path: `/community/lookup/${encode(name)}`,
   });
 }
- 
+
 /**
  * Get the description of a community resource.
  *
@@ -603,7 +603,7 @@ AfricanAmericanData.getCommunityDescription = async function (name) {
   const resource = await lookupCommunityResource(this, name);
   return resource.description || "";
 };
- 
+
 /**
  * Get the type of a community resource.
  *
@@ -615,7 +615,7 @@ AfricanAmericanData.getCommunityType = async function (name) {
   const resource = await lookupCommunityResource(this, name);
   return resource.type || "";
 };
- 
+
 /**
  * Get the city of a community resource.
  *
@@ -627,7 +627,7 @@ AfricanAmericanData.getCommunityCity = async function (name) {
   const resource = await lookupCommunityResource(this, name);
   return resource.city || "";
 };
- 
+
 /**
  * Get the state of a community resource.
  *
@@ -639,7 +639,7 @@ AfricanAmericanData.getCommunityState = async function (name) {
   const resource = await lookupCommunityResource(this, name);
   return resource.state || "";
 };
- 
+
 /**
  * Get the website of a community resource.
  *
@@ -651,7 +651,7 @@ AfricanAmericanData.getCommunityWebsite = async function (name) {
   const resource = await lookupCommunityResource(this, name);
   return resource.website || "";
 };
- 
+
 /**
  * Get the image for a community resource.
  *
@@ -665,5 +665,5 @@ AfricanAmericanData.getCommunityImage = async function (name) {
     baseUrl: resource.image,
   });
 };
- 
+
 module.exports = AfricanAmericanData;
