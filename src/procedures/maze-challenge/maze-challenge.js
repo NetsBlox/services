@@ -58,6 +58,45 @@ MazeChallenge.getMaze = function (level) {
 };
 
 /**
+ * Get maze data for an already generated maze.
+ * @param {String} mazeId ID returned by getMaze
+ * @returns {Array} maze data for drawing
+ */
+MazeChallenge.getMazeById = function (mazeId) {
+  const maze = GENERATED_MAZES[mazeId];
+
+  if (!maze) {
+    return [
+      "",
+      "unknown",
+      0,
+      0,
+      [],
+      0,
+      0,
+      0,
+      0,
+      0,
+      "Unknown maze ID.",
+    ];
+  }
+
+  return [
+    maze.mazeId,
+    maze.level,
+    maze.rows,
+    maze.cols,
+    maze.grid,
+    maze.startRow,
+    maze.startCol,
+    maze.goalRow,
+    maze.goalCol,
+    maze.optimalPath.length,
+    "Loaded " + maze.level + " maze.",
+  ];
+};
+
+/**
  * Evaluate a submitted path for a maze.
  * @param {String} mazeId ID returned by getMaze
  * @param {String} path Path using U, D, L, and R
