@@ -157,7 +157,7 @@ OpenAI.generateImage = async function (prompt, size = "1024x1024") {
       size,
       quality: "low",
       output_format: "png",
-			user: user.username
+      user: user.username,
     }, {
       headers: {
         "Content-Type": "application/json",
@@ -169,7 +169,7 @@ OpenAI.generateImage = async function (prompt, size = "1024x1024") {
   }
 
   const base64 = resp.data.data[0].b64_json;
-  const img = Buffer.from(base64, "base64")
+  const img = Buffer.from(base64, "base64");
   const rsp = this.response;
   rsp.set("content-type", "image/png");
   rsp.set("content-length", img.length);
