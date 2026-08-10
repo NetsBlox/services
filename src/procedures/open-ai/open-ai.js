@@ -26,7 +26,7 @@ types.defineType({
   name: "Resolution",
   description: "An image resolution for use by OpenAI's image generators",
   baseType: "Enum",
-  baseParams: ["256x256", "512x512", "1024x1024"],
+  baseParams: ["1024x1024"],
 });
 
 _usersDB = null;
@@ -57,8 +57,8 @@ async function getUser(caller) {
 
   const info = await getUsersDB().findOne({ username });
   const key = info?.key || null;
-  const textModel = info?.textModel || "gpt-3.5-turbo";
-  const imageModel = info?.imageModel || "dall-e-2";
+  const textModel = info?.textModel || "gpt-5-mini";
+  const imageModel = info?.imageModel || "gpt-image-1-mini";
   return new User(username, key, textModel, imageModel);
 }
 
@@ -142,10 +142,10 @@ OpenAI.generateText = async function (prompt) {
  * @param {Resolution=} size The resolution of the generated image. Note that larger images are more expensive to generate.
  * @returns {Image} The generated image
  */
-OpenAI.generateImage = async function (prompt, size = "256x256") {
+OpenAI.generateImage = async function (prompt, size = "1024x1024") {
   const user = await getUser(this.caller);
   if (!user.key) {
-    throw Error("an OpeAI API key has not been set for this account");
+    throw Error("an OpenAI API key has not been set for this account");
   }
 
   let resp;
@@ -155,6 +155,9 @@ OpenAI.generateImage = async function (prompt, size = "256x256") {
       prompt: prompt,
       n: 1,
       size,
+      quality: "low",
+      output_format: "png",
+      user: user.username,
     }, {
       headers: {
         "Content-Type": "application/json",
@@ -165,10 +168,8 @@ OpenAI.generateImage = async function (prompt, size = "256x256") {
     throw prettyError(e);
   }
 
-  const img =
-    (await axios.get(resp.data.data[0].url, { responseType: "arraybuffer" }))
-      .data;
-
+  const base64 = resp.data.data[0].b64_json;
+  const img = Buffer.from(base64, "base64");
   const rsp = this.response;
   rsp.set("content-type", "image/png");
   rsp.set("content-length", img.length);
