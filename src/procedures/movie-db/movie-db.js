@@ -8,8 +8,6 @@
  * @category Media
  */
 
-"use strict";
-
 const { ninvoke } = require("../../utils");
 const MovieDBClient = require("moviedb");
 const ApiConsumer = require("../utils/api-consumer");
@@ -19,6 +17,10 @@ const baseUrl = "https://image.tmdb.org/t/p/w500";
 const MovieDB = new ApiConsumer("MovieDB", baseUrl);
 const { TheMovieDBKey, InvalidKeyError } = require("../utils/api-key");
 ApiConsumer.trySetGlobalApiKey(MovieDB, TheMovieDBKey);
+
+const ALLOWED_CERTS = new Set(["G", "PG", "PG-13"]); // your kid-safe allowlist
+const MAX_HYDRATE = 10; // cap N+1 lookups
+
 MovieDB._callApiMethod = async function (method, query) {
   const client = new MovieDBClient(this.apiKey.value);
   try {
@@ -193,8 +195,36 @@ var personCredits = async function (id, field, subfield) {
  * @param {String} title Title of movie
  */
 MovieDB.searchMovie = async function (title) {
-  const res = await this._callApiMethod("searchMovie", { query: title });
-  return res.results.map((e) => e.id);
+  const res = await this._callApiMethod("searchMovie", {
+    query: title,
+    include_adult: false,
+  });
+
+  // Only hydrate the top hits to keep request count down
+  const candidates = res.results.slice(0, MAX_HYDRATE);
+
+  const checked = await Promise.all(
+    candidates.map(async (movie) => {
+      const details = await this._callApiMethod("movieInfo", {
+        id: movie.id,
+        append_to_response: "release_dates",
+      });
+
+      const us = details.release_dates?.results?.find(
+        (r) => r.iso_3166_1 === "US",
+      );
+      const cert = us?.release_dates
+        ?.map((d) => d.certification)
+        .find(Boolean); // first non-empty US certification
+
+      return { id: movie.id, cert };
+    }),
+  );
+
+  // Missing cert => excluded
+  return checked
+    .filter((m) => m.cert && ALLOWED_CERTS.has(m.cert))
+    .map((m) => m.id);
 };
 
 /**
@@ -203,7 +233,10 @@ MovieDB.searchMovie = async function (title) {
  * @param {String} name Name of person to search for
  */
 MovieDB.searchPerson = async function (name) {
-  const res = await this._callApiMethod("searchPerson", { query: name });
+  const res = await this._callApiMethod("searchPerson", {
+    query: name,
+    include_adult: false,
+  });
   return res.results.map((e) => e.id);
 };
 
