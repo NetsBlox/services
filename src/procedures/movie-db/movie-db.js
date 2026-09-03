@@ -211,17 +211,17 @@ MovieDB.searchMovie = async function (title) {
       });
 
       const us = details.release_dates?.results?.find(
-        (r) => r.iso_3166_1 === "US"
+        (r) => r.iso_3166_1 === "US",
       );
       const cert = us?.release_dates
         ?.map((d) => d.certification)
         .find(Boolean); // first non-empty US certification
 
       return { id: movie.id, cert };
-    })
+    }),
   );
 
-  // Missing cert => excluded 
+  // Missing cert => excluded
   return checked
     .filter((m) => m.cert && ALLOWED_CERTS.has(m.cert))
     .map((m) => m.id);
@@ -233,7 +233,10 @@ MovieDB.searchMovie = async function (title) {
  * @param {String} name Name of person to search for
  */
 MovieDB.searchPerson = async function (name) {
-  const res = await this._callApiMethod("searchPerson", { query: name, include_adult: false});
+  const res = await this._callApiMethod("searchPerson", {
+    query: name,
+    include_adult: false,
+  });
   return res.results.map((e) => e.id);
 };
 
