@@ -258,7 +258,7 @@ MazeChallenge.startRoundForMaze = function (mazeId, durationSeconds) {
 MazeChallenge.submitScore = function (
   roundNumber,
   playerName,
-  path
+  path,
 ) {
   if (typeof playerName !== "string" || playerName.trim().length === 0) {
     playerName = "Anonymous";
@@ -302,7 +302,9 @@ MazeChallenge.submitScore = function (
   const result = MazeChallenge.evaluatePath(GAME_STATE.currentMazeId, path);
   const baseScore = result[0];
   const message = result[1];
-  const elapsedTime = Math.floor((Date.now() - GAME_STATE.roundStartedAt) / 1000);
+  const elapsedTime = Math.floor(
+    (Date.now() - GAME_STATE.roundStartedAt) / 1000,
+  );
 
   let roundScore = baseScore - elapsedTime;
 
