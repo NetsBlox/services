@@ -18,14 +18,13 @@ class SendMessage extends Message {
   }
 }
 
+/**
+ * Create a message to be sent to a given client.
+ *
+ * If a state is provided, it will only be delivered if the state hasn't changed.
+ */
 class SendMessageToClient extends Message {
-  constructor(projectId, roleId, clientId, type, contents) {
-    const state = {
-      browser: {
-        projectId,
-        roleId,
-      },
-    };
+  constructor(state, clientId, type, contents) {
     const target = { client: { state, clientId } };
     super(target, type, contents);
   }
