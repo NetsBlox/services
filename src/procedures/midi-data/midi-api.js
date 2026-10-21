@@ -60,22 +60,22 @@ const NOTE_DURATION_LENGTHS = [
 const NOTE_DURATION_NAMES = [
   "ThirtySecond",
   "DottedThirtySecond",
-  "DoubleDottedThirtySecond",
+  "DottedDottedThirtySecond",
   "Sixteenth",
   "DottedSixteenth",
-  "DoubleDottedSixteenth",
+  "DottedDottedSixteenth",
   "Eighth",
   "DottedEighth",
-  "DoubleDottedEighth",
+  "DottedDottedEighth",
   "Quarter",
   "DottedQuarter",
-  "DoubleDottedQuarter",
+  "DottedDottedQuarter",
   "Half",
   "DottedHalf",
-  "DoubleDottedHalf",
+  "DottedDottedHalf",
   "Whole",
   "DottedWhole",
-  "DoubleDottedWhole",
+  "DottedDottedWhole",
 ];
 
 function Note(value, duration) {
