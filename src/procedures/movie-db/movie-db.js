@@ -18,8 +18,8 @@ const MovieDB = new ApiConsumer("MovieDB", baseUrl);
 const { TheMovieDBKey, InvalidKeyError } = require("../utils/api-key");
 ApiConsumer.trySetGlobalApiKey(MovieDB, TheMovieDBKey);
 
-const ALLOWED_CERTS = new Set(["G", "PG", "PG-13"]); // your kid-safe allowlist
-const MAX_HYDRATE = 10; // cap N+1 lookups
+const ALLOWED_CERTS = new Set(["G", "PG", "PG-13", "R"]); 
+const MAX_HYDRATE = 10; 
 
 MovieDB._callApiMethod = async function (method, query) {
   const client = new MovieDBClient(this.apiKey.value);
